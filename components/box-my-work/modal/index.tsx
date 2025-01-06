@@ -2,7 +2,6 @@ import { LinkExternal } from "@/components/link-external";
 import { Pill } from "@/components/pill";
 
 import type { ModalType } from "./types";
-import { turnBracketsIntoSpans } from "../utils/turn-brackets-into-spans";
 
 export const Modal = ({
   title,
@@ -14,7 +13,6 @@ export const Modal = ({
   brief,
   myPart,
   techStack,
-  results,
   closeModal,
 }: ModalType) => {
   const renderBrief = () =>

@@ -8,7 +8,7 @@ export type ModalType = {
   short: string;
   long: string;
 
-  brief: string[];
+  brief?: string[];
   myPart: string;
   techStack: string;
   results?: string;

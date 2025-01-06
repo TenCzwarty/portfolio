@@ -70,7 +70,7 @@ export default function Home() {
             id="my-writing"
             tooltip={
               <>
-                I think it's worth mentioning that these articles were created
+                I think it is worth mentioning that these articles were created
                 before AI was a thing.
               </>
             }
