@@ -1,0 +1,187 @@
+{
+  "list": [
+    {
+      "title": "Camino Financial",
+      "linkWebsite": "https://www.caminofinancial.com",
+      "linkMore": "https://bejamas.com/work/camino-financial",
+      "linkCaseStudy": "https://bejamas.com/hub/case-studies/camino-financial-case-study",
+
+      "year": "2024-2021",
+      "short": "marketing & blog websites for a finance company offering small business loans",
+      "long": "A finance company specializing in loans for small businesses. The project covered multiple websites, from design to deployment and further maintenance.",
+
+      "brief": [
+        "development of bilingual blog and marketing websites, with a focus on RWD, core web vitals and SEO",
+        "implementation of a headless CMS, allowing the client for a advanced customization and a real-time preview",
+        "custom solution for integrating 2 data sources (WordPress and Storyblok)",
+        "improvement in build time using ISR, reducing it from over an hour to just a few minutes",
+        "custom solution for content models, saving the client thousands of dollars in CMS subscription costs"
+      ],
+      "myPart": "risk assessment, analysis, estimations, roadmap development, tasks planning, technical architecture, content modeling, development, dev-ops, SEO, performance optimization, code review, documentation, A/B testing, maintenance, technical consulting",
+      "techStack": "react, next.js, gatsby, storyblok, contentful, wordpress, netlify, storybook, github actions",
+      "results": "performance [+68.3%], building time improved [x24], [thousands] of dollars in CMS subscription costs saved"
+    },
+    {
+      "title": "Alpro",
+      "linkWebsite": "https://www.alpro.com/pl",
+      "linkMore": "https://bejamas.com/work/alpro",
+      "linkCaseStudy": "https://bejamas.com/hub/case-studies/alpro-case-study",
+
+      "year": "2024-2023",
+      "short": "a product website for a plant-based food company",
+      "long": "Alpro is a company marketing plant-based products. The project covered implementation of a marketing website.",
+
+      "brief": [
+        "implementation of a multilingual, accessible website, prioritizing performance and RWD",
+        "implementation of a CMS with real-time preview functionality for seamless content editing",
+        "focus on code quality and future-proofing the technology stack"
+      ],
+      "myPart": "risk assessment, analysis, estimations, roadmap development, tasks planning, technical architecture, development, dev-ops, performance optimization, code review, maintenance, technical consulting",
+      "techStack": "netlify, next.js, contentful, react, typescript, tailwind",
+      "results": "page loading faster by [127%], LCP improved by [63.4%]"
+    },
+    {
+      "title": "Alpro Foundation",
+      "linkWebsite": "https://www.alprofoundation.org",
+      "linkMore": "https://bejamas.com/work/alpro-foundation",
+      "linkCaseStudy": "https://bejamas.com/hub/case-studies/alpro-case-study",
+
+      "year": "2024-2022",
+      "short": "blog website for an organization promoting plant-based nutrition",
+      "long": "Alrpo Foundation is an organization promoting plant-based nutrition and research. The project covered implementation of a blog website.",
+
+      "brief": [
+        "migration from WordPress to Gatsby for improved performance",
+        "implementation of a website optimized for speed and user experience",
+        "integration of a headless CMS with a real-time preview for easy-to-understand content management"
+      ],
+      "myPart": "analysis, estimations, roadmap development, tasks planning, technical architecture, development, dev-ops, code review, maintenance, technical consulting",
+      "techStack": "netlify, gatsby, storyblok, react",
+      "results": "[57%] mobile experience improvement, performance [+34%]"
+    },
+    {
+      "title": "Van Raam",
+      "linkWebsite": "https://www.vanraam.com/en-gb",
+      "linkMore": "https://bejamas.com/work/vanraam",
+
+      "year": "2022",
+      "short": "blog and marketing website for a manufacturer of special needs bicycles",
+      "long": "Van Raam is a manufacturer of special needs bicycles. The project covered implementation of a blog/marketing website with numerous custom features.",
+
+      "brief": [
+        "development of a multilingual, accessible website, prioritizing performance and RWD",
+        "implementation of a CMS with real-time preview functionality for seamless content editing",
+        "custom solution for content models, saving the client thousands of dollars in CMS subscription costs"
+      ],
+      "myPart": "risk assessment, analysis, estimations, roadmap development, tasks planning, technical architecture, code review, technical consulting",
+      "techStack": "next.js, datoCMS, vercel, react, typescript, algolia",
+      "results": "[3.5 faster] page loading, [thousands] of dollars in CMS subscription costs saved"
+    },
+    {
+      "title": "Veezu",
+      "linkWebsite": "https://www.veezu.co.uk/",
+      "linkMore": "https://bejamas.com/work/veezu",
+
+      "year": "2022",
+      "short": "marketing website for a platform offering taxi services",
+      "long": "Veezu is a taxi and private hire technology platform. The project covered implementation of a marketing website.",
+
+      "brief": [
+        "implementation of a CMS with real-time preview functionality for seamless content editing",
+        "custom solution for content models, saving the client hundreds of dollars in CMS subscription costs"
+      ],
+      "myPart": "risk assessment, analysis, estimations, roadmap development, tasks planning, technical architecture, development, code review, technical consulting",
+      "techStack": "next.js, contentful, vercel, react, typescript",
+      "results": "[+78%] desktop and [+96%] mobile load times improvement, [hundreds] of dollars in CMS subscription costs saved"
+    },
+    {
+      "title": "Alpro Health Professionals",
+      "linkWebsite": "https://alprohealthprofessional.com/uk/",
+      "linkMore": "https://bejamas.com/work/alpro-health-professionals",
+      "linkCaseStudy": "https://bejamas.com/hub/case-studies/editor-friendly-jamstack-website-armorblox-case-study",
+
+      "year": "2022",
+      "short": "platform providing resources for health professionals",
+      "long": "Alpro Health Professionals is a platform providing plant-based scientific information. The project covered implemetation of a blog-like website.",
+
+      "brief": [
+        "migration from an old CMS, getting rid of a tech debt",
+        "development of a multilingual, accessible website, prioritizing performance and RWD",
+        "implementation of a CMS with real-time preview functionality for seamless content editing",
+        "focus on code quality and future-proofing the technology stack"
+      ],
+      "myPart": "risk assessment, analysis, estimations, roadmap development, tasks planning, technical architecture, code review, technical consulting",
+      "techStack": "gatsby, storyblok, netlify, react, typescript, algolia"
+    }
+  ],
+  "more": [
+    {
+      "title": "R3set",
+      "linkWebsite": "https://www.reset.in",
+
+      "year": "2022",
+      "short": "product website for a company offerring health supplements",
+      "long": "R3set is a company offerring health supplements. The project covered implementation of a product and blog website.",
+
+      "myPart": "front-end development, animations, technical consulting",
+      "techStack": "datoCMS, next.js, vercel, react, typescript, storybook"
+    },
+    {
+      "title": "Armorblox",
+      "linkCaseStudy": "https://bejamas.com/hub/case-studies/editor-friendly-jamstack-website-armorblox-case-study",
+
+      "year": "2021",
+      "short": "business website for a cybersecurity company",
+      "long": "Armorblox is a company specializing in the field of cybersecurity. The project covered implementation of a business and blog website.",
+
+      "brief": [
+        "development of a performant website",
+        "implementation of a CMS with real-time preview functionality for seamless content editing"
+      ],
+      "myPart": "front-end development",
+      "techStack": "gatsby, storyblok, netlify, marketo, react"
+    },
+    {
+      "title": "Mambu",
+      "linkWebsite": "https://mambu.com/",
+      "linkCaseStudy": "https://bejamas.com/hub/case-studies/saas-banking-platform-jamstack",
+
+      "year": "2020",
+      "short": "business website for SaaS cloud banking platform",
+      "long": "Mambu is SaaS cloud banking platform. The project covered implementation of a business and blog website.",
+
+      "myPart": "front-end development",
+      "techStack": "gatsby, sanity, netlify, react"
+    },
+    {
+      "title": "Stolfo.io",
+      "linkWebsite": "https://www.stolfo.io/",
+
+      "year": "2019",
+      "short": "a personal portfolio",
+      "long": "a personal portfolio",
+
+      "brief": [
+        "implementation and deployment of a simple website",
+        "custom solutions to accommodate unique design elements"
+      ],
+      "myPart": "front-end development, technical consulting",
+      "techStack": "gatsby, contentful, netlify, react"
+    },
+    {
+      "title": "Atelier Cartier",
+      "linkWebsite": "https://www.ateliercartier.ch/",
+
+      "year": "2018",
+      "short": "an online flower bouquet shop",
+      "long": "A simple website with few pages and an online flower bouquet shop.",
+
+      "brief": [
+        "development of a website with a simple flower bouquet configurator",
+        "implementation of a shop functionality, including integration with PayPal"
+      ],
+      "myPart": "front-end development, technical consulting",
+      "techStack": "gatsby, contentful, netlify, react, paypal"
+    }
+  ]
+}

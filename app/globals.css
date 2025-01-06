@@ -1,0 +1,50 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: #eeeeee;
+  --foreground: #171717;
+  --accent: #9d174d;
+  --text: #ffffff;
+}
+
+::selection {
+  background: var(--accent);
+  color: var(--text);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  color: var(--foreground);
+  background: var(--background);
+  font-family: var(--font-geist-mono), Arial, Helvetica, sans-serif;
+}
+
+.spin {
+  --_a: rotate 15s linear infinite;
+  --_b: rotate 1s linear 1s infinite;
+  animation:
+    var(--_a),
+    var(--_b) paused;
+  animation-composition: accumulate;
+}
+
+.spin:hover {
+  cursor: pointer;
+  transform: rotate(180deg) 1s ease-in-out;
+  animation-play-state: running;
+}
+
+@keyframes rotate {
+  to {
+    rotate: 1turn;
+  }
+}
+
+.results span {
+  color: greenyellow;
+}

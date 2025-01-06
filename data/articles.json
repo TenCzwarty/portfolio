@@ -1,0 +1,48 @@
+{
+  "articles": [
+    {
+      "year": "2024",
+      "category": "case study",
+      "title": "Modernizing Camino Financial",
+      "href": "https://bejamas.com/hub/case-studies/camino-financial-case-study"
+    },
+    {
+      "year": "2023",
+      "category": "guide",
+      "title": "Third-party Scripts: Performance and Security Issues",
+      "href": "https://bejamas.com/hub/guides/third-party-scripts"
+    },
+    {
+      "year": "2023",
+      "category": "guide",
+      "title": "How to Handle Forms on Your Jamstack Website?",
+      "href": "https://bejamas.com/hub/guides/how-to-handle-forms-on-jamstack"
+    }
+  ],
+  "more": [
+    {
+      "year": "2024",
+      "category": "CMS",
+      "title": "Hygraph",
+      "href": "https://bejamas.com/hub/headless-cms/hygraph"
+    },
+    {
+      "year": "2024",
+      "category": "CMS",
+      "title": "Sanity",
+      "href": "https://bejamas.com/hub/headless-cms/sanity"
+    },
+    {
+      "year": "2024",
+      "category": "SSG",
+      "title": "Jekyll",
+      "href": "https://bejamas.com/hub/static-site-generators/jekyll"
+    },
+    {
+      "year": "2024",
+      "category": "SSG",
+      "title": "Scully",
+      "href": "https://bejamas.com/hub/static-site-generators/scully"
+    }
+  ]
+}
