@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Geist_Mono } from "next/font/google";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import "./globals.css";
 import Link from "next/link";
 import { Logo } from "../components/logo";
@@ -39,6 +40,8 @@ export default function RootLayout({
             <Link href="#my-writing">my writing</Link>
           </div>
         </footer>
+
+        <SpeedInsights />
       </body>
     </html>
   );
