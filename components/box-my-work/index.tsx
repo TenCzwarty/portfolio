@@ -27,12 +27,14 @@ export const BoxMyWork = ({
         />
       )}
 
-      <div
-        className="flex gap-4 rounded-xl border border-slate-300 p-4 hover:cursor-pointer hover:bg-slate-900"
+      <button
+        className="flex w-full gap-4 rounded-xl border border-slate-300 p-4 text-start hover:cursor-pointer hover:bg-slate-900"
         onClick={openModal}
+        aria-haspopup="dialog"
+        aria-expanded={isModalVisible}
       >
-        <div className="flex w-full flex-col">
-          <div className="flex justify-between gap-4">
+        <div className="flex w-full flex-col items-start">
+          <div className="flex w-full items-center justify-between gap-4">
             <div className="text-xl font-semibold">{title}</div>
             <div>{year}</div>
           </div>
@@ -46,7 +48,7 @@ export const BoxMyWork = ({
             />
           )}
         </div>
-      </div>
+      </button>
     </>
   );
 };

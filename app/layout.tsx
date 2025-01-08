@@ -24,7 +24,11 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${geistMono.variable} antialiased`}>
         <header className="absolute z-10 m-4">
-          <a href="#my-work" className="scale-[25%]">
+          <a
+            href="#my-work"
+            className="scale-[25%]"
+            aria-label="Go to my work section"
+          >
             <Logo />
           </a>
         </header>
@@ -33,11 +37,15 @@ export default function RootLayout({
 
         <footer className="bg-slate-900 text-white">
           <div className="mx-auto flex max-w-[calc(200dvw/3)] gap-6 py-4">
-            <Link href="#top" className="ml-4">
+            <Link href="#top" className="ml-4" aria-label="Back to top">
               back to top
             </Link>
-            <Link href="#my-work">my work</Link>
-            <Link href="#my-writing">my writing</Link>
+            <Link href="#my-work" aria-label="Go to my work section">
+              my work
+            </Link>
+            <Link href="#my-writing" aria-label="Go to my writing section">
+              my writing
+            </Link>
           </div>
         </footer>
 

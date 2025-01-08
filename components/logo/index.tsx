@@ -7,6 +7,8 @@ export const Logo = () => {
         height="50"
         viewBox="0 0 200 200"
         xmlns="http://www.w3.org/2000/svg"
+        aria-hidden="true"
+        role="img"
       >
         <g fill="none" stroke="#0f172a" strokeWidth="10">
           <circle cx="100" cy="100" r="90" fill="#fff" />

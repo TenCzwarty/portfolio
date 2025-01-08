@@ -24,15 +24,24 @@ export const Modal = ({
       ?.map?.((item, index) => <Pill key={index}>{item}</Pill>);
 
   return (
-    <div className="fixed right-0 top-0 z-10 !mt-0 h-full w-full p-4">
+    <div
+      className="fixed right-0 top-0 z-10 !mt-0 h-full w-full p-4"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="modal-title"
+    >
       <div
         className="absolute right-0 top-0 z-0 h-full w-full bg-black bg-opacity-50"
         onClick={closeModal}
       />
-      <div className="relative mx-auto h-full w-[calc(200dvw/3)] overflow-auto rounded-xl border border-slate-800 bg-slate-100 p-4 text-slate-900">
+      <div className="relative mx-auto h-full w-full overflow-auto rounded-xl border border-slate-800 bg-slate-100 p-4 text-slate-900 md:w-[calc(200dvw/3)]">
         <div className="flex justify-between">
-          <h3 className="text-xl font-semibold">{title}</h3>
-          <button onClick={closeModal}>close</button>
+          <h3 id="modal-title" className="text-xl font-semibold">
+            {title}
+          </h3>
+          <button onClick={closeModal} aria-label="Close modal" className="p-2">
+            close
+          </button>
         </div>
 
         <div className="space-y-4">

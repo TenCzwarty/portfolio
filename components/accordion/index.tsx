@@ -14,13 +14,19 @@ export const Accordion = ({ children, title }: AccordionType) => {
       <button
         className="flex w-full items-center gap-2 text-left"
         onClick={() => setIsOpened(!isOpened)}
+        aria-expanded={isOpened}
+        aria-controls={`accordion-${title}`}
       >
         <h3 className="pl-4 text-xl font-bold">{title}</h3>
 
-        <ChevronDown className={`${classNameRotate}`} />
+        <ChevronDown className={`${classNameRotate}`} aria-hidden="true" />
       </button>
 
-      {isOpened && <div className="space-y-4 pt-4">{children}</div>}
+      {isOpened && (
+        <div id={`accordion-${title}`} className="space-y-4 pt-4">
+          {children}
+        </div>
+      )}
     </div>
   );
 };

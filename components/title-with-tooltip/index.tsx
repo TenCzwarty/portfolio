@@ -20,15 +20,20 @@ export const TitleWithTooltip = ({
           borderRadius: "0.75rem",
           color: "#000",
         }}
+        role="tooltip"
       >
         {tooltip}
       </Tooltip>
 
       <h2 className="mb-4 flex items-center pl-4 text-3xl font-bold">
         {children}
-        <a id={id} className="cursor-pointer">
+        <button
+          id={id}
+          className="ml-2 cursor-pointer"
+          aria-label="Show more information"
+        >
           *
-        </a>
+        </button>
       </h2>
     </>
   );
