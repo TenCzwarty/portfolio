@@ -108,7 +108,12 @@ export default function Home() {
             <a id="email" href="">
               <Pill>send me an email</Pill>
             </a>
-            <a id="cv" href="">
+            <a
+              id="cv"
+              href="/files/woloszyn-daniel-cv.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               <Pill>
                 download my cv <Download size={16} className="mb-1 inline" />
               </Pill>
