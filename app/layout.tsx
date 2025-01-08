@@ -31,7 +31,7 @@ export default function RootLayout({
 
         {children}
 
-        <footer className="bg-slate-800 text-white">
+        <footer className="bg-slate-900 text-white">
           <div className="mx-auto flex max-w-[calc(200dvw/3)] gap-6 py-4">
             <Link href="#top" className="ml-4">
               back to top

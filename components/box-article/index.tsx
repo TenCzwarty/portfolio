@@ -11,7 +11,7 @@ export const BoxArticle = ({ title, href, year, category }: BoxArticleType) => {
       <div className="flex justify-between gap-2">
         <div>
           <h3 className="text-xl font-semibold">{title}</h3>
-          <div>{category}</div>
+          <div className="text-sm">{category}</div>
         </div>
         <div>{year}</div>
       </div>

@@ -31,15 +31,15 @@ export const BoxMyWork = ({
         className="flex gap-4 rounded-xl border border-slate-300 p-4 hover:cursor-pointer hover:bg-slate-900"
         onClick={openModal}
       >
-        <div className="flex w-full flex-col gap-4">
+        <div className="flex w-full flex-col">
           <div className="flex justify-between gap-4">
             <div className="text-xl font-semibold">{title}</div>
             <div>{year}</div>
           </div>
-          <p>{short}</p>
+          <p className="text-sm">{short}</p>
           {results && (
             <div
-              className="results"
+              className="results mt-4"
               dangerouslySetInnerHTML={{
                 __html: turnBracketsIntoSpans(results),
               }}

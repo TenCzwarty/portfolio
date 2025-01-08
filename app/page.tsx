@@ -51,9 +51,9 @@ export default function Home() {
             id="my-work-title"
             tooltip={
               <span className="inline">
-                Given the size of these projects, it would be dishonest to claim
-                all the credit. These were truly collaborative efforts — big
-                shoutout to the amazing team I had the chance to work with at{" "}
+                It would be dishonest to claim all the credit for these
+                projects. It was truly a collaborative effort — big shoutout to
+                the amazing team I had the chance to work with at{" "}
                 <LinkExternal href="https://bejamas.com/" label="Bejamas" />
               </span>
             }
@@ -76,12 +76,7 @@ export default function Home() {
         <div className="mx-auto max-w-[calc(200dvw/3)]">
           <TitleWithTooltip
             id="my-writing"
-            tooltip={
-              <>
-                I think it is worth mentioning that these articles were created
-                before AI was a thing.
-              </>
-            }
+            tooltip={<>These articles were created before AI was a thing.</>}
           >
             my writing
           </TitleWithTooltip>
@@ -98,7 +93,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section id="contact" className="bg-slate-900 p-8 text-white">
+      <section id="contact" className="bg-slate-800 p-8 text-white">
         <div className="mx-auto max-w-[calc(200dvw/3)]">
           <h2 className="pl-4 text-3xl font-bold">contact</h2>
           <div className="mb-4 pl-4 text-sm">
@@ -106,7 +101,9 @@ export default function Home() {
           </div>
           <div className="space-x-4 space-y-4">
             <a id="email" href="">
-              <Pill>send me an email</Pill>
+              <Pill classes="bg-slate-900 hover:bg-slate-700">
+                send me an email
+              </Pill>
             </a>
             <a
               id="cv"
@@ -114,7 +111,7 @@ export default function Home() {
               target="_blank"
               rel="noopener noreferrer"
             >
-              <Pill>
+              <Pill classes="bg-slate-900 hover:bg-slate-700">
                 download my cv <Download size={16} className="mb-1 inline" />
               </Pill>
             </a>
