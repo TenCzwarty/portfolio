@@ -16,6 +16,14 @@ import myWorkData from "@/data/work.json";
 import myWritingData from "@/data/articles.json";
 
 export default function Home() {
+  React.useEffect(() => {
+    const form = document.getElementById("email");
+    form?.setAttribute(
+      "href",
+      "mailto:".concat(atob(process.env.NEXT_PUBLIC_EMAIL)),
+    );
+  }, []);
+
   return (
     <main>
       <div id="top" className="relative z-0 h-dvh w-full overflow-hidden">
@@ -92,8 +100,11 @@ export default function Home() {
 
       <section id="contact" className="bg-slate-900 p-8 text-white">
         <div className="mx-auto max-w-[calc(200dvw/3)]">
-          <h2 className="mb-4 pl-4 text-3xl font-bold">contact</h2>
-          <div className="space-x-4">
+          <h2 className="pl-4 text-3xl font-bold">contact</h2>
+          <div className="mb-4 pl-4 text-sm">
+            for a tailored cv or more information, feel free to contact me
+          </div>
+          <div className="space-x-4 space-y-4">
             <a id="email" href="">
               <Pill>send me an email</Pill>
             </a>
