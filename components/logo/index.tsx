@@ -1,6 +1,6 @@
 export const Logo = () => {
   return (
-    <div className="rounded-full text-slate-800">
+    <div className="rounded-full">
       <svg
         className="spin"
         width="50"
@@ -10,8 +10,8 @@ export const Logo = () => {
         aria-hidden="true"
         role="img"
       >
-        <g fill="none" stroke="#0f172a" strokeWidth="10">
-          <circle cx="100" cy="100" r="90" fill="#fff" />
+        <g fill="none" stroke="var(--color-primary-900)" strokeWidth="10">
+          <circle cx="100" cy="100" r="90" />
           <path
             d="M 99.395,168.899 39.45,65.33 161.164,66.36 99.394,168.9 Z"
             strokeLinecap="round"

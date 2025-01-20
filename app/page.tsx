@@ -11,21 +11,28 @@ import { Accordion } from "@/components/accordion";
 import { BoxMiddle } from "@/components/box/middle";
 import { LinkExternal } from "@/components/link-external";
 import { Pill } from "@/components/pill";
+import { Range } from "@/components/range";
 
 import myWorkData from "@/data/work.json";
 import myWritingData from "@/data/articles.json";
 
 export default function Home() {
   React.useEffect(() => {
-    const form = document.getElementById("email");
-    form?.setAttribute(
-      "href",
-      "mailto:".concat(atob(process.env.NEXT_PUBLIC_EMAIL)),
-    );
+    document
+      .getElementById("email")
+      ?.setAttribute(
+        "href",
+        "mailto:".concat(atob(process.env.NEXT_PUBLIC_EMAIL)),
+      );
   }, []);
 
   return (
     <main>
+      <div className="absolute right-0 top-0 z-10 m-4 flex flex-col gap-2 opacity-0 duration-500 hover:opacity-100">
+        <Range name="--primary" classes="text-primary-800" defaultValue={157} />
+        <Range name="--accent" classes="text-accent-500" defaultValue={348} />
+      </div>
+
       <div id="top" className="relative z-0 h-dvh w-full overflow-hidden">
         <div className="absolute left-1/2 top-1/2 grid aspect-square h-[200dvh] w-[200dvw] -translate-x-1/2 -translate-y-1/2 grid-cols-3 grid-rows-3">
           <Boxes
@@ -36,7 +43,7 @@ export default function Home() {
               "mid-right",
             ]}
           />
-          <Box position="mid-center" classes="bg-slate-800">
+          <Box position="mid-center" classes="bg-primary-800">
             <BoxMiddle />
           </Box>
           <Boxes
@@ -45,7 +52,7 @@ export default function Home() {
         </div>
       </div>
 
-      <section id="my-work" className="bg-slate-800 py-8 text-white">
+      <section id="my-work" className="bg-primary-900 py-8 text-white">
         <div className="mx-auto max-w-[calc(200dvw/3)]">
           <TitleWithTooltip
             id="my-work-title"
@@ -93,7 +100,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section id="contact" className="bg-slate-800 p-8 text-white">
+      <section id="contact" className="bg-primary-800 p-8 text-white">
         <div className="mx-auto max-w-[calc(200dvw/3)]">
           <h2 className="pl-4 text-3xl font-bold">contact</h2>
           <div className="mb-4 pl-4 text-sm">
@@ -101,7 +108,7 @@ export default function Home() {
           </div>
           <div className="space-x-4 space-y-4">
             <a id="email" href="">
-              <Pill classes="bg-slate-900 hover:bg-slate-700">
+              <Pill classes="bg-primary-900 hover:bg-accent-500 hover:text-primary-900">
                 send me an email
               </Pill>
             </a>
@@ -111,7 +118,7 @@ export default function Home() {
               target="_blank"
               rel="noopener noreferrer"
             >
-              <Pill classes="bg-slate-900 hover:bg-slate-700">
+              <Pill classes="bg-primary-900 hover:bg-accent-500 hover:text-primary-900">
                 download my cv <Download size={16} className="mb-1 inline" />
               </Pill>
             </a>

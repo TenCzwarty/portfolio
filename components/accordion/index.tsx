@@ -12,7 +12,7 @@ export const Accordion = ({ children, title }: AccordionType) => {
   const classNameRotate = isOpened ? "rotate-180" : "rotate-0";
 
   return (
-    <div className="border-slate-200">
+    <div className="border-neutral-200">
       <button
         className="flex w-full items-center gap-2 text-left"
         onClick={() => setIsOpened(!isOpened)}

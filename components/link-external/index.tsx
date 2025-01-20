@@ -12,7 +12,7 @@ export const LinkExternal = ({ href, label, classes }: LinkExternalType) => {
       href={href}
       target="_blank"
       rel="noreferrer noopener"
-      className={`items-center font-semibold text-lime-700 underline hover:text-lime-500 ${classes}`}
+      className={`text-accent-900 hover:text-accent-500 items-center font-semibold underline ${classes}`}
     >
       {label}
       <ExternalLink

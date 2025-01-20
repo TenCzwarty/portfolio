@@ -36,7 +36,7 @@ export const Modal = ({
         className="absolute right-0 top-0 z-0 h-full w-full bg-black bg-opacity-50"
         onClick={closeModal}
       />
-      <div className="relative mx-auto h-full w-full overflow-auto rounded-xl border border-slate-800 bg-slate-100 p-4 text-slate-900 md:w-[calc(200dvw/3)]">
+      <div className="border-primary-800 text-primary-900 relative mx-auto h-full w-full overflow-auto rounded-xl border bg-neutral-100 p-4 md:w-[calc(200dvw/3)]">
         <div className="flex justify-between">
           <h3 id="modal-title" className="text-xl font-semibold">
             {title}
@@ -62,7 +62,9 @@ export const Modal = ({
               </div>
             </>
           ) : (
-            <LinkExternal href={linkWebsite} label="website" />
+            <div className="flex gap-8">
+              <LinkExternal href={linkWebsite} label="website" />
+            </div>
           )}
           <hr />
 

@@ -3,15 +3,22 @@
 @tailwind utilities;
 
 :root {
-  --background: #eeeeee;
-  --foreground: #171717;
-  --accent: #a3e635;
-  --text: #ffffff;
+  --primary: 157;
+  --accent: 348;
+
+  --color-neutral-100: hsl(0, 0%, 95%);
+  --color-neutral-200: hsl(0, 0%, 80%);
+
+  --color-primary-800: hsl(var(--primary), 100%, 20%);
+  --color-primary-900: hsl(var(--primary), 100%, 5%);
+
+  --color-accent-500: hsl(var(--accent), 100%, 75%);
+  --color-accent-900: hsl(var(--accent), 100%, 39%);
 }
 
 ::selection {
-  background: var(--accent);
-  color: var(--text);
+  background: theme("colors.accent.500");
+  color: theme("colors.neutral.100");
 }
 
 html {
@@ -19,9 +26,9 @@ html {
 }
 
 body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: var(--font-geist-mono), Arial, Helvetica, sans-serif;
+  color: theme("colors.primary.900");
+  background: theme("colors.neutral.100");
+  font-family: var(--font-geist-mono), Helvetica, sans-serif;
 }
 
 .spin {
@@ -45,6 +52,48 @@ body {
   }
 }
 
-.results span {
-  color: var(--accent);
+input[type="range"] {
+  -webkit-appearance: none;
+  appearance: none;
+  background: transparent;
+  cursor: pointer;
+}
+input[type="range"]:focus {
+  outline: none;
+}
+input[type="range"]::-webkit-slider-runnable-track {
+  background-color: white;
+  border-radius: 0.5rem;
+  height: 1rem;
+}
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  margin-top: 0px;
+  background-color: currentColor;
+  transition: color 2s;
+  border-radius: 0.5rem;
+  height: 1rem;
+  width: 1rem;
+}
+input[type="range"]:focus::-webkit-slider-thumb {
+  outline: 3px solid currentColor;
+  outline-offset: 0.125rem;
+}
+input[type="range"]::-moz-range-track {
+  background-color: white;
+  border-radius: 0.5rem;
+  height: 1rem;
+}
+input[type="range"]::-moz-range-thumb {
+  background-color: currentColor;
+  transition: color 2s;
+  border: none;
+  border-radius: 0.5rem;
+  height: 1rem;
+  width: 1rem;
+}
+input[type="range"]:focus::-moz-range-thumb {
+  outline: 3px solid currentColor;
+  outline-offset: 0.125rem;
 }

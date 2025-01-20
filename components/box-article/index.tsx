@@ -6,7 +6,7 @@ export const BoxArticle = ({ title, href, year, category }: BoxArticleType) => {
       href={href}
       target="_blank"
       rel="noreferrer noopener"
-      className="flex flex-col rounded-xl border border-slate-300 p-4 hover:bg-slate-200"
+      className="flex flex-col rounded-xl border border-neutral-200 p-4 hover:bg-neutral-200"
     >
       <div className="flex justify-between gap-2">
         <div>
