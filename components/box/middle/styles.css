@@ -1,0 +1,20 @@
+.colored-circles {
+  fill: currentColor;
+  transition: color 2s;
+}
+
+.colored-circles circle {
+  opacity: 0;
+  animation: 2s colorize forwards;
+  animation-play-state: paused;
+}
+
+.colored-circles circle:hover {
+  animation-play-state: running;
+}
+
+@keyframes colorize {
+  to {
+    opacity: 1;
+  }
+}
