@@ -25,7 +25,7 @@ export const TitleWithTooltip = ({
         {tooltip}
       </Tooltip>
 
-      <h2 className="mb-4 flex items-center pl-4 text-xl font-bold sm:text-3xl">
+      <h2 className="mb-4 flex items-center pl-4 text-xl font-semibold sm:text-3xl">
         {children}
         <button
           id={id}
