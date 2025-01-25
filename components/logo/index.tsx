@@ -11,7 +11,7 @@ export const Logo = () => {
         role="img"
       >
         <g fill="none" stroke="var(--color-primary-900)" strokeWidth="10">
-          <circle cx="100" cy="100" r="90" />
+          <circle cx="100" cy="100" r="90" fill="var(--color-neutral-100)" />
           <path
             d="M 99.395,168.899 39.45,65.33 161.164,66.36 99.394,168.9 Z"
             strokeLinecap="round"

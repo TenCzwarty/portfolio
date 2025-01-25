@@ -10,10 +10,10 @@ export const BoxArticle = ({ title, href, year, category }: BoxArticleType) => {
     >
       <div className="flex justify-between gap-2">
         <div>
-          <h3 className="text-xl font-semibold">{title}</h3>
+          <h3 className="text-lg font-semibold sm:text-xl">{title}</h3>
           <div className="text-sm">{category}</div>
         </div>
-        <div>{year}</div>
+        <div className="hidden sm:block">{year}</div>
       </div>
     </a>
   );

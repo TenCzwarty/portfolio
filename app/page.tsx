@@ -53,7 +53,7 @@ export default function Home() {
       </div>
 
       <section id="my-work" className="bg-primary-900 py-8 text-white">
-        <div className="mx-auto max-w-[calc(200dvw/3)]">
+        <div className="mx-auto px-4 sm:max-w-[calc(200dvw/3)] sm:px-0">
           <TitleWithTooltip
             id="my-work-title"
             tooltip={
@@ -79,8 +79,8 @@ export default function Home() {
         </div>
       </section>
 
-      <section id="articles" className="p-8">
-        <div className="mx-auto max-w-[calc(200dvw/3)]">
+      <section id="articles" className="py-8">
+        <div className="mx-auto px-4 sm:max-w-[calc(200dvw/3)] sm:px-0">
           <TitleWithTooltip
             id="my-writing"
             tooltip={<>These articles were created before AI was a thing.</>}
@@ -100,14 +100,14 @@ export default function Home() {
         </div>
       </section>
 
-      <section id="contact" className="bg-primary-800 p-8 text-white">
-        <div className="mx-auto max-w-[calc(200dvw/3)]">
-          <h2 className="pl-4 text-3xl font-bold">contact</h2>
-          <div className="mb-4 pl-4 text-sm">
+      <section id="contact" className="bg-primary-800 py-8 text-white">
+        <div className="mx-auto px-4 sm:max-w-[calc(200dvw/3)] sm:px-0">
+          <h2 className="pl-4 text-xl font-semibold sm:text-3xl">contact</h2>
+          <div className="mb-4 pl-4 text-xs sm:text-sm">
             for a tailored cv or more information, feel free to contact me
           </div>
-          <div className="space-x-4 space-y-4">
-            <a id="email" href="">
+          <div className="flex flex-col gap-2 sm:flex-row">
+            <a id="email" href="" className="w-fit">
               <Pill classes="bg-primary-900 hover:bg-accent-500 hover:text-primary-900">
                 send me an email
               </Pill>
@@ -117,6 +117,7 @@ export default function Home() {
               href="/files/woloszyn-daniel-cv.pdf"
               target="_blank"
               rel="noopener noreferrer"
+              className="w-fit"
             >
               <Pill classes="bg-primary-900 hover:bg-accent-500 hover:text-primary-900">
                 download my cv <Download size={16} className="mb-1 inline" />

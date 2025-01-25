@@ -28,20 +28,20 @@ export const BoxMyWork = ({
       )}
 
       <button
-        className="hover:bg-accent-500 hover:text-primary-900 border-primary-800 group flex w-full gap-4 rounded-xl border border-2 p-4 text-start hover:cursor-pointer"
+        className="group flex w-full gap-4 rounded-xl border border-2 border-primary-800 p-4 text-start hover:cursor-pointer hover:bg-accent-500 hover:text-primary-900"
         onClick={openModal}
         aria-haspopup="dialog"
         aria-expanded={isModalVisible}
       >
         <div className="flex w-full flex-col items-start">
           <div className="flex w-full items-center justify-between gap-4">
-            <div className="text-xl font-semibold">{title}</div>
-            <div>{year}</div>
+            <div className="text-lg font-semibold sm:text-xl">{title}</div>
+            <div className="hidden sm:block">{year}</div>
           </div>
-          <p className="text-sm">{short}</p>
+          <p className="text-xs sm:text-sm">{short}</p>
           {results && (
             <div
-              className="results *:text-accent-500 group-hover:*:text-accent-900 mt-4"
+              className="results mt-4 text-xs *:text-accent-500 group-hover:*:text-accent-900 sm:text-base"
               dangerouslySetInnerHTML={{
                 __html: turnBracketsIntoSpans(results),
               }}

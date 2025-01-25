@@ -36,9 +36,9 @@ export const Modal = ({
         className="absolute right-0 top-0 z-0 h-full w-full bg-black bg-opacity-50"
         onClick={closeModal}
       />
-      <div className="border-primary-800 text-primary-900 relative mx-auto h-full w-full overflow-auto rounded-xl border bg-neutral-100 p-4 md:w-[calc(200dvw/3)]">
+      <div className="relative mx-auto h-full w-full overflow-auto rounded-xl border border-primary-800 bg-neutral-100 p-4 text-primary-900 md:w-[calc(200dvw/3)]">
         <div className="flex justify-between">
-          <h3 id="modal-title" className="text-xl font-semibold">
+          <h3 id="modal-title" className="text-lg font-semibold sm:text-xl">
             {title}
           </h3>
           <button onClick={closeModal} aria-label="Close modal" className="p-2">
@@ -46,7 +46,7 @@ export const Modal = ({
           </button>
         </div>
 
-        <div className="space-y-4">
+        <div className="space-y-4 text-sm sm:text-base">
           <div>{year}</div>
           <div>{long}</div>
 
@@ -55,7 +55,7 @@ export const Modal = ({
               <hr />
               <div className="font-semibold">brief</div>
               <ul className="list-inside list-disc">{renderBrief()}</ul>
-              <div className="flex gap-8">
+              <div className="flex flex-col gap-4 sm:flex-row sm:gap-6">
                 <LinkExternal href={linkWebsite} label="website" />
                 <LinkExternal href={linkMore} label="read more" />
                 <LinkExternal href={linkCaseStudy} label="read case study" />

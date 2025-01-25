@@ -12,14 +12,10 @@ export const LinkExternal = ({ href, label, classes }: LinkExternalType) => {
       href={href}
       target="_blank"
       rel="noreferrer noopener"
-      className={`text-accent-900 hover:text-accent-500 items-center font-semibold underline ${classes}`}
+      className={`flex w-fit items-center gap-2 text-sm font-semibold text-accent-900 underline hover:text-accent-500 sm:text-base ${classes}`}
     >
       {label}
-      <ExternalLink
-        size="1rem"
-        className="mb-1 ml-1 inline"
-        aria-hidden="true"
-      />
+      <ExternalLink size="1em" className="inline" aria-hidden="true" />
       <span className="sr-only">(opens in new tab)</span>
     </a>
   );

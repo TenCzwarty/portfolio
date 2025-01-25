@@ -19,7 +19,7 @@ export const Accordion = ({ children, title }: AccordionType) => {
         aria-expanded={isOpened}
         aria-controls={`accordion-${title}`}
       >
-        <h3 className="pl-4 text-xl font-bold">{title}</h3>
+        <h3 className="pl-4 text-lg font-semibold sm:text-xl">{title}</h3>
 
         <ChevronDown className={`${classNameRotate}`} aria-hidden="true" />
       </button>
