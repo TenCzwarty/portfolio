@@ -14,7 +14,7 @@ export default function FunZone() {
           </h1>
           <p className="">
             welcome to the place for some other, not-so-serious side-projects or
-            fun things I've found on the web
+            fun things I&apos;ve found on the web
           </p>
         </div>
 
