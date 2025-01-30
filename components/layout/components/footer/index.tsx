@@ -20,8 +20,8 @@ export const Footer = () => {
           ))}
         </div>
         <div>
-          {links.right?.map(({ href, ariaLabel, icon }) => (
-            <Link key={href} href={href} aria-label={ariaLabel}>
+          {links.right?.map(({ href, ariaLabel, icon, target }) => (
+            <Link key={href} href={href} aria-label={ariaLabel} target={target}>
               {icon}
             </Link>
           ))}

@@ -51,5 +51,6 @@ export const layoutLinks: LayoutLinksType = {
     href: "https://codepen.io/TenCzwarty/pens/public",
     ariaLabel: "Go to the my CodePen",
     icon: CodePenIcon,
+    target: "_blank",
   },
 };

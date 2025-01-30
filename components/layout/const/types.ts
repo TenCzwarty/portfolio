@@ -7,6 +7,7 @@ export type LayoutLinkType = {
   ariaLabel: string;
   label?: string;
   icon?: JSX.Element;
+  target?: "_blank";
 };
 
 type LayoutFooterLinksType = {
