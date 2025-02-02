@@ -1,8 +1,8 @@
 import { Download } from "lucide-react";
 
+import { Section } from "@/components/layout/components/section";
 import { LinkExternal } from "@/components/link-external";
 import { Pill } from "@/components/pill";
-import { Section } from "@/components/layout/components/section";
 
 export default function FunZone() {
   return (
@@ -73,6 +73,11 @@ export default function FunZone() {
                 </a>
               </div>
             </div>
+          </div>
+
+          <div className="flex flex-col rounded-xl border border-neutral-200 p-4">
+            <h3 className="heading-varporwave shine">SANTORWAVE</h3>
+            <div className="text-sm">in progress...</div>
           </div>
 
           <div className="flex flex-col rounded-xl border border-neutral-200 p-4">

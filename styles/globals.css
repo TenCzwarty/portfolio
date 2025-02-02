@@ -1,0 +1,117 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --primary: 157;
+  --accent: 348;
+
+  --color-neutral-100: hsl(0, 0%, 95%);
+  --color-neutral-200: hsl(0, 0%, 80%);
+
+  --color-primary-800: hsl(var(--primary), 100%, 20%);
+  --color-primary-900: hsl(var(--primary), 100%, 5%);
+
+  --color-accent-500: hsl(var(--accent), 100%, 75%);
+  --color-accent-900: hsl(var(--accent), 100%, 39%);
+}
+
+::selection {
+  background: theme("colors.accent.500");
+  color: theme("colors.neutral.100");
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  color: theme("colors.primary.900");
+  background: theme("colors.neutral.100");
+  font-family: var(--font-geist-mono), Helvetica, sans-serif;
+}
+
+.spin {
+  --_a: rotate 15s linear infinite;
+  --_b: rotate 1s linear 1s infinite;
+  animation:
+    var(--_a),
+    var(--_b) paused;
+  animation-composition: accumulate;
+}
+
+.spin:hover {
+  cursor: pointer;
+  transform: rotate(180deg) 1s ease-in-out;
+  animation-play-state: running;
+}
+
+@keyframes rotate {
+  to {
+    rotate: 1turn;
+  }
+}
+
+.page-transition-circle-wrapper {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 1;
+  mix-blend-mode: difference;
+}
+
+.page-transition-circle {
+  position: absolute;
+  border-radius: 50%;
+  background: #fff;
+  transform: translate(-50%, -50%) scale(0);
+  transition: opacity var(--animation-duration-opacity) ease-in-out;
+  animation: circle-expand var(--animation-duration-circle) ease-out forwards;
+}
+
+@keyframes circle-expand {
+  to {
+    transform: translate(-50%, -50%) scale(1.2);
+  }
+}
+
+audio {
+  border-radius: 1rem;
+}
+
+.heading-varporwave {
+  position: relative;
+  overflow: hidden;
+  font-family: var(--font-whiskey);
+  font-size: 2rem;
+  line-height: 1;
+  color: hotpink;
+  text-decoration: none;
+  cursor: default;
+  user-select: none;
+}
+
+.shine::after {
+  content: "";
+  position: absolute;
+  left: auto;
+  top: 0;
+  bottom: 0;
+  right: -20%;
+  width: 20%;
+  height: 100%;
+  background-image: linear-gradient(
+    135deg,
+    transparent,
+    var(--color-neutral-100),
+    transparent
+  );
+}
+
+.shine:hover::after {
+  transition: all 0.5s ease-out;
+  right: 100%;
+}

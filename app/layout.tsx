@@ -1,23 +1,15 @@
-import type { Metadata } from "next";
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 
 import { Header } from "@/components/layout/components/header";
 import { Footer } from "@/components/layout/components/footer";
 
-import { fontClasses } from "@/components/layout/helpers/font-classes";
+import { fontClasses } from "@/styles/font-classes";
+import "@/styles/globals.css";
 
-import "./globals.css";
+export { metadata } from "@/components/layout/const/metadata";
 
-export const metadata: Metadata = {
-  title: "Daniel Wołoszyn Portfolio",
-  description:
-    "Portfolio and blog showcasing some of my projects & technical writing.",
-};
-
-export default function RootLayout({
-  children,
-}: Readonly<{ children: React.ReactNode }>) {
+export default function RootLayout({ children }: Children) {
   return (
     <html lang="en">
       <body className={fontClasses}>
