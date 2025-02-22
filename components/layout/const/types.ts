@@ -1,6 +1,6 @@
 import { JSX } from "react";
 
-export type PathnameType = "/" | "/fun-zone";
+export type PathnameType = "/" | "/fun-zone" | "/utils" | "/utils/qr";
 
 export type LayoutLinkType = {
   href: string;

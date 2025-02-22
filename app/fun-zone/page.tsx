@@ -12,7 +12,7 @@ export default function FunZone() {
           <h1 className="text-xl font-semibold sm:text-3xl">
             The Fun Zone<sup className="-top-[2.5em] text-[25%]">NTM</sup>
           </h1>
-          <p className="">
+          <p>
             welcome to the place for some other, not-so-serious side-projects or
             fun things I&apos;ve found on the web
           </p>
@@ -68,7 +68,7 @@ export default function FunZone() {
                   rel="noopener noreferrer"
                 >
                   <Pill classes="bg-primary-900 hover:bg-accent-500 hover:text-primary-900 mx-auto sm:mx-0">
-                    download <Download size={16} className="mb-1 inline" />
+                    download <Download size={16} className="inline" />
                   </Pill>
                 </a>
               </div>
