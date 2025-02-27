@@ -33,7 +33,7 @@ body {
 
 .spin {
   --_a: rotate 15s linear infinite;
-  --_b: rotate 1s linear 1s infinite;
+  --_b: rotate 1s linear infinite;
   animation:
     var(--_a),
     var(--_b) paused;
@@ -42,7 +42,6 @@ body {
 
 .spin:hover {
   cursor: pointer;
-  transform: rotate(180deg) 1s ease-in-out;
   animation-play-state: running;
 }
 

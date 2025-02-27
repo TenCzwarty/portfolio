@@ -1,28 +1,22 @@
 "use client";
 
 import React from "react";
-import { Download } from "lucide-react";
+import { SaveIcon } from "lucide-react";
 
 import { Section } from "@/components/layout/components/section";
 import { Pill } from "@/components/pill";
-import { QrWebsite } from "./_components/qr-website";
-import { QrNetwork } from "./_components/qr-network";
-import { Input } from "./_components/input";
-import { QrCodeSVG } from "./_components/qr-code-svg";
-import { useSVGDownload } from "./_helpers/useSVGDownload";
 
-export default function QR() {
-  const [type, setType] = React.useState("website");
-  const [name, setName] = React.useState("");
-  const [value, setValue] = React.useState("");
+import { QRVariantToggle } from "./_components/qr-type-toggle";
+import { InputsQRVariantWebsite } from "./_components/inputs-qr-variant-website";
+import { InputsQrVariantNetwork } from "./_components/inputs-qr-variant-network";
+import { SavedQRs } from "./_components/saved-qrs";
+import { ButtonsDownloadQR } from "./_components/buttons-download-qr";
+import { QRSVGPreview } from "./_components/qr-svg-preview";
 
-  const { ref, downloadAsSVG, donwloadAsPNG } = useSVGDownload({ name });
+import { useQRCodeGeneratorContext } from "./_context";
 
-  const setTypeWebsite = () => setType("website");
-  const setTypeNetwork = () => setType("network");
-
-  const onChange = (e: React.ChangeEvent<HTMLInputElement>) =>
-    setName(e.target.value);
+export default function UtilsQRCodeGeneratorPage() {
+  const context = useQRCodeGeneratorContext();
 
   return (
     <main className="min-h-[calc(100dvh-56px)]">
@@ -34,55 +28,62 @@ export default function QR() {
           <p>quickly create qr codes, no bs</p>
         </div>
 
-        <div className="space-y-4">
-          <div className="flex space-x-4 rounded-xl border border-neutral-200 p-4">
-            <button
-              onClick={setTypeWebsite}
-              disabled={type === "website"}
-              className="group disabled:cursor-not-allowed"
-            >
-              <Pill classes="group-disabled:bg-neutral-200 group-disabled:text-primary-900 bg-primary-900 hover:bg-accent-500 hover:text-primary-900">
-                website
-              </Pill>
-            </button>
-            <button
-              onClick={setTypeNetwork}
-              disabled={type === "network"}
-              className="group disabled:cursor-not-allowed"
-            >
-              <Pill classes="group-disabled:bg-neutral-200 group-disabled:text-primary-900 bg-primary-900 hover:bg-accent-500 hover:text-primary-900">
-                network
-              </Pill>
-            </button>
+        <div className="flex gap-4">
+          <div className="w-full space-y-4">
+            <QRVariantToggle>
+              {({ qrVariant }) => (
+                <>
+                  <div className={qrVariant === "website" ? "" : "hidden"}>
+                    <InputsQRVariantWebsite />
+                  </div>
+
+                  <div className={qrVariant === "network" ? "" : "hidden"}>
+                    <InputsQrVariantNetwork />
+                  </div>
+                </>
+              )}
+            </QRVariantToggle>
+
+            <div className="w-full space-y-4 rounded-xl border border-neutral-200 p-4">
+              <input
+                type="text"
+                placeholder="name"
+                className="w-full rounded-md p-4"
+                onChange={context.onChangeQRName}
+              />
+
+              {context.qrName && (
+                <div className="space-y-2 rounded-md border border-neutral-200 p-4">
+                  <label className="flex select-none items-center hover:cursor-pointer">
+                    <input
+                      type="checkbox"
+                      checked={context.isQRWithBlackBorder}
+                      onChange={context.toggleIsQRWithBlackBorder}
+                      className="mr-2"
+                    />
+                    with black border
+                  </label>
+                </div>
+              )}
+
+              {context.qrName && (
+                <button onClick={context.saveCurrentQR}>
+                  <Pill classes="bg-primary-900 hover:bg-accent-500 hover:text-primary-900">
+                    save <SaveIcon size={16} className="inline" />
+                  </Pill>
+                </button>
+              )}
+            </div>
+
+            <SavedQRs />
           </div>
 
-          <div className="flex flex-col rounded-xl border border-neutral-200 p-4">
-            <div className={`${type === "website" ? "" : "hidden"}`}>
-              <QrWebsite setValue={setValue} />
+          <div className="space-y-4">
+            <div className="h-min rounded-xl border border-neutral-200 p-4">
+              <QRSVGPreview />
             </div>
-            <div className={`${type === "network" ? "" : "hidden"}`}>
-              <QrNetwork setValue={setValue} />
-            </div>
-          </div>
 
-          <div className="flex justify-center space-y-4 rounded-xl border border-neutral-200 p-4">
-            <QrCodeSVG ref={ref} value={value} name={name} />
-          </div>
-
-          <div className="flex flex-col space-y-4 rounded-xl border border-neutral-200 p-4">
-            <Input type="text" placeholder="name" onChange={onChange} />
-            <div className="space-x-4">
-              <button onClick={downloadAsSVG}>
-                <Pill classes="bg-primary-900 hover:bg-accent-500 hover:text-primary-900">
-                  download svg <Download size={16} className="inline" />
-                </Pill>
-              </button>
-              <button onClick={donwloadAsPNG}>
-                <Pill classes="bg-primary-900 hover:bg-accent-500 hover:text-primary-900">
-                  download png <Download size={16} className="inline" />
-                </Pill>
-              </button>
-            </div>
+            <ButtonsDownloadQR />
           </div>
         </div>
       </Section>

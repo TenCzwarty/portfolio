@@ -1,0 +1,17 @@
+import React from "react";
+
+type useOnChangeValueReturnType = [
+  string,
+  (e: React.ChangeEvent<HTMLInputElement>) => void,
+];
+
+export const useOnChangeValue = (
+  initial?: string,
+): useOnChangeValueReturnType => {
+  const [value, setValue] = React.useState(initial ?? "");
+
+  const onChangeValue = (e: React.ChangeEvent<HTMLInputElement>) =>
+    setValue(e.target.value);
+
+  return [value, onChangeValue];
+};
