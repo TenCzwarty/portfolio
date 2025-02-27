@@ -76,6 +76,13 @@ export default function FunZone() {
           </div>
 
           <div className="flex flex-col rounded-xl border border-neutral-200 p-4">
+            <a href="https://amasia.fourth.one/" target="_blank">
+              <h3 className="heading-fantasy">Amasia</h3>
+            </a>
+            <div className="text-sm">my worldbuilding wiki</div>
+          </div>
+
+          <div className="flex flex-col rounded-xl border border-neutral-200 p-4">
             <h3 className="heading-varporwave shine">SANTORWAVE</h3>
             <div className="text-sm">in progress...</div>
           </div>

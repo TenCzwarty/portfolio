@@ -11,9 +11,18 @@ const whiskey = local({
   ],
 });
 
+const firlest = local({
+  variable: "--font-firlest",
+  src: [
+    {
+      path: "../public/fonts/firlest-regular.otf",
+    },
+  ],
+});
+
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
 });
 
-export const fontClasses = `${geistMono.variable} ${whiskey.variable} antialiased`;
+export const fontClasses = `${geistMono.variable} ${whiskey.variable} ${firlest.variable} antialiased`;
