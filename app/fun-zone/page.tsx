@@ -1,8 +1,8 @@
-import { Download } from "lucide-react";
+import { DownloadIcon } from "lucide-react";
 
-import { Section } from "@/components/layout/components/section";
-import { LinkExternal } from "@/components/link-external";
-import { Pill } from "@/components/pill";
+import { Section } from "~/components/layout/components/section";
+import { LinkExternal } from "~/components/link-external";
+import { Pill } from "~/components/pill";
 
 export default function FunZone() {
   return (
@@ -68,7 +68,7 @@ export default function FunZone() {
                   rel="noopener noreferrer"
                 >
                   <Pill classes="bg-primary-900 hover:bg-accent-500 hover:text-primary-900 mx-auto sm:mx-0">
-                    download <Download size={16} className="inline" />
+                    download <DownloadIcon size={16} className="inline" />
                   </Pill>
                 </a>
               </div>

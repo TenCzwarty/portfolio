@@ -1,8 +1,8 @@
-import { debounce } from "@/utils/debounce";
+import "./styles.css";
+
+import { debounce } from "~/utils/debounce";
 
 import { RangeType } from "./types";
-
-import "./styles.css";
 
 export const Range = ({ name, defaultValue, classes }: RangeType) => {
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {

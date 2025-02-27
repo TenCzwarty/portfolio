@@ -1,5 +1,4 @@
 import { CIRCLES } from "../const/circles";
-
 import type { CircleType, CoordinatesType } from "../types";
 
 type Props = CircleType | null;

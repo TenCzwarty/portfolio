@@ -1,9 +1,9 @@
 "use client";
 
-import { Logo } from "@/components/logo";
-import { useDynamicLayoutLinks } from "../../helpers/use-dynamic-layout-links";
+import { Logo } from "~/components/logo";
+import { Range } from "~/components/range";
 
-import { Range } from "@/components/range";
+import { useDynamicLayoutLinks } from "../../helpers/use-dynamic-layout-links";
 
 export const Header = () => {
   const link = useDynamicLayoutLinks("header");

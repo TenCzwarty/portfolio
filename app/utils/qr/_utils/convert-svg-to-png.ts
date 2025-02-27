@@ -1,4 +1,4 @@
-import { createSVGUrl } from "./create-svg-url";
+import { createSVGUrl } from "~qr/_utils/create-svg-url";
 
 type Props = {
   svgString: string;

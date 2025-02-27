@@ -1,7 +1,6 @@
-import React from "react";
 import { ChevronDownIcon, SettingsIcon } from "lucide-react";
 
-import { useToggle } from "@/utils/use-toggle";
+import { useToggle } from "~/utils/use-toggle";
 
 import type {
   AccordionControllerProps,

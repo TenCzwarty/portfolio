@@ -1,4 +1,4 @@
-import { useEventListener } from "@/utils/use-event-listener";
+import { useEventListener } from "~/utils/use-event-listener";
 
 export const useOnMouseMove = ({
   ref,

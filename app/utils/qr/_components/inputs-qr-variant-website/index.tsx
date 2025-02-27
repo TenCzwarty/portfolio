@@ -2,8 +2,8 @@
 
 import React from "react";
 
-import { useOnChangeValue } from "@/app/utils/qr/_utils/use-on-change-value";
-import { useQRCodeGeneratorContext } from "@/app/utils/qr/_context";
+import { useQRCodeGeneratorContext } from "~qr/_context";
+import { useOnChangeValue } from "~qr/_utils/use-on-change-value";
 
 export const InputsQRVariantWebsite = () => {
   const { setQRString } = useQRCodeGeneratorContext();

@@ -1,5 +1,4 @@
 import { layoutLinks } from "./links";
-
 import { HeaderLinksType } from "./types";
 
 export const headerLinks: HeaderLinksType = {

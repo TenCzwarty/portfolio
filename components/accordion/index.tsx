@@ -1,8 +1,7 @@
 "use client";
 
-import React from "react";
-
 import { ChevronDown } from "lucide-react";
+import React from "react";
 
 import type { AccordionType } from "./types";
 

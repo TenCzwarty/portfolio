@@ -1,8 +1,8 @@
-import type { RefSVGType } from "@/app/utils/qr/_context/types";
+import { triggerDownload } from "~qr/_components/buttons-download-qr/helpers/trigger-download";
+import { convertSVGToPNG } from "~qr/_utils/convert-svg-to-png";
+import { serializeSVG } from "~qr/_utils/serialize-svg";
 
-import { triggerDownload } from "@/app/utils/qr/_components/buttons-download-qr/helpers/trigger-download";
-import { convertSVGToPNG } from "@/app/utils/qr/_utils/convert-svg-to-png";
-import { serializeSVG } from "@/app/utils/qr/_utils/serialize-svg";
+import type { RefSVGType } from "~qr/_context/types.ts";
 
 type Props = {
   ref: RefSVGType;

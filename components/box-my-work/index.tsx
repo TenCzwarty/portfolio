@@ -3,8 +3,8 @@
 import React from "react";
 
 import { Modal } from "./modal";
-import { turnBracketsIntoSpans } from "./utils/turn-brackets-into-spans";
 import { BoxMyWorkType } from "./types";
+import { turnBracketsIntoSpans } from "./utils/turn-brackets-into-spans";
 
 export const BoxMyWork = ({
   title,

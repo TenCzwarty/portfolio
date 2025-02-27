@@ -1,8 +1,7 @@
-const EXTRA_RADIUS = 0.3;
-
+import { CoordinatesType } from "../types";
 import { findCircle } from "./find-circle";
 
-import { CoordinatesType } from "../types";
+const EXTRA_RADIUS = 0.3;
 
 export const appendSvgCircle = (
   svgElementId: string,

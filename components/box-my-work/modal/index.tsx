@@ -1,7 +1,7 @@
 "use client";
 
-import { LinkExternal } from "@/components/link-external";
-import { Pill } from "@/components/pill";
+import { LinkExternal } from "~/components/link-external";
+import { Pill } from "~/components/pill";
 
 import type { ModalType } from "./types";
 

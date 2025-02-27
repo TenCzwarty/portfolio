@@ -1,9 +1,8 @@
 "use client";
 
-import React from "react";
 import { QRCodeSVG as QRCodeSVGReact } from "qrcode.react";
 
-import { useQRCodeGeneratorContext } from "@/app/utils/qr/_context";
+import { useQRCodeGeneratorContext } from "~qr/_context";
 
 const BORDER = 6; // black border width
 const PADDING = 10; // white padding around the qr code

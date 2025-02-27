@@ -1,19 +1,17 @@
 "use client";
 
-import React from "react";
 import { SaveIcon } from "lucide-react";
 
-import { Section } from "@/components/layout/components/section";
-import { Pill } from "@/components/pill";
+import { Section } from "~/components/layout/components/section";
+import { Pill } from "~/components/pill";
 
-import { QRVariantToggle } from "./_components/qr-type-toggle";
-import { InputsQRVariantWebsite } from "./_components/inputs-qr-variant-website";
-import { InputsQrVariantNetwork } from "./_components/inputs-qr-variant-network";
-import { SavedQRs } from "./_components/saved-qrs";
-import { ButtonsDownloadQR } from "./_components/buttons-download-qr";
-import { QRSVGPreview } from "./_components/qr-svg-preview";
-
-import { useQRCodeGeneratorContext } from "./_context";
+import { ButtonsDownloadQR } from "~qr/_components/buttons-download-qr";
+import { InputsQrVariantNetwork } from "~qr/_components/inputs-qr-variant-network";
+import { InputsQRVariantWebsite } from "~qr/_components/inputs-qr-variant-website";
+import { QRSVGPreview } from "~qr/_components/qr-svg-preview";
+import { QRVariantToggle } from "~qr/_components/qr-type-toggle";
+import { SavedQRs } from "~qr/_components/saved-qrs";
+import { useQRCodeGeneratorContext } from "~qr/_context";
 
 export default function UtilsQRCodeGeneratorPage() {
   const context = useQRCodeGeneratorContext();

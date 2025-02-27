@@ -1,5 +1,4 @@
 import { layoutLinks as ll } from "./links";
-
 import { FooterLinksType } from "./types";
 
 export const footerLinks: FooterLinksType = {

@@ -1,5 +1,4 @@
 import { DEFAULT_POSITION } from "../const/position";
-
 import { RefType } from "../types";
 
 type Props = {

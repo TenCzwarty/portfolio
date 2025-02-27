@@ -1,10 +1,7 @@
-import React from "react";
-
-import { useNewCircleOnHover } from "./helpers/use-new-circle-on-hover";
+import "./styles.css";
 
 import { PATH } from "./const/path";
-
-import "./styles.css";
+import { useNewCircleOnHover } from "./helpers/use-new-circle-on-hover";
 
 const SVG_ELEMENT_ID = "svg-element";
 

@@ -1,7 +1,7 @@
-import React from "react";
 import { Trash2Icon } from "lucide-react";
 
-import { useQRCodeGeneratorContext } from "@/app/utils/qr/_context";
+import { useQRCodeGeneratorContext } from "~qr/_context";
+
 import { SVGCardProps } from "./types";
 
 export const SVGCard = ({ svgString, index }: SVGCardProps) => {

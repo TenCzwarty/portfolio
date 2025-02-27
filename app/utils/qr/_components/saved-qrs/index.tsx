@@ -1,17 +1,16 @@
-import React from "react";
 import { jsPDF } from "jspdf";
-import { Download } from "lucide-react";
+import { DownloadIcon } from "lucide-react";
 
-import { Pill } from "@/components/pill";
-import { useQRCodeGeneratorContext } from "@/app/utils/qr/_context";
+import { Pill } from "~/components/pill";
+import { useQRCodeGeneratorContext } from "~qr/_context";
+import { convertSVGToPNG } from "~qr/_utils/convert-svg-to-png";
+
 import {
   Accordion,
   AccordionController,
   AccordionToggleMoreInfo,
 } from "../accordion";
-
 import { SVGCard } from "./components/svg-card";
-import { convertSVGToPNG } from "@/app/utils/qr/_utils/convert-svg-to-png";
 
 const IMAGES_PER_ROW = 4;
 const IMAGES_PER_COL = 4;
@@ -60,7 +59,7 @@ export const SavedQRs = () => {
                 <button onClick={generatePdf}>
                   <Pill classes="bg-primary-900 hover:bg-accent-500 hover:text-primary-900">
                     pdf
-                    <Download size={16} className="inline" />
+                    <DownloadIcon size={16} className="inline" />
                   </Pill>
                 </button>
               </div>

@@ -2,17 +2,16 @@
 
 import React from "react";
 
-import { useToggle } from "@/utils/use-toggle";
-
+import { useToggle } from "~/utils/use-toggle";
 import {
-  AccordionController,
   Accordion,
+  AccordionController,
   AccordionExtraSettingsToggle,
-} from "@/app/utils/qr/_components/accordion";
-import { useOnChangeValue } from "@/app/utils/qr/_utils/use-on-change-value";
-import { useQRCodeGeneratorContext } from "@/app/utils/qr/_context";
+} from "~qr/_components/accordion";
+import { useQRCodeGeneratorContext } from "~qr/_context";
+import { useOnChangeValue } from "~qr/_utils/use-on-change-value";
 
-import { CreateQrStringProps } from "./types";
+import type { CreateQrStringProps } from "./types";
 
 const createQrString = ({
   name,

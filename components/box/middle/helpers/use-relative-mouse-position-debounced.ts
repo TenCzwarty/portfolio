@@ -1,13 +1,11 @@
 import React from "react";
 
-import { useOnMouseMove } from "@/utils/use-on-mouse-move";
-import { debounce } from "@/utils/debounce";
-
-import { getRelativeMousePosition } from "./get-relative-mouse-position";
-
-import { RefType } from "../types";
+import { debounce } from "~/utils/debounce";
+import { useOnMouseMove } from "~/utils/use-on-mouse-move";
 
 import { DEFAULT_POSITION } from "../const/position";
+import { RefType } from "../types";
+import { getRelativeMousePosition } from "./get-relative-mouse-position";
 
 export const useRelativeMousePositionDebounced = (ref: RefType) => {
   const [position, setPosition] = React.useState(DEFAULT_POSITION);

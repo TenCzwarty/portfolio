@@ -1,6 +1,5 @@
-import local from "next/font/local";
-
 import { Geist_Mono } from "next/font/google";
+import local from "next/font/local";
 
 const whiskey = local({
   variable: "--font-whiskey",

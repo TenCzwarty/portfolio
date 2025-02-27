@@ -1,20 +1,19 @@
 "use client";
 
+import { DownloadIcon } from "lucide-react";
 import React from "react";
-import { Download } from "lucide-react";
 
-import { myWorkWrapper } from "@/components/box-my-work";
-import { Box, Boxes } from "@/components/box";
-import { myWritingMapper } from "@/components/box-article";
-import { TitleWithTooltip } from "@/components/title-with-tooltip";
-import { Accordion } from "@/components/accordion";
-import { BoxMiddle } from "@/components/box/middle";
-import { LinkExternal } from "@/components/link-external";
-import { Pill } from "@/components/pill";
-import { Section } from "@/components/layout/components/section";
-
-import myWorkData from "@/data/work.json";
-import myWritingData from "@/data/articles.json";
+import { Accordion } from "~/components/accordion";
+import { Box, Boxes } from "~/components/box";
+import { BoxMiddle } from "~/components/box/middle";
+import { myWritingMapper } from "~/components/box-article";
+import { myWorkWrapper } from "~/components/box-my-work";
+import { Section } from "~/components/layout/components/section";
+import { LinkExternal } from "~/components/link-external";
+import { Pill } from "~/components/pill";
+import { TitleWithTooltip } from "~/components/title-with-tooltip";
+import myWritingData from "~/data/articles.json";
+import myWorkData from "~/data/work.json";
 
 export default function Home() {
   React.useEffect(() => {
@@ -110,7 +109,7 @@ export default function Home() {
             className="w-fit"
           >
             <Pill classes="bg-primary-900 hover:bg-accent-500 hover:text-primary-900">
-              download my cv <Download size={16} className="mb-1 inline" />
+              download my cv <DownloadIcon size={16} className="mb-1 inline" />
             </Pill>
           </a>
         </div>

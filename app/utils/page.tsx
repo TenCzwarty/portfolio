@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-import { Section } from "@/components/layout/components/section";
+import { Section } from "~/components/layout/components/section";
 
 export default function Utils() {
   return (

@@ -1,8 +1,9 @@
-import type { RefSVGType } from "@/app/utils/qr/_context/types";
+import { createSVGUrl } from "~qr/_utils/create-svg-url";
+import { serializeSVG } from "~qr/_utils/serialize-svg";
 
-import { createSVGUrl } from "@/app/utils/qr/_utils/create-svg-url";
 import { triggerDownload } from "./trigger-download";
-import { serializeSVG } from "@/app/utils/qr/_utils/serialize-svg";
+
+import type { RefSVGType } from "~qr/_context/types";
 
 type Props = {
   ref: RefSVGType;

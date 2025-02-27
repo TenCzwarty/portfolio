@@ -1,18 +1,15 @@
-import React from "react";
-import { Download } from "lucide-react";
+import { DownloadIcon } from "lucide-react";
 
-import { Pill } from "@/components/pill";
-
+import { Pill } from "~/components/pill";
 import {
   Accordion,
   AccordionController,
   AccordionExtraSettingsToggle,
-} from "@/app/utils/qr/_components/accordion";
+} from "~qr/_components/accordion";
+import { useQRCodeGeneratorContext } from "~qr/_context";
 
-import { downloadSVGAsSVGFile } from "./helpers/download-svg-as-svg-file";
 import { downloadSVGAsPNGFile } from "./helpers/download-svg-as-png-file";
-
-import { useQRCodeGeneratorContext } from "@/app/utils/qr/_context";
+import { downloadSVGAsSVGFile } from "./helpers/download-svg-as-svg-file";
 
 export const ButtonsDownloadQR = () => {
   const { refSVG: ref, qrName: name } = useQRCodeGeneratorContext();
@@ -28,7 +25,7 @@ export const ButtonsDownloadQR = () => {
             <div className="flex justify-between gap-4">
               <button onClick={donwloadAsPNG}>
                 <Pill classes="bg-primary-900 hover:bg-accent-500 hover:text-primary-900">
-                  png <Download size={16} className="inline" />
+                  png <DownloadIcon size={16} className="inline" />
                 </Pill>
               </button>
 
@@ -38,7 +35,7 @@ export const ButtonsDownloadQR = () => {
             <Accordion {...accordionProps}>
               <button onClick={downloadAsSVG}>
                 <Pill classes="bg-primary-900 hover:bg-accent-500 hover:text-primary-900">
-                  svg <Download size={16} className="inline" />
+                  svg <DownloadIcon size={16} className="inline" />
                 </Pill>
               </button>
             </Accordion>

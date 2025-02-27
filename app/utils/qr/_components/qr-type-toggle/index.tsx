@@ -1,6 +1,6 @@
 import React from "react";
 
-import { Pill } from "@/components/pill";
+import { Pill } from "~/components/pill";
 
 import type { QRVariantToggleProps, QRVariantType } from "./types";
 

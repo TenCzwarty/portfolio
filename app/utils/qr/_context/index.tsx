@@ -1,12 +1,12 @@
 import React from "react";
 
-import { useToggle } from "@/utils/use-toggle";
-import { serializeSVG } from "../_utils/serialize-svg";
-
-import type { QRCodeGeneratorContextType, SavedQRsType } from "./types";
+import { useToggle } from "~/utils/use-toggle";
 
 import { init } from "./init";
+import { serializeSVG } from "../_utils/serialize-svg";
 import { useOnChangeValue } from "../_utils/use-on-change-value";
+
+import type { QRCodeGeneratorContextType, SavedQRsType } from "./types";
 
 const QRCodeGeneratorContext =
   React.createContext<QRCodeGeneratorContextType>(init);

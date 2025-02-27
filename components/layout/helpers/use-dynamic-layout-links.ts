@@ -1,12 +1,12 @@
 import { usePathname } from "next/navigation";
 
-import { headerLinks } from "../const/header-links";
 import { footerLinks } from "../const/footer-links";
+import { headerLinks } from "../const/header-links";
 import {
-  PathnameType,
-  HeaderLinksReturnType,
-  FooterLinksReturnType,
   DynamicLinksReturnType,
+  FooterLinksReturnType,
+  HeaderLinksReturnType,
+  PathnameType,
 } from "../const/types";
 
 type LinksKeyType = "header" | "footer";

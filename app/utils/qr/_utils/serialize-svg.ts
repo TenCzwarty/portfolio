@@ -1,4 +1,4 @@
-import type { RefSVGType } from "@/app/utils/qr/_context/types";
+import type { RefSVGType } from "~qr/_context/types";
 
 export const serializeSVG = (ref: RefSVGType) => {
   if (!ref) return;
