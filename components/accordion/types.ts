@@ -1,4 +1,4 @@
-export type AccordionType = {
+export type TAccordion = {
   children: React.ReactNode;
   title: string;
 };

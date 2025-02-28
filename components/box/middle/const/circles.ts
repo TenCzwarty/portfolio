@@ -1,6 +1,6 @@
-import { CirclesType } from "../types";
+import type { TCircles } from "../types";
 
-export const CIRCLES: CirclesType = [
+export const CIRCLES: TCircles = [
   { x: 257.54, y: 236.315, r: 2.074 },
   { x: 246.928, y: 236.312, r: 2.234 },
   { x: 251.044, y: 226.537, r: 2.369 },

@@ -1,12 +1,12 @@
 import { DEFAULT_POSITION } from "../const/position";
-import { RefType } from "../types";
+import type { TRef } from "../types";
 
-type Props = {
-  ref: RefType;
+type TParameters = {
+  ref: TRef;
   event: React.MouseEvent;
 };
 
-export const getRelativeMousePosition = ({ ref, event }: Props) => {
+export const getRelativeMousePosition = ({ ref, event }: TParameters) => {
   const viewBox = ref?.current?.getAttribute("viewBox");
 
   if (!viewBox) return DEFAULT_POSITION;

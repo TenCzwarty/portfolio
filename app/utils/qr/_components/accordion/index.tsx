@@ -3,19 +3,19 @@ import { ChevronDownIcon, SettingsIcon } from "lucide-react";
 import { useToggle } from "~/utils/use-toggle";
 
 import type {
-  AccordionControllerProps,
-  AccordionProps,
-  AccordionToggleExtraSettingsProps,
-  AccordionToggleMoreInfoProps,
+  TAccordionController,
+  TAccordion,
+  TAccordionToggleExtraSettings,
+  TAccordionToggleMoreInfo,
 } from "./types";
 
-export const AccordionController = ({ children }: AccordionControllerProps) => {
+export const AccordionController = ({ children }: TAccordionController) => {
   const [isOpened, toggleIsOpened] = useToggle(false);
 
   return children({ isOpened, toggleIsOpened });
 };
 
-export const Accordion = ({ children, isOpened }: AccordionProps) => (
+export const Accordion = ({ children, isOpened }: TAccordion) => (
   <div className={isOpened ? "" : "hidden"} aria-expanded={isOpened}>
     {children}
   </div>
@@ -24,7 +24,7 @@ export const Accordion = ({ children, isOpened }: AccordionProps) => (
 export const AccordionExtraSettingsToggle = ({
   isOpened,
   toggleIsOpened,
-}: AccordionToggleExtraSettingsProps) => (
+}: TAccordionToggleExtraSettings) => (
   <button
     onClick={toggleIsOpened}
     className="spin"
@@ -38,7 +38,7 @@ export const AccordionToggleMoreInfo = ({
   name,
   isOpened,
   toggleIsOpened,
-}: AccordionToggleMoreInfoProps) => (
+}: TAccordionToggleMoreInfo) => (
   <button
     onClick={toggleIsOpened}
     className="flex gap-2"

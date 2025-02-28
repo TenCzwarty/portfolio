@@ -2,9 +2,9 @@ import { Trash2Icon } from "lucide-react";
 
 import { useQRCodeGeneratorContext } from "~qr/_context";
 
-import { SVGCardProps } from "./types";
+import { TSVGCard } from "./types";
 
-export const SVGCard = ({ svgString, index }: SVGCardProps) => {
+export const SVGCard = ({ svgString, index }: TSVGCard) => {
   const context = useQRCodeGeneratorContext();
 
   const removeQR = () => context.removeQR(index);

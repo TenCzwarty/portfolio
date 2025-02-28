@@ -10,16 +10,7 @@ import {
 } from "~qr/_components/accordion";
 import { useQRCodeGeneratorContext } from "~qr/_context";
 import { useOnChangeValue } from "~qr/_utils/use-on-change-value";
-
-import type { CreateQrStringProps } from "./types";
-
-const createQrString = ({
-  name,
-  password,
-  encryption,
-  isSsidHidden,
-}: CreateQrStringProps) =>
-  `WIFI:S:${name};T:${encryption};P:${password};H:${isSsidHidden ? "true" : ""};;`;
+import { createQRString } from "./helpers/create-qr-string";
 
 export const InputsQrVariantNetwork = () => {
   const { setQRString } = useQRCodeGeneratorContext();
@@ -30,7 +21,7 @@ export const InputsQrVariantNetwork = () => {
   const [isSsidHidden, toggleIsSsidHidden] = useToggle(false);
 
   React.useEffect(() => {
-    setQRString(createQrString({ name, password, encryption, isSsidHidden }));
+    setQRString(createQRString({ name, password, encryption, isSsidHidden }));
   }, [name, password, encryption, isSsidHidden]);
 
   return (

@@ -1,12 +1,12 @@
-type DebouncedFunctionType = (...args: Array<any>) => void;
+type TDebouncedFunction = (...args: Array<any>) => void;
 
-type DebounceType<T> = {
+type TDebounce<T> = {
   (debounceTimeout: number): (debouncedFunction: T) => T;
 };
 
 const DEFAULT_DEBOUNCE_TIMEOUT = 500;
 
-const debounceBy: DebounceType<DebouncedFunctionType> =
+const debounceBy: TDebounce<TDebouncedFunction> =
   (debounceTimeout) => (debouncedFunction) => {
     let timeoutId: NodeJS.Timeout;
 

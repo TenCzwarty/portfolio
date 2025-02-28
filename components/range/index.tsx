@@ -2,9 +2,9 @@ import "./styles.css";
 
 import { debounce } from "~/utils/debounce";
 
-import { RangeType } from "./types";
+import { TRange } from "./types";
 
-export const Range = ({ name, defaultValue, classes }: RangeType) => {
+export const Range = ({ name, defaultValue, classes }: TRange) => {
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     document.documentElement.style.setProperty(name, e.target.value);
   };

@@ -1,4 +1,4 @@
-import type { QRCodeGeneratorContextType } from "./types";
+import type { TQRCodeGeneratorContext } from "./types";
 
 export const init = {
   refSVG: null,
@@ -15,4 +15,4 @@ export const init = {
 
   isQRWithBlackBorder: false,
   toggleIsQRWithBlackBorder: () => {},
-} satisfies QRCodeGeneratorContextType;
+} satisfies TQRCodeGeneratorContext;

@@ -1,13 +1,8 @@
 import React from "react";
 
-type useOnChangeValueReturnType = [
-  string,
-  (e: React.ChangeEvent<HTMLInputElement>) => void,
-];
+type TReturn = [string, (e: React.ChangeEvent<HTMLInputElement>) => void];
 
-export const useOnChangeValue = (
-  initial?: string,
-): useOnChangeValueReturnType => {
+export const useOnChangeValue = (initial?: string): TReturn => {
   const [value, setValue] = React.useState(initial ?? "");
 
   const onChangeValue = (e: React.ChangeEvent<HTMLInputElement>) =>

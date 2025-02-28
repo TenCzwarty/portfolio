@@ -1,8 +1,8 @@
 import { JSX } from "react";
 
-export type PathnameType = "/" | "/fun-zone" | "/utils" | "/utils/qr";
+export type TPathname = "/" | "/fun-zone" | "/utils" | "/utils/qr";
 
-export type LayoutLinkType = {
+type TLayoutLink = {
   href: string;
   ariaLabel: string;
   label?: string;
@@ -10,18 +10,16 @@ export type LayoutLinkType = {
   target?: "_blank";
 };
 
-type LayoutFooterLinksType = {
-  left: Array<LayoutLinkType>;
-  right: Array<LayoutLinkType>;
+type TLayoutFooterLinks = {
+  left: Array<TLayoutLink>;
+  right: Array<TLayoutLink>;
 };
 
-export type LayoutLinksType = Record<string, LayoutLinkType>;
-export type HeaderLinksType = Record<PathnameType, LayoutLinkType>;
-export type FooterLinksType = Record<PathnameType, LayoutFooterLinksType>;
+export type TLayoutLinks = Record<string, TLayoutLink>;
+export type THeaderLinks = Record<TPathname, TLayoutLink>;
+export type TFooterLinks = Record<TPathname, TLayoutFooterLinks>;
 
-export type HeaderLinksReturnType = LayoutLinkType | null;
-export type FooterLinksReturnType = LayoutFooterLinksType | null;
+export type TReturnHeaderLinks = TLayoutLink | null;
+export type TReturnFooterLinks = TLayoutFooterLinks | null;
 
-export type DynamicLinksReturnType =
-  | HeaderLinksReturnType
-  | FooterLinksReturnType;
+export type TReturnDynamicLinks = TReturnHeaderLinks | TReturnFooterLinks;

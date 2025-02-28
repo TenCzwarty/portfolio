@@ -2,14 +2,14 @@ import { triggerDownload } from "~qr/_components/buttons-download-qr/helpers/tri
 import { convertSVGToPNG } from "~qr/_utils/convert-svg-to-png";
 import { serializeSVG } from "~qr/_utils/serialize-svg";
 
-import type { RefSVGType } from "~qr/_context/types.ts";
+import type { TRefSVG } from "~qr/_context/types.ts";
 
-type Props = {
-  ref: RefSVGType;
+type TParameters = {
+  ref: TRefSVG;
   name?: string;
 };
 
-export const downloadSVGAsPNGFile = async ({ ref, name }: Props) => {
+export const downloadSVGAsPNGFile = async ({ ref, name }: TParameters) => {
   const svgString = serializeSVG(ref);
 
   if (!svgString) return;

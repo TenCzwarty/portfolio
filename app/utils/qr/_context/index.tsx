@@ -6,18 +6,18 @@ import { init } from "./init";
 import { serializeSVG } from "../_utils/serialize-svg";
 import { useOnChangeValue } from "../_utils/use-on-change-value";
 
-import type { QRCodeGeneratorContextType, SavedQRsType } from "./types";
+import type { TQRCodeGeneratorContext, TSavedQRs } from "./types";
 
 const QRCodeGeneratorContext =
-  React.createContext<QRCodeGeneratorContextType>(init);
+  React.createContext<TQRCodeGeneratorContext>(init);
 
-export const QRCodeGeneratorContextProvider = ({ children }: Children) => {
+export const QRCodeGeneratorContextProvider = ({ children }: TChildren) => {
   const refSVG = React.useRef(null);
 
   const [qrName, onChangeQRName] = useOnChangeValue("");
   const [qrString, setQRString] = React.useState("");
   const [isQRWithBlackBorder, toggleIsQRWithBlackBorder] = useToggle(false);
-  const [savedQRs, setSavedQRs] = React.useState<SavedQRsType>([]);
+  const [savedQRs, setSavedQRs] = React.useState<TSavedQRs>([]);
 
   const saveCurrentQR = () => {
     const svgString = serializeSVG(refSVG);

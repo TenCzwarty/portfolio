@@ -1,11 +1,11 @@
-import { CoordinatesType } from "../types";
 import { findCircle } from "./find-circle";
+import type { TCoordinates } from "../types";
 
 const EXTRA_RADIUS = 0.3;
 
 export const appendSvgCircle = (
   svgElementId: string,
-  position: CoordinatesType,
+  position: TCoordinates,
 ) => {
   const circle = findCircle(position);
 

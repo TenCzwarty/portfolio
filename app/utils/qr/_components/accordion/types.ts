@@ -1,20 +1,20 @@
-export type AccordionControllerProps = {
+export type TAccordionController = {
   children: (props: {
     isOpened: boolean;
     toggleIsOpened: () => void;
   }) => React.JSX.Element;
 };
 
-export type AccordionProps = {
+export type TAccordion = {
   isOpened: boolean;
-} & Children;
+} & TChildren;
 
-export type AccordionToggleExtraSettingsProps = {
+export type TAccordionToggleExtraSettings = {
   isOpened: boolean;
   toggleIsOpened: () => void;
 };
 
-export type AccordionToggleMoreInfoProps = {
+export type TAccordionToggleMoreInfo = {
   name: string;
   isOpened: boolean;
   toggleIsOpened: () => void;

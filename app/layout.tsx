@@ -9,7 +9,7 @@ import "~/styles/globals.css";
 
 export { metadata } from "~/components/layout/const/metadata";
 
-export default function RootLayout({ children }: Children) {
+export default function RootLayout({ children }: TChildren) {
   return (
     <html lang="en">
       <body className={fontClasses}>

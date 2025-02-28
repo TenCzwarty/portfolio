@@ -1,12 +1,12 @@
 import { Tooltip } from "react-tooltip";
 
-import type { TitleWithTooltipType } from "./types";
+import type { TTitleWithTooltip } from "./types";
 
 export const TitleWithTooltip = ({
   id,
   children,
   tooltip,
-}: TitleWithTooltipType) => {
+}: TTitleWithTooltip) => {
   return (
     <>
       <Tooltip

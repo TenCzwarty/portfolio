@@ -1,4 +1,4 @@
-export type LinkExternalType = {
+export type TLinkExternal = {
   href?: string;
   label: string;
   classes?: string;

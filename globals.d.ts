@@ -1,6 +1,6 @@
 declare global {
-  type Children = Readonly<{ children: React.ReactNode }>;
-  type FCWithChildren = React.FC<Children>;
+  type TChildren = Readonly<{ children: React.ReactNode }>;
+  type TFCWithChildren = React.FC<TChildren>;
 }
 
 export {};

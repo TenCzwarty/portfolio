@@ -1,4 +1,4 @@
-import type { BoxesType, BoxType, TransformType } from "./types";
+import type { TBoxes, TBox, TTransform } from "./types";
 
 const TRANSFORMS = {
   top: "top-0 -translate-y-0",
@@ -9,8 +9,8 @@ const TRANSFORMS = {
   right: "left-full -translate-x-full",
 };
 
-export const Box = ({ children, position, classes }: BoxType) => {
-  const [vertical, horizontal] = position.split("-") as TransformType;
+export const Box = ({ children, position, classes }: TBox) => {
+  const [vertical, horizontal] = position.split("-") as TTransform;
 
   const transform = `${TRANSFORMS[vertical]} ${TRANSFORMS[horizontal]}`;
 
@@ -23,5 +23,5 @@ export const Box = ({ children, position, classes }: BoxType) => {
   );
 };
 
-export const Boxes = ({ positions }: BoxesType) =>
+export const Boxes = ({ positions }: TBoxes) =>
   positions.map((position) => <Box key={position} position={position} />);

@@ -1,8 +1,8 @@
 import { ExternalLinkIcon } from "lucide-react";
 
-import type { LinkExternalType } from "./types";
+import type { TLinkExternal } from "./types";
 
-export const LinkExternal = ({ href, label, classes }: LinkExternalType) => {
+export const LinkExternal = ({ href, label, classes }: TLinkExternal) => {
   if (!href) {
     return null;
   }

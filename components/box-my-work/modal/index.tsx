@@ -3,7 +3,7 @@
 import { LinkExternal } from "~/components/link-external";
 import { Pill } from "~/components/pill";
 
-import type { ModalType } from "./types";
+import type { TModal } from "./types";
 
 export const Modal = ({
   title,
@@ -16,7 +16,7 @@ export const Modal = ({
   myPart,
   techStack,
   closeModal,
-}: ModalType) => {
+}: TModal) => {
   const renderBrief = () =>
     brief?.map?.((item, index) => <li key={index}>{item}</li>);
 

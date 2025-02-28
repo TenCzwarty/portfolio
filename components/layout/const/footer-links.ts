@@ -1,7 +1,7 @@
 import { layoutLinks as ll } from "./links";
-import { FooterLinksType } from "./types";
+import type { TFooterLinks } from "./types";
 
-export const footerLinks: FooterLinksType = {
+export const footerLinks: TFooterLinks = {
   "/": {
     left: [
       ll.LINK_HREF_BACK_TO_TOP,

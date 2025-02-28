@@ -3,9 +3,9 @@
 import { ChevronDown } from "lucide-react";
 import React from "react";
 
-import type { AccordionType } from "./types";
+import type { TAccordion } from "./types";
 
-export const Accordion = ({ children, title }: AccordionType) => {
+export const Accordion = ({ children, title }: TAccordion) => {
   const [isOpened, setIsOpened] = React.useState(false);
 
   const classNameRotate = isOpened ? "rotate-180" : "rotate-0";

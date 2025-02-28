@@ -1,6 +1,6 @@
-import type { RefSVGType } from "~qr/_context/types";
+import type { TRefSVG } from "~qr/_context/types";
 
-export const serializeSVG = (ref: RefSVGType) => {
+export const serializeSVG = (ref: TRefSVG) => {
   if (!ref) return;
   if (!ref.current) return;
 

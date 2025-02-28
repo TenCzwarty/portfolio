@@ -1,5 +1,5 @@
-export type QRVariantType = "website" | "network";
+export type TQRVariant = "website" | "network";
 
-export type QRVariantToggleProps = {
-  children: (props: { qrVariant: QRVariantType }) => React.JSX.Element;
+export type TQRVariantToggle = {
+  children: (props: { qrVariant: TQRVariant }) => React.JSX.Element;
 };

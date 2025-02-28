@@ -1,9 +1,9 @@
-type Type = {
+type TParameters = {
   url: string;
   filename: string;
 };
 
-export const triggerDownload = ({ url, filename }: Type) => {
+export const triggerDownload = ({ url, filename }: TParameters) => {
   const link = document.createElement("a");
 
   link.href = url;

@@ -1,6 +1,6 @@
-import type { BoxArticleType } from "./types";
+import type { TBoxArticle } from "./types";
 
-export const BoxArticle = ({ title, href, year, category }: BoxArticleType) => {
+export const BoxArticle = ({ title, href, year, category }: TBoxArticle) => {
   return (
     <a
       href={href}
@@ -19,6 +19,6 @@ export const BoxArticle = ({ title, href, year, category }: BoxArticleType) => {
   );
 };
 
-export const myWritingMapper = (props: BoxArticleType, index: number) => (
+export const myWritingMapper = (props: TBoxArticle, index: number) => (
   <BoxArticle key={index} {...props} />
 );

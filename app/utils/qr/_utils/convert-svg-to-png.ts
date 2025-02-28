@@ -1,12 +1,12 @@
 import { createSVGUrl } from "~qr/_utils/create-svg-url";
 
-type Props = {
+type TParameters = {
   svgString: string;
 };
 
-type ReturnType = Promise<string | null>;
+type TReturn = Promise<string | null>;
 
-export const convertSVGToPNG = ({ svgString }: Props): ReturnType =>
+export const convertSVGToPNG = ({ svgString }: TParameters): TReturn =>
   new Promise((resolve) => {
     const url = createSVGUrl({ svgString });
 

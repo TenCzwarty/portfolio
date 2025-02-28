@@ -1,3 +1,3 @@
-import { CoordinatesType } from "../types";
+import type { TCoordinates } from "../types";
 
-export const DEFAULT_POSITION: CoordinatesType = { x: 0, y: 0 };
+export const DEFAULT_POSITION: TCoordinates = { x: 0, y: 0 };

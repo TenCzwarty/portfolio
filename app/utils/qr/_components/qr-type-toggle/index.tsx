@@ -2,10 +2,10 @@ import React from "react";
 
 import { Pill } from "~/components/pill";
 
-import type { QRVariantToggleProps, QRVariantType } from "./types";
+import type { TQRVariantToggle, TQRVariant } from "./types";
 
-export const QRVariantToggle = ({ children }: QRVariantToggleProps) => {
-  const [qrVariant, setQRVariant] = React.useState<QRVariantType>("website");
+export const QRVariantToggle = ({ children }: TQRVariantToggle) => {
+  const [qrVariant, setQRVariant] = React.useState<TQRVariant>("website");
 
   const setQRVariantWebsite = () => setQRVariant("website");
   const setQRVariantNetwork = () => setQRVariant("network");

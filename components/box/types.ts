@@ -1,4 +1,4 @@
-type PositionType =
+type TPosition =
   | "top-left"
   | "top-center"
   | "top-right"
@@ -9,15 +9,15 @@ type PositionType =
   | "bottom-center"
   | "bottom-right";
 
-export type BoxType = {
+export type TBox = {
   children?: React.ReactNode;
-  position: PositionType;
+  position: TPosition;
   classes?: string;
 };
 
-export type BoxesType = { positions: PositionType[] };
+export type TBoxes = { positions: TPosition[] };
 
-type PositionVerticalType = "top" | "mid" | "bottom";
-type PositionHorizontalType = "left" | "center" | "right";
+type TPositionVertical = "top" | "mid" | "bottom";
+type TPositionHorizontal = "left" | "center" | "right";
 
-export type TransformType = [PositionVerticalType, PositionHorizontalType];
+export type TTransform = [TPositionVertical, TPositionHorizontal];

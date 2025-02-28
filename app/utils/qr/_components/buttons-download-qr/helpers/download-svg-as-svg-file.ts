@@ -3,14 +3,14 @@ import { serializeSVG } from "~qr/_utils/serialize-svg";
 
 import { triggerDownload } from "./trigger-download";
 
-import type { RefSVGType } from "~qr/_context/types";
+import type { TRefSVG } from "~qr/_context/types";
 
-type Props = {
-  ref: RefSVGType;
+type TParameters = {
+  ref: TRefSVG;
   name?: string;
 };
 
-export const downloadSVGAsSVGFile = ({ ref, name }: Props) => {
+export const downloadSVGAsSVGFile = ({ ref, name }: TParameters) => {
   const svgString = serializeSVG(ref);
 
   if (!svgString) return;

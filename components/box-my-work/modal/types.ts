@@ -1,4 +1,4 @@
-export type ModalType = {
+export type TModal = {
   title: string;
   linkWebsite?: string;
   linkMore?: string;

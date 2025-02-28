@@ -1,4 +1,4 @@
-import { LayoutLinksType } from "./types";
+import type { TLayoutLinks } from "./types";
 
 const CodePenIcon = (
   <svg
@@ -14,7 +14,7 @@ const CodePenIcon = (
   </svg>
 );
 
-export const layoutLinks: LayoutLinksType = {
+export const layoutLinks: TLayoutLinks = {
   LINK_HREF_BACK_TO_TOP: {
     href: "#top",
     ariaLabel: "Back to top",

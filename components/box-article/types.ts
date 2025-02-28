@@ -1,4 +1,4 @@
-export type BoxArticleType = {
+export type TBoxArticle = {
   title: string;
   href: string;
   year: string;

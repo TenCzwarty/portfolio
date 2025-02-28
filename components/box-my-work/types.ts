@@ -1,4 +1,4 @@
-export type BoxMyWorkType = {
+export type TBoxMyWork = {
   title: string;
   linkWebsite?: string;
   linkMore?: string;

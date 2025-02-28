@@ -1,9 +1,9 @@
 import { CIRCLES } from "../const/circles";
-import type { CircleType, CoordinatesType } from "../types";
+import type { TCircle, TCoordinates } from "../types";
 
-type Props = CircleType | null;
+type TReturn = TCircle | null;
 
-export const findCircle = ({ x, y }: CoordinatesType): Props =>
+export const findCircle = ({ x, y }: TCoordinates): TReturn =>
   CIRCLES.find((circle) => {
     const dx = x - circle.x;
     const dy = y - circle.y;

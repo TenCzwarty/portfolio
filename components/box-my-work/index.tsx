@@ -3,8 +3,8 @@
 import React from "react";
 
 import { Modal } from "./modal";
-import { BoxMyWorkType } from "./types";
 import { turnBracketsIntoSpans } from "./utils/turn-brackets-into-spans";
+import type { TBoxMyWork } from "./types";
 
 export const BoxMyWork = ({
   title,
@@ -12,7 +12,7 @@ export const BoxMyWork = ({
   short,
   results,
   ...rest
-}: BoxMyWorkType) => {
+}: TBoxMyWork) => {
   const [isModalVisible, setIsModalVisible] = React.useState(false);
 
   const openModal = () => setIsModalVisible(true);
@@ -53,6 +53,6 @@ export const BoxMyWork = ({
   );
 };
 
-export const myWorkWrapper = (props: BoxMyWorkType, index: number) => (
+export const myWorkWrapper = (props: TBoxMyWork, index: number) => (
   <BoxMyWork key={index} {...props} />
 );

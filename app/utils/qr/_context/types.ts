@@ -1,10 +1,10 @@
-export type RefSVGType = React.RefObject<SVGSVGElement | null> | null;
+export type TRefSVG = React.RefObject<SVGSVGElement | null> | null;
 
-type SavedQRType = { qrString: string; svgString: string };
-export type SavedQRsType = Array<SavedQRType>;
+type TSavedQR = { qrString: string; svgString: string };
+export type TSavedQRs = Array<TSavedQR>;
 
-export type QRCodeGeneratorContextType = {
-  refSVG: RefSVGType;
+export type TQRCodeGeneratorContext = {
+  refSVG: TRefSVG;
 
   qrName: string;
   onChangeQRName: (e: React.ChangeEvent<HTMLInputElement>) => void;
@@ -12,7 +12,7 @@ export type QRCodeGeneratorContextType = {
   qrString: string;
   setQRString: React.Dispatch<React.SetStateAction<string>>;
 
-  savedQRs: SavedQRsType;
+  savedQRs: TSavedQRs;
   saveCurrentQR: () => void;
   removeQR: (index: number) => void;
 
