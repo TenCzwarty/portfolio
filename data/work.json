@@ -48,7 +48,7 @@
 
       "year": "2024-2022",
       "short": "blog website for an organization promoting plant-based nutrition",
-      "long": "Alrpo Foundation is an organization promoting plant-based nutrition and research. The project covered implementation of a blog website.",
+      "long": "Alpro Foundation is an organization promoting plant-based nutrition and research. The project covered implementation of a blog website.",
 
       "brief": [
         "migration from WordPress to Gatsby for improved performance",
@@ -102,7 +102,7 @@
 
       "year": "2022",
       "short": "platform providing resources for health professionals",
-      "long": "Alpro Health Professionals is a platform providing plant-based scientific information. The project covered implemetation of a blog-like website.",
+      "long": "Alpro Health Professionals is a platform providing plant-based scientific information. The project covered implementation of a blog-like website.",
 
       "brief": [
         "migration from an old CMS, getting rid of a tech debt",
