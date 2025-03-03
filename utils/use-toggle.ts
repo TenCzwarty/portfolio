@@ -1,15 +1,15 @@
 import React from "react";
 
-type FunctionToggleIsActive = (
+type TFunctionToggleIsActive = (
   value?: boolean | ((previousState: boolean) => boolean) | unknown,
 ) => void;
 
 export const useToggle = (
   initialState: boolean = false,
-): [boolean, FunctionToggleIsActive] => {
+): [boolean, TFunctionToggleIsActive] => {
   const [isActive, setIsActive] = React.useState<boolean>(initialState);
 
-  const toggleIsActive: FunctionToggleIsActive = React.useCallback((value) => {
+  const toggleIsActive: TFunctionToggleIsActive = React.useCallback((value) => {
     if (typeof value === "boolean") {
       setIsActive(value);
     } else {

@@ -1,14 +1,12 @@
 import React from "react";
 
-export const useEventListener = ({
-  ref,
-  type,
-  listener,
-}: {
+type TParameters = {
   ref?: React.RefObject<SVGElement | HTMLElement | null>;
   type: string;
   listener: () => void;
-}) => {
+};
+
+export const useEventListener = ({ ref, type, listener }: TParameters) => {
   React.useEffect(() => {
     const element = ref?.current || window;
 
