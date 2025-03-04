@@ -9,7 +9,7 @@ import {
   Accordion,
   AccordionController,
   AccordionToggleMoreInfo,
-} from "../accordion";
+} from "~/app/_components/accordion";
 import { SVGCard } from "./components/svg-card";
 
 const IMAGES_PER_ROW = 4;

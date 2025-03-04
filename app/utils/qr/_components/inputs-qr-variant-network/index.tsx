@@ -7,7 +7,7 @@ import {
   Accordion,
   AccordionController,
   AccordionExtraSettingsToggle,
-} from "~qr/_components/accordion";
+} from "~/app/_components/accordion";
 import { useQRCodeGeneratorContext } from "~qr/_context";
 import { useOnChangeValue } from "~qr/_utils/use-on-change-value";
 import { createQRString } from "./helpers/create-qr-string";

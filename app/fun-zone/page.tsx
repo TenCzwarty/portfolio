@@ -1,8 +1,15 @@
+"use client";
+
 import { DownloadIcon } from "lucide-react";
 
 import { Section } from "~/components/layout/components/section";
 import { LinkExternal } from "~/components/link-external";
 import { Pill } from "~/components/pill";
+import {
+  Accordion,
+  AccordionController,
+  AccordionToggleMoreInfo,
+} from "~/app/_components/accordion";
 
 export default function FunZone() {
   return (
@@ -76,10 +83,30 @@ export default function FunZone() {
           </div>
 
           <div className="flex flex-col rounded-xl border border-neutral-200 p-4">
-            <a href="https://amasia.fourth.one/" target="_blank">
-              <h3 className="heading-fantasy">Amasia</h3>
-            </a>
-            <div className="text-sm">my worldbuilding wiki</div>
+            <AccordionController>
+              {(accordionProps) => (
+                <>
+                  <div className="flex items-center justify-between">
+                    <div className="flex flex-col gap-2">
+                      <a href="https://amasia.fourth.one/" target="_blank">
+                        <h3 className="heading-fantasy">Amasia</h3>
+                      </a>
+                      <div className="text-sm">my worldbuilding wiki</div>
+                    </div>
+                    <AccordionToggleMoreInfo {...accordionProps} />
+                  </div>
+
+                  <Accordion {...accordionProps}>
+                    <div className="mt-4 flex cursor-not-allowed flex-col rounded-xl border border-neutral-200 p-4">
+                      <h3 className="text-lg font-semibold sm:text-xl">
+                        Fantasy Calendar Generator
+                      </h3>
+                      <div className="text-sm">in progress...</div>
+                    </div>
+                  </Accordion>
+                </>
+              )}
+            </AccordionController>
           </div>
 
           <div className="flex flex-col rounded-xl border border-neutral-200 p-4">

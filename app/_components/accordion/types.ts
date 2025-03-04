@@ -15,7 +15,7 @@ export type TAccordionToggleExtraSettings = {
 };
 
 export type TAccordionToggleMoreInfo = {
-  name: string;
+  name?: string;
   isOpened: boolean;
   toggleIsOpened: () => void;
 };
