@@ -19,7 +19,7 @@ export const Footer = () => {
             </Link>
           ))}
         </div>
-        <div>
+        <div className="flex gap-2">
           {links.right?.map(({ href, ariaLabel, icon, target }) => (
             <Link key={href} href={href} aria-label={ariaLabel} target={target}>
               {icon}

@@ -10,18 +10,18 @@ export const footerLinks: TFooterLinks = {
       ll.LINK_PAGE_FUN_ZONE,
       ll.LINK_PAGE_UTILS,
     ],
-    right: [ll.LINK_EXTERNAL_CODEPEN],
+    right: [ll.LINK_EXTERNAL_GITHUB, ll.LINK_EXTERNAL_CODEPEN],
   },
   "/fun-zone": {
     left: [ll.LINK_PAGE_HOME, ll.LINK_PAGE_UTILS],
-    right: [ll.LINK_EXTERNAL_CODEPEN],
+    right: [ll.LINK_EXTERNAL_GITHUB, ll.LINK_EXTERNAL_CODEPEN],
   },
   "/utils": {
     left: [ll.LINK_PAGE_HOME, ll.LINK_PAGE_FUN_ZONE],
-    right: [ll.LINK_EXTERNAL_CODEPEN],
+    right: [ll.LINK_EXTERNAL_GITHUB, ll.LINK_EXTERNAL_CODEPEN],
   },
   "/utils/qr": {
     left: [ll.LINK_PAGE_HOME, ll.LINK_PAGE_FUN_ZONE, ll.LINK_PAGE_UTILS],
-    right: [ll.LINK_EXTERNAL_CODEPEN],
+    right: [ll.LINK_EXTERNAL_GITHUB, ll.LINK_EXTERNAL_CODEPEN],
   },
 };
