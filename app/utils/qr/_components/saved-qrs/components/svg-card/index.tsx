@@ -14,7 +14,7 @@ export const SVGCard = ({ svgString, index }: TSVGCard) => {
       <div dangerouslySetInnerHTML={{ __html: svgString }} />
       <button
         onClick={removeQR}
-        className="absolute bottom-0 right-0 hidden rounded-md bg-accent-500 p-4 group-hover:block"
+        className="bg-accent-500 absolute right-0 bottom-0 hidden rounded-md p-4 group-hover:block"
       >
         <Trash2Icon />
       </button>

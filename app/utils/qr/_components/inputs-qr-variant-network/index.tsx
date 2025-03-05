@@ -52,48 +52,48 @@ export const InputsQrVariantNetwork = () => {
 
             <Accordion {...accordionProps}>
               <div className="space-y-2 rounded-md border border-neutral-200 p-4">
-                <label className="flex items-center">
+                <label className="flex cursor-pointer items-center">
                   <input
                     type="radio"
                     name="encryption"
                     value="WPA"
                     checked={encryption === "WPA"}
                     onChange={onChangeEncryption}
-                    className="mr-2"
+                    className="mr-2 cursor-pointer"
                   />
                   WPA/WPA2
                 </label>
-                <label className="flex items-center">
+                <label className="flex cursor-pointer items-center">
                   <input
                     type="radio"
                     name="encryption"
                     value="WEP"
                     checked={encryption === "WEP"}
                     onChange={onChangeEncryption}
-                    className="mr-2"
+                    className="mr-2 cursor-pointer"
                   />
                   WEP
                 </label>
-                <label className="flex items-center">
+                <label className="flex cursor-pointer items-center">
                   <input
                     type="radio"
                     name="encryption"
                     value="nopass"
                     checked={encryption === "nopass"}
                     onChange={onChangeEncryption}
-                    className="mr-2"
+                    className="mr-2 cursor-pointer"
                   />
                   open network
                 </label>
               </div>
 
               <div className="mt-4 space-y-2 rounded-md border border-neutral-200 p-4">
-                <label className="flex items-center select-none hover:cursor-pointer">
+                <label className="flex cursor-pointer items-center select-none">
                   <input
                     type="checkbox"
                     checked={isSsidHidden}
                     onChange={toggleIsSsidHidden}
-                    className="mr-2"
+                    className="mr-2 cursor-pointer"
                   />
                   hidden SSID
                 </label>

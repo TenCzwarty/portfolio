@@ -74,7 +74,7 @@ export default function Home() {
             <>
               <AccordionToggleMoreInfo
                 name={
-                  <h3 className="cursor-pointer pl-4 text-lg font-semibold sm:text-xl">
+                  <h3 className="pl-4 text-lg font-semibold sm:text-xl">
                     older projects
                   </h3>
                 }
@@ -108,7 +108,7 @@ export default function Home() {
             <>
               <AccordionToggleMoreInfo
                 name={
-                  <h3 className="cursor-pointer pl-4 text-lg font-semibold sm:text-xl">
+                  <h3 className="pl-4 text-lg font-semibold sm:text-xl">
                     more
                   </h3>
                 }

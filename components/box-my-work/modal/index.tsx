@@ -27,16 +27,16 @@ export const Modal = ({
 
   return (
     <div
-      className="fixed right-0 top-0 z-10 mt-0! h-full w-full p-4"
+      className="fixed top-0 right-0 z-10 mt-0! h-full w-full p-4"
       role="dialog"
       aria-modal="true"
       aria-labelledby="modal-title"
     >
       <div
-        className="absolute right-0 top-0 z-0 h-full w-full bg-black bg-opacity-50"
+        className="bg-opacity-50 absolute top-0 right-0 z-0 h-full w-full bg-black"
         onClick={closeModal}
       />
-      <div className="relative mx-auto h-full w-full overflow-auto rounded-xl border border-primary-800 bg-neutral-100 p-4 text-primary-900 md:w-[calc(200dvw/3)]">
+      <div className="border-primary-800 text-primary-900 relative mx-auto h-full w-full overflow-auto rounded-xl border bg-neutral-100 p-4 md:w-[calc(200dvw/3)]">
         <div className="flex justify-between">
           <h3 id="modal-title" className="text-lg font-semibold sm:text-xl">
             {title}

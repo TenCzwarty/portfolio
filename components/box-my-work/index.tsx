@@ -28,7 +28,7 @@ export const BoxMyWork = ({
       )}
 
       <button
-        className="group flex w-full gap-4 rounded-xl border border-2 border-primary-800 p-4 text-start hover:cursor-pointer hover:bg-accent-500 hover:text-primary-900"
+        className="group border-primary-800 hover:bg-accent-500 hover:text-primary-900 flex w-full gap-4 rounded-xl border border-2 p-4 text-start"
         onClick={openModal}
         aria-haspopup="dialog"
         aria-expanded={isModalVisible}
@@ -41,7 +41,7 @@ export const BoxMyWork = ({
           <p className="text-xs sm:text-sm">{short}</p>
           {results && (
             <div
-              className="results mt-4 text-xs *:text-accent-500 *:group-hover:text-accent-900 sm:text-base"
+              className="results *:text-accent-500 *:group-hover:text-accent-900 mt-4 text-xs sm:text-base"
               dangerouslySetInnerHTML={{
                 __html: turnBracketsIntoSpans(results),
               }}

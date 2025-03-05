@@ -52,12 +52,12 @@ export default function UtilsQRCodeGeneratorPage() {
 
               {context.qrName && (
                 <div className="space-y-2 rounded-md border border-neutral-200 p-4">
-                  <label className="flex items-center select-none hover:cursor-pointer">
+                  <label className="flex cursor-pointer items-center select-none">
                     <input
                       type="checkbox"
                       checked={context.isQRWithBlackBorder}
                       onChange={context.toggleIsQRWithBlackBorder}
-                      className="mr-2"
+                      className="mr-2 cursor-pointer"
                     />
                     with black border
                   </label>
