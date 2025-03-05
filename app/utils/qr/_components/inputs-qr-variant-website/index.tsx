@@ -20,7 +20,7 @@ export const InputsQRVariantWebsite = () => {
       placeholder="url"
       value={url}
       onChange={onChangeUrl}
-      className="w-full rounded-md p-4"
+      className="w-full rounded-md bg-white p-4"
     />
   );
 };

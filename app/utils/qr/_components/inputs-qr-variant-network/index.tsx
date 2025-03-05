@@ -31,7 +31,7 @@ export const InputsQrVariantNetwork = () => {
         placeholder="wifi name (SSID)"
         value={name}
         onChange={onChangeName}
-        className="w-full rounded-md p-4"
+        className="w-full rounded-md bg-white p-4"
       />
 
       <AccordionController>
@@ -43,7 +43,7 @@ export const InputsQrVariantNetwork = () => {
                 placeholder="password"
                 value={password}
                 onChange={onChangePassword}
-                className="w-full rounded-md p-4"
+                className="w-full rounded-md bg-white p-4"
               />
               <div className="flex items-center px-4">
                 <AccordionExtraSettingsToggle {...accordionProps} />
@@ -88,7 +88,7 @@ export const InputsQrVariantNetwork = () => {
               </div>
 
               <div className="mt-4 space-y-2 rounded-md border border-neutral-200 p-4">
-                <label className="flex select-none items-center hover:cursor-pointer">
+                <label className="flex items-center select-none hover:cursor-pointer">
                   <input
                     type="checkbox"
                     checked={isSsidHidden}

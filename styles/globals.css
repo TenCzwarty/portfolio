@@ -1,6 +1,25 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+
+@theme {
+  --color-accent-500: var(--color-accent-500);
+  --color-accent-900: var(--color-accent-900);
+
+  --color-neutral-100: var(--color-neutral-100);
+  --color-neutral-200: var(--color-neutral-200);
+
+  --color-primary-800: var(--color-primary-800);
+  --color-primary-900: var(--color-primary-900);
+}
+
+@layer base {
+  *,
+  ::after,
+  ::before,
+  ::backdrop,
+  ::file-selector-button {
+    border-color: var(--color-gray-200, currentColor);
+  }
+}
 
 :root {
   --primary: 157;
@@ -17,8 +36,8 @@
 }
 
 ::selection {
-  background: theme("colors.accent.500");
-  color: theme("colors.neutral.100");
+  background: var(--color-accent-500);
+  color: var(--color-neutral-100);
 }
 
 html {
@@ -26,8 +45,8 @@ html {
 }
 
 body {
-  color: theme("colors.primary.900");
-  background: theme("colors.neutral.100");
+  color: var(--color-primary-900);
+  background: var(--color-neutral-100);
   font-family: var(--font-geist-mono), Helvetica, sans-serif;
 }
 

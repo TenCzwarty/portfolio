@@ -41,7 +41,7 @@ export const BoxMyWork = ({
           <p className="text-xs sm:text-sm">{short}</p>
           {results && (
             <div
-              className="results mt-4 text-xs *:text-accent-500 group-hover:*:text-accent-900 sm:text-base"
+              className="results mt-4 text-xs *:text-accent-500 *:group-hover:text-accent-900 sm:text-base"
               dangerouslySetInnerHTML={{
                 __html: turnBracketsIntoSpans(results),
               }}

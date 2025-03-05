@@ -19,7 +19,7 @@ export default function UtilsQRCodeGeneratorPage() {
   return (
     <main className="min-h-[calc(100dvh-56px)]">
       <Section>
-        <div className="mb-8 ml-4 mt-16">
+        <div className="mt-16 mb-8 ml-4">
           <h1 className="text-xl font-semibold sm:text-3xl">
             QR Code Generator
           </h1>
@@ -46,13 +46,13 @@ export default function UtilsQRCodeGeneratorPage() {
               <input
                 type="text"
                 placeholder="name"
-                className="w-full rounded-md p-4"
+                className="w-full rounded-md bg-white p-4"
                 onChange={context.onChangeQRName}
               />
 
               {context.qrName && (
                 <div className="space-y-2 rounded-md border border-neutral-200 p-4">
-                  <label className="flex select-none items-center hover:cursor-pointer">
+                  <label className="flex items-center select-none hover:cursor-pointer">
                     <input
                       type="checkbox"
                       checked={context.isQRWithBlackBorder}

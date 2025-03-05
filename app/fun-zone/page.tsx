@@ -119,7 +119,7 @@ export default function FunZone() {
             <div className="text-sm">in progress...</div>
           </div>
 
-          <div className="relative h-[80px] bg-gradient-to-b from-transparent to-neutral-100">
+          <div className="relative h-[80px] bg-linear-to-b from-transparent to-neutral-100">
             <div className="absolute -z-10 h-[80px] w-[100%] rounded-xl border border-neutral-200 p-4"></div>
           </div>
         </div>

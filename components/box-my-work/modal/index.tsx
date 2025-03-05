@@ -27,7 +27,7 @@ export const Modal = ({
 
   return (
     <div
-      className="fixed right-0 top-0 z-10 !mt-0 h-full w-full p-4"
+      className="fixed right-0 top-0 z-10 mt-0! h-full w-full p-4"
       role="dialog"
       aria-modal="true"
       aria-labelledby="modal-title"
