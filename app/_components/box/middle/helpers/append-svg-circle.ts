@@ -1,5 +1,6 @@
-import { findCircle } from "./find-circle";
 import type { TCoordinates } from "../types";
+
+import { findCircle } from "./find-circle";
 
 const EXTRA_RADIUS = 0.3;
 

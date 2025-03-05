@@ -1,9 +1,8 @@
-import { createSVGUrl } from "~qr/_utils/create-svg-url";
-import { serializeSVG } from "~qr/_utils/serialize-svg";
-
 import { triggerDownload } from "./trigger-download";
 
 import type { TRefSVG } from "~qr/_context/types";
+import { createSVGUrl } from "~qr/_utils/create-svg-url";
+import { serializeSVG } from "~qr/_utils/serialize-svg";
 
 type TParameters = {
   ref: TRefSVG;

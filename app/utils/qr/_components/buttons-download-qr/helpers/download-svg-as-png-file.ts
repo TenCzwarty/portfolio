@@ -1,8 +1,7 @@
 import { triggerDownload } from "~qr/_components/buttons-download-qr/helpers/trigger-download";
+import type { TRefSVG } from "~qr/_context/types.ts";
 import { convertSVGToPNG } from "~qr/_utils/convert-svg-to-png";
 import { serializeSVG } from "~qr/_utils/serialize-svg";
-
-import type { TRefSVG } from "~qr/_context/types.ts";
 
 type TParameters = {
   ref: TRefSVG;

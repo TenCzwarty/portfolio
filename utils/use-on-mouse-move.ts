@@ -1,9 +1,12 @@
 import { useEventListener } from "~/utils/use-event-listener";
 
-type TParameters = {
+type TParameters<T extends Array<unknown>> = {
   ref?: React.RefObject<SVGElement | HTMLElement | null>;
-  onMouseMove: () => void;
+  onMouseMove: (...args: T) => void;
 };
 
-export const useOnMouseMove = ({ ref, onMouseMove }: TParameters) =>
+export const useOnMouseMove = <T extends Array<unknown>>({
+  ref,
+  onMouseMove,
+}: TParameters<T>) =>
   useEventListener({ ref, type: "mousemove", listener: onMouseMove });

@@ -1,8 +1,8 @@
 import { Trash2Icon } from "lucide-react";
 
-import { useQRCodeGeneratorContext } from "~qr/_context";
+import type { TSVGCard } from "./types";
 
-import { TSVGCard } from "./types";
+import { useQRCodeGeneratorContext } from "~qr/_context";
 
 export const SVGCard = ({ svgString, index }: TSVGCard) => {
   const context = useQRCodeGeneratorContext();

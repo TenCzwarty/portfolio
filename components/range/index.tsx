@@ -1,8 +1,8 @@
-import "./styles.css";
-
 import { debounce } from "~/utils/debounce";
 
-import { TRange } from "./types";
+import type { TRange } from "./types";
+
+import "./styles.css";
 
 export const Range = ({ name, defaultValue, classes }: TRange) => {
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {

@@ -7,10 +7,11 @@ import {
   AccordionToggleMoreInfo,
 } from "~/components/accordion";
 import { Pill } from "~/components/pill";
-import { useQRCodeGeneratorContext } from "~qr/_context";
-import { convertSVGToPNG } from "~qr/_utils/convert-svg-to-png";
 
 import { SVGCard } from "./components/svg-card";
+
+import { useQRCodeGeneratorContext } from "~qr/_context";
+import { convertSVGToPNG } from "~qr/_utils/convert-svg-to-png";
 
 const IMAGES_PER_ROW = 4;
 const IMAGES_PER_COL = 4;

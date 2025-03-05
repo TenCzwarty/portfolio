@@ -1,4 +1,5 @@
 import { JSX } from "react";
+
 import { PATHNAMES } from "~/app/_const/paths";
 
 declare global {

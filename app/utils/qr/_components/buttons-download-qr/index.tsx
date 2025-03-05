@@ -6,10 +6,11 @@ import {
   AccordionExtraSettingsToggle,
 } from "~/components/accordion";
 import { Pill } from "~/components/pill";
-import { useQRCodeGeneratorContext } from "~qr/_context";
 
 import { downloadSVGAsPNGFile } from "./helpers/download-svg-as-png-file";
 import { downloadSVGAsSVGFile } from "./helpers/download-svg-as-svg-file";
+
+import { useQRCodeGeneratorContext } from "~qr/_context";
 
 export const ButtonsDownloadQR = () => {
   const { refSVG: ref, qrName: name } = useQRCodeGeneratorContext();

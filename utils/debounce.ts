@@ -1,16 +1,13 @@
-type TDebouncedFunction = (...args: Array<any>) => void;
-
-type TDebounce<T> = {
-  (debounceTimeout: number): (debouncedFunction: T) => T;
-};
+type TDebouncedFunction<T extends Array<unknown>> = (...args: T) => void;
 
 const DEFAULT_DEBOUNCE_TIMEOUT = 500;
 
-const debounceBy: TDebounce<TDebouncedFunction> =
-  (debounceTimeout) => (debouncedFunction) => {
+const debounceBy =
+  (debounceTimeout: number) =>
+  <T extends Array<unknown>>(debouncedFunction: TDebouncedFunction<T>) => {
     let timeoutId: NodeJS.Timeout;
 
-    return (...args) => {
+    return (...args: T) => {
       clearTimeout(timeoutId);
 
       timeoutId = setTimeout(() => debouncedFunction(...args), debounceTimeout);

@@ -3,8 +3,8 @@ import { ChevronDownIcon, SettingsIcon } from "lucide-react";
 import { useToggle } from "~/utils/use-toggle";
 
 import type {
-  TAccordionController,
   TAccordion,
+  TAccordionController,
   TAccordionToggleExtraSettings,
   TAccordionToggleMoreInfo,
 } from "./types";

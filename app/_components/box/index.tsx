@@ -1,4 +1,4 @@
-import type { TBoxes, TBox, TTransform } from "./types";
+import type { TBox, TBoxes, TTransform } from "./types";
 
 const TRANSFORMS = {
   top: "top-0 -translate-y-0",

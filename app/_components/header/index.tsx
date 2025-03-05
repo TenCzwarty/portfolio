@@ -1,8 +1,8 @@
 "use client";
 
 import { Range } from "~/components/range";
-import { Logo } from "./components/logo";
 
+import { Logo } from "./components/logo";
 import { useDynamicHeaderLinks } from "./helpers/use-dynamic-header-links";
 
 export const Header = () => {

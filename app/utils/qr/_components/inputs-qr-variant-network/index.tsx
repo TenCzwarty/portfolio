@@ -8,9 +8,11 @@ import {
   AccordionExtraSettingsToggle,
 } from "~/components/accordion";
 import { useToggle } from "~/utils/use-toggle";
+
+import { createQRString } from "./helpers/create-qr-string";
+
 import { useQRCodeGeneratorContext } from "~qr/_context";
 import { useOnChangeValue } from "~qr/_utils/use-on-change-value";
-import { createQRString } from "./helpers/create-qr-string";
 
 export const InputsQrVariantNetwork = () => {
   const { setQRString } = useQRCodeGeneratorContext();

@@ -2,7 +2,7 @@ import React from "react";
 
 import { Pill } from "~/components/pill";
 
-import type { TQRVariantToggle, TQRVariant } from "./types";
+import type { TQRVariant,TQRVariantToggle } from "./types";
 
 export const QRVariantToggle = ({ children }: TQRVariantToggle) => {
   const [qrVariant, setQRVariant] = React.useState<TQRVariant>("website");

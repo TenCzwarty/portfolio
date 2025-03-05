@@ -1,7 +1,8 @@
 import { usePathname } from "next/navigation";
 
 import { footerLinks } from "~/app/_components/footer/links";
-import { TReturnFooterLinks } from "../types";
+
+import type { TReturnFooterLinks } from "../types";
 
 export function useDynamicFooterLinks(): TReturnFooterLinks {
   const pathname = usePathname();

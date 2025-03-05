@@ -1,7 +1,7 @@
 "use client";
 
-import { DownloadIcon } from "lucide-react";
 import React from "react";
+import { DownloadIcon } from "lucide-react";
 
 import { Box, Boxes } from "~/app/_components/box";
 import { BoxMiddle } from "~/app/_components/box/middle";

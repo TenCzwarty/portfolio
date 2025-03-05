@@ -2,8 +2,8 @@
 
 import React from "react";
 
-import { Modal } from "./modal";
 import { turnBracketsIntoSpans } from "./utils/turn-brackets-into-spans";
+import { Modal } from "./modal";
 import type { TBoxMyWork } from "./types";
 
 const BoxMyWork = ({ title, year, short, results, ...rest }: TBoxMyWork) => {

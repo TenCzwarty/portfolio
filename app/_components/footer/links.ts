@@ -1,4 +1,5 @@
 import { LAYOUT_LINKS as ll } from "~/app/_const/links";
+
 import type { TFooterLinks } from "./types";
 
 export const footerLinks: TFooterLinks = {

@@ -1,7 +1,7 @@
-import "./styles.css";
-
 import { PATH } from "./const/path";
 import { useNewCircleOnHover } from "./helpers/use-new-circle-on-hover";
+
+import "./styles.css";
 
 const SVG_ELEMENT_ID = "svg-element";
 
