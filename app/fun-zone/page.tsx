@@ -6,16 +6,16 @@ import {
   Accordion,
   AccordionController,
   AccordionToggleMoreInfo,
-} from "~/app/_components/accordion";
-import { Section } from "~/components/layout/components/section";
+} from "~/components/accordion";
 import { LinkExternal } from "~/components/link-external";
 import { Pill } from "~/components/pill";
+import { Section } from "~/components/section";
 
 export default function FunZone() {
   return (
     <main className="min-h-[calc(100dvh-56px)]">
       <Section>
-        <div className="mb-8 ml-4 mt-16">
+        <div className="mt-16 mb-8 ml-4">
           <h1 className="text-xl font-semibold sm:text-3xl">
             The Fun Zone<sup className="-top-[2.5em] text-[25%]">NTM</sup>
           </h1>

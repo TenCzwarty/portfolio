@@ -2,8 +2,8 @@
 
 import { SaveIcon } from "lucide-react";
 
-import { Section } from "~/components/layout/components/section";
 import { Pill } from "~/components/pill";
+import { Section } from "~/components/section";
 
 import { ButtonsDownloadQR } from "~qr/_components/buttons-download-qr";
 import { InputsQrVariantNetwork } from "~qr/_components/inputs-qr-variant-network";

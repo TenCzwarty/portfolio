@@ -2,10 +2,10 @@
 
 import Link from "next/link";
 
-import { useDynamicLayoutLinks } from "../../helpers/use-dynamic-layout-links";
+import { useDynamicFooterLinks } from "./helpers/use-dynamic-footer-links";
 
 export const Footer = () => {
-  const links = useDynamicLayoutLinks("footer");
+  const links = useDynamicFooterLinks();
 
   if (!links) return;
 

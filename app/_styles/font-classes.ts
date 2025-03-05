@@ -5,7 +5,7 @@ const whiskey = local({
   variable: "--font-whiskey",
   src: [
     {
-      path: "../public/fonts/whiskey-girls-gradital.ttf",
+      path: "../../public/fonts/whiskey-girls-gradital.ttf",
     },
   ],
 });
@@ -14,7 +14,7 @@ const firlest = local({
   variable: "--font-firlest",
   src: [
     {
-      path: "../public/fonts/firlest-regular.otf",
+      path: "../../public/fonts/firlest-regular.otf",
     },
   ],
 });

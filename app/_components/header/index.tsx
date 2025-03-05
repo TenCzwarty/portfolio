@@ -1,18 +1,18 @@
 "use client";
 
-import { Logo } from "~/components/logo";
 import { Range } from "~/components/range";
+import { Logo } from "./components/logo";
 
-import { useDynamicLayoutLinks } from "../../helpers/use-dynamic-layout-links";
+import { useDynamicHeaderLinks } from "./helpers/use-dynamic-header-links";
 
 export const Header = () => {
-  const link = useDynamicLayoutLinks("header");
+  const link = useDynamicHeaderLinks();
 
   if (!link) return;
 
   return (
     <>
-      <div className="absolute right-0 top-0 z-10 m-4 flex flex-col gap-2 opacity-0 duration-500 hover:opacity-100">
+      <div className="absolute top-0 right-0 z-10 m-4 flex flex-col gap-2 opacity-0 duration-500 hover:opacity-100">
         <Range name="--primary" classes="text-primary-800" defaultValue={157} />
         <Range name="--accent" classes="text-accent-500" defaultValue={348} />
       </div>

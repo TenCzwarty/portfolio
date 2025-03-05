@@ -6,13 +6,7 @@ import { Modal } from "./modal";
 import { turnBracketsIntoSpans } from "./utils/turn-brackets-into-spans";
 import type { TBoxMyWork } from "./types";
 
-export const BoxMyWork = ({
-  title,
-  year,
-  short,
-  results,
-  ...rest
-}: TBoxMyWork) => {
+const BoxMyWork = ({ title, year, short, results, ...rest }: TBoxMyWork) => {
   const [isModalVisible, setIsModalVisible] = React.useState(false);
 
   const openModal = () => setIsModalVisible(true);

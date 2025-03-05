@@ -4,7 +4,7 @@ import {
   Accordion,
   AccordionController,
   AccordionExtraSettingsToggle,
-} from "~/app/_components/accordion";
+} from "~/components/accordion";
 import { Pill } from "~/components/pill";
 import { useQRCodeGeneratorContext } from "~qr/_context";
 

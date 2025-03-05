@@ -5,7 +5,7 @@ import {
   Accordion,
   AccordionController,
   AccordionToggleMoreInfo,
-} from "~/app/_components/accordion";
+} from "~/components/accordion";
 import { Pill } from "~/components/pill";
 import { useQRCodeGeneratorContext } from "~qr/_context";
 import { convertSVGToPNG } from "~qr/_utils/convert-svg-to-png";

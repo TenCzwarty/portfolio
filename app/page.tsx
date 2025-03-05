@@ -3,21 +3,21 @@
 import { DownloadIcon } from "lucide-react";
 import React from "react";
 
+import { Box, Boxes } from "~/app/_components/box";
+import { BoxMiddle } from "~/app/_components/box/middle";
+import { myWritingMapper } from "~/app/_components/box-article";
+import { myWorkWrapper } from "~/app/_components/box-my-work";
+import { TitleWithTooltip } from "~/app/_components/title-with-tooltip";
+import myWritingData from "~/app/_const/my-articles.json";
+import myWorkData from "~/app/_const/my-work.json";
 import {
   Accordion,
   AccordionController,
   AccordionToggleMoreInfo,
-} from "~/app/_components/accordion";
-import { Box, Boxes } from "~/components/box";
-import { BoxMiddle } from "~/components/box/middle";
-import { myWritingMapper } from "~/components/box-article";
-import { myWorkWrapper } from "~/components/box-my-work";
-import { Section } from "~/components/layout/components/section";
+} from "~/components/accordion";
 import { LinkExternal } from "~/components/link-external";
 import { Pill } from "~/components/pill";
-import { TitleWithTooltip } from "~/components/title-with-tooltip";
-import myWritingData from "~/data/articles.json";
-import myWorkData from "~/data/work.json";
+import { Section } from "~/components/section";
 
 export default function Home() {
   React.useEffect(() => {

@@ -5,4 +5,4 @@ export const metadata: Metadata = {
   description:
     "Portfolio and blog showcasing some of my projects & technical writing.",
   icons: [{ rel: "icon", url: "/favicon.ico" }],
-};
+} as const;

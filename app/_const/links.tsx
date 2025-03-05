@@ -1,4 +1,4 @@
-import type { TLayoutLinks } from "./types";
+type TLayoutLinks = Record<string, TLayoutLink>;
 
 const CodePenIcon = (
   <svg
@@ -14,7 +14,7 @@ const CodePenIcon = (
   </svg>
 );
 
-export const layoutLinks: TLayoutLinks = {
+export const LAYOUT_LINKS: TLayoutLinks = {
   LINK_HREF_BACK_TO_TOP: {
     href: "#top",
     ariaLabel: "Back to top",
@@ -53,4 +53,4 @@ export const layoutLinks: TLayoutLinks = {
     icon: CodePenIcon,
     target: "_blank",
   },
-};
+} as const;
