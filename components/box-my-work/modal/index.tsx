@@ -52,7 +52,7 @@ export const Modal = ({
 
           {brief?.length ? (
             <>
-              <hr />
+              <hr className="text-neutral-200" />
               <div className="font-semibold">brief</div>
               <ul className="list-inside list-disc">{renderBrief()}</ul>
               <div className="flex flex-col gap-4 sm:flex-row sm:gap-6">
@@ -66,11 +66,11 @@ export const Modal = ({
               <LinkExternal href={linkWebsite} label="website" />
             </div>
           )}
-          <hr />
+          <hr className="text-neutral-200" />
 
           <div className="font-semibold">my part</div>
           <div>{myPart}</div>
-          <hr />
+          <hr className="text-neutral-200" />
 
           <div className="font-semibold">tech stack</div>
           <div className="flex flex-wrap gap-2">{renderTechStackPills()}</div>

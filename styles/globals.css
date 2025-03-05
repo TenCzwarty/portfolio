@@ -1,30 +1,5 @@
 @import "tailwindcss";
 
-@theme {
-  --color-accent-500: var(--color-accent-500);
-  --color-accent-900: var(--color-accent-900);
-
-  --color-neutral-100: var(--color-neutral-100);
-  --color-neutral-200: var(--color-neutral-200);
-
-  --color-primary-800: var(--color-primary-800);
-  --color-primary-900: var(--color-primary-900);
-}
-
-@layer base {
-  *,
-  ::after,
-  ::before,
-  ::backdrop,
-  ::file-selector-button {
-    border-color: var(--color-gray-200, currentColor);
-  }
-  button:not(:disabled),
-  [role="button"]:not(:disabled) {
-    cursor: pointer;
-  }
-}
-
 :root {
   --primary: 157;
   --accent: 348;
@@ -37,6 +12,24 @@
 
   --color-accent-500: hsl(var(--accent), 100%, 75%);
   --color-accent-900: hsl(var(--accent), 100%, 39%);
+}
+
+@theme {
+  --color-accent-500: var(--color-accent-500);
+  --color-accent-900: var(--color-accent-900);
+
+  --color-neutral-100: var(--color-neutral-100);
+  --color-neutral-200: var(--color-neutral-200);
+
+  --color-primary-800: var(--color-primary-800);
+  --color-primary-900: var(--color-primary-900);
+}
+
+@layer base {
+  button:not(:disabled),
+  [role="button"]:not(:disabled) {
+    cursor: pointer;
+  }
 }
 
 ::selection {
@@ -71,32 +64,6 @@ body {
 @keyframes rotate {
   to {
     rotate: 1turn;
-  }
-}
-
-.page-transition-circle-wrapper {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  pointer-events: none;
-  z-index: 1;
-  mix-blend-mode: difference;
-}
-
-.page-transition-circle {
-  position: absolute;
-  border-radius: 50%;
-  background: #fff;
-  transform: translate(-50%, -50%) scale(0);
-  transition: opacity var(--animation-duration-opacity) ease-in-out;
-  animation: circle-expand var(--animation-duration-circle) ease-out forwards;
-}
-
-@keyframes circle-expand {
-  to {
-    transform: translate(-50%, -50%) scale(1.2);
   }
 }
 
