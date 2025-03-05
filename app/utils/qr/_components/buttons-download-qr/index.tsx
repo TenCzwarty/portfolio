@@ -1,11 +1,11 @@
 import { DownloadIcon } from "lucide-react";
 
-import { Pill } from "~/components/pill";
 import {
   Accordion,
   AccordionController,
   AccordionExtraSettingsToggle,
 } from "~/app/_components/accordion";
+import { Pill } from "~/components/pill";
 import { useQRCodeGeneratorContext } from "~qr/_context";
 
 import { downloadSVGAsPNGFile } from "./helpers/download-svg-as-png-file";

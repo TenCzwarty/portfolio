@@ -29,6 +29,7 @@ export const AccordionExtraSettingsToggle = ({
     onClick={toggleIsOpened}
     className="spin"
     aria-label={`${isOpened ? "Hide" : "Show"} extra settings`}
+    aria-expanded={isOpened}
   >
     <SettingsIcon />
   </button>
@@ -41,8 +42,9 @@ export const AccordionToggleMoreInfo = ({
 }: TAccordionToggleMoreInfo) => (
   <button
     onClick={toggleIsOpened}
-    className="flex gap-2"
+    className="flex items-center gap-2"
     aria-label={`${isOpened ? "Hide" : "Show"} extra settings`}
+    aria-expanded={isOpened}
   >
     {name}
     <ChevronDownIcon

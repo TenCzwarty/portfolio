@@ -2,12 +2,12 @@
 
 import React from "react";
 
-import { useToggle } from "~/utils/use-toggle";
 import {
   Accordion,
   AccordionController,
   AccordionExtraSettingsToggle,
 } from "~/app/_components/accordion";
+import { useToggle } from "~/utils/use-toggle";
 import { useQRCodeGeneratorContext } from "~qr/_context";
 import { useOnChangeValue } from "~qr/_utils/use-on-change-value";
 import { createQRString } from "./helpers/create-qr-string";

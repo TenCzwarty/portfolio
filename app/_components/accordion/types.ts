@@ -15,7 +15,7 @@ export type TAccordionToggleExtraSettings = {
 };
 
 export type TAccordionToggleMoreInfo = {
-  name?: string;
+  name?: React.ReactNode;
   isOpened: boolean;
   toggleIsOpened: () => void;
 };

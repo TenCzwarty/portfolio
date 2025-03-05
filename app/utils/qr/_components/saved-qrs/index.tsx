@@ -1,15 +1,15 @@
 import { jsPDF } from "jspdf";
 import { DownloadIcon } from "lucide-react";
 
-import { Pill } from "~/components/pill";
-import { useQRCodeGeneratorContext } from "~qr/_context";
-import { convertSVGToPNG } from "~qr/_utils/convert-svg-to-png";
-
 import {
   Accordion,
   AccordionController,
   AccordionToggleMoreInfo,
 } from "~/app/_components/accordion";
+import { Pill } from "~/components/pill";
+import { useQRCodeGeneratorContext } from "~qr/_context";
+import { convertSVGToPNG } from "~qr/_utils/convert-svg-to-png";
+
 import { SVGCard } from "./components/svg-card";
 
 const IMAGES_PER_ROW = 4;

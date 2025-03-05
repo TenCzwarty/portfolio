@@ -3,7 +3,11 @@
 import { DownloadIcon } from "lucide-react";
 import React from "react";
 
-import { Accordion } from "~/components/accordion";
+import {
+  Accordion,
+  AccordionController,
+  AccordionToggleMoreInfo,
+} from "~/app/_components/accordion";
 import { Box, Boxes } from "~/components/box";
 import { BoxMiddle } from "~/components/box/middle";
 import { myWritingMapper } from "~/components/box-article";
@@ -28,7 +32,7 @@ export default function Home() {
   return (
     <main>
       <div id="top" className="relative z-0 h-dvh w-full overflow-hidden">
-        <div className="absolute left-1/2 top-1/2 grid aspect-square h-[200dvh] w-[200dvw] -translate-x-1/2 -translate-y-1/2 grid-cols-3 grid-rows-3">
+        <div className="absolute top-1/2 left-1/2 grid aspect-square h-[200dvh] w-[200dvw] -translate-x-1/2 -translate-y-1/2 grid-cols-3 grid-rows-3">
           <Boxes
             positions={[
               "bottom-right",
@@ -60,15 +64,31 @@ export default function Home() {
         >
           my work
         </TitleWithTooltip>
+
         <div className="mb-8 space-y-4">
           {myWorkData.list.map(myWorkWrapper)}
         </div>
 
-        <div className="space-y-4">
-          <Accordion title="older projects">
-            {myWorkData.more.map(myWorkWrapper)}
-          </Accordion>
-        </div>
+        <AccordionController>
+          {(accordionProps) => (
+            <>
+              <AccordionToggleMoreInfo
+                name={
+                  <h3 className="cursor-pointer pl-4 text-lg font-semibold sm:text-xl">
+                    older projects
+                  </h3>
+                }
+                {...accordionProps}
+              />
+
+              <Accordion {...accordionProps}>
+                <div className="mt-4 space-y-4">
+                  {myWorkData.more.map(myWorkWrapper)}
+                </div>
+              </Accordion>
+            </>
+          )}
+        </AccordionController>
       </Section>
 
       <Section id="articles" classes="py-8">
@@ -83,11 +103,26 @@ export default function Home() {
           {myWritingData.articles.map(myWritingMapper)}
         </div>
 
-        <div className="space-y-4">
-          <Accordion title="more">
-            {myWritingData["more"].map(myWritingMapper)}
-          </Accordion>
-        </div>
+        <AccordionController>
+          {(accordionProps) => (
+            <>
+              <AccordionToggleMoreInfo
+                name={
+                  <h3 className="cursor-pointer pl-4 text-lg font-semibold sm:text-xl">
+                    more
+                  </h3>
+                }
+                {...accordionProps}
+              />
+
+              <Accordion {...accordionProps}>
+                <div className="mt-4 space-y-4">
+                  {myWritingData["more"].map(myWritingMapper)}
+                </div>
+              </Accordion>
+            </>
+          )}
+        </AccordionController>
       </Section>
 
       <Section id="contact" classes="bg-primary-800 py-8 text-white">

@@ -2,14 +2,14 @@
 
 import { DownloadIcon } from "lucide-react";
 
-import { Section } from "~/components/layout/components/section";
-import { LinkExternal } from "~/components/link-external";
-import { Pill } from "~/components/pill";
 import {
   Accordion,
   AccordionController,
   AccordionToggleMoreInfo,
 } from "~/app/_components/accordion";
+import { Section } from "~/components/layout/components/section";
+import { LinkExternal } from "~/components/link-external";
+import { Pill } from "~/components/pill";
 
 export default function FunZone() {
   return (
