@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="32" height="32" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+    <g fill="#fff" stroke="#000" stroke-width="15" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="100" cy="100" r="92.5" />
+        <path d="M 99.395,168.899 39.45,65.33 161.164,66.36 99.394,168.9 Z" />
+        <animateTransform attributeName="transform" type="rotate" from="0 100 100" to="360 100 100" dur="15s"
+            repeatCount="indefinite" />
+    </g>
+</svg>
