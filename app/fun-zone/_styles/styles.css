@@ -1,0 +1,54 @@
+audio {
+  border-radius: 1rem;
+}
+
+.heading-varporwave {
+  position: relative;
+  overflow: hidden;
+  font-family: var(--font-whiskey);
+  font-size: 2rem;
+  line-height: 1;
+  color: hotpink;
+  text-decoration: none;
+  cursor: default;
+  user-select: none;
+}
+
+.heading-varporwave::after {
+  content: "";
+  position: absolute;
+  left: auto;
+  top: 0;
+  bottom: 0;
+  right: -20%;
+  width: 20%;
+  height: 100%;
+  background-image: linear-gradient(
+    135deg,
+    transparent,
+    var(--color-neutral-100),
+    transparent
+  );
+}
+
+.heading-varporwave:hover::after {
+  transition: all 0.5s ease-out;
+  right: 100%;
+}
+
+.heading-fantasy {
+  font-family: var(--font-firlest);
+  font-size: 2.5rem;
+  line-height: 1;
+  text-decoration: none;
+  user-select: none;
+  font-weight: 900;
+  background: url("../../../public/files/cosmos.gif");
+  background-clip: text;
+  color: rgba(0, 0, 0, 0.2);
+  transition: color 0.5s;
+}
+
+.heading-fantasy:hover {
+  color: rgba(0, 0, 0, 0);
+}

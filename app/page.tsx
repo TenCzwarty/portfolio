@@ -6,6 +6,7 @@ import { DownloadIcon } from "lucide-react";
 import { Box, Boxes } from "~/app/_components/box";
 import { BoxMiddle } from "~/app/_components/box/middle";
 import { myWritingMapper } from "~/app/_components/box-article";
+import { BoxMiniWebsites } from "~/app/_components/box-mini-website";
 import { myWorkWrapper } from "~/app/_components/box-my-work";
 import { TitleWithTooltip } from "~/app/_components/title-with-tooltip";
 import myWritingData from "~/app/_const/my-articles.json";
@@ -102,25 +103,7 @@ export default function Home() {
 
               <Accordion {...accordionProps}>
                 <div className="mt-4 space-y-4">
-                  <a
-                    href="https://www.linge.love/"
-                    target="_blank"
-                    className="group border-primary-800 hover:bg-accent-500 hover:text-primary-900 flex w-full gap-4 rounded-xl border border-2 p-4 text-start text-lg font-semibold sm:text-xl"
-                  >
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      viewBox="114.97 15.87 88.33 88.15"
-                      width="24"
-                      className="group-hover:animate-[heartbeat_2s_ease-in-out_infinite]"
-                    >
-                      <path
-                        d="M144.447 15.876a29.613 29.613 0 00-14.492 3.88c-6.638 3.778-11.451 9.938-13.542 17.024l10.603 10.603.015-2.842c.032-5.963 3.284-11.494 8.656-14.552a17.77 17.77 0 018.686-2.322 17.511 17.511 0 018.667 2.233c5.345 3.006 8.543 8.511 8.512 14.473l-.039 7.372a5.927 5.858-48.002 005.852 5.856l7.387-.039c6.001-.03 11.532 3.174 14.539 8.495a17.342 17.342 0 012.23 8.62 17.588 17.588 0 01-2.318 8.636 5.927 5.858-48.002 00-.002.001c-3.06 5.348-8.615 8.608-14.616 8.64l-2.982.014 10.65 10.65c7.132-2.066 13.343-6.875 17.152-13.533h-.002a29.485 29.485 0 003.896-14.483 29.04 29.04 0 00-3.742-14.441c-5.043-8.924-14.48-14.444-24.728-14.39a5.927 5.858-48.002 00-.003 0l-1.506.008.009-1.48c.053-10.247-5.495-19.673-14.431-24.697a29.163 29.163 0 00-14.449-3.727 5.927 5.858-48.002 00-.001 0zM115.214 52.34l-.24 45.826a5.927 5.858-48.002 005.85 5.858l45.834-.24-11.73-11.73-28.146.146.147-28.144z"
-                        strokeWidth="1.114"
-                        fill="currentColor"
-                      />
-                    </svg>
-                    linge.love
-                  </a>
+                  <BoxMiniWebsites />
                 </div>
               </Accordion>
             </div>

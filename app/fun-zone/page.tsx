@@ -11,6 +11,8 @@ import { LinkExternal } from "~/components/link-external";
 import { Pill } from "~/components/pill";
 import { Section } from "~/components/section";
 
+import "./_styles/styles.css";
+
 export default function FunZone() {
   return (
     <main className="min-h-[calc(100dvh-56px)]">
@@ -110,7 +112,7 @@ export default function FunZone() {
           </div>
 
           <div className="flex flex-col rounded-xl border border-neutral-200 p-4">
-            <h3 className="heading-varporwave shine">SANTORWAVE</h3>
+            <h3 className="heading-varporwave">SANTORWAVE</h3>
             <div className="text-sm">in progress...</div>
           </div>
 

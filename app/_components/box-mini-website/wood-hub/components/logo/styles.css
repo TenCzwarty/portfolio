@@ -1,0 +1,22 @@
+.grain {
+  offset-rotate: 0deg;
+  offset-path: path(
+    "m -25.534105,0.50079 c 4.672,0 8.46,6.769 8.46,15.12 0,8.35 -3.788,15.12 -8.46,15.12"
+  );
+  animation: roll var(--roll-animation-duration, 1s) ease-in-out;
+  transform: translate(35px, 0px);
+}
+
+.grain.reversed {
+  offset-rotate: 180deg;
+  transform: translate(-33px, -1px);
+}
+
+@keyframes roll {
+  0% {
+    offset-distance: 0%;
+  }
+  100% {
+    offset-distance: 100%;
+  }
+}

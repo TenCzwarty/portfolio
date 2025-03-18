@@ -22,7 +22,7 @@ const BoxMyWork = ({ title, year, short, results, ...rest }: TBoxMyWork) => {
       )}
 
       <button
-        className="group border-primary-800 hover:bg-accent-500 hover:text-primary-900 flex w-full gap-4 rounded-xl border border-2 p-4 text-start"
+        className="box group border-primary-800 hover:bg-accent-500 hover:text-primary-900"
         onClick={openModal}
         aria-haspopup="dialog"
         aria-expanded={isModalVisible}
