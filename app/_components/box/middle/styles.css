@@ -1,10 +1,18 @@
+:root {
+  --transparency: 0;
+}
+
+.svg-art {
+  transition: opacity 2s;
+  opacity: var(--transparency);
+}
+
 .colored-circles {
   fill: currentColor;
   transition: color 2s;
 }
 
 .colored-circles circle {
-  opacity: 0;
   animation: 2s colorize forwards;
   animation-play-state: paused;
 }
@@ -15,6 +23,6 @@
 
 @keyframes colorize {
   to {
-    opacity: 1;
+    fill: var(--color-accent-900);
   }
 }

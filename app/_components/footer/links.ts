@@ -4,6 +4,10 @@ import type { TFooterLinks } from "./types";
 
 export const footerLinks: TFooterLinks = {
   "/": {
+    left: [ll.LINK_PAGE_PORTFOLIO, ll.LINK_PAGE_FUN_ZONE, ll.LINK_PAGE_UTILS],
+    right: [ll.LINK_EXTERNAL_GITHUB, ll.LINK_EXTERNAL_CODEPEN],
+  },
+  "/portfolio": {
     left: [
       ll.LINK_HREF_BACK_TO_TOP,
       ll.LINK_HREF_MY_WORK,

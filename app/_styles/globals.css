@@ -1,17 +1,14 @@
 @import "tailwindcss";
 
 :root {
-  --primary: 157;
-  --accent: 348;
-
   --color-neutral-100: hsl(0, 0%, 95%);
   --color-neutral-200: hsl(0, 0%, 80%);
 
-  --color-primary-800: hsl(var(--primary), 100%, 20%);
-  --color-primary-900: hsl(var(--primary), 100%, 5%);
+  --color-primary-800: hsl(var(--primary, 0), var(--s, 0%), 20%);
+  --color-primary-900: hsl(var(--primary, 0), 100%, 5%);
 
-  --color-accent-500: hsl(var(--accent), 100%, 75%);
-  --color-accent-900: hsl(var(--accent), 100%, 39%);
+  --color-accent-500: hsl(var(--accent, 0), var(--s, 0%), 75%);
+  --color-accent-900: hsl(var(--accent, 0), 100%, 39%);
 }
 
 @theme {

@@ -55,7 +55,7 @@ export const LogoWoodHub = ({ height = 32, isAnimationPaused = true }) => {
 
   return (
     <svg
-      viewBox="0 0 16 32"
+      viewBox="0 0 16 33"
       version="1.1"
       width={(70 / 32) * height}
       height={height}

@@ -2,7 +2,7 @@ import Link from "next/link";
 
 import { Section } from "~/components/section";
 
-export default function Utils() {
+export default function UtilsPage() {
   return (
     <main className="min-h-[calc(100dvh-56px)]">
       <Section>
