@@ -1,9 +1,42 @@
 "use client";
 
-import { useEffect,useState } from "react";
+import { useEffect, useState } from "react";
 
 import { Pill } from "~/components/pill";
 import { Section } from "~/components/section";
+
+const Modal = ({
+  message,
+  onClose,
+  isSuccess,
+}: {
+  message: string;
+  onClose: () => void;
+  isSuccess: boolean;
+}) => (
+  <div
+    className={`fixed inset-0 z-50 flex items-center justify-center ${isSuccess ? "bg-green-600" : "bg-red-600"}`}
+  >
+    <div className="m-4 rounded-lg bg-white p-8 text-center">
+      <p className="mb-8 text-xl">{message}</p>
+      {isSuccess ? (
+        <>
+          <div>51.08875054483482</div>
+          <div>17.02061477997356</div>
+          <br />
+          <div>572 579 279 / 427 031</div>
+        </>
+      ) : (
+        <button
+          onClick={onClose}
+          className="bg-primary-900 hover:bg-accent-500 rounded px-4 py-2 text-white"
+        >
+          zamknij
+        </button>
+      )}
+    </div>
+  </div>
+);
 
 export default function FunZone() {
   const [code, setCode] = useState<Array<string | null>>([null, null, null]);
@@ -38,7 +71,7 @@ export default function FunZone() {
   };
 
   useEffect(() => {
-    const targetDate = new Date("2025-04-26T00:00:00"); // Set your target date here
+    const targetDate = new Date("2025-04-27T12:04:00");
 
     const timer = setInterval(() => {
       const now = new Date();
@@ -65,40 +98,8 @@ export default function FunZone() {
     return () => clearInterval(timer);
   }, []);
 
-  const Modal = ({
-    message,
-    onClose,
-  }: {
-    message: string;
-    onClose: () => void;
-  }) => (
-    <div
-      className={`fixed inset-0 z-50 flex items-center justify-center ${isSuccess ? "bg-green-600" : "bg-red-600"}`}
-    >
-      <div className="m-4 rounded-lg bg-white p-8 text-center">
-        <p className="mb-8 text-xl">{message}</p>
-        {isSuccess ? (
-          <>
-            <div>51.088736550671335</div>
-            <div>17.021036320275783</div>
-          </>
-        ) : (
-          <button
-            onClick={onClose}
-            className="bg-primary-900 hover:bg-accent-500 rounded px-4 py-2 text-white"
-          >
-            zamknij
-          </button>
-        )}
-      </div>
-    </div>
-  );
-
   return (
     <main className="flex min-h-[calc(100dvh-56px)] items-center justify-center">
-      {showModal && (
-        <Modal message={modalMessage} onClose={() => setShowModal(false)} />
-      )}
       <Section>
         <div className="text-center">
           <h2 className="mb-8 text-5xl font-bold text-red-600 sm:text-6xl">
@@ -199,6 +200,14 @@ export default function FunZone() {
           </div>
         </div>
       </Section>
+
+      {showModal && (
+        <Modal
+          message={modalMessage}
+          onClose={() => setShowModal(false)}
+          isSuccess={isSuccess}
+        />
+      )}
     </main>
   );
 }
