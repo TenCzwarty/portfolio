@@ -9,6 +9,12 @@
 
   --color-accent-500: hsl(var(--accent, 0), var(--s, 0%), 75%);
   --color-accent-900: hsl(var(--accent, 0), 100%, 39%);
+
+  --toastify-toast-width: 360px;
+  --toastify-font-family: "Geist Mono", "Geist Mono Fallback", Helvetica,
+    sans-serif;
+  --toastify-text-color-light: var(--color-primary-900);
+  --toastify-color-progress-light: var(--color-accent-500);
 }
 
 @theme {

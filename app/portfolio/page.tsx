@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import { toast, ToastContainer } from "react-toastify";
 import { DownloadIcon } from "lucide-react";
 
 import { Box, Boxes } from "~/app/_components/box";
@@ -22,6 +23,13 @@ import { Section } from "~/components/section";
 
 export default function PortfolioPage() {
   React.useEffect(() => {
+    toast("This website is under a redesign. Please check back soon!", {
+      className:
+        "rounded-xl border text-start text-sm border-primary-800 pr-8!",
+    });
+  }, []);
+
+  React.useEffect(() => {
     document
       .getElementById("email")
       ?.setAttribute(
@@ -32,6 +40,8 @@ export default function PortfolioPage() {
 
   return (
     <main>
+      <ToastContainer />
+
       <div id="top" className="relative z-0 h-dvh w-full overflow-hidden">
         <div className="absolute top-1/2 left-1/2 grid aspect-square h-[200dvh] w-[200dvw] -translate-x-1/2 -translate-y-1/2 grid-cols-3 grid-rows-3">
           <Boxes
