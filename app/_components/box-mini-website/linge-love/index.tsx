@@ -1,12 +1,15 @@
 export const BoxLingeLove = () => (
   <a
-    href="https://www.linge.love/"
+    // href="https://www.linge.love/"
     target="_blank"
     rel="noreferrer noopener"
-    className="box group border-primary-800 hover:bg-accent-500 hover:text-primary-900"
+    className="box group border-primary-800 hover:bg-accent-500 hover:text-primary-900 cursor-not-allowed"
   >
     <div className="flex w-full items-center justify-between">
-      <h3 className="text-lg font-semibold sm:text-xl">linge.love</h3>
+      <div>
+        <h3 className="text-lg font-semibold sm:text-xl">linge.love</h3>
+        <div className="text-sm">in progress...</div>
+      </div>
       <svg
         xmlns="http://www.w3.org/2000/svg"
         viewBox="114.97 15.87 88.33 88.15"

@@ -90,9 +90,9 @@ export default function FunZone() {
                 <>
                   <div className="flex items-center justify-between">
                     <div className="flex flex-col gap-2">
-                      <a href="https://amasia.fourth.one/" target="_blank">
-                        <h3 className="heading-fantasy">Amasia</h3>
-                      </a>
+                      {/* <a href="https://amasia.fourth.one/" target="_blank"> */}
+                      <h3 className="heading-fantasy">Amasia</h3>
+                      {/* </a> */}
                       <div className="text-sm">my worldbuilding wiki</div>
                     </div>
                     <AccordionToggleMoreInfo {...accordionProps} />
