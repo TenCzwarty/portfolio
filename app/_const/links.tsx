@@ -50,6 +50,11 @@ export const LAYOUT_LINKS: TLayoutLinks = {
     ariaLabel: "Go to the home page",
     label: "home",
   },
+  LINK_PAGE_PORTFOLIO: {
+    href: "/portfolio",
+    ariaLabel: "Go to the portfolio page",
+    label: "portfolio",
+  },
   LINK_PAGE_UTILS: {
     href: "/utils",
     ariaLabel: "Go to the utils page",

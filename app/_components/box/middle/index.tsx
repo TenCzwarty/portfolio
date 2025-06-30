@@ -1,17 +1,14 @@
-import { PATH } from "./const/path";
-import { useNewCircleOnHover } from "./helpers/use-new-circle-on-hover";
+import type { TSVGArtVariant } from "./art/types";
+import { getPath } from "./art";
 
 import "./styles.css";
 
-const SVG_ELEMENT_ID = "svg-element";
-
-export const BoxMiddle = () => {
-  const { ref } = useNewCircleOnHover(SVG_ELEMENT_ID);
+export const SVGArt = ({ variant }: { variant: TSVGArtVariant }) => {
+  const path = getPath(variant);
 
   return (
-    <div className="h-full select-none overflow-hidden rounded-[30%]">
+    <div className="svg-art h-full overflow-hidden rounded-[30%] select-none">
       <svg
-        ref={ref}
         xmlns="http://www.w3.org/2000/svg"
         width="100%"
         height="100%"
@@ -24,15 +21,9 @@ export const BoxMiddle = () => {
           className="transform-gpu duration-[2s]"
         />
 
-        <g
-          fill="var(--color-primary-800)"
-          transform="translate(16982.422,9783.2031)"
-          className="transform-gpu duration-[2s] will-change-[fill]"
-        >
-          <path d={PATH} />
+        <g className="colored-circles text-primary-800 transform-gpu will-change-[fill]">
+          {path}
         </g>
-
-        <g id={SVG_ELEMENT_ID} className="colored-circles text-accent-900" />
       </svg>
     </div>
   );

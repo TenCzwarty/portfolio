@@ -35,7 +35,7 @@ const BoxMyWork = ({ title, year, short, results, ...rest }: TBoxMyWork) => {
           <p className="text-xs sm:text-sm">{short}</p>
           {results && (
             <div
-              className="results *:text-accent-500 *:group-hover:text-accent-900 mt-4 text-xs sm:text-base"
+              className="results *:text-accent-500 mt-4 text-xs *:group-hover:text-neutral-100 sm:text-base"
               dangerouslySetInnerHTML={{
                 __html: turnBracketsIntoSpans(results),
               }}

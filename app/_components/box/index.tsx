@@ -16,7 +16,7 @@ export const Box = ({ children, position, classes }: TBox) => {
 
   return (
     <div
-      className={`relative aspect-square max-h-[50dvh] max-w-[50dvw] rounded-[30%] border-2 border-primary-800 shadow-xl duration-[2s] ${transform} ${classes}`}
+      className={`border-primary-900 relative aspect-square max-h-[50dvh] max-w-[50dvw] rounded-[30%] border-2 shadow-xl duration-[2s] ${transform} ${classes}`}
     >
       {children}
     </div>
