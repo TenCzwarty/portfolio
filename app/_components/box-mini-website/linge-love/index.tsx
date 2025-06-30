@@ -1,6 +1,6 @@
 export const BoxLingeLove = () => (
   <a
-    // href="https://www.linge.love/"
+    href="https://linge-love.vercel.app/"
     target="_blank"
     rel="noreferrer noopener"
     className="box group border-primary-800 hover:bg-accent-500 hover:text-primary-900 cursor-not-allowed"
