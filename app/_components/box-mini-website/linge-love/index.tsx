@@ -3,12 +3,11 @@ export const BoxLingeLove = () => (
     href="https://linge-love.vercel.app/"
     target="_blank"
     rel="noreferrer noopener"
-    className="box group border-primary-800 hover:bg-accent-500 hover:text-primary-900 cursor-not-allowed"
+    className="box group border-primary-800 hover:bg-accent-500 hover:text-primary-900"
   >
     <div className="flex w-full items-center justify-between">
       <div>
         <h3 className="text-lg font-semibold sm:text-xl">linge.love</h3>
-        <div className="text-sm">in progress...</div>
       </div>
       <svg
         xmlns="http://www.w3.org/2000/svg"
