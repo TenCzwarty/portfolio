@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { toast, ToastContainer } from "react-toastify";
+import { toast } from "react-toastify";
 import { DownloadIcon } from "lucide-react";
 
 import { Box, Boxes } from "~/app/_components/box";
@@ -40,8 +40,6 @@ export default function PortfolioPage() {
 
   return (
     <main>
-      <ToastContainer />
-
       <div id="top" className="relative z-0 h-dvh w-full overflow-hidden">
         <div className="absolute top-1/2 left-1/2 grid aspect-square h-[200dvh] w-[200dvw] -translate-x-1/2 -translate-y-1/2 grid-cols-3 grid-rows-3">
           <Boxes
@@ -168,7 +166,7 @@ export default function PortfolioPage() {
           </a>
           <a
             id="cv"
-            href="/files/woloszyn-daniel-cv.pdf"
+            href="/files/portfolio/woloszyn-daniel-cv.pdf"
             target="_blank"
             rel="noopener noreferrer"
             className="w-fit"

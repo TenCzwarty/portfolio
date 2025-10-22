@@ -1,0 +1,28 @@
+.glint {
+  overflow: hidden;
+  position: relative;
+}
+
+.glint::after {
+  pointer-events: none;
+  content: "";
+  position: absolute;
+  left: auto;
+  top: auto;
+  bottom: -170%;
+  right: -170%;
+  width: 150%;
+  height: 150%;
+  background-image: linear-gradient(
+    135deg,
+    transparent 40%,
+    rgba(255, 255, 255, 0.3) 50%,
+    transparent 60%
+  );
+}
+
+.glint:hover::after {
+  transition: all 0.5s ease-out;
+  bottom: 100%;
+  right: 100%;
+}

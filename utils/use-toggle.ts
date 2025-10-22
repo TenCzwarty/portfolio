@@ -19,3 +19,11 @@ export const useToggle = (
 
   return [isActive, toggleIsActive];
 };
+
+export const useNToggle = (n: number = 2, initial = 0) => {
+  const [index, setIndex] = React.useState(initial);
+
+  const next = () => setIndex((i) => (i + 1) % n);
+
+  return [index, next] as const;
+};

@@ -24,6 +24,15 @@ export default function UtilsPage() {
             </div>
           </Link>
 
+          <Link href="/utils/hanayama">
+            <div className="mt-4 flex flex-col rounded-xl border border-neutral-200 p-4 hover:bg-neutral-200">
+              <h3 className="text-lg font-semibold sm:text-xl">
+                Hanayama Tracker
+              </h3>
+              <div className="text-sm">track your metal puzzles collection</div>
+            </div>
+          </Link>
+
           <div className="mt-4 flex cursor-not-allowed flex-col rounded-xl border border-neutral-200 p-4">
             <h3 className="text-lg font-semibold sm:text-xl">
               Month Time Block

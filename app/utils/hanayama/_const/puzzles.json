@@ -1,0 +1,1031 @@
+[
+  {
+    "code": "1",
+    "level": "level 1",
+    "puzzles": [
+      {
+        "code": "00",
+        "id": "1.abc",
+        "src": "1.abc.webp",
+        "name": "abc",
+        "author": "Nobuyuki Yoshigahara",
+        "year": "1983"
+      },
+      {
+        "id": "1.key",
+        "src": "1.key.webp",
+        "name": "key",
+        "author": "Nobuyuki Yoshigahara",
+        "year": "1983",
+        "rare": true,
+        "code": "01"
+      },
+      {
+        "id": "1.bike",
+        "src": "1.bike.webp",
+        "name": "bike",
+        "author": "John R. Lynn",
+        "year": "1994",
+        "rare": true,
+        "code": "02"
+      },
+      {
+        "id": "1.flag",
+        "src": "1.flag.webp",
+        "name": "flag",
+        "author": "Nobuyuki Yoshigahara",
+        "year": "1994",
+        "code": "03"
+      },
+      {
+        "id": "1.seabream",
+        "src": "1.seabream.webp",
+        "name": "seabream",
+        "author": "Akio Yamamoto",
+        "year": "1999",
+        "alt-names": "trout / tai",
+        "tags": ["sea"],
+        "rare": true,
+        "code": "04"
+      },
+      {
+        "id": "1.shark",
+        "src": "1.shark.webp",
+        "name": "shark",
+        "author": "Akio Yamamoto",
+        "year": "1999",
+        "alt-names": "fin",
+        "tags": ["sea"],
+        "rare": true,
+        "code": "05"
+      },
+      {
+        "id": "1.loop",
+        "src": "1.loop.webp",
+        "name": "loop",
+        "author": "Vesa Timonen",
+        "year": "2007",
+        "code": "06"
+      },
+      {
+        "id": "1.diamond",
+        "src": "1.diamond.webp",
+        "name": "diamond",
+        "author": "Scott Elliott",
+        "year": "2016",
+        "code": "07"
+      },
+      {
+        "id": "1.love",
+        "src": "1.love.webp",
+        "name": "love",
+        "author": "Scott Elliott",
+        "year": "2020",
+        "code": "08"
+      },
+      {
+        "id": "1.chess.pawn",
+        "src": "1.chess.pawn.webp",
+        "name": "pawn",
+        "author": "Marcel Gillen",
+        "tags": ["chess"],
+        "code": "09"
+      },
+      {
+        "id": "1.chess.rook",
+        "src": "1.chess.rook.webp",
+        "name": "rook",
+        "author": "Marcel Gillen",
+        "tags": ["chess"],
+        "code": "10"
+      },
+      {
+        "id": "1.ultra.diamond",
+        "src": "1.ultra.diamond.webp",
+        "name": "sssp emblem",
+        "alt-names": "shooting star",
+        "notes": "based on diamond",
+        "tags": ["ultraman"],
+        "code": "11"
+      },
+      {
+        "id": "1.disney.ring",
+        "src": "1.disney.ring.webp",
+        "name": "ring",
+        "alt-names": "mickey mouse ring",
+        "notes": "based on loop",
+        "tags": ["disney"],
+        "code": "12"
+      }
+    ]
+  },
+  {
+    "code": "2",
+    "level": "level 2",
+    "puzzles": [
+      {
+        "id": "2.horse",
+        "src": "2.horse.webp",
+        "name": "horse",
+        "author": "Nobuyuki Yoshigahara",
+        "year": "1984",
+        "code": "00"
+      },
+      {
+        "id": "2.claw",
+        "src": "2.claw.webp",
+        "name": "claw",
+        "author": "Akio Yamamoto",
+        "year": "1998",
+        "alt-names": "crab",
+        "tags": ["sea"],
+        "rare": true,
+        "code": "01"
+      },
+      {
+        "id": "2.starfish",
+        "src": "2.starfish.webp",
+        "name": "starfish",
+        "author": "Akio Yamamoto",
+        "year": "1999",
+        "alt-names": "penta",
+        "tags": ["sea"],
+        "rare": true,
+        "code": "02"
+      },
+      {
+        "id": "2.disk",
+        "src": "2.disk.webp",
+        "name": "disk",
+        "author": "Oskar van Deventer",
+        "year": "2001",
+        "rare": true,
+        "code": "03"
+      },
+      {
+        "id": "2.keyring",
+        "src": "2.keyring.webp",
+        "name": "keyring",
+        "author": "Oskar van Deventer",
+        "year": "2001",
+        "code": "04"
+      },
+      {
+        "id": "2.cricket",
+        "src": "2.cricket.webp",
+        "name": "cricket",
+        "author": "James Dalgety",
+        "year": "2002",
+        "rare": true,
+        "code": "05"
+      },
+      {
+        "id": "2.plate",
+        "src": "2.plate.webp",
+        "name": "plate",
+        "author": "Jerry Slocum",
+        "year": "2005",
+        "rare": true,
+        "code": "06"
+      },
+      {
+        "id": "2.key-ii",
+        "src": "2.key-ii.webp",
+        "name": "key II",
+        "author": "Tomoya Otake, Kyoo Wong",
+        "year": "2006",
+        "code": "07"
+      },
+      {
+        "id": "2.hook",
+        "src": "2.hook.webp",
+        "name": "hook",
+        "author": "Vesa Timonen",
+        "year": "2009",
+        "code": "08"
+      },
+      {
+        "id": "2.medal",
+        "src": "2.medal.webp",
+        "name": "medal",
+        "author": "James Dalgety",
+        "year": "2009",
+        "rare": true,
+        "code": "09"
+      },
+      {
+        "id": "2.box",
+        "src": "2.box.webp",
+        "name": "box",
+        "author": "Akira Yuta",
+        "year": "2012",
+        "code": "10"
+      },
+      {
+        "id": "2.harmony",
+        "src": "2.harmony.webp",
+        "name": "harmony",
+        "author": "Dmitry Revnitskiy, Kirill Grebnev",
+        "year": "2012",
+        "code": "11"
+      },
+      {
+        "id": "2.dot",
+        "src": "2.dot.webp",
+        "name": "dot",
+        "author": "Akio Yamamoto",
+        "year": "2017",
+        "code": "12"
+      },
+      {
+        "id": "2.snow",
+        "src": "2.snow.webp",
+        "name": "snow",
+        "author": "Kyoo Wong",
+        "year": "2020",
+        "code": "13"
+      },
+      {
+        "id": "2.aa",
+        "src": "2.aa.webp",
+        "name": "a&a",
+        "author": "Vesa Timonen",
+        "year": "2023",
+        "code": "14"
+      },
+      {
+        "id": "2.chess.knight",
+        "src": "2.chess.knight.webp",
+        "name": "knight",
+        "author": "Marcel Gillen",
+        "tags": ["chess"],
+        "code": "15"
+      },
+      {
+        "id": "2.chess.bishop",
+        "src": "2.chess.bishop.webp",
+        "name": "bishop",
+        "author": "Marcel Gillen",
+        "tags": ["chess"],
+        "code": "16"
+      },
+      {
+        "id": "2.disney.key",
+        "src": "2.disney.key.webp",
+        "name": "key",
+        "alt-names": "mickey & minnie key",
+        "notes": "based on key",
+        "tags": ["disney"],
+        "code": "17"
+      },
+      {
+        "id": "2.disney.horse",
+        "src": "2.disney.horse.webp",
+        "name": "escape",
+        "alt-names": "winnie the pooh escape",
+        "notes": "based on horse",
+        "tags": ["disney"],
+        "code": "18"
+      },
+      {
+        "id": "2.o.cr",
+        "src": "2.o.cr.webp",
+        "name": "chris ramsay",
+        "author": "chris ramsay x hanayama",
+        "notes": "a mix of abc and laby",
+        "year": "2019",
+        "code": "19"
+      }
+    ]
+  },
+  {
+    "code": "3",
+    "level": "level 3",
+    "puzzles": [
+      {
+        "id": "3.star",
+        "src": "3.star.webp",
+        "name": "star",
+        "author": "Nobuyuki Yoshigahara",
+        "year": "1983",
+        "code": "00"
+      },
+      {
+        "id": "3.ss",
+        "src": "3.ss.webp",
+        "name": "s&s",
+        "author": "Nobuyuki Yoshigahara",
+        "year": "1984",
+        "code": "01"
+      },
+      {
+        "id": "3.wu",
+        "src": "3.wu.webp",
+        "name": "w-u",
+        "author": "Nobuyuki Yoshigahara",
+        "year": "1995",
+        "rare": true,
+        "code": "02"
+      },
+      {
+        "id": "3.cage",
+        "src": "3.cage.webp",
+        "name": "cage",
+        "author": "Nobuyuki Yoshigahara",
+        "year": "1997",
+        "code": "03"
+      },
+      {
+        "id": "3.reef",
+        "src": "3.reef.webp",
+        "name": "reef",
+        "author": "Akio Yamamoto",
+        "year": "1999 or 2000",
+        "alt-names": "coral",
+        "tags": ["sea"],
+        "rare": true,
+        "code": "04"
+      },
+      {
+        "id": "3.seahorse",
+        "src": "3.seahorse.webp",
+        "name": "seahorse",
+        "author": "Akio Yamamoto",
+        "year": "1999 or 2000",
+        "alt-names": "tails",
+        "tags": ["sea"],
+        "rare": true,
+        "code": "05"
+      },
+      {
+        "id": "3.dolce",
+        "src": "3.dolce.webp",
+        "name": "dolce",
+        "author": "Akio Yamamoto",
+        "year": "2001",
+        "code": "06"
+      },
+      {
+        "id": "3.ogear",
+        "src": "3.ogear.webp",
+        "name": "o'gear",
+        "author": "Oskar van Deventer",
+        "year": "2002",
+        "code": "07"
+      },
+      {
+        "id": "3.violin",
+        "src": "3.violin.webp",
+        "name": "violin",
+        "author": "Joseph L. Little",
+        "year": "2003",
+        "code": "08"
+      },
+      {
+        "id": "3.delta",
+        "src": "3.delta.webp",
+        "name": "delta",
+        "author": "Kyoo Wong",
+        "year": "2013",
+        "code": "09"
+      },
+      {
+        "id": "3.gg",
+        "src": "3.gg.webp",
+        "name": "g&g",
+        "author": "Jin-Hoo Ahn",
+        "year": "2013",
+        "code": "10"
+      },
+      {
+        "id": "3.galaxy",
+        "src": "3.galaxy.webp",
+        "name": "galaxy",
+        "author": "Bram Cohen",
+        "year": "2014",
+        "code": "11"
+      },
+      {
+        "id": "3.hashtag",
+        "src": "3.hashtag.webp",
+        "name": "hashtag",
+        "author": "Yoshiyuki Kotani, Kirill Grebnev",
+        "year": "2017",
+        "alt-names": "shift",
+        "code": "12"
+      },
+      {
+        "id": "3.arrows",
+        "src": "3.arrows.webp",
+        "name": "arrows",
+        "author": "Andrei Ivanov",
+        "year": "2018",
+        "code": "13"
+      },
+      {
+        "id": "3.slider",
+        "src": "3.slider.webp",
+        "name": "slider",
+        "author": "Vesa Timonen",
+        "year": "2019",
+        "code": "14"
+      },
+      {
+        "id": "3.dice",
+        "src": "3.dice.webp",
+        "name": "dice",
+        "author": "Timothy Collins",
+        "year": "2021",
+        "code": "15"
+      },
+      {
+        "id": "3.cross",
+        "src": "3.cross.webp",
+        "name": "cross",
+        "author": "Edi Nagata",
+        "year": "2022",
+        "code": "16"
+      },
+      {
+        "id": "3.hex",
+        "src": "3.hex.webp",
+        "name": "hex",
+        "author": "Masui Ohno",
+        "year": "2023",
+        "code": "17"
+      },
+      {
+        "id": "3.jam",
+        "src": "3.jam.webp",
+        "name": "jam",
+        "author": "Yuu Asaka",
+        "year": "2025",
+        "code": "18"
+      },
+      {
+        "id": "3.chess.queen",
+        "src": "3.chess.queen.webp",
+        "name": "queen",
+        "author": "Marcel Gillen",
+        "tags": ["chess"],
+        "code": "19"
+      },
+      {
+        "id": "3.chess.king",
+        "src": "3.chess.king.webp",
+        "name": "king",
+        "author": "Marcel Gillen",
+        "tags": ["chess"],
+        "code": "20"
+      },
+      {
+        "id": "3.ultra.cage",
+        "src": "3.ultra.cage.webp",
+        "name": "beta capsule",
+        "notes": "based on cage",
+        "tags": ["ultraman"],
+        "code": "21"
+      },
+      {
+        "id": "3.pokemon.pokeball",
+        "src": "3.pokemon.pokeball.jpg",
+        "name": "pokeball",
+        "notes": "pocket monsters pokeball collaboration",
+        "tags": ["pokemon"],
+        "year": 2025,
+        "code": "22"
+      }
+    ]
+  },
+  {
+    "code": "4",
+    "level": "level 4",
+    "puzzles": [
+      {
+        "id": "4.ring",
+        "src": "4.ring.webp",
+        "name": "ring",
+        "author": "Nobuyuki Yoshigahara",
+        "year": "2000",
+        "code": "00"
+      },
+      {
+        "id": "4.heart",
+        "src": "4.heart.webp",
+        "name": "heart",
+        "author": "N/A",
+        "year": "2001",
+        "code": "01"
+      },
+      {
+        "id": "4.baroq",
+        "src": "4.baroq.webp",
+        "name": "baroq",
+        "author": "Akio Yamamoto",
+        "year": "2003",
+        "code": "02"
+      },
+      {
+        "id": "4.loeuf",
+        "src": "4.loeuf.webp",
+        "name": "l'œuf",
+        "alt-names": "egg",
+        "author": "Oskar van Deventer",
+        "year": "2004",
+        "code": "03"
+      },
+      {
+        "id": "4.cuby",
+        "src": "4.cuby.webp",
+        "name": "cuby",
+        "author": "Oskar van Deventer",
+        "year": "2005",
+        "rare": true,
+        "code": "04"
+      },
+      {
+        "id": "4.coaster",
+        "src": "4.coaster.webp",
+        "name": "coaster",
+        "author": "Serhiy Grabarchuk",
+        "year": "2006",
+        "code": "05"
+      },
+      {
+        "id": "4.coil",
+        "src": "4.coil.webp",
+        "name": "coil",
+        "author": "Edi Nagata",
+        "year": "2011",
+        "code": "06"
+      },
+      {
+        "id": "4.donuts",
+        "src": "4.donuts.webp",
+        "name": "donuts",
+        "author": "Vesa Timonen",
+        "year": "2011",
+        "code": "07"
+      },
+      {
+        "id": "4.cylinder",
+        "src": "4.cylinder.webp",
+        "name": "cylinder",
+        "author": "Vesa Timonen",
+        "year": "2013",
+        "code": "08"
+      },
+      {
+        "id": "4.twist",
+        "src": "4.twist.webp",
+        "name": "twist",
+        "author": "Oskar van Deventer",
+        "year": "2013",
+        "code": "09"
+      },
+      {
+        "id": "4.keyhole",
+        "src": "4.keyhole.webp",
+        "name": "keyhole",
+        "author": "Vesa Timonen",
+        "year": "2014",
+        "code": "10"
+      },
+      {
+        "id": "4.uu",
+        "src": "4.uu.webp",
+        "name": "u&u",
+        "author": "Kyoo Wong",
+        "year": "2014",
+        "code": "11"
+      },
+      {
+        "id": "4.hexagon",
+        "src": "4.hexagon.webp",
+        "name": "hexagon",
+        "author": "Mine Uyematsu",
+        "year": "2015",
+        "code": "12"
+      },
+      {
+        "id": "4.mobius",
+        "src": "4.mobius.webp",
+        "name": "möbius",
+        "author": "Oskar van Deventer",
+        "year": "2015",
+        "code": "13"
+      },
+      {
+        "id": "4.cake",
+        "src": "4.cake.webp",
+        "name": "cake",
+        "author": "Bram Cohen",
+        "year": "2016",
+        "code": "14"
+      },
+      {
+        "id": "4.dial",
+        "src": "4.dial.webp",
+        "name": "dial",
+        "author": "Vesa Timonen",
+        "year": "2016",
+        "code": "15"
+      },
+      {
+        "id": "4.ufo",
+        "src": "4.ufo.webp",
+        "name": "ufo",
+        "author": "Vesa Timonen",
+        "year": "2019",
+        "code": "16"
+      },
+      {
+        "id": "4.valve",
+        "src": "4.valve.webp",
+        "name": "valve",
+        "author": "Vesa Timonen",
+        "year": "2021",
+        "code": "17"
+      },
+      {
+        "id": "4.planet",
+        "src": "4.planet.webp",
+        "name": "planet",
+        "author": "Masumi Ohno",
+        "year": "2022",
+        "code": "18"
+      },
+      {
+        "id": "4.ultra.news",
+        "src": "4.ultra.news.webp",
+        "name": "eye",
+        "alt-names": "ultra eye",
+        "notes": "based on news",
+        "tags": ["ultraman"],
+        "code": "19"
+      },
+      {
+        "id": "4.ultra.cylinder",
+        "src": "4.ultra.cylinder.webp",
+        "name": "guard emblem",
+        "alt-names": "ultra guard emblem",
+        "notes": "based on cylinder",
+        "tags": ["ultraman"],
+        "code": "20"
+      },
+      {
+        "id": "4.zelda.hyrule-crest",
+        "src": "4.zelda.hyrule-crest.webp",
+        "name": "hyrule crest",
+        "notes": "based on heart",
+        "tags": ["zelda"],
+        "code": "21"
+      },
+      {
+        "id": "4.disney.laby",
+        "src": "4.disney.laby.webp",
+        "name": "labyrinth",
+        "alt-names": "alice in wonderland labyrinth",
+        "notes": "based on laby",
+        "tags": ["disney"],
+        "code": "22"
+      },
+      {
+        "id": "4.wallet",
+        "src": "4.wallet.jpg",
+        "name": "wallet",
+        "year": null,
+        "code": "23"
+      },
+      {
+        "id": "4.pokemon.super",
+        "src": "4.pokemon.super.jpg",
+        "name": "super",
+        "notes": "pocket monsters super ball collaboration",
+        "tags": ["pokemon"],
+        "year": 2025,
+        "code": "24"
+      }
+    ]
+  },
+  {
+    "code": "5",
+    "level": "level 5",
+    "puzzles": [
+      {
+        "id": "5.elk",
+        "src": "5.elk.webp",
+        "name": "elk",
+        "author": "Nobuyuki Yoshigahara",
+        "year": "1986",
+        "code": "00"
+      },
+      {
+        "id": "5.amour",
+        "src": "5.amour.webp",
+        "name": "amour",
+        "author": "Akio Yamamoto",
+        "year": "1991",
+        "code": "01"
+      },
+      {
+        "id": "5.devil",
+        "src": "5.devil.webp",
+        "name": "devil",
+        "author": "Nobuyuki Yoshigahara",
+        "year": "1994",
+        "code": "02"
+      },
+      {
+        "id": "5.laby",
+        "src": "5.laby.webp",
+        "name": "laby",
+        "author": "Nobuyuki Yoshigahara",
+        "year": "1997",
+        "code": "03"
+      },
+      {
+        "id": "5.spiral",
+        "src": "5.spiral.webp",
+        "name": "spiral",
+        "author": "Kennet Walker",
+        "year": "2003",
+        "code": "04"
+      },
+      {
+        "id": "5.ring-ii",
+        "src": "5.ring-ii.webp",
+        "name": "ring II",
+        "author": "Jose Grant",
+        "year": "2004",
+        "code": "05"
+      },
+      {
+        "id": "5.duet",
+        "src": "5.duet.webp",
+        "name": "duet",
+        "author": "Oskar van Deventer",
+        "year": "2005",
+        "code": "06"
+      },
+      {
+        "id": "5.radix",
+        "src": "5.radix.webp",
+        "name": "radix",
+        "author": "Akio Yamamoto",
+        "year": "2005",
+        "code": "07"
+      },
+      {
+        "id": "5.equa",
+        "src": "5.equa.webp",
+        "name": "equa",
+        "author": "Oskar van Deventer",
+        "year": "2008",
+        "code": "08"
+      },
+      {
+        "id": "5.helix",
+        "src": "5.helix.webp",
+        "name": "helix",
+        "author": "N/A",
+        "year": "2009",
+        "code": "09"
+      },
+      {
+        "id": "5.marble",
+        "src": "5.marble.webp",
+        "name": "marble",
+        "author": "Bram Cohen, Oskar van Deventer",
+        "year": "2009",
+        "code": "10"
+      },
+      {
+        "id": "5.hh",
+        "src": "5.hh.webp",
+        "name": "h&h",
+        "author": "Oskar van Deventer",
+        "year": "2010",
+        "code": "11"
+      },
+      {
+        "id": "5.rattle",
+        "src": "5.rattle.webp",
+        "name": "rattle",
+        "author": "Bram Cohen",
+        "year": "2010",
+        "code": "12"
+      },
+      {
+        "id": "5.square",
+        "src": "5.square.webp",
+        "name": "square",
+        "author": "Vesa Timonen",
+        "year": "2010",
+        "code": "13"
+      },
+      {
+        "id": "5.padlock",
+        "src": "5.padlock.webp",
+        "name": "padlock",
+        "author": "Jin-Hoo Ahn",
+        "year": "2016",
+        "code": "14"
+      },
+      {
+        "id": "5.cyclone",
+        "src": "5.cyclone.webp",
+        "name": "cyclone",
+        "author": "Kyoo Wong",
+        "year": "2020",
+        "code": "15"
+      },
+      {
+        "id": "5.tube",
+        "src": "5.tube.webp",
+        "name": "tube",
+        "author": "Vesa Timonen",
+        "year": "2022",
+        "code": "16"
+      },
+      {
+        "id": "5.ripple",
+        "src": "5.ripple.webp",
+        "name": "ripple",
+        "author": "Kyoo Wong",
+        "year": "2024",
+        "code": "17"
+      },
+      {
+        "id": "5.ultra.marble",
+        "src": "5.ultra.marble.webp",
+        "name": "marble II",
+        "alt-names": "ultra marble",
+        "notes": "based on marble, limited to 500 items",
+        "rare": true,
+        "tags": ["ultraman"],
+        "code": "18"
+      },
+      {
+        "id": "5.zelda.triforce",
+        "src": "5.zelda.triforce.webp",
+        "name": "triforce",
+        "notes": "based on delta",
+        "tags": ["zelda"],
+        "code": "19"
+      },
+      {
+        "id": "5.o.medallion",
+        "src": "5.o.medallion.webp",
+        "name": "medallion",
+        "author": "Oskar van Deventer",
+        "notes": "level 5 variation of L'œuf, first created for IMO2011 Amsterdam",
+        "year": null,
+        "code": "20"
+      },
+      {
+        "id": "5.pokemon.hyper",
+        "src": "5.pokemon.hyper.jpg",
+        "name": "hyper",
+        "notes": "pocket monsters hyper ball collaboration",
+        "tags": ["pokemon"],
+        "year": 2025,
+        "code": "21"
+      }
+    ]
+  },
+  {
+    "code": "6",
+    "level": "level 6",
+    "puzzles": [
+      {
+        "id": "6.chain",
+        "src": "6.chain.webp",
+        "name": "chain",
+        "author": "Oskar van Deventer",
+        "year": "2002",
+        "code": "00"
+      },
+      {
+        "id": "6.news",
+        "src": "6.news.webp",
+        "name": "news",
+        "author": "Nobuyuki Yoshigahara",
+        "year": "2003",
+        "code": "01"
+      },
+      {
+        "id": "6.enigma",
+        "src": "6.enigma.webp",
+        "name": "enigma",
+        "author": "Eldon Vaughn",
+        "year": "2004",
+        "code": "02"
+      },
+      {
+        "id": "6.nutcase",
+        "src": "6.nutcase.webp",
+        "name": "nutcase",
+        "author": "Oskar van Deventer",
+        "year": "2007",
+        "code": "03"
+      },
+      {
+        "id": "6.quartet",
+        "src": "6.quartet.webp",
+        "name": "quartet",
+        "author": "Mine Uyematsu",
+        "year": "2007",
+        "code": "04"
+      },
+      {
+        "id": "6.vortex",
+        "src": "6.vortex.webp",
+        "name": "vortex",
+        "author": "Akio Yamamoto",
+        "year": "2008",
+        "code": "05"
+      },
+      {
+        "id": "6.infinity",
+        "src": "6.infinity.webp",
+        "name": "infinity",
+        "author": "Vesa Timonen",
+        "year": "2016",
+        "code": "06"
+      },
+      {
+        "id": "6.trinity",
+        "src": "6.trinity.webp",
+        "name": "trinity",
+        "author": "Kyoo Wong",
+        "year": "2017",
+        "code": "07"
+      },
+      {
+        "id": "6.hourglass",
+        "src": "6.hourglass.webp",
+        "name": "hourglass",
+        "author": "Jin-Hoo Ahn",
+        "year": "2018",
+        "code": "08"
+      },
+      {
+        "id": "6.rotor",
+        "src": "6.rotor.webp",
+        "name": "rotor",
+        "author": "Kyoo Wong",
+        "year": "2019",
+        "code": "09"
+      },
+      {
+        "id": "6.key-iii",
+        "src": "6.key-iii.webp",
+        "name": "key III",
+        "author": "Oskar van Deventer",
+        "year": "2024",
+        "code": "10"
+      },
+      {
+        "id": "6.zelda.sword",
+        "src": "6.zelda.sword.webp",
+        "name": "master sword",
+        "notes": "based on valve",
+        "tags": ["zelda"],
+        "code": "11"
+      },
+      {
+        "id": "6.pokemon.master",
+        "src": "6.pokemon.master.jpg",
+        "name": "master",
+        "notes": "pocket monsters master ball collaboration",
+        "tags": ["pokemon"],
+        "year": 2025,
+        "code": "12"
+      }
+    ]
+  },
+  {
+    "code": "s",
+    "level": "special",
+    "puzzles": [
+      {
+        "id": "s.lucky",
+        "src": "s.lucky.webp",
+        "name": "lucky puzzle",
+        "notes": "a seven metal pieces tangram",
+        "rare": true,
+        "code": "00"
+      },
+      {
+        "id": "s.oskar",
+        "src": "s.oskar.webp",
+        "name": "oskar",
+        "author": "Oskar van Deventer 1987",
+        "notes": "one element made of plastic",
+        "rare": true,
+        "code": "01"
+      }
+    ]
+  }
+]

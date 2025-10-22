@@ -9,8 +9,11 @@ import type {
   TAccordionToggleMoreInfo,
 } from "./types";
 
-export const AccordionController = ({ children }: TAccordionController) => {
-  const [isOpened, toggleIsOpened] = useToggle(false);
+export const AccordionController = ({
+  children,
+  initialIsOpened = false,
+}: TAccordionController) => {
+  const [isOpened, toggleIsOpened] = useToggle(initialIsOpened);
 
   return children({ isOpened, toggleIsOpened });
 };
@@ -43,7 +46,7 @@ export const AccordionToggleMoreInfo = ({
   <button
     onClick={toggleIsOpened}
     className="flex items-center gap-2"
-    aria-label={`${isOpened ? "Hide" : "Show"} extra settings`}
+    aria-label={`${isOpened ? "Hide" : "Show"} more info`}
     aria-expanded={isOpened}
   >
     {name}

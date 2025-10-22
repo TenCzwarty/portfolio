@@ -3,6 +3,7 @@ export type TAccordionController = {
     isOpened: boolean;
     toggleIsOpened: () => void;
   }) => React.JSX.Element;
+  initialIsOpened?: boolean;
 };
 
 export type TAccordion = {

@@ -20,7 +20,8 @@
     ],
     "paths": {
       "~/*": ["./*"],
-      "~qr/*": ["./app/utils/qr/*"]
+      "~qr/*": ["./app/utils/qr/*"],
+      "~hanayama/*": ["./app/utils/hanayama/*"]
     }
   },
   "include": [

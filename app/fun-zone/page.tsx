@@ -44,7 +44,7 @@ export default function FunZone() {
                 </div>
               </div>
               <audio controls className="mx-auto sm:mx-0">
-                <source src="/files/cv.wav" type="audio/wav" />
+                <source src="/files/fun-zone/cv.wav" type="audio/wav" />
                 Your browser does not support the audio element.
               </audio>
             </div>
@@ -72,7 +72,7 @@ export default function FunZone() {
               <div>
                 <a
                   id="cv"
-                  href="/files/the-archivist.pdf"
+                  href="/files/fun-zone/the-archivist.pdf"
                   target="_blank"
                   rel="noopener noreferrer"
                 >

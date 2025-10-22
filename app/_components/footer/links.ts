@@ -29,4 +29,8 @@ export const footerLinks: TFooterLinks = {
     left: [ll.LINK_PAGE_HOME, ll.LINK_PAGE_FUN_ZONE, ll.LINK_PAGE_UTILS],
     right: [ll.LINK_EXTERNAL_GITHUB, ll.LINK_EXTERNAL_CODEPEN],
   },
+  "/utils/hanayama": {
+    left: [ll.LINK_PAGE_HOME, ll.LINK_PAGE_FUN_ZONE, ll.LINK_PAGE_UTILS],
+    right: [ll.LINK_EXTERNAL_GITHUB, ll.LINK_EXTERNAL_CODEPEN],
+  },
 };
