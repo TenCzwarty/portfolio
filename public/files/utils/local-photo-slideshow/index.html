@@ -1,0 +1,204 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Local Photo Slideshow</title>
+    <style>
+      body {
+        margin: 0;
+        background-color: black;
+        overflow: hidden;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-family: sans-serif;
+        color: white;
+      }
+
+      #container {
+        position: relative;
+        width: 100vw;
+        height: 100vh;
+        overflow: hidden;
+      }
+
+      .photo {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%) scale(1);
+        width: 110vw;
+        height: 110vh;
+        object-fit: cover;
+        opacity: 0;
+        transition:
+          opacity 1.5s ease,
+          transform 10s ease-in-out;
+        will-change: transform, opacity;
+      }
+
+      #caption {
+        position: absolute;
+        bottom: 2rem;
+        left: 50%;
+        transform: translateX(-50%);
+        background: rgba(0, 0, 0, 0.5);
+        padding: 1rem 2rem;
+        border-radius: 8px;
+        font-size: 1.2rem;
+        white-space: nowrap;
+      }
+
+      #progress {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        height: 4px;
+        background-color: rgba(0, 0, 0, 0.5);
+        width: 0%;
+      }
+
+      #picker {
+        position: absolute;
+        top: 20px;
+        left: 20px;
+        z-index: 10;
+      }
+    </style>
+  </head>
+  <body>
+    <input id="picker" type="file" webkitdirectory multiple />
+
+    <div id="container">
+      <img id="photo1" class="photo" src="" alt="" />
+      <img id="photo2" class="photo" src="" alt="" />
+      <div id="caption"></div>
+      <div id="progress"></div>
+    </div>
+
+    <script>
+      const picker = document.getElementById("picker");
+      const caption = document.getElementById("caption");
+      const progress = document.getElementById("progress");
+
+      let photos = [];
+      let index = 0;
+      let currentImage = 1;
+      let slideshowTimer = null;
+      let isPaused = false;
+
+      const interval = 3000; // 30 seconds
+
+      picker.addEventListener("change", (e) => {
+        const files = Array.from(e.target.files).filter((f) =>
+          f.type.startsWith("image/"),
+        );
+
+        if (files.length === 0) {
+          return alert("no images found in folder");
+        }
+
+        photos = files.map((file) => ({
+          name: file.name,
+          url: URL.createObjectURL(file),
+        }));
+
+        shuffleArray(photos);
+        startSlideshow();
+
+        picker.style.display = "none";
+      });
+
+      function shuffleArray(arr) {
+        for (let i = arr.length - 1; i > 0; i--) {
+          const j = Math.floor(Math.random() * (i + 1));
+
+          [arr[i], arr[j]] = [arr[j], arr[i]];
+        }
+      }
+
+      function startSlideshow() {
+        index = 0;
+        showPhoto();
+        slideshowTimer = setInterval(nextPhoto, interval);
+      }
+
+      function nextPhoto() {
+        index = (index + 1) % photos.length;
+        showPhoto();
+      }
+
+      function prevPhoto() {
+        index = (index - 1 + photos.length) % photos.length;
+        showPhoto();
+      }
+
+      function showPhoto() {
+        const { url, name } = photos[index];
+
+        const zoom = Math.random() > 0.5 ? 1.1 : 0.95;
+        const offsetX = (Math.random() - 0.5) * 2;
+        const offsetY = (Math.random() - 0.5) * 2;
+        const randomDirection = `scale(${zoom}) translate(calc(-50% + ${offsetX}%), calc(-50% + ${offsetY}%))`;
+
+        const active = document.getElementById(`photo${currentImage}`);
+        const next = document.getElementById(
+          `photo${currentImage === 1 ? 2 : 1}`,
+        );
+
+        next.src = url;
+        next.style.transition = "none";
+        next.style.opacity = "0";
+        next.style.transform = "translate(-50%, -50%) scale(1)";
+        next.style.transition = `opacity 1.5s ease, transform ${interval}ms ease-in-out`;
+        next.style.opacity = "1";
+        next.style.transform = randomDirection;
+        void next.offsetWidth;
+
+        active.style.opacity = "0";
+        currentImage = currentImage === 1 ? 2 : 1;
+        caption.textContent = name;
+
+        progress.style.transition = "none";
+        progress.style.width = "0%";
+        progress.style.transition = `width ${interval}ms linear`;
+        progress.style.width = "100%";
+        void progress.offsetWidth;
+      }
+
+      function togglePause() {
+        if (!isPaused) {
+          clearInterval(slideshowTimer);
+          progress.style.transition = "none";
+          isPaused = true;
+        } else {
+          isPaused = false;
+          progress.style.width = "0%";
+          void progress.offsetWidth;
+          progress.style.transition = `width ${interval}ms linear`;
+          progress.style.width = "100%";
+          nextPhoto();
+          slideshowTimer = setInterval(nextPhoto, interval);
+        }
+      }
+
+      document.addEventListener("keydown", (e) => {
+        if (e.code === "Space") {
+          togglePause();
+        }
+        if (e.code === "ArrowRight") {
+          clearInterval(slideshowTimer);
+          nextPhoto();
+          if (!isPaused) slideshowTimer = setInterval(nextPhoto, interval);
+        }
+        if (e.code === "ArrowLeft") {
+          clearInterval(slideshowTimer);
+          prevPhoto();
+          if (!isPaused) slideshowTimer = setInterval(nextPhoto, interval);
+        }
+      });
+    </script>
+  </body>
+</html>

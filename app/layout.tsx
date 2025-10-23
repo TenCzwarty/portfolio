@@ -4,7 +4,6 @@ import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Footer } from "~/app/_components/footer";
 import { Header } from "~/app/_components/header";
 import { fontClasses } from "~/app/_styles/font-classes";
-import { ToastContainer } from "~/components/toast";
 
 import "~/app/_styles/globals.css";
 
@@ -14,8 +13,6 @@ export default function RootLayout({ children }: TChildren) {
   return (
     <html lang="en">
       <body className={fontClasses}>
-        <ToastContainer />
-
         <Header />
         {children}
         <Footer />
