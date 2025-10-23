@@ -89,7 +89,7 @@
       let slideshowTimer = null;
       let isPaused = false;
 
-      const interval = 3000; // 30 seconds
+      const interval = 30000; // 30 seconds
 
       picker.addEventListener("change", (e) => {
         const files = Array.from(e.target.files).filter((f) =>
@@ -152,10 +152,10 @@
         next.style.transition = "none";
         next.style.opacity = "0";
         next.style.transform = "translate(-50%, -50%) scale(1)";
+        void next.offsetWidth;
         next.style.transition = `opacity 1.5s ease, transform ${interval}ms ease-in-out`;
         next.style.opacity = "1";
         next.style.transform = randomDirection;
-        void next.offsetWidth;
 
         active.style.opacity = "0";
         currentImage = currentImage === 1 ? 2 : 1;
@@ -163,9 +163,9 @@
 
         progress.style.transition = "none";
         progress.style.width = "0%";
+        void progress.offsetWidth;
         progress.style.transition = `width ${interval}ms linear`;
         progress.style.width = "100%";
-        void progress.offsetWidth;
       }
 
       function togglePause() {

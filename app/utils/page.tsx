@@ -52,6 +52,7 @@ export default function UtilsPage() {
                   href="/files/utils/local-photo-slideshow/index.html"
                   target="_blank"
                   rel="noopener noreferrer"
+                  download
                 >
                   <Pill classes="bg-primary-900 hover:bg-accent-500 hover:text-primary-900 mx-auto sm:mx-0">
                     download <DownloadIcon size={16} className="inline" />
