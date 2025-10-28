@@ -79,20 +79,21 @@
     </div>
 
     <script>
-      const picker = document.getElementById("picker");
-      const caption = document.getElementById("caption");
-      const progress = document.getElementById("progress");
+      const nodePhotosPicker = document.getElementById("picker");
+      const nodeCaption = document.getElementById("caption");
+      const nodeProgressBar = document.getElementById("progress");
 
-      let photos = [];
       let index = 0;
-      let currentImage = 1;
+      let photos = [];
+      let currentImageNumber = 1;
       let slideshowTimer = null;
       let isPaused = false;
+      let preloadedImage = null;
 
-      const interval = 30000; // 30 seconds
+      const INTERVAL = 30000; // 30 seconds
 
-      picker.addEventListener("change", (e) => {
-        const files = Array.from(e.target.files).filter((f) =>
+      nodePhotosPicker.addEventListener("change", (event) => {
+        const files = Array.from(event.target.files).filter((f) =>
           f.type.startsWith("image/"),
         );
 
@@ -108,7 +109,7 @@
         shuffleArray(photos);
         startSlideshow();
 
-        picker.style.display = "none";
+        nodePhotosPicker.style.display = "none";
       });
 
       function shuffleArray(arr) {
@@ -121,82 +122,117 @@
 
       function startSlideshow() {
         index = 0;
+
         showPhoto();
-        slideshowTimer = setInterval(nextPhoto, interval);
+        slideshowTimer = setInterval(nextPhoto, INTERVAL);
       }
 
       function nextPhoto() {
         index = (index + 1) % photos.length;
+
         showPhoto();
+
+        const nextIndex = (index + 1) % photos.length;
+        preloadedImage = preloadImage(photos[nextIndex].url);
       }
 
       function prevPhoto() {
         index = (index - 1 + photos.length) % photos.length;
+
         showPhoto();
       }
 
-      function showPhoto() {
+      function preloadImage(url) {
+        return new Promise((resolve) => {
+          const image = new Image();
+
+          image.src = url;
+
+          image
+            .decode()
+            .then(() => resolve(url))
+            .catch(() => resolve(url));
+        });
+      }
+
+      async function showPhoto() {
         const { url, name } = photos[index];
+
+        await (preloadedImage || preloadImage(url));
 
         const zoom = Math.random() > 0.5 ? 1.1 : 0.95;
         const offsetX = (Math.random() - 0.5) * 2;
         const offsetY = (Math.random() - 0.5) * 2;
         const randomDirection = `scale(${zoom}) translate(calc(-50% + ${offsetX}%), calc(-50% + ${offsetY}%))`;
 
-        const active = document.getElementById(`photo${currentImage}`);
-        const next = document.getElementById(
-          `photo${currentImage === 1 ? 2 : 1}`,
+        const nodeActiveImage = document.getElementById(
+          `photo${currentImageNumber}`,
+        );
+        const nodeNextImage = document.getElementById(
+          `photo${currentImageNumber === 1 ? 2 : 1}`,
         );
 
-        next.src = url;
-        next.style.transition = "none";
-        next.style.opacity = "0";
-        next.style.transform = "translate(-50%, -50%) scale(1)";
-        void next.offsetWidth;
-        next.style.transition = `opacity 1.5s ease, transform ${interval}ms ease-in-out`;
-        next.style.opacity = "1";
-        next.style.transform = randomDirection;
+        nodeNextImage.src = url;
+        nodeNextImage.style.transition = "none";
+        nodeNextImage.style.opacity = "0";
+        nodeNextImage.style.transform = "translate(-50%, -50%) scale(1)";
+        void nodeNextImage.offsetWidth;
+        nodeNextImage.style.transition = `opacity 1.5s ease, transform ${INTERVAL}ms ease-in-out`;
+        nodeNextImage.style.opacity = "1";
+        nodeNextImage.style.transform = randomDirection;
 
-        active.style.opacity = "0";
-        currentImage = currentImage === 1 ? 2 : 1;
-        caption.textContent = name;
+        nodeActiveImage.style.opacity = "0";
+        currentImageNumber = currentImageNumber === 1 ? 2 : 1;
+        nodeCaption.textContent = name;
 
-        progress.style.transition = "none";
-        progress.style.width = "0%";
-        void progress.offsetWidth;
-        progress.style.transition = `width ${interval}ms linear`;
-        progress.style.width = "100%";
+        nodeProgressBar.style.transition = "none";
+        nodeProgressBar.style.width = "0%";
+        void nodeProgressBar.offsetWidth;
+        nodeProgressBar.style.transition = `width ${INTERVAL}ms linear`;
+        nodeProgressBar.style.width = "100%";
       }
 
       function togglePause() {
         if (!isPaused) {
-          clearInterval(slideshowTimer);
-          progress.style.transition = "none";
           isPaused = true;
+
+          nodeProgressBar.style.transition = "none";
+
+          clearInterval(slideshowTimer);
         } else {
           isPaused = false;
-          progress.style.width = "0%";
-          void progress.offsetWidth;
-          progress.style.transition = `width ${interval}ms linear`;
-          progress.style.width = "100%";
+
+          nodeProgressBar.style.width = "0%";
+          void nodeProgressBar.offsetWidth;
+          nodeProgressBar.style.transition = `width ${INTERVAL}ms linear`;
+          nodeProgressBar.style.width = "100%";
+
           nextPhoto();
-          slideshowTimer = setInterval(nextPhoto, interval);
+          slideshowTimer = setInterval(nextPhoto, INTERVAL);
         }
       }
 
-      document.addEventListener("keydown", (e) => {
-        if (e.code === "Space") {
+      document.addEventListener("keydown", (event) => {
+        if (event.code === "Space") {
           togglePause();
         }
-        if (e.code === "ArrowRight") {
+
+        if (event.code === "ArrowRight") {
           clearInterval(slideshowTimer);
           nextPhoto();
-          if (!isPaused) slideshowTimer = setInterval(nextPhoto, interval);
+
+          if (!isPaused) {
+            slideshowTimer = setInterval(nextPhoto, INTERVAL);
+          }
         }
-        if (e.code === "ArrowLeft") {
+
+        if (event.code === "ArrowLeft") {
           clearInterval(slideshowTimer);
           prevPhoto();
-          if (!isPaused) slideshowTimer = setInterval(nextPhoto, interval);
+
+          if (!isPaused) {
+            slideshowTimer = setInterval(nextPhoto, INTERVAL);
+          }
         }
       });
     </script>
