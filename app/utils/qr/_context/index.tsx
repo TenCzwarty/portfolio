@@ -15,7 +15,7 @@ const QRCodeGeneratorContext =
 export const QRCodeGeneratorContextProvider = ({ children }: TChildren) => {
   const refSVG = React.useRef(null);
 
-  const [storedQRs, setStoredQRs] = useLocalStorage("QRs");
+  const [storedQRs, setStoredQRs] = useLocalStorage("QRs", []);
 
   const [qrName, onChangeQRName] = useOnChangeValue("");
   const [qrString, setQRString] = React.useState("");
