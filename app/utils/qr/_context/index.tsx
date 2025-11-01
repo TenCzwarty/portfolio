@@ -1,5 +1,6 @@
 import React from "react";
 
+import { useLocalStorage } from "~/utils/use-local-storage";
 import { useToggle } from "~/utils/use-toggle";
 
 import { init } from "./init";
@@ -7,7 +8,6 @@ import type { TQRCodeGeneratorContext, TSavedQRs } from "./types";
 
 import { serializeSVG } from "~qr/_utils/serialize-svg";
 import { useOnChangeValue } from "~qr/_utils/use-on-change-value";
-import { useLocalStorage } from "~/utils/use-local-storage";
 
 const QRCodeGeneratorContext =
   React.createContext<TQRCodeGeneratorContext>(init);
