@@ -2,7 +2,7 @@ import React from "react";
 
 import { Pill } from "~/components/pill";
 
-import type { TQRVariant,TQRVariantToggle } from "./types";
+import type { TQRVariant, TQRVariantToggle } from "./types";
 
 export const QRVariantToggle = ({ children }: TQRVariantToggle) => {
   const [qrVariant, setQRVariant] = React.useState<TQRVariant>("website");
@@ -16,9 +16,9 @@ export const QRVariantToggle = ({ children }: TQRVariantToggle) => {
         <button
           onClick={setQRVariantWebsite}
           disabled={qrVariant === "website"}
-          className="group disabled:cursor-not-allowed"
+          className="group"
         >
-          <Pill classes="group-disabled:bg-neutral-200 group-disabled:text-primary-900 bg-primary-900 hover:bg-accent-500 hover:text-primary-900">
+          <Pill classes="group-disabled:bg-accent-500 group-disabled:text-primary-900 group-disabled:hover:bg-accent-500 group-disabled:hover:text-primary-900 bg-primary-900 hover:bg-accent-500 hover:text-primary-900">
             website
           </Pill>
         </button>
@@ -26,9 +26,9 @@ export const QRVariantToggle = ({ children }: TQRVariantToggle) => {
         <button
           onClick={setQRVariantNetwork}
           disabled={qrVariant === "network"}
-          className="group disabled:cursor-not-allowed"
+          className="group"
         >
-          <Pill classes="group-disabled:bg-neutral-200 group-disabled:text-primary-900 bg-primary-900 hover:bg-accent-500 hover:text-primary-900">
+          <Pill classes="group-disabled:bg-accent-500 group-disabled:text-primary-900 group-disabled:hover:bg-accent-500 group-disabled:hover:text-primary-900 bg-primary-900 hover:bg-accent-500 hover:text-primary-900">
             network
           </Pill>
         </button>

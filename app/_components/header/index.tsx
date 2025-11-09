@@ -2,9 +2,9 @@
 
 import React from "react";
 
+import { Logo } from "~/components/logo";
 import { Range } from "~/components/range";
 
-import { Logo } from "./components/logo";
 import { useDynamicHeaderLinks } from "./helpers/use-dynamic-header-links";
 import { useRandomWebsiteColors } from "./helpers/use-random-website-colors";
 
@@ -32,7 +32,7 @@ export const Header = () => {
 
       <header className="absolute z-10 m-4">
         <a href={link.href} className="scale-[25%]" aria-label={link.ariaLabel}>
-          <Logo />
+          <Logo className="spin" />
         </a>
       </header>
     </>

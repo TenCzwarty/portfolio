@@ -2,6 +2,8 @@
 
 import React from "react";
 
+import { Spinner } from "~/components/spinner";
+
 import { HanayamaTrackerContextProvider } from "~hanayama/_context";
 
 export default function UtilsHanayamaTrackerPageLayout({
@@ -9,7 +11,7 @@ export default function UtilsHanayamaTrackerPageLayout({
 }: TChildren) {
   return (
     <HanayamaTrackerContextProvider>
-      <React.Suspense fallback={<></>}>{children}</React.Suspense>
+      <React.Suspense fallback={<Spinner />}>{children}</React.Suspense>
     </HanayamaTrackerContextProvider>
   );
 }

@@ -1,6 +1,7 @@
 "use client";
 
 import { DownloadIcon } from "lucide-react";
+import Link from "next/link";
 
 import {
   Accordion,
@@ -13,7 +14,7 @@ import { Section } from "~/components/section";
 
 import "./_styles/styles.css";
 
-export default function FunZone() {
+export default function FunZonePage() {
   return (
     <main className="min-h-[calc(100dvh-56px)]">
       <Section>
@@ -99,6 +100,14 @@ export default function FunZone() {
                   </div>
 
                   <Accordion {...accordionProps}>
+                    <Link href="/fun-zone/amasia-calendar-converter">
+                      <div className="mt-4 flex flex-col rounded-xl border border-neutral-200 p-4 hover:bg-neutral-200">
+                        <h3 className="text-lg font-semibold sm:text-xl">
+                          Amasia Calendar Converter
+                        </h3>
+                        <div className="text-sm">in progress...</div>
+                      </div>
+                    </Link>
                     <div className="mt-4 flex cursor-not-allowed flex-col rounded-xl border border-neutral-200 p-4">
                       <h3 className="text-lg font-semibold sm:text-xl">
                         Fantasy Calendar Generator

@@ -43,7 +43,7 @@ audio {
   text-decoration: none;
   user-select: none;
   font-weight: 900;
-  background: url("../../../public/files/fun-zone/cosmos.gif");
+  background: url("../../../public/files/fun-zone/cosmos.gif"), #4a186f;
   background-clip: text;
   color: rgba(0, 0, 0, 0.2);
   transition: color 0.5s;

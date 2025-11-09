@@ -42,7 +42,7 @@ export default function UtilsPage() {
                   Photo Slideshow
                 </h3>
                 <div className="text-sm">
-                  local photo slider with simple animations
+                  local photo slider with simple transitions
                 </div>
               </div>
 

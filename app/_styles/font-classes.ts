@@ -19,9 +19,18 @@ const firlest = local({
   ],
 });
 
+const kaleagnetta = local({
+  variable: "--font-kaleagnetta",
+  src: [
+    {
+      path: "../../public/fonts/kaleagnetta.ttf",
+    },
+  ],
+});
+
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
 });
 
-export const fontClasses = `${geistMono.variable} ${whiskey.variable} ${firlest.variable} antialiased`;
+export const fontClasses = `${geistMono.variable} ${whiskey.variable} ${firlest.variable} ${kaleagnetta.variable} antialiased`;

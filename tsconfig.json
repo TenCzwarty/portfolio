@@ -21,7 +21,8 @@
     "paths": {
       "~/*": ["./*"],
       "~qr/*": ["./app/utils/qr/*"],
-      "~hanayama/*": ["./app/utils/hanayama/*"]
+      "~hanayama/*": ["./app/utils/hanayama/*"],
+      "~amasia/*": ["./app/fun-zone/amasia-calendar-converter/*"]
     }
   },
   "include": [

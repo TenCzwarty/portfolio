@@ -1,7 +1,7 @@
-export const Logo = () => (
+export const Logo = ({ className }: { className?: string }) => (
   <div className="rounded-full">
     <svg
-      className="spin"
+      className={className}
       width="50"
       height="50"
       viewBox="0 0 200 200"
