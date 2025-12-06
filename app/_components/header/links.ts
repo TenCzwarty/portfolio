@@ -9,4 +9,6 @@ export const headerLinks: THeaderLinks = {
   "/fun-zone/amasia-calendar-converter": ll.LINK_PAGE_FUN_ZONE,
   "/utils": ll.LINK_PAGE_HOME,
   "/utils/qr": ll.LINK_PAGE_UTILS,
+  "/utils/hanayama": ll.LINK_PAGE_UTILS,
+  "/utils/meeple-circus": ll.LINK_PAGE_UTILS,
 };

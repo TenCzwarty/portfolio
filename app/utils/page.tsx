@@ -62,7 +62,16 @@ export default function UtilsPage() {
             </div>
           </div>
 
-          <div className="flex cursor-not-allowed flex-col rounded-xl border border-neutral-200 p-4">
+          <Link href="/utils/meeple-circus">
+            <div className="mt-4 flex flex-col rounded-xl border border-neutral-200 p-4 hover:bg-neutral-200">
+              <h3 className="text-lg font-semibold sm:text-xl">
+                Meeple Circus
+              </h3>
+              <div className="text-sm">board game timer</div>
+            </div>
+          </Link>
+
+          <div className="mt-4 flex cursor-not-allowed flex-col rounded-xl border border-neutral-200 p-4">
             <h3 className="text-lg font-semibold sm:text-xl">
               Month Time Block
             </h3>
