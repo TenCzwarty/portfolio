@@ -1,67 +1,164 @@
-import { Section } from "~/components/section"
+"use client";
 
-const SONGS = {
-  classic: {
-    title: "classic",
-    songs: [
-      { title: "Meeple Circus Theme", src: "mc-theme.mp3" },
-      { title: "East West Rag", src: "mc-east-west-rag.mp3" },
-      { title: "Nuts", src: "mc-nuts.mp3" }
-    ]
-  },
-  themes: {
-    title: "themes", songs:
-      [
-        { title: "Metal Circus", src: "mc-metal-circus.mp3" },
-        { title: "Retrogaming Circus", src: "mc-retrogaming-circus.mp3" },
-        { title: "Carnival Circus", src: "mc-carnival-circus.mp3" },
-        { title: "Comedy Klezmer Circus", src: "mc-comedy-klezmer-circus.mp3" },
-      ]
-  },
-  challenges: {
-    title: "challenges",
-    songs: [
-      { title: "Karaoke", src: "mc-challenge-singing.mp3" },
-      { title: "Thank You", src: "mc-challenge-applause.mp3" },
-      { title: "I Love You", src: "mc-challenge-applause.mp3" },
-      { title: "Moaner", src: "mc-challenge-raleur.mp3" },
-    ]
+import React from "react";
+import {
+  ListMusicIcon,
+  MusicIcon,
+  PartyPopperIcon,
+  ShuffleIcon,
+} from "lucide-react";
 
-  }, director: {
-    title: "director",
-    songs: [
-      { title: "accelerate 1", src: "mc-on-accelere-1er.mp3" },
-      { title: "accelerate 2", src: "mc-on-accelere-2e.mp3" }
-    ]
-  }, christmas: {
-    title: "christmas",
-    songs: [
-      { title: "Jingle Bells Circus", src: "mc-jingle-bells-circus.mp3" },
-      { title: "I Love Winter", src: "mc-i-love-winter.mp3" }
-    ]
-  }
-}
+import {
+  Accordion,
+  AccordionController,
+  AccordionExtraSettingsToggle,
+} from "~/components/accordion";
+import { Section } from "~/components/section";
+import { useToggle } from "~/utils/use-toggle";
+
+import { ButtonWithTooltip } from "./_components/button-with-tooltip";
+import { random } from "~/utils/random";
+import {
+  getAllSongs,
+  getFirstSongForCategory,
+  getSongsForCategory,
+  getRandomSong,
+  findSongBySrc,
+  getFirstCategoryTitle,
+} from "./_const";
+import { useConfetti } from "~/app/utils/meeple-circus/_utils/use-confetti";
+import { IconToggle } from "~/components/icon-toggle";
+import { AudioPlayer } from "./_components/audio-player";
 
 export default function UtilsMeepleCircusPage() {
-  console.log({ SONGS })
+  const SONGS = getAllSongs();
+
+  const [category, setCategory] = React.useState(getFirstCategoryTitle());
+  const [song, setSong] = React.useState(getFirstSongForCategory(category));
+
+  const [isConfettiEnabled, toggleIsConfettiEnabled] = useToggle(true);
+
+  const triggerConfetti = useConfetti();
+
+  const toggleAndTriggerConfetti = () => {
+    // trigger confetti when we toggle the button to 'active'
+    if (!isConfettiEnabled) {
+      triggerConfetti({ angle: random(180, 360) });
+    }
+
+    toggleIsConfettiEnabled();
+  };
+
+  const onChangeCategory = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const newCategory = e.target.value;
+
+    setCategory(newCategory);
+    setSong(getFirstSongForCategory(newCategory));
+  };
+
+  const onChangeSong = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const selectedSong = findSongBySrc(category, e.target.value);
+
+    if (selectedSong) {
+      setSong(selectedSong);
+    }
+  };
+
+  const onClickGetRandomSong = () => {
+    const categorySongs = getSongsForCategory(category);
+
+    if (categorySongs.length <= 1) {
+      return;
+    }
+
+    const randomSong = getRandomSong(categorySongs, song?.src);
+
+    if (randomSong) {
+      setSong(randomSong);
+    }
+  };
 
   return (
     <main className="min-h-[calc(100dvh-56px)]">
       <Section>
-        <div className="mt-16 mb-8 ml-4">
-          <h1 className="text-xl font-semibold sm:text-3xl">
-            Meeple Circus
-          </h1>
+        <AccordionController>
+          {(accordionProps) => (
+            <>
+              <div className="mt-16 mb-8 ml-4">
+                <h1 className="text-xl font-semibold sm:text-3xl">
+                  Meeple Circus
+                </h1>
 
-          <div className="flex gap-2">
-            <p>board game timer</p>
+                <div className="flex gap-2">
+                  <p>music timer for a forgotten board game</p>
+
+                  <div className="flex gap-4 ">
+                    <AccordionExtraSettingsToggle {...accordionProps} />
+
+                    <Accordion {...accordionProps}>
+                      <div className="flex items-center gap-2">
+                        <ButtonWithTooltip id="random" onClick={onClickGetRandomSong}>
+                          <ShuffleIcon />
+                        </ButtonWithTooltip>
+
+                        <IconToggle
+                          id="confetti"
+                          toggleFunction={toggleAndTriggerConfetti}
+                        >
+                          <PartyPopperIcon />
+                        </IconToggle>
+                      </div>
+                    </Accordion>
+                  </div>
+                </div>
+              </div>
+            </>
+          )}
+        </AccordionController>
+
+        <div className="ml-4 w-[300px] space-y-4">
+          <div className="flex items-center gap-2">
+            <ListMusicIcon className="z-10" />
+
+            <select
+              value={category}
+              onChange={onChangeCategory}
+              className="-ml-10 h-[40px] w-[316px] appearance-none rounded-xl pl-4 pl-10 hover:cursor-pointer hover:bg-neutral-200"
+            >
+              {SONGS.map(({ title }) => (
+                <option key={title} value={title}>
+                  {title}
+                </option>
+              ))}
+            </select>
           </div>
-        </div>
 
-        <div>
-          {/* TODO: songs dropdown */ }
+          <div className="flex items-center gap-2">
+            <MusicIcon className="z-10" />
+
+            <select
+              value={song?.src}
+              onChange={onChangeSong}
+              className="-ml-10 h-[40px] w-[316px] appearance-none rounded-xl pl-4 pl-10 hover:cursor-pointer hover:bg-neutral-200"
+            >
+              {getSongsForCategory(category).map(({ title, src }) => (
+                <option key={title} value={src}>
+                  {title}
+                </option>
+              ))}
+            </select>
+          </div>
+
+          <AudioPlayer
+            src={`/files/utils/meeple-circus/${song?.src}`}
+            confetti={{
+              trigger: () => triggerConfetti({ angle: random(0, 360) }),
+              isEnabled: isConfettiEnabled,
+              highlightTimestamps: song?.highlightTimestamps ?? [],
+            }}
+          />
         </div>
       </Section>
     </main>
-  )
+  );
 }

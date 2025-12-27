@@ -67,7 +67,7 @@ export default function UtilsPage() {
               <h3 className="text-lg font-semibold sm:text-xl">
                 Meeple Circus
               </h3>
-              <div className="text-sm">board game timer</div>
+              <div className="text-sm">music timer for a forgotten board game</div>
             </div>
           </Link>
 

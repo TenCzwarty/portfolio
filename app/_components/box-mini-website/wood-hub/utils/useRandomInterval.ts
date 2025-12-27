@@ -1,6 +1,6 @@
 import React from "react";
 
-import { random } from "./random";
+import { random } from "~/utils/random";
 
 export const useRandomInterval = ({
   callback,

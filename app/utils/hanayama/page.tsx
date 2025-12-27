@@ -16,7 +16,7 @@ import { ToastContainer } from "~/components/toast";
 import "./styles.css";
 
 import { Icon } from "~hanayama/_components/icon";
-import { IconToggle } from "~hanayama/_components/icon-toggle";
+import { IconToggle } from "~/components/icon-toggle";
 import { PuzzleLevel } from "~hanayama/_components/puzzle-level";
 import { useHanayamaTrackerContext } from "~hanayama/_context";
 

@@ -28,12 +28,13 @@ export default function PortfolioPage() {
   }, []);
 
   React.useEffect(() => {
-    document
-      .getElementById("email")
-      ?.setAttribute(
-        "href",
-        "mailto:".concat(atob(process.env.NEXT_PUBLIC_EMAIL)),
-      );
+    const email = process.env.NEXT_PUBLIC_EMAIL;
+    
+    if (email) {
+      document
+        .getElementById("email")
+        ?.setAttribute("href", "mailto:".concat(atob(email)));
+    }
   }, []);
 
   return (

@@ -1,0 +1,97 @@
+[
+  {
+    "title": "themes",
+    "songs": [
+      {
+        "title": "meeple circus theme",
+        "src": "mc-theme.mp3",
+        "highlightTimestamps": [60000, 80000, 100000, 120000]
+      },
+      {
+        "title": "east west rag",
+        "src": "mc-east-west-rag.mp3",
+        "highlightTimestamps": [60000, 80000, 100000, 120000]
+      },
+      {
+        "title": "nuts",
+        "src": "mc-nuts.mp3",
+        "highlightTimestamps": [60000, 80000, 100000, 120000]
+      },
+      {
+        "title": "metal circus",
+        "src": "mc-metal-circus.mp3",
+        "highlightTimestamps": [60000, 80000, 100000, 120000]
+      },
+      {
+        "title": "retrogaming circus",
+        "src": "mc-retrogaming-circus.mp3",
+        "highlightTimestamps": [60000, 80000, 100000, 120000]
+      },
+      {
+        "title": "carnival circus",
+        "src": "mc-carnival-circus.mp3",
+        "highlightTimestamps": [60000, 80000, 100000, 120000]
+      },
+      {
+        "title": "comedy klezmer circus",
+        "src": "mc-comedy-klezmer-circus.mp3",
+        "highlightTimestamps": [60000, 80000, 100000, 120000]
+      }
+    ]
+  },
+  {
+    "title": "challenges",
+    "songs": [
+      {
+        "title": "karaoke",
+        "src": "mc-challenge-karaoke.mp3",
+        "highlightTimestamps": [60000, 80000, 100000, 120000]
+      },
+      {
+        "title": "thank you",
+        "src": "mc-challenge-applause.mp3",
+        "highlightTimestamps": [60000, 80000, 100000, 120000]
+      },
+      {
+        "title": "i love you",
+        "src": "mc-challenge-applause.mp3",
+        "highlightTimestamps": [60000, 80000, 100000, 120000]
+      },
+      {
+        "title": "bad sport",
+        "src": "mc-challenge-bad-sport.mp3",
+        "highlightTimestamps": [60000, 80000, 100000, 120000]
+      }
+    ]
+  },
+  {
+    "title": "director's instructions",
+    "songs": [
+      {
+        "title": "faster (1st act)",
+        "src": "mc-faster-1st-act.mp3",
+        "highlightTimestamps": [27000]
+      },
+      {
+        "title": "faster (2nd act)",
+        "src": "mc-faster-2nd-act.mp3",
+        "highlightTimestamps": [27000, 51000]
+      }
+    ]
+  },
+  {
+    "title": "christmas",
+    "songs": [
+      {
+        "title": "jingle bells circus",
+        "src": "mc-jingle-bells-circus.mp3",
+        "highlightTimestamps": [60000, 80000, 100000, 120000]
+      },
+      {
+        "title": "i love winter",
+        "src": "mc-i-love-winter.mp3",
+        "highlightTimestamps": [60000, 80000, 100000, 120000]
+      }
+    ]
+  }
+]
