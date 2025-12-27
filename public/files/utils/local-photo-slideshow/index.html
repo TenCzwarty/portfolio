@@ -90,12 +90,10 @@
       let isPaused = false;
       let preloadedImage = null;
 
-      const INTERVAL = 150000; // 15 seconds
+      const INTERVAL = 15000; // 15 seconds
 
       nodePhotosPicker.addEventListener("change", (event) => {
-        const files = Array.from(event.target.files).filter((f) =>
-          f.type.startsWith("image/"),
-        );
+        const files = Array.from(event.target.files).filter((f) => f.type.startsWith("image/"));
 
         if (files.length === 0) {
           return alert("no images found in folder");
@@ -165,12 +163,8 @@
         const offsetY = (Math.random() - 0.5) * 2;
         const randomDirection = `scale(${zoom}) translate(calc(-50% + ${offsetX}%), calc(-50% + ${offsetY}%))`;
 
-        const nodeActiveImage = document.getElementById(
-          `photo${currentImageNumber}`,
-        );
-        const nodeNextImage = document.getElementById(
-          `photo${currentImageNumber === 1 ? 2 : 1}`,
-        );
+        const nodeActiveImage = document.getElementById(`photo${currentImageNumber}`);
+        const nodeNextImage = document.getElementById(`photo${currentImageNumber === 1 ? 2 : 1}`);
 
         nodeNextImage.src = url;
         nodeNextImage.style.transition = "none";
