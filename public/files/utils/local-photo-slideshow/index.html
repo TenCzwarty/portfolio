@@ -31,7 +31,7 @@
         transform: translate(-50%, -50%) scale(1);
         width: 110vw;
         height: 110vh;
-        object-fit: cover;
+        object-fit: contain;
         opacity: 0;
         transition:
           opacity 1.5s ease,
@@ -90,7 +90,7 @@
       let isPaused = false;
       let preloadedImage = null;
 
-      const INTERVAL = 30000; // 30 seconds
+      const INTERVAL = 150000; // 15 seconds
 
       nodePhotosPicker.addEventListener("change", (event) => {
         const files = Array.from(event.target.files).filter((f) =>
