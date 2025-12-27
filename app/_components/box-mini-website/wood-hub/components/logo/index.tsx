@@ -1,7 +1,7 @@
 import React from "react";
 
-import { coinToss, random } from "~/utils/random";
 import { useRandomInterval } from "~/app/_components/box-mini-website/wood-hub/utils/useRandomInterval";
+import { coinToss, random } from "~/utils/random";
 
 import "./styles.css";
 

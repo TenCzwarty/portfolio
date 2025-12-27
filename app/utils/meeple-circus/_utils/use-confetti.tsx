@@ -5,7 +5,9 @@ import {
   confetti,
   type ConfettiOptions as TConfettiOptions,
 } from "@tsparticles/confetti";
+
 import { useOnMouseMove } from "~/utils/use-on-mouse-move";
+
 import { getThemeColors } from "./get-theme-colors";
 
 export const useConfetti = () => {

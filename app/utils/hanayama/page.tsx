@@ -10,13 +10,13 @@ import {
   AccordionController,
   AccordionExtraSettingsToggle,
 } from "~/components/accordion";
+import { IconToggle } from "~/components/icon-toggle";
 import { Section } from "~/components/section";
 import { ToastContainer } from "~/components/toast";
 
 import "./styles.css";
 
 import { Icon } from "~hanayama/_components/icon";
-import { IconToggle } from "~/components/icon-toggle";
 import { PuzzleLevel } from "~hanayama/_components/puzzle-level";
 import { useHanayamaTrackerContext } from "~hanayama/_context";
 

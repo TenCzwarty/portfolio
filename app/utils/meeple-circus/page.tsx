@@ -8,27 +8,27 @@ import {
   ShuffleIcon,
 } from "lucide-react";
 
+import { useConfetti } from "~/app/utils/meeple-circus/_utils/use-confetti";
 import {
   Accordion,
   AccordionController,
   AccordionExtraSettingsToggle,
 } from "~/components/accordion";
+import { IconToggle } from "~/components/icon-toggle";
 import { Section } from "~/components/section";
+import { random } from "~/utils/random";
 import { useToggle } from "~/utils/use-toggle";
 
-import { ButtonWithTooltip } from "./_components/button-with-tooltip";
-import { random } from "~/utils/random";
-import {
-  getAllSongs,
-  getFirstSongForCategory,
-  getSongsForCategory,
-  getRandomSong,
-  findSongBySrc,
-  getFirstCategoryTitle,
-} from "./_const";
-import { useConfetti } from "~/app/utils/meeple-circus/_utils/use-confetti";
-import { IconToggle } from "~/components/icon-toggle";
 import { AudioPlayer } from "./_components/audio-player";
+import { ButtonWithTooltip } from "./_components/button-with-tooltip";
+import {
+  findSongBySrc,
+  getAllSongs,
+  getFirstCategoryTitle,
+  getFirstSongForCategory,
+  getRandomSong,
+  getSongsForCategory,
+} from "./_const";
 
 export default function UtilsMeepleCircusPage() {
   const SONGS = getAllSongs();
