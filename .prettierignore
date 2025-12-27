@@ -1,0 +1,15 @@
+# Dependencies
+node_modules
+
+# Build output
+.next
+out
+
+# Lock files
+pnpm-lock.yaml
+package-lock.json
+
+# Generated
+*.d.ts
+!globals.d.ts
+
