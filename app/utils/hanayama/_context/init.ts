@@ -21,6 +21,7 @@ export const init = {
     chess: () => {},
     disney: () => {},
     pokemon: () => {},
+    special: () => {},
     ultraman: () => {},
   },
 
