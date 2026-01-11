@@ -23,16 +23,12 @@ import { useHanayamaTrackerContext } from "~hanayama/_context";
 export default function UtilsHanayamaTrackerPage() {
   useHanayamaQueryString();
 
-  const {
-    toggleFunctionsRarity,
-    toggleFunctionsSeries,
-    toggleFunctionsStatus,
-  } = useHanayamaTrackerContext();
+  const { toggleFunctionsRarity, toggleFunctionsSeries, toggleFunctionsStatus } =
+    useHanayamaTrackerContext();
 
   const allPuzzles = getAllPuzzles();
 
-  const [textPercentageCollected, textPercentageCompleted] =
-    usePuzzlePercentagesText();
+  const [textPercentageCollected, textPercentageCompleted] = usePuzzlePercentagesText();
 
   return (
     <>
@@ -44,9 +40,7 @@ export default function UtilsHanayamaTrackerPage() {
             {(accordionProps) => (
               <>
                 <div className="mt-16 mb-8 ml-4">
-                  <h1 className="text-xl font-semibold sm:text-3xl">
-                    Hanayama Tracker
-                  </h1>
+                  <h1 className="text-xl font-semibold sm:text-3xl">Hanayama Tracker</h1>
 
                   <div className="flex gap-2">
                     <p>track your metal puzzles collection</p>
@@ -57,57 +51,36 @@ export default function UtilsHanayamaTrackerPage() {
                     <div className="mt-4 -ml-4 flex flex-col space-y-2 rounded-xl border border-neutral-200 p-4">
                       <div className="flex gap-2">
                         <h4 className="mr-2">rarity</h4>
-                        <IconToggle
-                          id="basic"
-                          toggleFunction={toggleFunctionsRarity.basic}
-                        >
+                        <IconToggle id="basic" toggleFunction={toggleFunctionsRarity.basic}>
                           <Icon.rarity.basic />
                         </IconToggle>
-                        <IconToggle
-                          id="rare"
-                          toggleFunction={toggleFunctionsRarity.rare}
-                        >
+                        <IconToggle id="rare" toggleFunction={toggleFunctionsRarity.rare}>
                           <Icon.rarity.rare />
                         </IconToggle>
                       </div>
 
                       <div className="flex gap-2">
                         <h4 className="mr-2">series</h4>
-                        <IconToggle
-                          id="sea"
-                          toggleFunction={toggleFunctionsSeries.sea}
-                        >
+                        <IconToggle id="sea" toggleFunction={toggleFunctionsSeries.sea}>
                           <Icon.series.sea />
                         </IconToggle>
-                        <IconToggle
-                          id="zelda"
-                          toggleFunction={toggleFunctionsSeries.zelda}
-                        >
+                        <IconToggle id="zelda" toggleFunction={toggleFunctionsSeries.zelda}>
                           <Icon.series.zelda />
                         </IconToggle>
-                        <IconToggle
-                          id="chess"
-                          toggleFunction={toggleFunctionsSeries.chess}
-                        >
+                        <IconToggle id="chess" toggleFunction={toggleFunctionsSeries.chess}>
                           <Icon.series.chess />
                         </IconToggle>
-                        <IconToggle
-                          id="disney"
-                          toggleFunction={toggleFunctionsSeries.disney}
-                        >
+                        <IconToggle id="disney" toggleFunction={toggleFunctionsSeries.disney}>
                           <Icon.series.disney />
                         </IconToggle>
-                        <IconToggle
-                          id="pokemon"
-                          toggleFunction={toggleFunctionsSeries.pokemon}
-                        >
+                        <IconToggle id="pokemon" toggleFunction={toggleFunctionsSeries.pokemon}>
                           <Icon.series.pokemon />
                         </IconToggle>
-                        <IconToggle
-                          id="ultraman"
-                          toggleFunction={toggleFunctionsSeries.ultraman}
-                        >
+                        <IconToggle id="ultraman" toggleFunction={toggleFunctionsSeries.ultraman}>
                           <Icon.series.ultraman />
+                        </IconToggle>
+                        <IconToggle id="special" toggleFunction={toggleFunctionsSeries.special}>
+                          <Icon.series.special />
                         </IconToggle>
                       </div>
 

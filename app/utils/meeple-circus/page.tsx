@@ -1,12 +1,7 @@
 "use client";
 
 import React from "react";
-import {
-  ListMusicIcon,
-  MusicIcon,
-  PartyPopperIcon,
-  ShuffleIcon,
-} from "lucide-react";
+import { ListMusicIcon, MusicIcon, PartyPopperIcon, ShuffleIcon } from "lucide-react";
 
 import { useConfetti } from "~/app/utils/meeple-circus/_utils/use-confetti";
 import {
@@ -85,26 +80,21 @@ export default function UtilsMeepleCircusPage() {
           {(accordionProps) => (
             <>
               <div className="mt-16 mb-8 ml-4">
-                <h1 className="text-xl font-semibold sm:text-3xl">
-                  Meeple Circus
-                </h1>
+                <h1 className="text-xl font-semibold sm:text-3xl">Meeple Circus</h1>
 
                 <div className="flex gap-2">
                   <p>music timer for a forgotten board game</p>
 
-                  <div className="flex gap-4 ">
+                  <div className="flex gap-4">
                     <AccordionExtraSettingsToggle {...accordionProps} />
 
                     <Accordion {...accordionProps}>
-                      <div className="flex items-center gap-2">
+                      <div className="flex flex-wrap items-center gap-2">
                         <ButtonWithTooltip id="random" onClick={onClickGetRandomSong}>
                           <ShuffleIcon />
                         </ButtonWithTooltip>
 
-                        <IconToggle
-                          id="confetti"
-                          toggleFunction={toggleAndTriggerConfetti}
-                        >
+                        <IconToggle id="confetti" toggleFunction={toggleAndTriggerConfetti}>
                           <PartyPopperIcon />
                         </IconToggle>
                       </div>

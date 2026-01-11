@@ -1,8 +1,4 @@
-import {
-  Slide,
-  toast as reactToast,
-  ToastContainer as ReactToastContainer,
-} from "react-toastify";
+import { Slide, toast as reactToast, ToastContainer as ReactToastContainer } from "react-toastify";
 
 export const toast = (message: string) =>
   reactToast(message, {

@@ -1015,6 +1015,7 @@
         "name": "lucky puzzle",
         "notes": "a seven metal pieces tangram",
         "rare": true,
+        "tags": ["special"],
         "code": "00"
       },
       {
@@ -1024,6 +1025,7 @@
         "author": "Oskar van Deventer 1987",
         "notes": "one element made of plastic",
         "rare": true,
+        "tags": ["special"],
         "code": "01"
       }
     ]

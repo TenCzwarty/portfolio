@@ -1,10 +1,6 @@
 import type { TPuzzle } from "~hanayama/_components/puzzle/types";
 
-export type TPuzzleStatuses =
-  | "collected"
-  | "-collected"
-  | "completed"
-  | "-completed";
+export type TPuzzleStatuses = "collected" | "-collected" | "completed" | "-completed";
 
 export type THanayamaTrackerContext = {
   collectedPuzzles: Array<string>;
@@ -27,6 +23,7 @@ export type THanayamaTrackerContext = {
     chess: () => void;
     disney: () => void;
     pokemon: () => void;
+    special: () => void;
     ultraman: () => void;
   };
 

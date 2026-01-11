@@ -6,7 +6,7 @@ import { Tooltip } from "~/components/tooltip";
 
 import type { TPuzzleProps } from "./types";
 
-import { getSeriesIcon,Icon } from "~hanayama/_components/icon";
+import { getSeriesIcon, Icon } from "~hanayama/_components/icon";
 import { useHanayamaTrackerContext } from "~hanayama/_context";
 
 export const Puzzle = ({ isSettingsOpened, ...props }: TPuzzleProps) => {
@@ -15,28 +15,24 @@ export const Puzzle = ({ isSettingsOpened, ...props }: TPuzzleProps) => {
 
   const { id, name, src } = props;
 
-  const collect = () => {
+  const collect = (e: React.MouseEvent) => {
+    e.preventDefault();
     if (!isSettingsOpened) return;
 
     toggleCollected(id);
 
     toast(
-      isCollected(id)
-        ? `removed ${name} from your collection`
-        : `added ${name} to your collection`,
+      isCollected(id) ? `removed ${name} from your collection` : `added ${name} to your collection`
     );
   };
 
-  const complete = () => {
+  const complete = (e: React.MouseEvent) => {
+    e.preventDefault();
     if (!isSettingsOpened) return;
 
     toggleCompleted(id);
 
-    toast(
-      isCompleted(id)
-        ? `marked ${name} as not completed`
-        : `marked ${name} as completed`,
-    );
+    toast(isCompleted(id) ? `marked ${name} as not completed` : `marked ${name} as completed`);
   };
 
   return (
@@ -57,9 +53,7 @@ export const Puzzle = ({ isSettingsOpened, ...props }: TPuzzleProps) => {
                 </div>
               )}
 
-              {props.notes && (
-                <div className="text-neutral-500">{props.notes}</div>
-              )}
+              {props.notes && <div className="text-neutral-500">{props.notes}</div>}
             </div>
 
             {(props.rare || props.tags) && (
@@ -110,8 +104,9 @@ export const Puzzle = ({ isSettingsOpened, ...props }: TPuzzleProps) => {
               )}
 
               <button
+                type="button"
                 onClick={complete}
-                className="bg-accent-900 absolute top-0 right-0 block hidden rounded-md p-2 text-white opacity-50 group-hover:block hover:opacity-75"
+                className="bg-accent-900 absolute top-0 right-0 rounded-md p-2 text-white opacity-50 hover:opacity-75 sm:hidden sm:group-hover:block"
               >
                 <Icon.status.completed />
               </button>

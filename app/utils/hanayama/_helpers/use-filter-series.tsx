@@ -9,6 +9,7 @@ type TReturn = [
     chess: () => void;
     disney: () => void;
     pokemon: () => void;
+    special: () => void;
     ultraman: () => void;
   },
 ];
@@ -21,10 +22,10 @@ export const useFilterSeries = (): TReturn => {
     "zelda",
     "disney",
     "pokemon",
+    "special",
   ]);
 
-  const filter = (puzzle: TPuzzle) =>
-    puzzle.tags === undefined ? true : puzzle.tags?.some(is);
+  const filter = (puzzle: TPuzzle) => (puzzle.tags === undefined ? true : puzzle.tags?.some(is));
 
   const toggleFunctions = {
     sea: toggleValueInArray("sea"),
@@ -32,6 +33,7 @@ export const useFilterSeries = (): TReturn => {
     chess: toggleValueInArray("chess"),
     disney: toggleValueInArray("disney"),
     pokemon: toggleValueInArray("pokemon"),
+    special: toggleValueInArray("special"),
     ultraman: toggleValueInArray("ultraman"),
   };
 

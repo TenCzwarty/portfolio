@@ -21,6 +21,8 @@ export const useQueryString = ({
   }, []);
 
   React.useEffect(() => {
-    router.replace(pathname + "?" + getSearchParamsOnValuesChange());
+    router.replace(pathname + "?" + getSearchParamsOnValuesChange(), {
+      scroll: false,
+    });
   }, values);
 };

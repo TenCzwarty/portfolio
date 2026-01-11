@@ -4,6 +4,7 @@ export type TPuzzleSeries =
   | "disney"
   | "pokemon"
   | "sea"
+  | "special"
   | "ultraman"
   | "zelda";
 export type TPuzzleStatus = "completed" | "collected";
