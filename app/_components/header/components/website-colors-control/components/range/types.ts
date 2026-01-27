@@ -1,5 +1,5 @@
 export type TRange = {
   name: string;
-  defaultValue: number;
+  value: number;
   classes?: string;
 };

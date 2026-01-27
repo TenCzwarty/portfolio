@@ -1,4 +1,4 @@
-.heading-varporwave {
+.heading-vaporwave {
   position: relative;
   overflow: hidden;
   font-family: var(--font-whiskey);
@@ -10,7 +10,7 @@
   user-select: none;
 }
 
-.heading-varporwave::after {
+.heading-vaporwave::after {
   content: "";
   position: absolute;
   left: auto;
@@ -25,11 +25,28 @@
     var(--color-neutral-100),
     transparent
   );
+  animation: sweep 5s ease-out 5s infinite;
 }
 
-.heading-varporwave:hover::after {
-  transition: all 0.5s ease-out;
-  right: 100%;
+.heading-vaporwave:hover::after {
+  animation: sweep-hover 5s ease-out;
+}
+
+@keyframes sweep {
+  0% {
+    right: -20%;
+  }
+  10%, 100% {
+    right: 100%;
+  }
+}
+@keyframes sweep-hover {
+  0% {
+    right: -20%;
+  }
+  10%, 100% {
+    right: 100%;
+  }
 }
 
 .heading-fantasy {

@@ -122,7 +122,7 @@ export default function FunZonePage() {
           </div>
 
           <div className="flex flex-col rounded-xl border border-neutral-200 p-4">
-            <h3 className="heading-varporwave">SANTORWAVE</h3>
+            <h3 className="heading-vaporwave">SANTORWAVE</h3>
             <div className="text-sm">in progress...</div>
           </div>
 
