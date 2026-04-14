@@ -5,5 +5,6 @@ export const PATHNAMES = [
   "/utils/qr",
   "/utils/hanayama",
   "/utils/meeple-circus",
+  "/utils/spin",
   "/fun-zone/amasia-calendar-converter",
 ] as const;

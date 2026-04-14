@@ -11,4 +11,5 @@ export const headerLinks: THeaderLinks = {
   "/utils/qr": ll.LINK_PAGE_UTILS,
   "/utils/hanayama": ll.LINK_PAGE_UTILS,
   "/utils/meeple-circus": ll.LINK_PAGE_UTILS,
+  "/utils/spin": ll.LINK_PAGE_UTILS,
 };

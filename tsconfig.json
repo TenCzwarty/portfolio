@@ -22,7 +22,8 @@
       "~/*": ["./*"],
       "~qr/*": ["./app/utils/qr/*"],
       "~hanayama/*": ["./app/utils/hanayama/*"],
-      "~amasia/*": ["./app/fun-zone/amasia-calendar-converter/*"]
+      "~amasia/*": ["./app/fun-zone/amasia-calendar-converter/*"],
+      "~spin/*": ["./app/utils/spin/*"]
     }
   },
   "include": [

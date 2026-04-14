@@ -62,6 +62,15 @@ export default function UtilsPage() {
             </div>
           </div>
 
+          <Link href="/utils/spin?elements=A,B,C">
+            <div className="mt-4 flex flex-col rounded-xl border border-neutral-200 p-4 hover:bg-neutral-200">
+              <h3 className="text-lg font-semibold sm:text-xl">Spin The Wheel</h3>
+              <div className="text-sm">
+                pick a random element from a list
+              </div>
+            </div>
+          </Link>
+
           <Link href="/utils/meeple-circus">
             <div className="mt-4 flex flex-col rounded-xl border border-neutral-200 p-4 hover:bg-neutral-200">
               <h3 className="text-lg font-semibold sm:text-xl">
