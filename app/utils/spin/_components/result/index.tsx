@@ -3,6 +3,7 @@
 import React from "react";
 
 import { useConfetti } from "~/app/utils/meeple-circus/_utils/use-confetti";
+
 import { useSpinWheelContext } from "~spin/_context";
 
 export const SpinResult = () => {

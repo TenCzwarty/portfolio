@@ -1,12 +1,13 @@
 "use client";
 
+import { ElementInputs } from "~/app/utils/spin/_components/element-inputs";
 import {
   Accordion,
   AccordionController,
   AccordionExtraSettingsToggle,
 } from "~/components/accordion";
 import { Section } from "~/components/section";
-import { ElementInputs } from "~/app/utils/spin/_components/element-inputs";
+
 import { SpinResult } from "~spin/_components/result";
 import { SpinWheel } from "~spin/_components/wheel";
 import { useSpinWheelContext } from "~spin/_context";
