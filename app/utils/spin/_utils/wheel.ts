@@ -1,3 +1,5 @@
+import type { TSpinElement } from "~spin/_context/types";
+
 type TRGB = [number, number, number];
 
 const readCssColor = (varName: string): TRGB | null => {
@@ -43,24 +45,54 @@ export const getSegmentColors = (n: number): string[] => {
 
 export const easeOut = (t: number): number => 1 - Math.pow(1 - t, 4);
 
-export const getWinner = (elements: string[], rotation: number): string => {
+// Returns normalized weights (fractions summing to 1).
+// Elements without a weight share the remaining percentage equally.
+// If all weights are explicit and exceed 100, everything is normalized proportionally.
+export const resolveWeights = (elements: TSpinElement[]): number[] => {
+  const n = elements.length;
+  if (n === 0) return [];
+
+  const fixedSum = elements.reduce((s, e) => s + (e.weight ?? 0), 0);
+  const freeCount = elements.filter((e) => e.weight === undefined).length;
+
+  let weights: number[];
+
+  if (freeCount === 0 || fixedSum >= 100) {
+    // All explicit, or fixed weights already fill the wheel — normalize proportionally
+    weights = elements.map((e) => e.weight ?? 1);
+  } else {
+    const freeWeight = (100 - fixedSum) / freeCount;
+    weights = elements.map((e) => e.weight ?? freeWeight);
+  }
+
+  const total = weights.reduce((s, w) => s + w, 0);
+  return weights.map((w) => w / total);
+};
+
+export const getWinner = (elements: TSpinElement[], rotation: number): string => {
   const n = elements.length;
 
   if (n === 0) {
     return "";
   }
 
-  const segAngle = 360 / n;
+  const weights = resolveWeights(elements);
   const normalizedRotation = ((rotation % 360) + 360) % 360;
   const angleAtTop = (360 - normalizedRotation) % 360;
-  const index = Math.floor(angleAtTop / segAngle) % n;
+  const fraction = angleAtTop / 360;
 
-  return elements[index]
+  let cumulative = 0;
+  for (let i = 0; i < n; i++) {
+    cumulative += weights[i];
+    if (fraction < cumulative) return elements[i].label;
+  }
+
+  return elements[n - 1].label;
 };
 
 export const drawWheel = (
   ctx: CanvasRenderingContext2D,
-  elements: string[],
+  elements: TSpinElement[],
   colors: string[],
   rotation: number,
 ) => {
@@ -75,11 +107,14 @@ export const drawWheel = (
   if (n === 0) {
     return;
   }
-  const segAngle = (2 * Math.PI) / n;
+
+  const weights = resolveWeights(elements);
   const rotRad = (rotation * Math.PI) / 180;
+  let currentAngle = -Math.PI / 2 + rotRad;
 
   for (let i = 0; i < n; i++) {
-    const startAngle = -Math.PI / 2 + rotRad + i * segAngle;
+    const segAngle = weights[i] * 2 * Math.PI;
+    const startAngle = currentAngle;
     const endAngle = startAngle + segAngle;
 
     ctx.beginPath();
@@ -94,7 +129,9 @@ export const drawWheel = (
 
     const midAngle = startAngle + segAngle / 2;
     const label =
-      elements[i].length > 10 ? elements[i].slice(0, 9) + "\u2026" : elements[i];
+      elements[i].label.length > 10
+        ? elements[i].label.slice(0, 9) + "\u2026"
+        : elements[i].label;
 
     ctx.save();
     ctx.translate(cx, cy);
@@ -108,6 +145,8 @@ export const drawWheel = (
     ctx.shadowOffsetY = 0;
     ctx.fillText(label, radius - 12, 5);
     ctx.restore();
+
+    currentAngle = endAngle;
   }
 
   // Center circle

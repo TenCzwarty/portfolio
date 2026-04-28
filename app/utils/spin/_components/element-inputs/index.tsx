@@ -16,10 +16,28 @@ export const ElementInputs = () => {
         <div key={index} className="flex items-center gap-2">
           <input
             type="text"
-            value={element}
-            onChange={(e) => updateElement(index, e.target.value)}
+            value={element.label}
+            onChange={(e) =>
+              updateElement(index, { ...element, label: e.target.value })
+            }
             placeholder={`element ${index + 1}`}
             className="w-full rounded-md bg-white p-3 text-sm"
+          />
+          <input
+            type="number"
+            value={element.weight ?? ""}
+            onChange={(e) => {
+              const val = e.target.value;
+              const num = val === "" ? undefined : parseFloat(val);
+              updateElement(index, {
+                ...element,
+                weight: num === undefined || isNaN(num) || num <= 0 ? undefined : num,
+              });
+            }}
+            placeholder="%"
+            min={0}
+            max={100}
+            className="w-16 rounded-md bg-white p-3 text-sm"
           />
           <button
             onClick={() => removeElement(index)}
