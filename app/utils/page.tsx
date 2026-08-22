@@ -35,6 +35,15 @@ export default function UtilsPage() {
             </div>
           </Link>
 
+          <Link href="/utils/sumo">
+            <div className="mt-4 flex flex-col rounded-xl border border-neutral-200 p-4 hover:bg-neutral-200">
+              <h3 className="text-lg font-semibold sm:text-xl">
+                Sumo Card Tracker
+              </h3>
+              <div className="text-sm">BBM sumo trading card catalog</div>
+            </div>
+          </Link>
+
           <div className="mt-4 flex flex-col rounded-xl border border-neutral-200 p-4">
             <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
               <div>
