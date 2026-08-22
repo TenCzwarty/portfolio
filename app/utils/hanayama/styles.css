@@ -7,10 +7,8 @@
   pointer-events: none;
   content: "";
   position: absolute;
-  left: auto;
-  top: auto;
-  bottom: -170%;
-  right: -170%;
+  top: 0;
+  left: 0;
   width: 150%;
   height: 150%;
   background-image: linear-gradient(
@@ -19,10 +17,11 @@
     rgba(255, 255, 255, 0.3) 50%,
     transparent 60%
   );
+  transform: translate(100%, 100%);
+  will-change: transform;
 }
 
 .glint:hover::after {
-  transition: all 0.5s ease-out;
-  bottom: 100%;
-  right: 100%;
+  transition: transform 0.5s ease-out;
+  transform: translate(-100%, -100%);
 }
