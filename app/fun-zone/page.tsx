@@ -45,10 +45,12 @@ export default function FunZonePage() {
                 </div>
               </div>
 
-              <audio controls className="mx-auto sm:mx-0 rounded-xl">
-                <source src="/files/fun-zone/cv.wav" type="audio/wav" />
-                Your browser does not support the audio element.
-              </audio>
+              <div className="mx-auto overflow-hidden rounded-xl sm:mx-0">
+                <audio controls className="block">
+                  <source src="/files/fun-zone/cv.wav" type="audio/wav" />
+                  Your browser does not support the audio element.
+                </audio>
+              </div>
             </div>
           </div>
 

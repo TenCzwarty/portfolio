@@ -36,16 +36,18 @@ export const AudioPlayer = ({ src, confetti }: TAudioPlayer) => {
   };
 
   return (
-    <audio
-      ref={refAudio}
-      key={src}
-      onPlay={onPlay}
-      onTimeUpdate={onTimeUpdate}
-      controls
-      className="mx-auto rounded-xl sm:mx-0"
-    >
-      <source src={src} type="audio/wav" />
-      Your browser does not support the audio element.
-    </audio>
+    <div className="mx-auto overflow-hidden rounded-xl sm:mx-0">
+      <audio
+        ref={refAudio}
+        key={src}
+        onPlay={onPlay}
+        onTimeUpdate={onTimeUpdate}
+        controls
+        className="block"
+      >
+        <source src={src} type="audio/wav" />
+        Your browser does not support the audio element.
+      </audio>
+    </div>
   );
 };
