@@ -8,19 +8,20 @@ import { Pill } from "~/components/pill";
 import type { TSumoCardProps } from "./types";
 
 export const SumoCard = (props: TSumoCardProps) => {
-  const { title, number, finishes, tcdbImageUrl } = props;
+  const { title, number, src, finishes } = props;
   const [imgError, setImgError] = React.useState(false);
 
-  const displayName =
-    title.length > 24 ? title.split(" ").slice(0, 2).join(" ") : title;
+  const displayName = title.split(" ")[0];
+
+  const imageSrc = src ? `/images/utils/sumo/${src}` : null;
 
   return (
     <div className="flex flex-col items-center gap-1">
       <div className="group relative rounded-xl border border-neutral-200 bg-white p-2">
         <div className="relative h-[160px] w-[112px] overflow-hidden rounded-lg bg-neutral-100">
-          {tcdbImageUrl && !imgError ? (
+          {imageSrc && !imgError ? (
             <NextImage
-              src={tcdbImageUrl}
+              src={imageSrc}
               fill
               sizes="112px"
               className="object-cover"
