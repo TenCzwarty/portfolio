@@ -59,8 +59,9 @@ export const MonthGrid = ({
             key={week[0]}
             className="grid grid-cols-7 border-b border-neutral-200 last:border-b-0"
             style={{
-              // square days: row is at least one column wide, grows only when plans need room
-              minHeight: "calc(100cqw / 7)",
+              // ~70% of a square, capped so the month fits on a laptop screen;
+              // grows only when plans need room
+              minHeight: "min(10cqw, 5.5rem)",
               // repeat(0, …) is invalid CSS and would drop the whole template
               gridTemplateRows: `auto ${lanes ? `repeat(${lanes}, ${LANE_HEIGHT})` : ""} minmax(1.25rem, 1fr)`,
             }}

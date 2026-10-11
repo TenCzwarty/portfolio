@@ -2,7 +2,7 @@ import React from "react";
 
 import type { TCalendarAction, TCalendarData, TPerson } from "../_types";
 
-import { STORAGE_KEY_ME, STORAGE_KEY_SECRET } from "./identity";
+import { findByName, STORAGE_KEY_ME, STORAGE_KEY_SECRET } from "./identity";
 
 const API = "/api/kalendarz";
 
@@ -128,12 +128,27 @@ export const useCalendar = () => {
     };
   }, [refresh]);
 
+  // remember what was last pushed, so a rejected update is not retried on every refresh
+  const lastSentRef = React.useRef<string | null>(null);
+
   // make sure the server knows my current name / color
   React.useEffect(() => {
-    if (!me || !canEdit) return;
+    if (!me || !canEdit || status !== "ready") return;
     const known = data.people.find((p) => p.id === me.id);
     if (known?.name === me.name && known.color === me.color) return;
-    if (status === "ready") send({ type: "person", person: me });
+
+    // same name already on the server under another id (new device / browser) -> that's me
+    const namesake = known ? undefined : findByName(data.people, me.name);
+    if (namesake) {
+      writeStorage(STORAGE_KEY_ME, namesake);
+      setMeState(namesake);
+      return;
+    }
+
+    const payload = JSON.stringify(me);
+    if (lastSentRef.current === payload) return;
+    lastSentRef.current = payload;
+    send({ type: "person", person: me });
   }, [me, canEdit, data.people, status, send]);
 
   const setMe = (person: TPerson) => {

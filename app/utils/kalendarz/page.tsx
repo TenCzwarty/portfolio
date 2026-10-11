@@ -148,7 +148,7 @@ export default function UtilsKalendarzPage() {
             <IdentityForm
               key={me?.id ?? "new"}
               me={me}
-              takenColors={people.filter((p) => p.id !== me?.id).map((p) => p.color)}
+              people={people}
               onSave={(person) => {
                 setMe(person);
                 setEditingMe(false);
