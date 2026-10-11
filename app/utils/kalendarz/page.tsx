@@ -130,7 +130,7 @@ export default function UtilsKalendarzPage() {
 
         <div className="space-y-4">
           {errorMessage && (
-            <div className="flex items-center justify-between gap-4 rounded-xl border border-red-300 bg-red-50 p-3 text-sm text-red-800">
+            <div className="flex items-center justify-between gap-4 rounded-xl border border-red-300 bg-red-50 p-4 text-sm text-red-800">
               {errorMessage}
               <button type="button" onClick={clearError} aria-label="zamknij" className="px-2">
                 ×
@@ -139,7 +139,7 @@ export default function UtilsKalendarzPage() {
           )}
 
           {hydrated && status === "ready" && !canEdit && (
-            <div className="rounded-xl border border-neutral-200 p-3 text-sm">
+            <div className="rounded-xl border border-neutral-200 p-4 text-sm">
               tylko podgląd — żeby coś zapisać, otwórz sekretny link
             </div>
           )}
@@ -167,7 +167,7 @@ export default function UtilsKalendarzPage() {
               >
                 <ChevronLeftIcon size={20} />
               </button>
-              <h2 className="min-w-[10ch] text-center text-lg font-semibold first-letter:uppercase">
+              <h2 className="min-w-[10ch] text-center text-lg font-semibold first-letter:uppercase sm:text-xl">
                 {formatMonth(cursor.year, cursor.month)}
               </h2>
               <button
@@ -230,7 +230,7 @@ export default function UtilsKalendarzPage() {
           </div>
 
           {canEdit && me && (
-            <p className="text-xs opacity-70">
+            <p className="text-sm opacity-70">
               {mode === "availability"
                 ? "kliknij dzień, żeby oznaczyć, że masz czas (drugi klik cofa)"
                 : rangeStart && !newPlanRange
@@ -262,7 +262,7 @@ export default function UtilsKalendarzPage() {
 
           <Legend people={people} availability={data.availability} monthDays={monthDays} me={me} />
           {people.length > 1 && (
-            <p className="text-xs opacity-70">obramowany dzień = wszyscy mają czas</p>
+            <p className="text-sm opacity-70">obramowany dzień = wszyscy mają czas</p>
           )}
 
           {newPlanRange && (
@@ -292,7 +292,7 @@ export default function UtilsKalendarzPage() {
             <button
               type="button"
               onClick={forgetSecret}
-              className="text-xs underline opacity-60 hover:opacity-100"
+              className="text-sm underline opacity-60 hover:opacity-100"
             >
               zapomnij sekretny link na tym urządzeniu
             </button>

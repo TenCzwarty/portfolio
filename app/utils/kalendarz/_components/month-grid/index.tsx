@@ -21,7 +21,7 @@ type TMonthGrid = {
   onPlanClick: (plan: TPlan) => void;
 };
 
-const LANE_HEIGHT = "1.375rem";
+const LANE_HEIGHT = "1.625rem";
 
 export const MonthGrid = ({
   weeks,
@@ -41,8 +41,8 @@ export const MonthGrid = ({
   const creatorColor = (id: string) => people.find((p) => p.id === id)?.color;
 
   return (
-    <div className="overflow-hidden rounded-xl border border-neutral-200 bg-white">
-      <div className="grid grid-cols-7 border-b border-neutral-200 text-center text-xs uppercase">
+    <div className="@container overflow-hidden rounded-xl border border-neutral-200">
+      <div className="grid grid-cols-7 border-b border-neutral-200 text-center text-sm">
         {WEEKDAYS.map((d) => (
           <div key={d} className="py-2">
             {d}
@@ -59,7 +59,10 @@ export const MonthGrid = ({
             key={week[0]}
             className="grid grid-cols-7 border-b border-neutral-200 last:border-b-0"
             style={{
-              gridTemplateRows: `auto repeat(${lanes}, ${LANE_HEIGHT}) minmax(1.75rem, auto)`,
+              // square days: row is at least one column wide, grows only when plans need room
+              minHeight: "calc(100cqw / 7)",
+              // repeat(0, …) is invalid CSS and would drop the whole template
+              gridTemplateRows: `auto ${lanes ? `repeat(${lanes}, ${LANE_HEIGHT})` : ""} minmax(1.25rem, 1fr)`,
             }}
           >
             {week.map((day, col) => {
@@ -77,28 +80,28 @@ export const MonthGrid = ({
                     onMouseEnter={() => onDayHover(day)}
                     aria-label={`${date.toLocaleDateString("pl-PL", { dateStyle: "full" })}${free.length ? `, wolni: ${free.map((p) => p.name).join(", ")}` : ""}`}
                     aria-pressed={mine}
-                    className={`border-neutral-200 transition-colors hover:bg-neutral-100 ${col < 6 ? "border-r" : ""} ${date.getMonth() !== month ? "bg-neutral-100/60" : ""} ${inRange ? "!bg-accent-500/40" : ""} ${everyone ? "shadow-[inset_0_0_0_2px_var(--color-accent-900)]" : ""}`}
+                    className={`border-neutral-200 transition-colors hover:bg-neutral-200 ${col < 6 ? "border-r" : ""} ${inRange ? "!bg-accent-500/40" : ""} ${everyone ? "shadow-[inset_0_0_0_2px_var(--color-accent-900)]" : ""}`}
                     style={{ gridColumn: col + 1, gridRow: "1 / -1" }}
                   />
                   <div
-                    className={`pointer-events-none p-1 text-xs sm:text-sm ${date.getMonth() !== month ? "opacity-40" : ""}`}
+                    className={`pointer-events-none p-1 text-sm sm:p-2 sm:text-base ${date.getMonth() !== month ? "opacity-30" : ""}`}
                     style={{ gridColumn: col + 1, gridRow: 1 }}
                   >
                     <span
-                      className={`inline-flex size-6 items-center justify-center rounded-full ${day === today ? "bg-primary-900 text-white" : ""}`}
+                      className={`inline-flex size-6 items-center justify-center rounded-full sm:size-7 ${day === today ? "bg-primary-900 text-white" : ""}`}
                     >
                       {date.getDate()}
                     </span>
                   </div>
                   <div
-                    className="pointer-events-none flex flex-wrap content-end gap-0.5 p-1"
+                    className="pointer-events-none flex flex-wrap content-end gap-1 p-1 sm:p-2"
                     style={{ gridColumn: col + 1, gridRow: lanes + 2 }}
                   >
                     {free.map((p) => (
                       <span
                         key={p.id}
                         title={p.name}
-                        className={`h-2 w-2 rounded-full sm:h-2.5 sm:w-2.5 ${p.id === me?.id ? "ring-primary-900 ring-1 ring-offset-1" : ""}`}
+                        className="size-2 rounded-full sm:size-3"
                         style={{ background: p.color }}
                       />
                     ))}
@@ -113,7 +116,7 @@ export const MonthGrid = ({
                 type="button"
                 onClick={() => onPlanClick(plan)}
                 title={plan.title}
-                className={`bg-primary-800 z-10 mx-0.5 my-px flex items-center gap-1 truncate px-1.5 text-left text-[0.7rem] leading-none text-white sm:text-xs ${continuesBefore ? "rounded-l-none" : "rounded-l-md"} ${continuesAfter ? "rounded-r-none" : "rounded-r-md"} ${selectedPlanId === plan.id ? "ring-accent-900 ring-2" : ""} ${plansClickable ? "" : "pointer-events-none opacity-70"}`}
+                className={`bg-primary-800 z-10 mx-0.5 my-px flex items-center gap-1 truncate px-1.5 text-left text-xs leading-none text-white sm:mx-1 sm:px-2 sm:text-sm ${continuesBefore ? "rounded-l-none" : "rounded-l-md"} ${continuesAfter ? "rounded-r-none" : "rounded-r-md"} ${selectedPlanId === plan.id ? "ring-accent-900 ring-2" : ""} ${plansClickable ? "" : "pointer-events-none opacity-70"}`}
                 style={{ gridColumn: `${from + 1} / ${to + 2}`, gridRow: lane + 2 }}
               >
                 <span

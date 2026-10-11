@@ -24,7 +24,7 @@ export const PlanForm = ({ start, end, onSave, onCancel }: TPlanForm) => {
       onSubmit={onSubmit}
       className="flex flex-col gap-3 rounded-xl border border-neutral-200 p-4"
     >
-      <h3 className="font-semibold">nowy plan: {formatRange(start, end)}</h3>
+      <h3 className="text-lg font-semibold sm:text-xl">nowy plan: {formatRange(start, end)}</h3>
       <input
         autoFocus
         required

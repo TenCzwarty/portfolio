@@ -29,7 +29,7 @@ export const IdentityForm = ({ me, takenColors, onSave, onCancel }: TIdentityFor
       className="flex flex-col gap-4 rounded-xl border border-neutral-200 p-4"
     >
       <div>
-        <h3 className="text-lg font-semibold">{me ? "zmień siebie" : "kim jesteś?"}</h3>
+        <h3 className="text-lg font-semibold sm:text-xl">{me ? "zmień siebie" : "kim jesteś?"}</h3>
         <p className="text-sm">bez logowania — imię i kolor zostają tylko w tej przeglądarce</p>
       </div>
 
@@ -72,7 +72,7 @@ export const IdentityForm = ({ me, takenColors, onSave, onCancel }: TIdentityFor
             className="size-8 cursor-pointer rounded-full bg-transparent"
           />
         </div>
-        <span className="text-xs opacity-70">kropka = kolor już zajęty przez kogoś</span>
+        <span className="opacity-70">kropka = kolor już zajęty przez kogoś</span>
       </div>
 
       <div className="flex gap-2">

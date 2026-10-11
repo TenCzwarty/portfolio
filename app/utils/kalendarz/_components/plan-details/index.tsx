@@ -29,7 +29,7 @@ export const PlanDetails = ({
     <div className="flex flex-col gap-2 rounded-xl border border-neutral-200 p-4">
       <div className="flex items-start justify-between gap-4">
         <div>
-          <h3 className="text-lg font-semibold">{plan.title}</h3>
+          <h3 className="text-lg font-semibold sm:text-xl">{plan.title}</h3>
           <p className="text-sm">
             {formatRange(plan.start, plan.end)}
             {author && (
