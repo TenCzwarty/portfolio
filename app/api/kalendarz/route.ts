@@ -11,15 +11,33 @@ const KEY_PEOPLE = "kalendarz:people";
 const KEY_PLANS = "kalendarz:plans";
 const KEY_AVAILABILITY = "kalendarz:availability";
 
-// UPSTASH_REDIS_REST_* or KV_REST_API_* (what the Vercel Marketplace integration injects)
-const hasRedisEnv = () =>
-  Boolean(
-    (process.env.UPSTASH_REDIS_REST_URL || process.env.KV_REST_API_URL) &&
-    (process.env.UPSTASH_REDIS_REST_TOKEN || process.env.KV_REST_API_TOKEN)
+/**
+ * The Vercel Marketplace integration injects KV_REST_API_URL / KV_REST_API_TOKEN, but lets you
+ * pick a custom prefix (e.g. CALENDAR_KV_REST_API_URL), so accept any matching URL + TOKEN pair.
+ */
+const findRedisEnv = () => {
+  const { UPSTASH_REDIS_REST_URL: url, UPSTASH_REDIS_REST_TOKEN: token } = process.env;
+  if (url && token) return { url, token };
+
+  for (const [key, value] of Object.entries(process.env)) {
+    if (!key.endsWith("REST_API_URL") || !value) continue;
+    const pairedToken = process.env[key.replace(/REST_API_URL$/, "REST_API_TOKEN")];
+    if (pairedToken) return { url: value, token: pairedToken };
+  }
+
+  console.error(
+    "[kalendarz] no Redis REST env found, candidates:",
+    Object.keys(process.env).filter((k) => /REDIS|KV|UPSTASH|REST_API/.test(k))
   );
+  return null;
+};
 
 let redis: Redis | null = null;
-const getRedis = () => (redis ??= Redis.fromEnv());
+const getRedis = () => {
+  if (redis) return redis;
+  const env = findRedisEnv();
+  return env ? (redis = new Redis(env)) : null;
+};
 
 const sha256 = (value: string) => createHash("sha256").update(value).digest();
 
@@ -36,9 +54,9 @@ const error = (message: string, status: number) =>
   NextResponse.json({ error: message }, { status });
 
 export async function GET(request: Request) {
-  if (!hasRedisEnv()) return error("Brak konfiguracji Redis", 503);
-
   const db = getRedis();
+  if (!db) return error("Brak konfiguracji Redis", 503);
+
   const [people, plans, availability] = await Promise.all([
     db.hgetall<Record<string, TPerson>>(KEY_PEOPLE),
     db.hgetall<Record<string, TPlan>>(KEY_PLANS),
@@ -62,13 +80,12 @@ export async function GET(request: Request) {
 }
 
 export async function POST(request: Request) {
-  if (!hasRedisEnv()) return error("Brak konfiguracji Redis", 503);
+  const db = getRedis();
+  if (!db) return error("Brak konfiguracji Redis", 503);
   if (!canEdit(request)) return error("Zły albo brakujący sekretny link", 401);
 
   const action = parseAction(await request.json().catch(() => null));
   if (!action) return error("Niepoprawne dane", 400);
-
-  const db = getRedis();
 
   switch (action.type) {
     case "person": {
