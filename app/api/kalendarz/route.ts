@@ -3,6 +3,7 @@ import { NextResponse } from "next/server";
 import { createHash, timingSafeEqual } from "node:crypto";
 
 import type { TCalendarData, TPerson, TPlan } from "~/app/utils/kalendarz/_types";
+import { findByName } from "~/app/utils/kalendarz/_utils/identity";
 import { LIMITS, parseAction } from "~/app/utils/kalendarz/_utils/validate";
 
 export const dynamic = "force-dynamic";
@@ -89,9 +90,13 @@ export async function POST(request: Request) {
 
   switch (action.type) {
     case "person": {
-      const exists = await db.hexists(KEY_PEOPLE, action.person.id);
-      if (!exists && (await db.hlen(KEY_PEOPLE)) >= LIMITS.people) {
-        return error("Za dużo osób", 409);
+      const people = Object.values((await db.hgetall<Record<string, TPerson>>(KEY_PEOPLE)) ?? {});
+      const exists = people.some((p) => p.id === action.person.id);
+      if (!exists && people.length >= LIMITS.people) return error("Za dużo osób", 409);
+
+      const namesake = findByName(people, action.person.name);
+      if (namesake && namesake.id !== action.person.id) {
+        return error(`Imię „${namesake.name}” jest już zajęte`, 409);
       }
       const { id, name, color } = action.person;
       await db.hset(KEY_PEOPLE, { [id]: { id, name: name.trim(), color } });
