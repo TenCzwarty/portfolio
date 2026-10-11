@@ -1,0 +1,60 @@
+import type { TCalendarAction, TDay, TPerson, TPlan } from "../_types";
+
+const RE_DAY = /^\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01])$/;
+const RE_COLOR = /^#[0-9a-f]{6}$/i;
+const RE_ID = /^[a-z0-9-]{8,64}$/i;
+
+export const LIMITS = {
+  name: 30,
+  title: 80,
+  people: 50,
+  plans: 500,
+  planDays: 62,
+};
+
+const isRecord = (v: unknown): v is Record<string, unknown> =>
+  typeof v === "object" && v !== null && !Array.isArray(v);
+
+const isText = (v: unknown, max: number): v is string =>
+  typeof v === "string" && v.trim().length > 0 && v.length <= max;
+
+export const isDay = (v: unknown): v is TDay => typeof v === "string" && RE_DAY.test(v);
+
+export const isId = (v: unknown): v is string => typeof v === "string" && RE_ID.test(v);
+
+export const isColor = (v: unknown): v is string => typeof v === "string" && RE_COLOR.test(v);
+
+const daysBetween = (a: TDay, b: TDay) =>
+  Math.round((Date.parse(`${b}T00:00:00Z`) - Date.parse(`${a}T00:00:00Z`)) / 86_400_000);
+
+const isPerson = (v: unknown): v is TPerson =>
+  isRecord(v) && isId(v.id) && isText(v.name, LIMITS.name) && isColor(v.color);
+
+const isPlan = (v: unknown): v is TPlan =>
+  isRecord(v) &&
+  isId(v.id) &&
+  isText(v.title, LIMITS.title) &&
+  isDay(v.start) &&
+  isDay(v.end) &&
+  isId(v.createdBy) &&
+  daysBetween(v.start, v.end) >= 0 &&
+  daysBetween(v.start, v.end) < LIMITS.planDays;
+
+export const parseAction = (v: unknown): TCalendarAction | null => {
+  if (!isRecord(v)) return null;
+
+  switch (v.type) {
+    case "person":
+      return isPerson(v.person) ? { type: "person", person: v.person } : null;
+    case "availability":
+      return isId(v.personId) && isDay(v.day) && typeof v.available === "boolean"
+        ? { type: "availability", personId: v.personId, day: v.day, available: v.available }
+        : null;
+    case "plan-add":
+      return isPlan(v.plan) ? { type: "plan-add", plan: v.plan } : null;
+    case "plan-delete":
+      return isId(v.id) ? { type: "plan-delete", id: v.id } : null;
+    default:
+      return null;
+  }
+};
