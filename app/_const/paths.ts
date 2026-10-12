@@ -7,5 +7,6 @@ export const PATHNAMES = [
   "/utils/meeple-circus",
   "/utils/spin",
   "/fun-zone/amasia-calendar-converter",
+  "/fun-zone/jinder",
   "/utils/kalendarz",
 ] as const;

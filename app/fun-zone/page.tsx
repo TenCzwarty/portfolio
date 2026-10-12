@@ -86,6 +86,16 @@ export default function FunZonePage() {
             </div>
           </div>
 
+          <Link href="/fun-zone/jinder">
+            <div className="flex flex-col rounded-xl border border-neutral-200 p-4 hover:bg-neutral-200">
+              <h3 className="text-lg font-semibold sm:text-xl">Jinder</h3>
+              <div className="text-sm">
+                sprint planning as a dating app: swipe right to keep the task, left to ghost it
+                into the next sprint
+              </div>
+            </div>
+          </Link>
+
           <div className="flex flex-col rounded-xl border border-neutral-200 p-4">
             <AccordionController>
               {(accordionProps) => (
