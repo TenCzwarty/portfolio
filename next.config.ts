@@ -38,16 +38,21 @@ const securityHeaders = [
   },
   {
     key: "Permissions-Policy",
-    value: [
-      "camera=()",
-      "microphone=()",
-      "geolocation=()",
-      "browsing-topics=",
-    ].join(", "),
+    value: ["camera=()", "microphone=()", "geolocation=()", "browsing-topics="].join(", "),
   },
 ];
 
 const nextConfig: NextConfig = {
+  async redirects() {
+    return [
+      // the calendar used to live under a Polish name; old links (query string included) keep working
+      {
+        source: "/utils/kalendarz",
+        destination: "/utils/calendar",
+        permanent: true,
+      },
+    ];
+  },
   async headers() {
     return [
       {

@@ -11,6 +11,7 @@ export const PALETTE = [
   "#57534e",
 ];
 
+// pre-rename keys on purpose: renaming them would make everyone pick their name again
 export const STORAGE_KEY_ME = "kalendarz:me";
 export const STORAGE_KEY_SECRET = "kalendarz:secret";
 

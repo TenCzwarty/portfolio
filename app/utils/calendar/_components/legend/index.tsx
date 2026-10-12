@@ -18,7 +18,9 @@ export const Legend = ({ people, availability, monthDays, me }: TLegend) => {
           <li key={p.id} className="flex items-center gap-1.5">
             <span className="size-3 rounded-full" style={{ background: p.color }} />
             <span className={p.id === me?.id ? "font-semibold" : ""}>{p.name}</span>
-            <span className="opacity-60">({count} dni)</span>
+            <span className="opacity-60">
+              ({count} {count === 1 ? "day" : "days"})
+            </span>
           </li>
         );
       })}

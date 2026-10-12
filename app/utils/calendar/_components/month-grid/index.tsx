@@ -16,7 +16,7 @@ type TMonthGrid = {
   selectedPlanId: string | null;
   /** while picking a range, bars must not swallow clicks meant for days */
   plansClickable: boolean;
-  onDayClick: (day: TDay) => void;
+  onDayClick: (day: TDay, event: React.MouseEvent) => void;
   onDayHover: (day: TDay) => void;
   onPlanClick: (plan: TPlan) => void;
 };
@@ -42,9 +42,9 @@ export const MonthGrid = ({
 
   return (
     <div className="@container overflow-hidden rounded-xl border border-neutral-200">
-      <div className="grid grid-cols-7 border-b border-neutral-200 text-center text-sm">
+      <div className="grid grid-cols-7 border-b border-neutral-200 text-sm">
         {WEEKDAYS.map((d) => (
-          <div key={d} className="py-2">
+          <div key={d} className="px-1.5 py-2 sm:px-4">
             {d}
           </div>
         ))}
@@ -69,7 +69,6 @@ export const MonthGrid = ({
             {week.map((day, col) => {
               const date = fromDay(day);
               const free = freeByDay.get(day) ?? [];
-              const everyone = people.length > 1 && free.length === people.length;
               const mine = me ? free.some((p) => p.id === me.id) : false;
               const inRange = range && day >= range.start && day <= range.end;
 
@@ -77,25 +76,25 @@ export const MonthGrid = ({
                 <React.Fragment key={day}>
                   <button
                     type="button"
-                    onClick={() => onDayClick(day)}
+                    onClick={(e) => onDayClick(day, e)}
                     onMouseEnter={() => onDayHover(day)}
-                    aria-label={`${date.toLocaleDateString("pl-PL", { dateStyle: "full" })}${free.length ? `, wolni: ${free.map((p) => p.name).join(", ")}` : ""}`}
+                    aria-label={`${date.toLocaleDateString("en-GB", { dateStyle: "full" })}${free.length ? `, free: ${free.map((p) => p.name).join(", ")}` : ""}`}
                     aria-pressed={mine}
-                    className={`border-neutral-200 transition-colors hover:bg-neutral-200 ${col < 6 ? "border-r" : ""} ${inRange ? "!bg-accent-500/40" : ""} ${everyone ? "shadow-[inset_0_0_0_2px_var(--color-accent-900)]" : ""}`}
+                    className={`border-neutral-200 transition-colors hover:bg-neutral-200 ${col < 6 ? "border-r" : ""} ${inRange ? "!bg-accent-500/40" : ""}`}
                     style={{ gridColumn: col + 1, gridRow: "1 / -1" }}
                   />
                   <div
-                    className={`pointer-events-none p-1 text-sm sm:p-2 sm:text-base ${date.getMonth() !== month ? "opacity-30" : ""}`}
+                    className={`pointer-events-none px-1.5 py-1 text-sm sm:px-4 sm:py-2 sm:text-base ${date.getMonth() !== month ? "opacity-30" : ""}`}
                     style={{ gridColumn: col + 1, gridRow: 1 }}
                   >
                     <span
-                      className={`inline-flex size-6 items-center justify-center rounded-full sm:size-7 ${day === today ? "bg-primary-900 text-white" : ""}`}
+                      className={`-ml-1.5 inline-flex h-6 min-w-6 items-center justify-center rounded-full px-1.5 sm:h-7 sm:min-w-7 ${day === today ? "bg-primary-900 text-white" : ""}`}
                     >
                       {date.getDate()}
                     </span>
                   </div>
                   <div
-                    className="pointer-events-none flex flex-wrap content-end gap-1 p-1 sm:p-2"
+                    className="pointer-events-none flex flex-wrap content-end gap-1 px-1.5 py-1 sm:px-4 sm:py-2"
                     style={{ gridColumn: col + 1, gridRow: lanes + 2 }}
                   >
                     {free.map((p) => (

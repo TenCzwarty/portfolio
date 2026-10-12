@@ -4,7 +4,7 @@ import type { TCalendarAction, TCalendarData, TPerson } from "../_types";
 
 import { findByName, STORAGE_KEY_ME, STORAGE_KEY_SECRET } from "./identity";
 
-const API = "/api/kalendarz";
+const API = "/api/calendar";
 
 const EMPTY: TCalendarData = { people: [], plans: [], availability: {} };
 
@@ -59,7 +59,7 @@ export const useCalendar = () => {
   const headers = React.useCallback(
     (): HeadersInit => ({
       "Content-Type": "application/json",
-      ...(secretRef.current ? { "x-kalendarz-key": secretRef.current } : {}),
+      ...(secretRef.current ? { "x-calendar-key": secretRef.current } : {}),
     }),
     []
   );
@@ -68,7 +68,7 @@ export const useCalendar = () => {
     try {
       const response = await fetch(API, { headers: headers(), cache: "no-store" });
       const json = await response.json();
-      if (!response.ok) throw new Error(json.error ?? "Nie udało się pobrać danych");
+      if (!response.ok) throw new Error(json.error ?? "Could not load the calendar");
 
       const { canEdit: editable, ...rest } = json as TCalendarData & { canEdit: boolean };
       setData(rest);
@@ -77,7 +77,7 @@ export const useCalendar = () => {
       setErrorMessage(null);
     } catch (e) {
       setStatus("error");
-      setErrorMessage(e instanceof Error ? e.message : "Nie udało się pobrać danych");
+      setErrorMessage(e instanceof Error ? e.message : "Could not load the calendar");
     }
   }, [headers]);
 
@@ -92,10 +92,10 @@ export const useCalendar = () => {
         });
         if (!response.ok) {
           const json = await response.json().catch(() => ({}));
-          throw new Error(json.error ?? "Nie udało się zapisać");
+          throw new Error(json.error ?? "Could not save");
         }
       } catch (e) {
-        setErrorMessage(e instanceof Error ? e.message : "Nie udało się zapisać");
+        setErrorMessage(e instanceof Error ? e.message : "Could not save");
         await refresh();
       }
     },
@@ -105,10 +105,12 @@ export const useCalendar = () => {
   // pick up the secret from the link once, then hide it from the address bar
   React.useEffect(() => {
     const url = new URL(window.location.href);
-    const fromUrl = url.searchParams.get("klucz");
+    // "klucz" is the pre-rename name of the param, links with it are still out there
+    const fromUrl = url.searchParams.get("key") ?? url.searchParams.get("klucz");
 
     if (fromUrl) {
       writeStorage(STORAGE_KEY_SECRET, fromUrl);
+      url.searchParams.delete("key");
       url.searchParams.delete("klucz");
       window.history.replaceState(null, "", url.pathname + url.search + url.hash);
     }

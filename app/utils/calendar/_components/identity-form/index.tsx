@@ -45,12 +45,16 @@ export const IdentityForm = ({ me, people, onSave, onCancel }: TIdentityForm) =>
       className="flex flex-col gap-4 rounded-xl border border-neutral-200 p-4"
     >
       <div>
-        <h3 className="text-lg font-semibold sm:text-xl">{me ? "zmień siebie" : "kim jesteś?"}</h3>
-        <p className="text-sm">bez logowania — imię i kolor zostają tylko w tej przeglądarce</p>
+        <h3 className="text-lg font-semibold sm:text-xl">
+          {me ? "change name or color" : "who are you?"}
+        </h3>
+        <p className="text-sm">
+          no login — your name and color are remembered in this browser only
+        </p>
       </div>
 
       <label className="flex flex-col gap-1 text-sm">
-        imię
+        name
         <input
           autoFocus
           required
@@ -62,14 +66,14 @@ export const IdentityForm = ({ me, people, onSave, onCancel }: TIdentityForm) =>
         />
         {namesake && (
           <span className="opacity-70">
-            dopiszesz się do istniejącego wpisu „{namesake.name}” — z jego kropkami i planami
+            you&apos;ll join the existing &quot;{namesake.name}&quot; — with their days and plans
           </span>
         )}
       </label>
 
       {!me && others.length > 0 && (
         <div className="flex flex-col gap-1 text-sm">
-          już tu jesteś? wybierz siebie
+          already here? pick yourself
           <div className="flex flex-wrap gap-2">
             {others.map((p) => (
               <button
@@ -88,13 +92,13 @@ export const IdentityForm = ({ me, people, onSave, onCancel }: TIdentityForm) =>
       )}
 
       <div className="flex flex-col gap-1 text-sm">
-        kolor
+        color
         <div className="flex flex-wrap items-center gap-2">
           {PALETTE.map((c) => (
             <button
               key={c}
               type="button"
-              aria-label={`kolor ${c}`}
+              aria-label={`color ${c}`}
               aria-pressed={color === c}
               onClick={() => setColor(c)}
               className={`relative size-8 rounded-full border-2 ${color === c ? "border-primary-900" : "border-transparent"}`}
@@ -107,13 +111,13 @@ export const IdentityForm = ({ me, people, onSave, onCancel }: TIdentityForm) =>
           ))}
           <input
             type="color"
-            aria-label="własny kolor"
+            aria-label="custom color"
             value={color}
             onChange={(e) => setColor(e.target.value)}
             className="size-8 cursor-pointer rounded-full bg-transparent"
           />
         </div>
-        <span className="opacity-70">kropka = kolor już zajęty przez kogoś</span>
+        <span className="opacity-70">dot = color already taken</span>
       </div>
 
       <div className="flex gap-2">
@@ -121,7 +125,7 @@ export const IdentityForm = ({ me, people, onSave, onCancel }: TIdentityForm) =>
           type="submit"
           className="bg-primary-900 hover:bg-accent-500 hover:text-primary-900 rounded-full px-4 py-1 text-white"
         >
-          zapisz
+          save
         </button>
         {onCancel && (
           <button
@@ -129,7 +133,7 @@ export const IdentityForm = ({ me, people, onSave, onCancel }: TIdentityForm) =>
             onClick={onCancel}
             className="rounded-full px-4 py-1 hover:bg-neutral-200"
           >
-            anuluj
+            cancel
           </button>
         )}
       </div>

@@ -2,12 +2,13 @@ import { Redis } from "@upstash/redis";
 import { NextResponse } from "next/server";
 import { createHash, timingSafeEqual } from "node:crypto";
 
-import type { TCalendarData, TPerson, TPlan } from "~/app/utils/kalendarz/_types";
-import { findByName } from "~/app/utils/kalendarz/_utils/identity";
-import { LIMITS, parseAction } from "~/app/utils/kalendarz/_utils/validate";
+import type { TCalendarData, TPerson, TPlan } from "~/app/utils/calendar/_types";
+import { findByName } from "~/app/utils/calendar/_utils/identity";
+import { LIMITS, parseAction } from "~/app/utils/calendar/_utils/validate";
 
 export const dynamic = "force-dynamic";
 
+// keys keep the original "kalendarz:" prefix so existing data survives the rename
 const KEY_PEOPLE = "kalendarz:people";
 const KEY_PLANS = "kalendarz:plans";
 const KEY_AVAILABILITY = "kalendarz:availability";
@@ -27,7 +28,7 @@ const findRedisEnv = () => {
   }
 
   console.error(
-    "[kalendarz] no Redis REST env found, candidates:",
+    "[calendar] no Redis REST env found, candidates:",
     Object.keys(process.env).filter((k) => /REDIS|KV|UPSTASH|REST_API/.test(k))
   );
   return null;
@@ -44,7 +45,7 @@ const sha256 = (value: string) => createHash("sha256").update(value).digest();
 
 const canEdit = (request: Request) => {
   const secret = process.env.KALENDARZ_SECRET;
-  const key = request.headers.get("x-kalendarz-key");
+  const key = request.headers.get("x-calendar-key");
 
   if (!secret || !key) return false;
 
@@ -56,7 +57,7 @@ const error = (message: string, status: number) =>
 
 export async function GET(request: Request) {
   const db = getRedis();
-  if (!db) return error("Brak konfiguracji Redis", 503);
+  if (!db) return error("Redis is not configured", 503);
 
   const [people, plans, availability] = await Promise.all([
     db.hgetall<Record<string, TPerson>>(KEY_PEOPLE),
@@ -82,21 +83,21 @@ export async function GET(request: Request) {
 
 export async function POST(request: Request) {
   const db = getRedis();
-  if (!db) return error("Brak konfiguracji Redis", 503);
-  if (!canEdit(request)) return error("Zły albo brakujący sekretny link", 401);
+  if (!db) return error("Redis is not configured", 503);
+  if (!canEdit(request)) return error("Missing or wrong secret link", 401);
 
   const action = parseAction(await request.json().catch(() => null));
-  if (!action) return error("Niepoprawne dane", 400);
+  if (!action) return error("Invalid data", 400);
 
   switch (action.type) {
     case "person": {
       const people = Object.values((await db.hgetall<Record<string, TPerson>>(KEY_PEOPLE)) ?? {});
       const exists = people.some((p) => p.id === action.person.id);
-      if (!exists && people.length >= LIMITS.people) return error("Za dużo osób", 409);
+      if (!exists && people.length >= LIMITS.people) return error("Too many people", 409);
 
       const namesake = findByName(people, action.person.name);
       if (namesake && namesake.id !== action.person.id) {
-        return error(`Imię „${namesake.name}” jest już zajęte`, 409);
+        return error(`The name "${namesake.name}" is already taken`, 409);
       }
       const { id, name, color } = action.person;
       await db.hset(KEY_PEOPLE, { [id]: { id, name: name.trim(), color } });
@@ -104,7 +105,7 @@ export async function POST(request: Request) {
     }
     case "availability": {
       if (!(await db.hexists(KEY_PEOPLE, action.personId))) {
-        return error("Nieznana osoba", 404);
+        return error("Unknown person", 404);
       }
       const member = `${action.day}|${action.personId}`;
       if (action.available) await db.sadd(KEY_AVAILABILITY, member);
@@ -112,7 +113,7 @@ export async function POST(request: Request) {
       break;
     }
     case "plan-add": {
-      if ((await db.hlen(KEY_PLANS)) >= LIMITS.plans) return error("Za dużo planów", 409);
+      if ((await db.hlen(KEY_PLANS)) >= LIMITS.plans) return error("Too many plans", 409);
       const { id, title, start, end, createdBy } = action.plan;
       await db.hset(KEY_PLANS, { [id]: { id, title: title.trim(), start, end, createdBy } });
       break;
