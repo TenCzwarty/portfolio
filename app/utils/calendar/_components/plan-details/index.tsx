@@ -34,7 +34,7 @@ export const PlanDetails = ({
             {formatRange(plan.start, plan.end)}
             {author && (
               <>
-                {" · dodał(a) "}
+                {" · added by "}
                 <span style={{ color: author.color }}>{author.name}</span>
               </>
             )}
@@ -43,7 +43,7 @@ export const PlanDetails = ({
         <button
           type="button"
           onClick={onClose}
-          aria-label="zamknij"
+          aria-label="close"
           className="rounded-full px-2 hover:bg-neutral-200"
         >
           ×
@@ -51,7 +51,7 @@ export const PlanDetails = ({
       </div>
 
       <p className="text-sm">
-        wolni przez cały czas:{" "}
+        free the whole time:{" "}
         {freeAllDays.length ? (
           freeAllDays.map((p, i) => (
             <span key={p.id} style={{ color: p.color }}>
@@ -60,7 +60,7 @@ export const PlanDetails = ({
             </span>
           ))
         ) : (
-          <span className="opacity-60">nikt (jeszcze)</span>
+          <span className="opacity-60">nobody (yet)</span>
         )}
       </p>
 
@@ -68,11 +68,11 @@ export const PlanDetails = ({
         <button
           type="button"
           onClick={() => {
-            if (window.confirm(`Usunąć „${plan.title}”?`)) onDelete();
+            if (window.confirm(`Delete "${plan.title}"?`)) onDelete();
           }}
           className="w-fit rounded-full px-4 py-1 text-sm text-red-700 hover:bg-red-100"
         >
-          usuń plan
+          delete plan
         </button>
       )}
     </div>

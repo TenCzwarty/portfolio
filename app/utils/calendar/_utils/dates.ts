@@ -1,8 +1,8 @@
 import type { TDay } from "../_types";
 
-export const WEEKDAYS = ["pon", "wt", "śr", "czw", "pt", "sob", "nd"];
+export const WEEKDAYS = ["mon", "tue", "wed", "thu", "fri", "sat", "sun"];
 
-const MONTH_FORMAT = new Intl.DateTimeFormat("pl-PL", { month: "long", year: "numeric" });
+const MONTH_FORMAT = new Intl.DateTimeFormat("en-GB", { month: "long", year: "numeric" });
 
 const pad = (n: number) => String(n).padStart(2, "0");
 
@@ -25,7 +25,7 @@ export const formatMonth = (year: number, month: number) =>
 
 export const formatRange = (start: TDay, end: TDay) => {
   const f = (day: TDay) =>
-    fromDay(day).toLocaleDateString("pl-PL", { day: "numeric", month: "short" });
+    fromDay(day).toLocaleDateString("en-GB", { day: "numeric", month: "short" });
   return start === end ? f(start) : `${f(start)} – ${f(end)}`;
 };
 

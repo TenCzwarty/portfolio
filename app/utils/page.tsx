@@ -71,9 +71,9 @@ export default function UtilsPage() {
             </div>
           </Link>
 
-          <Link href="/utils/kalendarz">
+          <Link href="/utils/calendar">
             <div className="mt-4 flex flex-col rounded-xl border border-neutral-200 p-4 hover:bg-neutral-200">
-              <h3 className="text-lg font-semibold sm:text-xl">Kalendarz</h3>
+              <h3 className="text-lg font-semibold sm:text-xl">Calendar</h3>
               <div className="text-sm">shared plans and who&apos;s free when</div>
             </div>
           </Link>
@@ -86,13 +86,6 @@ export default function UtilsPage() {
               <div className="text-sm">music timer for a forgotten board game</div>
             </div>
           </Link>
-
-          <div className="mt-4 flex cursor-not-allowed flex-col rounded-xl border border-neutral-200 p-4">
-            <h3 className="text-lg font-semibold sm:text-xl">
-              Month Time Block
-            </h3>
-            <div className="text-sm">in progress...</div>
-          </div>
 
           <div className="flex cursor-not-allowed flex-col rounded-xl border border-neutral-200 p-4">
             <h3 className="text-lg font-semibold sm:text-xl">
