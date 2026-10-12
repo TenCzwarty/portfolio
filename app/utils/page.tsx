@@ -17,7 +17,7 @@ export default function UtilsPage() {
         </div>
 
         <div className="space-y-4">
-          <Link href="/utils/qr">
+          <Link href="/utils/qr" className="block">
             <div className="flex flex-col rounded-xl border border-neutral-200 p-4 hover:bg-neutral-200">
               <h3 className="text-lg font-semibold sm:text-xl">
                 QR Code Generator
@@ -26,8 +26,8 @@ export default function UtilsPage() {
             </div>
           </Link>
 
-          <Link href="/utils/hanayama">
-            <div className="mt-4 flex flex-col rounded-xl border border-neutral-200 p-4 hover:bg-neutral-200">
+          <Link href="/utils/hanayama" className="block">
+            <div className="flex flex-col rounded-xl border border-neutral-200 p-4 hover:bg-neutral-200">
               <h3 className="text-lg font-semibold sm:text-xl">
                 Hanayama Tracker
               </h3>
@@ -35,7 +35,7 @@ export default function UtilsPage() {
             </div>
           </Link>
 
-          <div className="mt-4 flex flex-col rounded-xl border border-neutral-200 p-4">
+          <div className="flex flex-col rounded-xl border border-neutral-200 p-4">
             <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
               <div>
                 <h3 className="text-lg font-semibold sm:text-xl">
@@ -62,8 +62,8 @@ export default function UtilsPage() {
             </div>
           </div>
 
-          <Link href="/utils/spin?elements=A,B,C">
-            <div className="mt-4 flex flex-col rounded-xl border border-neutral-200 p-4 hover:bg-neutral-200">
+          <Link href="/utils/spin?elements=A,B,C" className="block">
+            <div className="flex flex-col rounded-xl border border-neutral-200 p-4 hover:bg-neutral-200">
               <h3 className="text-lg font-semibold sm:text-xl">Spin The Wheel</h3>
               <div className="text-sm">
                 pick a random element from a list
@@ -71,15 +71,15 @@ export default function UtilsPage() {
             </div>
           </Link>
 
-          <Link href="/utils/calendar">
-            <div className="mt-4 flex flex-col rounded-xl border border-neutral-200 p-4 hover:bg-neutral-200">
+          <Link href="/utils/calendar" className="block">
+            <div className="flex flex-col rounded-xl border border-neutral-200 p-4 hover:bg-neutral-200">
               <h3 className="text-lg font-semibold sm:text-xl">Calendar</h3>
               <div className="text-sm">shared plans and who&apos;s free when</div>
             </div>
           </Link>
 
-          <Link href="/utils/meeple-circus">
-            <div className="mt-4 flex flex-col rounded-xl border border-neutral-200 p-4 hover:bg-neutral-200">
+          <Link href="/utils/meeple-circus" className="block">
+            <div className="flex flex-col rounded-xl border border-neutral-200 p-4 hover:bg-neutral-200">
               <h3 className="text-lg font-semibold sm:text-xl">
                 Meeple Circus
               </h3>

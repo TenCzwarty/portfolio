@@ -69,7 +69,6 @@ export const MonthGrid = ({
             {week.map((day, col) => {
               const date = fromDay(day);
               const free = freeByDay.get(day) ?? [];
-              const everyone = people.length > 1 && free.length === people.length;
               const mine = me ? free.some((p) => p.id === me.id) : false;
               const inRange = range && day >= range.start && day <= range.end;
 
@@ -81,7 +80,7 @@ export const MonthGrid = ({
                     onMouseEnter={() => onDayHover(day)}
                     aria-label={`${date.toLocaleDateString("en-GB", { dateStyle: "full" })}${free.length ? `, free: ${free.map((p) => p.name).join(", ")}` : ""}`}
                     aria-pressed={mine}
-                    className={`border-neutral-200 transition-colors hover:bg-neutral-200 ${col < 6 ? "border-r" : ""} ${inRange ? "!bg-accent-500/40" : ""} ${everyone ? "shadow-[inset_0_0_0_2px_var(--color-accent-900)]" : ""}`}
+                    className={`border-neutral-200 transition-colors hover:bg-neutral-200 ${col < 6 ? "border-r" : ""} ${inRange ? "!bg-accent-500/40" : ""}`}
                     style={{ gridColumn: col + 1, gridRow: "1 / -1" }}
                   />
                   <div

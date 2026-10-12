@@ -8,7 +8,9 @@ import {
   AccordionController,
   AccordionExtraSettingsToggle,
 } from "~/components/accordion";
+import { Pill } from "~/components/pill";
 import { Section } from "~/components/section";
+import { Tooltip } from "~/components/tooltip";
 
 import { IdentityForm } from "./_components/identity-form";
 import { Legend } from "./_components/legend";
@@ -21,6 +23,15 @@ import { useCalendar } from "./_utils/use-calendar";
 import type { TDay, TPerson, TPlan } from "./_types";
 
 type TMode = "availability" | "plan";
+
+const MODES: Array<{ value: TMode; label: string; hint: string }> = [
+  {
+    value: "availability",
+    label: "I'm free",
+    hint: "click a day to mark that you're free (click again to undo)",
+  },
+  { value: "plan", label: "new plan", hint: "click the first day of the plan, then the last one" },
+];
 
 export default function UtilsCalendarPage() {
   const {
@@ -125,13 +136,6 @@ export default function UtilsCalendarPage() {
 
   const showIdentityForm = hydrated && canEdit && (editingMe || !me);
 
-  const hint =
-    mode === "availability"
-      ? "click a day to mark that you're free (click again to undo)"
-      : rangeStart && !newPlanRange
-        ? "now click the last day of the plan"
-        : "click the first day of the plan";
-
   return (
     <main className="min-h-[calc(100dvh-56px)]">
       <Section>
@@ -200,14 +204,40 @@ export default function UtilsCalendarPage() {
             />
           )}
 
-          {/* controls live on the left, under the month name, so they never move when it changes */}
-          <div className="ml-4 flex flex-col gap-2">
+          <div className="ml-4 flex flex-col gap-4">
             <h2 className="text-lg font-semibold sm:text-xl">
               {hydrated ? formatMonth(cursor.year, cursor.month) : "\u00a0"}
             </h2>
 
-            <div className="flex flex-wrap items-center gap-2">
-              <div className="-ml-1 flex items-center">
+            <div className="flex flex-wrap items-center gap-4">
+              {canEdit &&
+                me &&
+                MODES.map(({ value, label, hint }) => (
+                  <React.Fragment key={value}>
+                    <Tooltip id={`calendar-mode-${value}`}>{hint}</Tooltip>
+                    <button
+                      type="button"
+                      aria-pressed={mode === value}
+                      data-tooltip-id={`calendar-mode-${value}`}
+                      onClick={() => {
+                        setMode(value);
+                        resetPlanSelection();
+                      }}
+                    >
+                      <Pill
+                        classes={
+                          mode === value
+                            ? "bg-accent-500 text-primary-900"
+                            : "bg-primary-900 hover:bg-accent-500 hover:text-primary-900"
+                        }
+                      >
+                        {label}
+                      </Pill>
+                    </button>
+                  </React.Fragment>
+                ))}
+
+              <div className="-mr-1 ml-auto flex items-center">
                 <button
                   type="button"
                   onClick={() => shiftMonth(-1)}
@@ -232,44 +262,7 @@ export default function UtilsCalendarPage() {
                   <ChevronRightIcon size={20} />
                 </button>
               </div>
-
-              {canEdit && me && (
-                <>
-                  <div
-                    role="radiogroup"
-                    aria-label="mode"
-                    className="flex rounded-full border border-neutral-200 p-0.5 text-sm"
-                  >
-                    {(
-                      [
-                        ["availability", "I'm free"],
-                        ["plan", "new plan"],
-                      ] as const
-                    ).map(([value, label]) => (
-                      <button
-                        key={value}
-                        type="button"
-                        role="radio"
-                        aria-checked={mode === value}
-                        onClick={() => {
-                          setMode(value);
-                          resetPlanSelection();
-                        }}
-                        className={`rounded-full px-3 py-1 ${mode === value ? "bg-primary-900 text-white" : "hover:bg-neutral-200"}`}
-                      >
-                        {label}
-                      </button>
-                    ))}
-                  </div>
-                  <span className="flex items-center gap-1.5 px-1 text-sm">
-                    <span className="size-3 rounded-full" style={{ background: me.color }} />
-                    {me.name}
-                  </span>
-                </>
-              )}
             </div>
-
-            {canEdit && me && <p className="text-sm opacity-70">{hint}</p>}
           </div>
 
           {/* the page is prerendered at build time: anything date-based must wait for the browser,
@@ -299,16 +292,13 @@ export default function UtilsCalendarPage() {
             )}
           </div>
 
-          <div className="ml-4 flex flex-col gap-2">
+          <div className="ml-4">
             <Legend
               people={people}
               availability={data.availability}
               monthDays={monthDays}
               me={me}
             />
-            {people.length > 1 && (
-              <p className="text-sm opacity-70">outlined day = everyone is free</p>
-            )}
           </div>
 
           {newPlanRange && (
