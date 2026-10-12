@@ -3,6 +3,7 @@
 import React from "react";
 import { ChevronLeftIcon, ChevronRightIcon } from "lucide-react";
 
+import { useConfetti } from "~/app/utils/meeple-circus/_utils/use-confetti";
 import {
   Accordion,
   AccordionController,
@@ -46,6 +47,8 @@ export default function UtilsCalendarPage() {
     send,
     forgetSecret,
   } = useCalendar();
+
+  const triggerConfetti = useConfetti();
 
   const today = toDay(new Date());
   const [cursor, setCursor] = React.useState(() => ({
@@ -96,7 +99,7 @@ export default function UtilsCalendarPage() {
 
   const goToday = () => setCursor({ year: new Date().getFullYear(), month: new Date().getMonth() });
 
-  const onDayClick = (day: TDay) => {
+  const onDayClick = (day: TDay, event: React.MouseEvent) => {
     setSelectedPlanId(null);
     if (!canEdit) return;
     if (!me) {
@@ -107,6 +110,8 @@ export default function UtilsCalendarPage() {
     if (mode === "availability") {
       const available = !(data.availability[me.id] ?? []).includes(day);
       send({ type: "availability", personId: me.id, day, available });
+      // from the click itself: the hook's mouse tracking has nothing to go on with touch
+      if (available) triggerConfetti({ position: { x: event.clientX, y: event.clientY } });
       return;
     }
 
@@ -209,7 +214,8 @@ export default function UtilsCalendarPage() {
               {hydrated ? formatMonth(cursor.year, cursor.month) : "\u00a0"}
             </h2>
 
-            <div className="flex flex-wrap items-center gap-4">
+            {/* -ml-4 cancels the pill padding, so pill text lines up with the heading */}
+            <div className="-ml-4 flex flex-wrap items-center gap-4">
               {canEdit &&
                 me &&
                 MODES.map(({ value, label, hint }) => (

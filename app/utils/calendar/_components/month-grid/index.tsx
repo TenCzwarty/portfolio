@@ -16,7 +16,7 @@ type TMonthGrid = {
   selectedPlanId: string | null;
   /** while picking a range, bars must not swallow clicks meant for days */
   plansClickable: boolean;
-  onDayClick: (day: TDay) => void;
+  onDayClick: (day: TDay, event: React.MouseEvent) => void;
   onDayHover: (day: TDay) => void;
   onPlanClick: (plan: TPlan) => void;
 };
@@ -76,7 +76,7 @@ export const MonthGrid = ({
                 <React.Fragment key={day}>
                   <button
                     type="button"
-                    onClick={() => onDayClick(day)}
+                    onClick={(e) => onDayClick(day, e)}
                     onMouseEnter={() => onDayHover(day)}
                     aria-label={`${date.toLocaleDateString("en-GB", { dateStyle: "full" })}${free.length ? `, free: ${free.map((p) => p.name).join(", ")}` : ""}`}
                     aria-pressed={mine}
