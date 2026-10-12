@@ -192,7 +192,7 @@ export const SprintSetup = ({ client, onStart, onError }: TSprintSetup) => {
           <button
             type="button"
             disabled={!planned}
-            onClick={() => planned && onStart({ planned, target, spilledFirst })}
+            onClick={() => planned && onStart({ boardId, planned, target, spilledFirst })}
             className="bg-primary-900 hover:bg-accent-500 hover:text-primary-900 self-start rounded-full px-4 py-1 text-white disabled:opacity-50"
           >
             zaczynamy

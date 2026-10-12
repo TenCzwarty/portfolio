@@ -1,32 +1,16 @@
 import React from "react";
-import { UserIcon } from "lucide-react";
 
 import type { TUser } from "../../_types";
+import { Avatar } from "../avatar";
 
 type TAssigneePicker = {
   assignee: TUser | null;
   search: (query: string) => Promise<Array<TUser>>;
+  loadImage: (url: string) => Promise<string | null>;
   onChange: (user: TUser | null) => void;
 };
 
-// initials instead of Jira avatars – the site CSP only allows its own images
-const initials = (name: string) =>
-  name
-    .split(/\s+/)
-    .slice(0, 2)
-    .map((part) => part[0]?.toUpperCase())
-    .join("");
-
-const Avatar = ({ user }: { user: TUser | null }) =>
-  user ? (
-    <span className="bg-primary-900 flex size-5 items-center justify-center rounded-full text-[10px] text-white">
-      {initials(user.displayName)}
-    </span>
-  ) : (
-    <UserIcon size={16} />
-  );
-
-export const AssigneePicker = ({ assignee, search, onChange }: TAssigneePicker) => {
+export const AssigneePicker = ({ assignee, search, loadImage, onChange }: TAssigneePicker) => {
   const [open, setOpen] = React.useState(false);
   const [query, setQuery] = React.useState("");
   const [results, setResults] = React.useState<Array<TUser>>([]);
@@ -55,9 +39,9 @@ export const AssigneePicker = ({ assignee, search, onChange }: TAssigneePicker) 
       <button
         type="button"
         onClick={() => setOpen((o) => !o)}
-        className="flex items-center gap-1.5 rounded-full border border-neutral-200 px-3 py-1 text-sm hover:bg-neutral-200"
+        className="flex items-center gap-1.5 rounded-full border border-neutral-200 py-1 pr-3 pl-1 text-sm hover:bg-neutral-200"
       >
-        <Avatar user={assignee} />
+        <Avatar user={assignee} loadImage={loadImage} />
         {assignee?.displayName ?? "nieprzypisany"}
       </button>
 
@@ -76,8 +60,9 @@ export const AssigneePicker = ({ assignee, search, onChange }: TAssigneePicker) 
               <button
                 type="button"
                 onClick={() => pick(null)}
-                className="w-full rounded-md p-1.5 text-left opacity-70 hover:bg-neutral-100"
+                className="flex w-full items-center gap-2 rounded-md p-1.5 text-left opacity-70 hover:bg-neutral-100"
               >
+                <Avatar user={null} loadImage={loadImage} />
                 nieprzypisany
               </button>
             </li>
@@ -88,7 +73,7 @@ export const AssigneePicker = ({ assignee, search, onChange }: TAssigneePicker) 
                   onClick={() => pick(user)}
                   className="flex w-full items-center gap-2 rounded-md p-1.5 text-left hover:bg-neutral-100"
                 >
-                  <Avatar user={user} />
+                  <Avatar user={user} loadImage={loadImage} />
                   {user.displayName}
                 </button>
               </li>

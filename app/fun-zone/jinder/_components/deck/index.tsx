@@ -1,10 +1,11 @@
 import React from "react";
 import { ArrowLeftIcon, ArrowRightIcon, Undo2Icon } from "lucide-react";
 
-import type { TJiraClient, TPriority } from "../../_types";
+import type { TEpic, TJiraClient, TPriority } from "../../_types";
 import { type TPlan, useDeck } from "../../_utils/use-deck";
 import { useSwipe } from "../../_utils/use-swipe";
-import { IssueCard } from "../issue-card";
+import { IssueCard, type TCardOptions } from "../issue-card";
+import { PeopleBar, type TPersonFilter } from "../people-bar";
 import { Summary } from "../summary";
 
 type TDeck = {
@@ -20,20 +21,40 @@ const isTyping = (target: EventTarget | null) =>
   (target.isContentEditable || ["INPUT", "TEXTAREA", "SELECT"].includes(target.tagName));
 
 export const Deck = ({ client, plan, onChangePlan }: TDeck) => {
-  const deck = useDeck(client, plan);
+  const [filter, setFilter] = React.useState<TPersonFilter>(null);
+  const deck = useDeck(client, plan, filter);
   const [priorities, setPriorities] = React.useState<Array<TPriority>>([]);
+  const [labels, setLabels] = React.useState<Array<string> | null>(null);
+  const [epics, setEpics] = React.useState<Array<TEpic>>([]);
   const [leaving, setLeaving] = React.useState<"left" | "right" | null>(null);
   const cardRef = React.useRef<HTMLDivElement>(null);
 
+  // picker contents – a failure only means an emptier dropdown
   React.useEffect(() => {
     client.priorities().then(setPriorities, () => {});
+    client.labels().then(setLabels, () => setLabels([]));
   }, [client]);
+
+  React.useEffect(() => {
+    client.epics(plan.boardId).then(setEpics, () => {});
+  }, [client, plan.boardId]);
 
   const currentKey = deck.current?.key;
   const searchUsers = React.useCallback(
     (query: string) => (currentKey ? client.assignable(currentKey, query) : Promise.resolve([])),
     [client, currentKey]
   );
+
+  const loadImage = React.useCallback((url: string) => client.image(url), [client]);
+
+  const options: TCardOptions = {
+    site: client.site,
+    priorities,
+    labels,
+    epics,
+    searchUsers,
+    loadImage,
+  };
 
   const swipe = useSwipe((keep) => decide(keep), !leaving && !!deck.current);
 
@@ -77,6 +98,8 @@ export const Deck = ({ client, plan, onChangePlan }: TDeck) => {
 
   const kept = deck.decisions.filter((d) => d.keep).length;
   const moved = deck.decisions.length - kept;
+  const filteredName =
+    filter && deck.people.find((p) => p.id === filter)?.user?.displayName.split(/\s+/)[0];
 
   const offset = swipe.offset;
   const x = leaving ? (leaving === "right" ? "150%" : "-150%") : `${offset}px`;
@@ -101,8 +124,8 @@ export const Deck = ({ client, plan, onChangePlan }: TDeck) => {
           {deck.status === "ready" && deck.issues.length > 0 && (
             <span className="opacity-70">
               {" "}
-              · {Math.min(deck.index + 1, deck.issues.length)} / {deck.issues.length} · zostaje{" "}
-              {kept} · wyleciało {moved}
+              · przejrzane {deck.decisions.length} / {deck.issues.length} · zostaje {kept} ·
+              wyleciało {moved}
             </span>
           )}
         </div>
@@ -114,6 +137,30 @@ export const Deck = ({ client, plan, onChangePlan }: TDeck) => {
           zmień sprint
         </button>
       </div>
+
+      {deck.status === "ready" && deck.people.length > 0 && (
+        <PeopleBar
+          people={deck.people}
+          filter={filter}
+          onFilter={setFilter}
+          loadImage={loadImage}
+        />
+      )}
+
+      {!deck.done && !deck.current && filter && (
+        <div className="flex flex-wrap items-center justify-between gap-2 rounded-xl border border-neutral-200 p-4">
+          <span>
+            {filteredName ? `${filteredName} nie ma` : "nie ma"} więcej tasków do przejrzenia
+          </span>
+          <button
+            type="button"
+            onClick={() => setFilter(null)}
+            className="rounded-full border border-neutral-200 px-4 py-1 hover:bg-neutral-200"
+          >
+            pokaż wszystkich
+          </button>
+        </div>
+      )}
 
       {deck.status === "loading" && (
         <div className="h-80 animate-pulse rounded-xl bg-neutral-200/60" />
@@ -166,9 +213,7 @@ export const Deck = ({ client, plan, onChangePlan }: TDeck) => {
                 key={deck.current.key}
                 issue={deck.current}
                 details={deck.currentDetails}
-                site={client.site}
-                priorities={priorities}
-                searchUsers={searchUsers}
+                options={options}
                 onUpdate={(update) => deck.update(deck.current!.key, update)}
                 onComment={(text) => deck.comment(deck.current!.key, text)}
               />

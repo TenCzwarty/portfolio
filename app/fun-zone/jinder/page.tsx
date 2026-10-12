@@ -51,6 +51,9 @@ export default function FunZoneJinderPage() {
     if (saved.site && saved.email && saved.token) connect(saved);
   }, [connect]);
 
+  // blob: URLs of images live as long as the client
+  React.useEffect(() => () => client?.dispose(), [client]);
+
   const disconnect = () => {
     writeStorage(STORAGE.token, "");
     setInitial((i) => i && { ...i, token: "" });
@@ -62,12 +65,16 @@ export default function FunZoneJinderPage() {
   return (
     <main className="min-h-[calc(100dvh-56px)]">
       <Section>
-        <div className="mt-16 mb-8 ml-4">
-          <h1 className="text-xl font-semibold sm:text-3xl">Jinder</h1>
-          <p>
-            sprint planning jak randki: w prawo task zostaje w sprincie, w lewo leci do następnego
-          </p>
-        </div>
+        {client ? (
+          <div className="mt-8" />
+        ) : (
+          <div className="mt-16 mb-8 ml-4">
+            <h1 className="text-xl font-semibold sm:text-3xl">Jinder</h1>
+            <p>
+              sprint planning jak randki: w prawo task zostaje w sprincie, w lewo leci do następnego
+            </p>
+          </div>
+        )}
 
         <div className="space-y-4">
           {errorMessage && (

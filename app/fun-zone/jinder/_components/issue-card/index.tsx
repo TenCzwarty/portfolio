@@ -1,18 +1,34 @@
 import React from "react";
 import { ExternalLinkIcon, HistoryIcon } from "lucide-react";
 
-import type { TIssueDetails, TIssueSummary, TIssueUpdate, TPriority, TUser } from "../../_types";
+import type {
+  TEpic,
+  TIssueDetails,
+  TIssueSummary,
+  TIssueUpdate,
+  TPriority,
+  TUser,
+} from "../../_types";
 import { AssigneePicker } from "../assignee-picker";
 import { CommentForm } from "../comment-form";
 import { LabelsEditor } from "../labels-editor";
 import { RichHtml } from "../rich-html";
 
+/** what the card can offer in its pickers, shared by every card of the deck */
+export type TCardOptions = {
+  site: string;
+  priorities: Array<TPriority>;
+  /** null while loading */
+  labels: Array<string> | null;
+  epics: Array<TEpic>;
+  searchUsers: (query: string) => Promise<Array<TUser>>;
+  loadImage: (url: string) => Promise<string | null>;
+};
+
 type TIssueCard = {
   issue: TIssueSummary;
   details: TIssueDetails | null;
-  site: string;
-  priorities: Array<TPriority>;
-  searchUsers: (query: string) => Promise<Array<TUser>>;
+  options: TCardOptions;
   onUpdate: (update: TIssueUpdate) => void;
   onComment: (text: string) => Promise<boolean>;
 };
@@ -20,25 +36,40 @@ type TIssueCard = {
 const formatDate = (iso: string) =>
   new Date(iso).toLocaleDateString("pl-PL", { day: "numeric", month: "short", year: "numeric" });
 
+const TypeIcon = ({ url, loadImage }: { url?: string; loadImage: TCardOptions["loadImage"] }) => {
+  const [src, setSrc] = React.useState<string | null>(null);
+  React.useEffect(() => {
+    let stale = false;
+    if (url) loadImage(url).then((blobUrl) => !stale && setSrc(blobUrl));
+    return () => {
+      stale = true;
+    };
+  }, [url, loadImage]);
+  // eslint-disable-next-line @next/next/no-img-element -- blob: URL, nothing to optimize
+  return src ? <img src={src} alt="" className="size-4" /> : null;
+};
+
+const pillClass =
+  "rounded-full border border-neutral-200 bg-transparent px-3 py-1 text-sm hover:bg-neutral-200";
+
 const Heading = ({ children }: TChildren) => (
   <h4 className="mb-2 text-xs font-semibold tracking-wide uppercase opacity-60">{children}</h4>
 );
 
-export const IssueCard = ({
-  issue,
-  details,
-  site,
-  priorities,
-  searchUsers,
-  onUpdate,
-  onComment,
-}: TIssueCard) => {
+export const IssueCard = ({ issue, details, options, onUpdate, onComment }: TIssueCard) => {
+  const { site, priorities, labels, epics, searchUsers, loadImage } = options;
+  // the current parent may be a closed epic the board no longer lists
+  const parents =
+    details?.parent && !epics.some((e) => e.key === details.parent!.key)
+      ? [details.parent, ...epics]
+      : epics;
   const browse = (key: string) => `https://${site}/browse/${key}`;
 
   return (
     <article className="flex flex-col gap-5">
       <header className="flex flex-col gap-2">
         <div className="flex flex-wrap items-center gap-2 text-sm">
+          <TypeIcon url={issue.typeIconUrl} loadImage={loadImage} />
           <span className="opacity-70">{issue.type}</span>
           <a
             href={browse(issue.key)}
@@ -68,6 +99,7 @@ export const IssueCard = ({
             <AssigneePicker
               assignee={details.assignee}
               search={searchUsers}
+              loadImage={loadImage}
               onChange={(user) => onUpdate({ type: "assignee", user })}
             />
             <select
@@ -77,7 +109,7 @@ export const IssueCard = ({
                 const priority = priorities.find((p) => p.id === e.target.value);
                 if (priority) onUpdate({ type: "priority", priority });
               }}
-              className="rounded-full border border-neutral-200 bg-transparent px-3 py-1 text-sm hover:bg-neutral-200"
+              className={pillClass}
             >
               {!details.priority && <option value="">bez priorytetu</option>}
               {priorities.map((p) => (
@@ -86,16 +118,40 @@ export const IssueCard = ({
                 </option>
               ))}
             </select>
+            <select
+              aria-label="parent"
+              value={details.parent?.key ?? ""}
+              onChange={(e) =>
+                onUpdate({
+                  type: "parent",
+                  parent: parents.find((p) => p.key === e.target.value) ?? null,
+                })
+              }
+              className={`${pillClass} max-w-full truncate sm:max-w-72`}
+            >
+              <option value="">bez parenta</option>
+              {parents.map((p) => (
+                <option key={p.key} value={p.key}>
+                  {p.key}: {p.summary}
+                </option>
+              ))}
+            </select>
           </div>
 
           <LabelsEditor
+            available={labels}
             labels={details.labels}
             onChange={(labels) => onUpdate({ type: "labels", labels })}
           />
 
           <section>
             <Heading>opis</Heading>
-            <RichHtml html={details.descriptionHtml} site={site} empty="brak opisu" />
+            <RichHtml
+              html={details.descriptionHtml}
+              site={site}
+              loadImage={loadImage}
+              empty="brak opisu"
+            />
           </section>
 
           {details.links.length > 0 && (
@@ -129,7 +185,7 @@ export const IssueCard = ({
                   <div className="mb-1 text-xs opacity-60">
                     {comment.author} · {formatDate(comment.created)}
                   </div>
-                  <RichHtml html={comment.html} site={site} />
+                  <RichHtml html={comment.html} site={site} loadImage={loadImage} />
                 </div>
               ))}
               <CommentForm onSave={onComment} />

@@ -20,6 +20,12 @@ export type TSprint = {
 export type TUser = {
   accountId: string;
   displayName: string;
+  avatarUrl?: string;
+};
+
+export type TEpic = {
+  key: string;
+  summary: string;
 };
 
 export type TPriority = {
@@ -32,7 +38,9 @@ export type TIssueSummary = {
   key: string;
   summary: string;
   type: string;
+  typeIconUrl?: string;
   status: string;
+  assignee: TUser | null;
   /** name of the last closed sprint it was in – it spilled over from there */
   spilledFrom?: string;
 };
@@ -56,6 +64,7 @@ export type TIssueDetails = TIssueSummary & {
   labels: Array<string>;
   assignee: TUser | null;
   priority: TPriority | null;
+  parent: TEpic | null;
   comments: Array<TComment>;
   links: Array<TLinkedIssue>;
 };
@@ -63,7 +72,8 @@ export type TIssueDetails = TIssueSummary & {
 export type TIssueUpdate =
   | { type: "assignee"; user: TUser | null }
   | { type: "labels"; labels: Array<string> }
-  | { type: "priority"; priority: TPriority };
+  | { type: "priority"; priority: TPriority }
+  | { type: "parent"; parent: TEpic | null };
 
 /** Same shape for the real Jira and the demo, so the page does not care which one it talks to */
 export type TJiraClient = {
@@ -75,6 +85,14 @@ export type TJiraClient = {
   issues: (sprintId: number) => Promise<Array<TIssueSummary>>;
   issue: (key: string) => Promise<TIssueDetails>;
   priorities: () => Promise<Array<TPriority>>;
+  /** every label that already exists in the Jira instance */
+  labels: () => Promise<Array<string>>;
+  /** open epics of the board – the possible parents */
+  epics: (boardId: number) => Promise<Array<TEpic>>;
+  /** Jira image (attachment, avatar, icon) as a blob: URL, or null when it cannot be shown */
+  image: (url: string) => Promise<string | null>;
+  /** frees the blob: URLs */
+  dispose: () => void;
   assignable: (key: string, query: string) => Promise<Array<TUser>>;
   update: (key: string, update: TIssueUpdate) => Promise<void>;
   comment: (key: string, text: string) => Promise<void>;
