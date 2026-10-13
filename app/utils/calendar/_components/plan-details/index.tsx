@@ -6,6 +6,7 @@ type TPlanDetails = {
   people: Array<TPerson>;
   availability: Record<string, Array<TDay>>;
   canEdit: boolean;
+  onEdit: () => void;
   onDelete: () => void;
   onClose: () => void;
 };
@@ -15,6 +16,7 @@ export const PlanDetails = ({
   people,
   availability,
   canEdit,
+  onEdit,
   onDelete,
   onClose,
 }: TPlanDetails) => {
@@ -50,6 +52,11 @@ export const PlanDetails = ({
         </button>
       </div>
 
+      {plan.description && (
+        // whitespace-pre-line keeps the line breaks people typed, text stays plain (no HTML)
+        <p className="text-sm break-words whitespace-pre-line">{plan.description}</p>
+      )}
+
       <p className="text-sm">
         free the whole time:{" "}
         {freeAllDays.length ? (
@@ -65,15 +72,25 @@ export const PlanDetails = ({
       </p>
 
       {canEdit && (
-        <button
-          type="button"
-          onClick={() => {
-            if (window.confirm(`Delete "${plan.title}"?`)) onDelete();
-          }}
-          className="w-fit rounded-full px-4 py-1 text-sm text-red-700 hover:bg-red-100"
-        >
-          delete plan
-        </button>
+        // -ml-4 cancels the button padding, so the labels line up with the text above
+        <div className="-ml-4 flex gap-2">
+          <button
+            type="button"
+            onClick={onEdit}
+            className="rounded-full px-4 py-1 text-sm hover:bg-neutral-200"
+          >
+            edit
+          </button>
+          <button
+            type="button"
+            onClick={() => {
+              if (window.confirm(`Delete "${plan.title}"?`)) onDelete();
+            }}
+            className="rounded-full px-4 py-1 text-sm text-red-700 hover:bg-red-100"
+          >
+            delete plan
+          </button>
+        </div>
       )}
     </div>
   );
