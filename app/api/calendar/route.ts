@@ -4,6 +4,7 @@ import { createHash, timingSafeEqual } from "node:crypto";
 
 import type { TCalendarData, TPerson, TPlan } from "~/app/utils/calendar/_types";
 import { findByName } from "~/app/utils/calendar/_utils/identity";
+import { DEFAULT_STAMPS, parseStamp, serializeStamp } from "~/app/utils/calendar/_utils/stamps";
 import { LIMITS, parseAction } from "~/app/utils/calendar/_utils/validate";
 
 export const dynamic = "force-dynamic";
@@ -12,6 +13,8 @@ export const dynamic = "force-dynamic";
 const KEY_PEOPLE = "kalendarz:people";
 const KEY_PLANS = "kalendarz:plans";
 const KEY_AVAILABILITY = "kalendarz:availability";
+const KEY_STAMPS = "kalendarz:stamps";
+const KEY_CUSTOM_STAMPS = "kalendarz:custom-stamps";
 
 /**
  * The Vercel Marketplace integration injects KV_REST_API_URL / KV_REST_API_TOKEN, but lets you
@@ -59,10 +62,12 @@ export async function GET(request: Request) {
   const db = getRedis();
   if (!db) return error("Redis is not configured", 503);
 
-  const [people, plans, availability] = await Promise.all([
+  const [people, plans, availability, stamps, customStamps] = await Promise.all([
     db.hgetall<Record<string, TPerson>>(KEY_PEOPLE),
     db.hgetall<Record<string, TPlan>>(KEY_PLANS),
     db.smembers(KEY_AVAILABILITY),
+    db.smembers(KEY_STAMPS),
+    db.smembers(KEY_CUSTOM_STAMPS),
   ]);
 
   const availabilityByPerson: TCalendarData["availability"] = {};
@@ -75,6 +80,8 @@ export async function GET(request: Request) {
     people: Object.values(people ?? {}),
     plans: Object.values(plans ?? {}).sort((a, b) => a.start.localeCompare(b.start)),
     availability: availabilityByPerson,
+    stamps: stamps.map((m) => parseStamp(String(m))).filter((s) => s !== null),
+    customStamps: customStamps.map(String).sort(),
     canEdit: canEdit(request),
   };
 
@@ -118,6 +125,27 @@ export async function POST(request: Request) {
       await db.hset(KEY_PLANS, { [id]: { id, title: title.trim(), start, end, createdBy } });
       break;
     }
+    case "stamp": {
+      if (!(await db.hexists(KEY_PEOPLE, action.stamp.personId))) {
+        return error("Unknown person", 404);
+      }
+      const member = serializeStamp(action.stamp);
+      if (action.on) await db.sadd(KEY_STAMPS, member);
+      else await db.srem(KEY_STAMPS, member);
+      break;
+    }
+    case "stamp-label-add": {
+      if (DEFAULT_STAMPS.includes(action.label)) break;
+      if ((await db.scard(KEY_CUSTOM_STAMPS)) >= LIMITS.customStamps) {
+        return error("Too many custom stamps", 409);
+      }
+      await db.sadd(KEY_CUSTOM_STAMPS, action.label);
+      break;
+    }
+    // stamps already placed with this label stay - only the shortcut disappears
+    case "stamp-label-delete":
+      await db.srem(KEY_CUSTOM_STAMPS, action.label);
+      break;
     case "plan-delete":
       await db.hdel(KEY_PLANS, action.id);
       break;

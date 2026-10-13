@@ -1,4 +1,6 @@
-import type { TCalendarAction, TDay, TPerson, TPlan } from "../_types";
+import type { TCalendarAction, TDay, TPerson, TPlan, TStamp } from "../_types";
+
+import { isStampLabel } from "./stamps";
 
 const RE_DAY = /^\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01])$/;
 const RE_COLOR = /^#[0-9a-f]{6}$/i;
@@ -10,6 +12,7 @@ export const LIMITS = {
   people: 50,
   plans: 500,
   planDays: 62,
+  customStamps: 30,
 };
 
 const isRecord = (v: unknown): v is Record<string, unknown> =>
@@ -40,6 +43,9 @@ const isPlan = (v: unknown): v is TPlan =>
   daysBetween(v.start, v.end) >= 0 &&
   daysBetween(v.start, v.end) < LIMITS.planDays;
 
+const isStamp = (v: unknown): v is TStamp =>
+  isRecord(v) && isDay(v.day) && isId(v.personId) && isStampLabel(v.label);
+
 export const parseAction = (v: unknown): TCalendarAction | null => {
   if (!isRecord(v)) return null;
 
@@ -54,6 +60,17 @@ export const parseAction = (v: unknown): TCalendarAction | null => {
       return isPlan(v.plan) ? { type: "plan-add", plan: v.plan } : null;
     case "plan-delete":
       return isId(v.id) ? { type: "plan-delete", id: v.id } : null;
+    case "stamp":
+      return isStamp(v.stamp) && typeof v.on === "boolean"
+        ? {
+            type: "stamp",
+            stamp: { day: v.stamp.day, personId: v.stamp.personId, label: v.stamp.label },
+            on: v.on,
+          }
+        : null;
+    case "stamp-label-add":
+    case "stamp-label-delete":
+      return isStampLabel(v.label) ? { type: v.type, label: v.label } : null;
     default:
       return null;
   }
