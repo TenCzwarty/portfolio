@@ -9,6 +9,7 @@ const RE_ID = /^[a-z0-9-]{8,64}$/i;
 export const LIMITS = {
   name: 30,
   title: 80,
+  description: 500,
   people: 50,
   plans: 500,
   planDays: 62,
@@ -33,10 +34,17 @@ const daysBetween = (a: TDay, b: TDay) =>
 const isPerson = (v: unknown): v is TPerson =>
   isRecord(v) && isId(v.id) && isText(v.name, LIMITS.name) && isColor(v.color);
 
+const isOptionalText = (v: unknown, max: number): v is string | undefined =>
+  v === undefined || (typeof v === "string" && v.length <= max);
+
+/** "" and whitespace mean "no description" */
+const cleanDescription = (v: string | undefined) => v?.trim() || undefined;
+
 const isPlan = (v: unknown): v is TPlan =>
   isRecord(v) &&
   isId(v.id) &&
   isText(v.title, LIMITS.title) &&
+  isOptionalText(v.description, LIMITS.description) &&
   isDay(v.start) &&
   isDay(v.end) &&
   isId(v.createdBy) &&
@@ -57,7 +65,27 @@ export const parseAction = (v: unknown): TCalendarAction | null => {
         ? { type: "availability", personId: v.personId, day: v.day, available: v.available }
         : null;
     case "plan-add":
-      return isPlan(v.plan) ? { type: "plan-add", plan: v.plan } : null;
+      return isPlan(v.plan)
+        ? {
+            type: "plan-add",
+            plan: {
+              ...v.plan,
+              title: v.plan.title.trim(),
+              description: cleanDescription(v.plan.description),
+            },
+          }
+        : null;
+    case "plan-update":
+      return isId(v.id) &&
+        isText(v.title, LIMITS.title) &&
+        isOptionalText(v.description, LIMITS.description)
+        ? {
+            type: "plan-update",
+            id: v.id,
+            title: v.title.trim(),
+            description: cleanDescription(v.description),
+          }
+        : null;
     case "plan-delete":
       return isId(v.id) ? { type: "plan-delete", id: v.id } : null;
     case "stamp":

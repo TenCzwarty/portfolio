@@ -121,8 +121,15 @@ export async function POST(request: Request) {
     }
     case "plan-add": {
       if ((await db.hlen(KEY_PLANS)) >= LIMITS.plans) return error("Too many plans", 409);
-      const { id, title, start, end, createdBy } = action.plan;
-      await db.hset(KEY_PLANS, { [id]: { id, title: title.trim(), start, end, createdBy } });
+      const { id, title, description, start, end, createdBy } = action.plan;
+      await db.hset(KEY_PLANS, { [id]: { id, title, description, start, end, createdBy } });
+      break;
+    }
+    case "plan-update": {
+      const plan = await db.hget<TPlan>(KEY_PLANS, action.id);
+      if (!plan) return error("Unknown plan", 404);
+      const { title, description } = action;
+      await db.hset(KEY_PLANS, { [action.id]: { ...plan, title, description } });
       break;
     }
     case "stamp": {

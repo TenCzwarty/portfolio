@@ -14,7 +14,8 @@ type TMonthGrid = {
   freeByDay: Map<TDay, Array<TPerson>>;
   stampsByDay: Map<TDay, Array<TStampItem>>;
   me: TPerson | null;
-  range: { start: TDay; end: TDay } | null;
+  /** plan being picked right now, drawn as a ghost bar */
+  draft: { start: TDay; end: TDay; title: string } | null;
   selectedPlanId: string | null;
   /** while picking a range, bars must not swallow clicks meant for days */
   plansClickable: boolean;
@@ -22,6 +23,8 @@ type TMonthGrid = {
   onDayHover: (day: TDay) => void;
   onPlanClick: (plan: TPlan) => void;
 };
+
+const DRAFT_ID = "draft";
 
 const NO_STAMPS: Array<TStampItem> = [];
 
@@ -36,7 +39,7 @@ export const MonthGrid = ({
   freeByDay,
   stampsByDay,
   me,
-  range,
+  draft,
   selectedPlanId,
   plansClickable,
   onDayClick,
@@ -56,7 +59,10 @@ export const MonthGrid = ({
       </div>
 
       {weeks.map((week) => {
-        const segments = layoutWeekPlans(week, plans);
+        const segments = layoutWeekPlans(
+          week,
+          draft ? [...plans, { id: DRAFT_ID, createdBy: "", ...draft }] : plans
+        );
         const lanes = segments.reduce((max, s) => Math.max(max, s.lane + 1), 0);
 
         return (
@@ -76,7 +82,6 @@ export const MonthGrid = ({
               const free = freeByDay.get(day) ?? [];
               const stamps = stampsByDay.get(day) ?? NO_STAMPS;
               const mine = me ? free.some((p) => p.id === me.id) : false;
-              const inRange = range && day >= range.start && day <= range.end;
 
               return (
                 <React.Fragment key={day}>
@@ -86,7 +91,7 @@ export const MonthGrid = ({
                     onMouseEnter={() => onDayHover(day)}
                     aria-label={`${date.toLocaleDateString("en-GB", { dateStyle: "full" })}${free.length ? `, free: ${free.map((p) => p.name).join(", ")}` : ""}${stamps.length ? `, ${stamps.map((s) => `${s.person.name}: ${s.stamp.label}`).join(", ")}` : ""}`}
                     aria-pressed={mine}
-                    className={`border-neutral-200 transition-colors hover:bg-neutral-200 ${col < 6 ? "border-r" : ""} ${inRange ? "!bg-accent-500/40" : ""}`}
+                    className={`border-neutral-200 transition-colors hover:bg-neutral-200 ${col < 6 ? "border-r" : ""}`}
                     style={{ gridColumn: col + 1, gridRow: "1 / -1" }}
                   />
                   <div
@@ -120,10 +125,11 @@ export const MonthGrid = ({
             {segments.map(({ plan, from, to, lane, continuesBefore, continuesAfter }) => (
               <button
                 key={plan.id}
+                tabIndex={plan.id === DRAFT_ID ? -1 : undefined}
                 type="button"
                 onClick={() => onPlanClick(plan)}
                 title={plan.title}
-                className={`bg-primary-800 z-10 mx-0.5 my-px flex items-center gap-1 truncate px-1.5 text-left text-xs leading-none text-white sm:mx-1 sm:px-2 sm:text-sm ${continuesBefore ? "rounded-l-none" : "rounded-l-md"} ${continuesAfter ? "rounded-r-none" : "rounded-r-md"} ${selectedPlanId === plan.id ? "ring-accent-900 ring-2" : ""} ${plansClickable ? "" : "pointer-events-none opacity-70"}`}
+                className={`bg-primary-800 z-10 mx-0.5 my-px flex items-center gap-1 truncate px-1.5 text-left text-xs leading-none text-white sm:mx-1 sm:px-2 sm:text-sm ${continuesBefore ? "rounded-l-none" : "rounded-l-md"} ${continuesAfter ? "rounded-r-none" : "rounded-r-md"} ${selectedPlanId === plan.id ? "ring-accent-900 ring-2" : ""} ${plan.id === DRAFT_ID ? "pointer-events-none border-2 border-dashed border-white/80 opacity-80" : plansClickable ? "" : "pointer-events-none opacity-70"}`}
                 style={{ gridColumn: `${from + 1} / ${to + 2}`, gridRow: lane + 2 }}
               >
                 <span

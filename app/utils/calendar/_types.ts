@@ -10,6 +10,7 @@ export type TPerson = {
 export type TPlan = {
   id: string;
   title: string;
+  description?: string;
   start: TDay;
   end: TDay;
   createdBy: string;
@@ -37,6 +38,7 @@ export type TCalendarAction =
   | { type: "availability"; personId: string; day: TDay; available: boolean }
   | { type: "plan-add"; plan: TPlan }
   | { type: "plan-delete"; id: string }
+  | { type: "plan-update"; id: string; title: string; description?: string }
   | { type: "stamp"; stamp: TStamp; on: boolean }
   | { type: "stamp-label-add"; label: string }
   | { type: "stamp-label-delete"; label: string };

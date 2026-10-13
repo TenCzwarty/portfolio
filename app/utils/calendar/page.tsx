@@ -33,16 +33,18 @@ type TMode = "availability" | "plan" | "stamp";
 const MODES: Array<{ value: TMode; label: string; hint: string }> = [
   {
     value: "availability",
-    label: "I'm free",
+    label: "free",
     hint: "click a day to mark that you're free (click again to undo)",
   },
-  { value: "plan", label: "new plan", hint: "click the first day of the plan, then the last one" },
+  { value: "plan", label: "plan", hint: "click the first day of the plan, then the last one" },
   {
     value: "stamp",
     label: "stamp",
     hint: "pick a stamp, then click days to mark where you are (click again to remove)",
   },
 ];
+
+const STORAGE_KEY_HIDE_PLANS = "kalendarz:hide-plans";
 
 export default function UtilsCalendarPage() {
   const {
@@ -65,7 +67,10 @@ export default function UtilsCalendarPage() {
     year: new Date().getFullYear(),
     month: new Date().getMonth(),
   }));
-  const [mode, setMode] = React.useState<TMode>("availability");
+  // null = just looking: clicking days changes nothing, clicking a plan opens it
+  const [mode, setMode] = React.useState<TMode | null>(null);
+  const [hidePlans, setHidePlans] = React.useState(false);
+  const [editingPlanId, setEditingPlanId] = React.useState<string | null>(null);
   const [editingMe, setEditingMe] = React.useState(false);
   const [rangeStart, setRangeStart] = React.useState<TDay | null>(null);
   const [rangeHover, setRangeHover] = React.useState<TDay | null>(null);
@@ -116,6 +121,30 @@ export default function UtilsCalendarPage() {
   const stampLabels = [...DEFAULT_STAMPS, ...data.customStamps];
 
   const selectedPlan = data.plans.find((p) => p.id === selectedPlanId) ?? null;
+  const editingPlan = data.plans.find((p) => p.id === editingPlanId) ?? null;
+
+  // per-viewer preference, so it lives in this browser only
+  React.useEffect(() => {
+    try {
+      setHidePlans(window.localStorage.getItem(STORAGE_KEY_HIDE_PLANS) === "1");
+    } catch {}
+  }, []);
+
+  const toggleHidePlans = () => {
+    setHidePlans((hidden) => {
+      try {
+        window.localStorage.setItem(STORAGE_KEY_HIDE_PLANS, hidden ? "0" : "1");
+      } catch {}
+      return !hidden;
+    });
+    setSelectedPlanId(null);
+  };
+
+  const toggleMode = (value: TMode) => {
+    setMode((current) => (current === value ? null : value));
+    resetPlanSelection();
+    setSelectedPlanId(null);
+  };
 
   const resetPlanSelection = () => {
     setRangeStart(null);
@@ -133,7 +162,7 @@ export default function UtilsCalendarPage() {
 
   const onDayClick = (day: TDay, event: React.MouseEvent) => {
     setSelectedPlanId(null);
-    if (!canEdit) return;
+    if (!canEdit || mode === null) return;
     if (!me) {
       setEditingMe(true);
       return;
@@ -165,9 +194,9 @@ export default function UtilsCalendarPage() {
     setNewPlanRange({ start, end });
   };
 
-  const onAddPlan = (title: string) => {
+  const onAddPlan = ({ title, description }: { title: string; description: string }) => {
     if (!newPlanRange || !me) return;
-    const plan: TPlan = { id: newId(), title, ...newPlanRange, createdBy: me.id };
+    const plan: TPlan = { id: newId(), title, description, ...newPlanRange, createdBy: me.id };
     send({ type: "plan-add", plan });
     resetPlanSelection();
   };
@@ -177,6 +206,9 @@ export default function UtilsCalendarPage() {
     (rangeStart && rangeHover
       ? { start: [rangeStart, rangeHover].sort()[0], end: [rangeStart, rangeHover].sort()[1] }
       : null);
+
+  // hiding plans keeps the screen calm, but not while you're adding one
+  const visiblePlans = hidePlans && mode !== "plan" ? [] : data.plans;
 
   const showIdentityForm = hydrated && canEdit && (editingMe || !me);
 
@@ -189,12 +221,20 @@ export default function UtilsCalendarPage() {
               <h1 className="text-xl font-semibold sm:text-3xl">Calendar</h1>
               <div className="flex gap-2">
                 <p>shared plans and who&apos;s free when</p>
-                {canEdit && <AccordionExtraSettingsToggle {...accordionProps} />}
+                <AccordionExtraSettingsToggle {...accordionProps} />
               </div>
 
               <Accordion {...accordionProps}>
                 <div className="mt-4 -ml-4 flex flex-col items-start gap-2 rounded-xl border border-neutral-200 p-4 text-sm">
-                  {me && (
+                  <button
+                    type="button"
+                    onClick={toggleHidePlans}
+                    aria-pressed={hidePlans}
+                    className="underline hover:no-underline"
+                  >
+                    {hidePlans ? "show plans" : "hide plans"}
+                  </button>
+                  {canEdit && me && (
                     <button
                       type="button"
                       onClick={() => {
@@ -206,13 +246,15 @@ export default function UtilsCalendarPage() {
                       change name or color
                     </button>
                   )}
-                  <button
-                    type="button"
-                    onClick={forgetSecret}
-                    className="underline hover:no-underline"
-                  >
-                    forget the secret link on this device
-                  </button>
+                  {canEdit && (
+                    <button
+                      type="button"
+                      onClick={forgetSecret}
+                      className="underline hover:no-underline"
+                    >
+                      forget the secret link on this device
+                    </button>
+                  )}
                 </div>
               </Accordion>
             </div>
@@ -264,10 +306,7 @@ export default function UtilsCalendarPage() {
                       type="button"
                       aria-pressed={mode === value}
                       data-tooltip-id={`calendar-mode-${value}`}
-                      onClick={() => {
-                        setMode(value);
-                        resetPlanSelection();
-                      }}
+                      onClick={() => toggleMode(value)}
                     >
                       <Pill
                         classes={
@@ -339,18 +378,21 @@ export default function UtilsCalendarPage() {
                 weeks={weeks}
                 month={cursor.month}
                 today={today}
-                plans={data.plans}
+                plans={visiblePlans}
                 people={people}
                 freeByDay={freeByDay}
                 stampsByDay={stampsByDay}
                 me={me}
-                range={mode === "plan" ? previewRange : null}
+                draft={
+                  mode === "plan" && previewRange ? { ...previewRange, title: "new plan" } : null
+                }
                 selectedPlanId={selectedPlanId}
-                plansClickable={mode === "availability" || !canEdit}
+                plansClickable={mode === null || !canEdit}
                 onDayClick={onDayClick}
                 onDayHover={(day) => rangeStart && !newPlanRange && setRangeHover(day)}
                 onPlanClick={(plan) => {
                   resetPlanSelection();
+                  setEditingPlanId(null);
                   setSelectedPlanId(plan.id === selectedPlanId ? null : plan.id);
                 }}
               />
@@ -375,12 +417,27 @@ export default function UtilsCalendarPage() {
             />
           )}
 
-          {selectedPlan && (
+          {editingPlan && (
+            <PlanForm
+              key={editingPlan.id}
+              start={editingPlan.start}
+              end={editingPlan.end}
+              initial={editingPlan}
+              onSave={({ title, description }) => {
+                send({ type: "plan-update", id: editingPlan.id, title, description });
+                setEditingPlanId(null);
+              }}
+              onCancel={() => setEditingPlanId(null)}
+            />
+          )}
+
+          {selectedPlan && !editingPlan && (
             <PlanDetails
               plan={selectedPlan}
               people={people}
               availability={data.availability}
               canEdit={canEdit}
+              onEdit={() => setEditingPlanId(selectedPlan.id)}
               onDelete={() => {
                 send({ type: "plan-delete", id: selectedPlan.id });
                 setSelectedPlanId(null);

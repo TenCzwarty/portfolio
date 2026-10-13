@@ -51,6 +51,13 @@ const applyAction = (data: TCalendarData, action: TCalendarAction): TCalendarDat
       return { ...data, plans: [...data.plans, action.plan] };
     case "plan-delete":
       return { ...data, plans: data.plans.filter((p) => p.id !== action.id) };
+    case "plan-update":
+      return {
+        ...data,
+        plans: data.plans.map((p) =>
+          p.id === action.id ? { ...p, title: action.title, description: action.description } : p
+        ),
+      };
     case "stamp": {
       const rest = data.stamps.filter((s) => !sameStamp(s, action.stamp));
       return { ...data, stamps: action.on ? [...rest, action.stamp] : rest };
