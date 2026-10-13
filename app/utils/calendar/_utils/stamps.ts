@@ -23,9 +23,58 @@ export const parseStamp = (member: string): TStamp | null => {
 export const sameStamp = (a: TStamp, b: TStamp) =>
   a.day === b.day && a.personId === b.personId && a.label === b.label;
 
-/** people pick any color, so the label text has to pick its own contrast */
-export const textColorOn = (hex: string) => {
-  const [r, g, b] = [1, 3, 5].map((i) => parseInt(hex.slice(i, i + 2), 16) / 255);
-  const luminance = 0.2126 * r + 0.7152 * g + 0.0722 * b;
-  return luminance > 0.6 ? "#000000" : "#ffffff";
+/** FNV-1a: tiny, stable across browsers - everyone sees a stamp in the same spot */
+const hash = (value: string) => {
+  let h = 2166136261;
+  for (let i = 0; i < value.length; i++) {
+    h ^= value.charCodeAt(i);
+    h = Math.imul(h, 16777619);
+  }
+  return h >>> 0;
+};
+
+// spots (% of the cell) a stamp can land on: away from the day number in the top-left corner
+const SLOTS = [
+  { x: 72, y: 28 },
+  { x: 44, y: 50 },
+  { x: 74, y: 52 },
+  { x: 44, y: 74 },
+  { x: 74, y: 76 },
+];
+
+export type TStampPlacement = { x: number; y: number; rotation: number };
+
+/**
+ * "Random" but deterministic spot and tilt for every stamp in one cell, derived from the stamps
+ * themselves, so they don't jump around on refresh and everyone sees the same thing. Each stamp
+ * prefers the slot its hash points at and takes the next free one if it's taken, so stamps on a
+ * busy day don't pile up on top of each other (until the slots run out).
+ */
+export const placeStamps = (stamps: Array<TStamp>) => {
+  const taken = new Set<number>();
+  const placements = new Map<string, TStampPlacement>();
+
+  for (const key of stamps.map(serializeStamp).sort()) {
+    const h = hash(key);
+    const preferred = h % SLOTS.length;
+    let slot = -1;
+    for (let i = 0; i < SLOTS.length; i++) {
+      const candidate = (preferred + i) % SLOTS.length;
+      if (!taken.has(candidate)) {
+        slot = candidate;
+        break;
+      }
+    }
+
+    const base = slot === -1 ? SLOTS[preferred] : SLOTS[slot];
+    if (slot !== -1) taken.add(slot);
+
+    placements.set(key, {
+      x: base.x + (((h >>> 8) % 11) - 5), // ±5%
+      y: base.y + (((h >>> 12) % 9) - 4), // ±4%
+      rotation: ((h >>> 16) % 41) - 20, // -20deg .. 20deg
+    });
+  }
+
+  return placements;
 };

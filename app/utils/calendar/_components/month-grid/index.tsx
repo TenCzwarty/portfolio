@@ -3,7 +3,7 @@ import React from "react";
 import type { TDay, TPerson, TPlan } from "../../_types";
 import { fromDay, WEEKDAYS } from "../../_utils/dates";
 import { layoutWeekPlans } from "../../_utils/layout-plans";
-import { textColorOn } from "../../_utils/stamps";
+import { StampLayer, type TStampItem } from "../stamp-layer";
 
 type TMonthGrid = {
   weeks: Array<Array<TDay>>;
@@ -12,7 +12,7 @@ type TMonthGrid = {
   plans: Array<TPlan>;
   people: Array<TPerson>;
   freeByDay: Map<TDay, Array<TPerson>>;
-  stampsByDay: Map<TDay, Array<{ person: TPerson; label: string }>>;
+  stampsByDay: Map<TDay, Array<TStampItem>>;
   me: TPerson | null;
   range: { start: TDay; end: TDay } | null;
   selectedPlanId: string | null;
@@ -22,6 +22,8 @@ type TMonthGrid = {
   onDayHover: (day: TDay) => void;
   onPlanClick: (plan: TPlan) => void;
 };
+
+const NO_STAMPS: Array<TStampItem> = [];
 
 const LANE_HEIGHT = "1.625rem";
 
@@ -72,7 +74,7 @@ export const MonthGrid = ({
             {week.map((day, col) => {
               const date = fromDay(day);
               const free = freeByDay.get(day) ?? [];
-              const stamps = stampsByDay.get(day) ?? [];
+              const stamps = stampsByDay.get(day) ?? NO_STAMPS;
               const mine = me ? free.some((p) => p.id === me.id) : false;
               const inRange = range && day >= range.start && day <= range.end;
 
@@ -82,7 +84,7 @@ export const MonthGrid = ({
                     type="button"
                     onClick={(e) => onDayClick(day, e)}
                     onMouseEnter={() => onDayHover(day)}
-                    aria-label={`${date.toLocaleDateString("en-GB", { dateStyle: "full" })}${free.length ? `, free: ${free.map((p) => p.name).join(", ")}` : ""}${stamps.length ? `, ${stamps.map((s) => `${s.person.name}: ${s.label}`).join(", ")}` : ""}`}
+                    aria-label={`${date.toLocaleDateString("en-GB", { dateStyle: "full" })}${free.length ? `, free: ${free.map((p) => p.name).join(", ")}` : ""}${stamps.length ? `, ${stamps.map((s) => `${s.person.name}: ${s.stamp.label}`).join(", ")}` : ""}`}
                     aria-pressed={mine}
                     className={`border-neutral-200 transition-colors hover:bg-neutral-200 ${col < 6 ? "border-r" : ""} ${inRange ? "!bg-accent-500/40" : ""}`}
                     style={{ gridColumn: col + 1, gridRow: "1 / -1" }}
@@ -98,36 +100,19 @@ export const MonthGrid = ({
                     </span>
                   </div>
                   <div
-                    className="pointer-events-none flex flex-col justify-end gap-1 px-1.5 py-1 sm:px-4 sm:py-2"
+                    className="pointer-events-none flex flex-wrap content-end gap-1 px-1.5 py-1 sm:px-4 sm:py-2"
                     style={{ gridColumn: col + 1, gridRow: lanes + 2 }}
                   >
-                    {stamps.length > 0 && (
-                      <div className="flex flex-wrap gap-0.5 sm:gap-1">
-                        {stamps.map(({ person, label }) => (
-                          <span
-                            key={`${person.id}|${label}`}
-                            title={`${person.name}: ${label}`}
-                            className="rounded px-0.5 text-[0.55rem] leading-3.5 font-semibold sm:px-1 sm:text-[0.7rem] sm:leading-4"
-                            style={{ background: person.color, color: textColorOn(person.color) }}
-                          >
-                            {label}
-                          </span>
-                        ))}
-                      </div>
-                    )}
-                    {free.length > 0 && (
-                      <div className="flex flex-wrap gap-1">
-                        {free.map((p) => (
-                          <span
-                            key={p.id}
-                            title={p.name}
-                            className="size-2 rounded-full sm:size-3"
-                            style={{ background: p.color }}
-                          />
-                        ))}
-                      </div>
-                    )}
+                    {free.map((p) => (
+                      <span
+                        key={p.id}
+                        title={p.name}
+                        className="size-2 rounded-full sm:size-3"
+                        style={{ background: p.color }}
+                      />
+                    ))}
                   </div>
+                  <StampLayer items={stamps} style={{ gridColumn: col + 1, gridRow: "1 / -1" }} />
                 </React.Fragment>
               );
             })}

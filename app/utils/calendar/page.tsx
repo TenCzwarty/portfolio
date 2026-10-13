@@ -18,12 +18,15 @@ import { Legend } from "./_components/legend";
 import { MonthGrid } from "./_components/month-grid";
 import { PlanDetails } from "./_components/plan-details";
 import { PlanForm } from "./_components/plan-form";
+import { type TStampItem } from "./_components/stamp-layer";
 import { StampPicker } from "./_components/stamp-picker";
 import { formatMonth, fromDay, getMonthWeeks, toDay } from "./_utils/dates";
 import { newId } from "./_utils/identity";
 import { DEFAULT_STAMPS, sameStamp } from "./_utils/stamps";
 import { useCalendar } from "./_utils/use-calendar";
 import type { TDay, TPerson, TPlan } from "./_types";
+
+import "./styles.css";
 
 type TMode = "availability" | "plan" | "stamp";
 
@@ -93,17 +96,18 @@ export default function UtilsCalendarPage() {
 
   const stampsByDay = React.useMemo(() => {
     const order = new Map(people.map((p, i) => [p.id, i]));
-    const map = new Map<TDay, Array<{ person: TPerson; label: string }>>();
+    const map = new Map<TDay, Array<TStampItem>>();
     for (const stamp of data.stamps) {
       const person = people.find((p) => p.id === stamp.personId);
       if (!person) continue;
-      map.set(stamp.day, [...(map.get(stamp.day) ?? []), { person, label: stamp.label }]);
+      map.set(stamp.day, [...(map.get(stamp.day) ?? []), { stamp, person }]);
     }
     // same person order as the dots, so a cell reads the same way every time
     for (const list of map.values()) {
       list.sort(
         (a, b) =>
-          order.get(a.person.id)! - order.get(b.person.id)! || a.label.localeCompare(b.label)
+          order.get(a.person.id)! - order.get(b.person.id)! ||
+          a.stamp.label.localeCompare(b.stamp.label)
       );
     }
     return map;
@@ -326,7 +330,9 @@ export default function UtilsCalendarPage() {
           {/* the page is prerendered at build time: anything date-based must wait for the browser,
               otherwise "today" and the month would be frozen at the build date until hydration */}
           <div className={status === "loading" ? "animate-pulse opacity-60" : ""}>
-            {!hydrated ? (
+            {/* also waits for the first fetch: cells mounted before the data arrives would treat
+                every stamp as freshly placed and play the stamping animation all at once */}
+            {!hydrated || status === "loading" ? (
               <div className="aspect-[7/5] rounded-xl border border-neutral-200" />
             ) : (
               <MonthGrid
