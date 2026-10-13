@@ -18,12 +18,17 @@ import { Legend } from "./_components/legend";
 import { MonthGrid } from "./_components/month-grid";
 import { PlanDetails } from "./_components/plan-details";
 import { PlanForm } from "./_components/plan-form";
+import { type TStampItem } from "./_components/stamp-layer";
+import { StampPicker } from "./_components/stamp-picker";
 import { formatMonth, fromDay, getMonthWeeks, toDay } from "./_utils/dates";
 import { newId } from "./_utils/identity";
+import { DEFAULT_STAMPS, sameStamp } from "./_utils/stamps";
 import { useCalendar } from "./_utils/use-calendar";
 import type { TDay, TPerson, TPlan } from "./_types";
 
-type TMode = "availability" | "plan";
+import "./styles.css";
+
+type TMode = "availability" | "plan" | "stamp";
 
 const MODES: Array<{ value: TMode; label: string; hint: string }> = [
   {
@@ -32,6 +37,11 @@ const MODES: Array<{ value: TMode; label: string; hint: string }> = [
     hint: "click a day to mark that you're free (click again to undo)",
   },
   { value: "plan", label: "new plan", hint: "click the first day of the plan, then the last one" },
+  {
+    value: "stamp",
+    label: "stamp",
+    hint: "pick a stamp, then click days to mark where you are (click again to remove)",
+  },
 ];
 
 export default function UtilsCalendarPage() {
@@ -61,6 +71,7 @@ export default function UtilsCalendarPage() {
   const [rangeHover, setRangeHover] = React.useState<TDay | null>(null);
   const [newPlanRange, setNewPlanRange] = React.useState<{ start: TDay; end: TDay } | null>(null);
   const [selectedPlanId, setSelectedPlanId] = React.useState<string | null>(null);
+  const [selectedStamp, setSelectedStamp] = React.useState(DEFAULT_STAMPS[0]);
 
   const weeks = React.useMemo(() => getMonthWeeks(cursor.year, cursor.month), [cursor]);
   const monthDays = React.useMemo(
@@ -82,6 +93,27 @@ export default function UtilsCalendarPage() {
     }
     return map;
   }, [people, data.availability]);
+
+  const stampsByDay = React.useMemo(() => {
+    const order = new Map(people.map((p, i) => [p.id, i]));
+    const map = new Map<TDay, Array<TStampItem>>();
+    for (const stamp of data.stamps) {
+      const person = people.find((p) => p.id === stamp.personId);
+      if (!person) continue;
+      map.set(stamp.day, [...(map.get(stamp.day) ?? []), { stamp, person }]);
+    }
+    // same person order as the dots, so a cell reads the same way every time
+    for (const list of map.values()) {
+      list.sort(
+        (a, b) =>
+          order.get(a.person.id)! - order.get(b.person.id)! ||
+          a.stamp.label.localeCompare(b.stamp.label)
+      );
+    }
+    return map;
+  }, [people, data.stamps]);
+
+  const stampLabels = [...DEFAULT_STAMPS, ...data.customStamps];
 
   const selectedPlan = data.plans.find((p) => p.id === selectedPlanId) ?? null;
 
@@ -112,6 +144,13 @@ export default function UtilsCalendarPage() {
       send({ type: "availability", personId: me.id, day, available });
       // from the click itself: the hook's mouse tracking has nothing to go on with touch
       if (available) triggerConfetti({ position: { x: event.clientX, y: event.clientY } });
+      return;
+    }
+
+    if (mode === "stamp") {
+      const stamp = { day, personId: me.id, label: selectedStamp };
+      const on = !data.stamps.some((s) => sameStamp(s, stamp));
+      send({ type: "stamp", stamp, on });
       return;
     }
 
@@ -269,12 +308,31 @@ export default function UtilsCalendarPage() {
                 </button>
               </div>
             </div>
+
+            {canEdit && me && mode === "stamp" && (
+              <StampPicker
+                labels={stampLabels}
+                customLabels={data.customStamps}
+                selected={selectedStamp}
+                onSelect={setSelectedStamp}
+                onAdd={(label) => {
+                  send({ type: "stamp-label-add", label });
+                  setSelectedStamp(label);
+                }}
+                onDelete={(label) => {
+                  send({ type: "stamp-label-delete", label });
+                  setSelectedStamp(DEFAULT_STAMPS[0]);
+                }}
+              />
+            )}
           </div>
 
           {/* the page is prerendered at build time: anything date-based must wait for the browser,
               otherwise "today" and the month would be frozen at the build date until hydration */}
           <div className={status === "loading" ? "animate-pulse opacity-60" : ""}>
-            {!hydrated ? (
+            {/* also waits for the first fetch: cells mounted before the data arrives would treat
+                every stamp as freshly placed and play the stamping animation all at once */}
+            {!hydrated || status === "loading" ? (
               <div className="aspect-[7/5] rounded-xl border border-neutral-200" />
             ) : (
               <MonthGrid
@@ -284,10 +342,11 @@ export default function UtilsCalendarPage() {
                 plans={data.plans}
                 people={people}
                 freeByDay={freeByDay}
+                stampsByDay={stampsByDay}
                 me={me}
                 range={mode === "plan" ? previewRange : null}
                 selectedPlanId={selectedPlanId}
-                plansClickable={mode !== "plan" || !canEdit}
+                plansClickable={mode === "availability" || !canEdit}
                 onDayClick={onDayClick}
                 onDayHover={(day) => rangeStart && !newPlanRange && setRangeHover(day)}
                 onPlanClick={(plan) => {

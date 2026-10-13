@@ -3,6 +3,7 @@ import React from "react";
 import type { TDay, TPerson, TPlan } from "../../_types";
 import { fromDay, WEEKDAYS } from "../../_utils/dates";
 import { layoutWeekPlans } from "../../_utils/layout-plans";
+import { StampLayer, type TStampItem } from "../stamp-layer";
 
 type TMonthGrid = {
   weeks: Array<Array<TDay>>;
@@ -11,6 +12,7 @@ type TMonthGrid = {
   plans: Array<TPlan>;
   people: Array<TPerson>;
   freeByDay: Map<TDay, Array<TPerson>>;
+  stampsByDay: Map<TDay, Array<TStampItem>>;
   me: TPerson | null;
   range: { start: TDay; end: TDay } | null;
   selectedPlanId: string | null;
@@ -21,6 +23,8 @@ type TMonthGrid = {
   onPlanClick: (plan: TPlan) => void;
 };
 
+const NO_STAMPS: Array<TStampItem> = [];
+
 const LANE_HEIGHT = "1.625rem";
 
 export const MonthGrid = ({
@@ -30,6 +34,7 @@ export const MonthGrid = ({
   plans,
   people,
   freeByDay,
+  stampsByDay,
   me,
   range,
   selectedPlanId,
@@ -69,6 +74,7 @@ export const MonthGrid = ({
             {week.map((day, col) => {
               const date = fromDay(day);
               const free = freeByDay.get(day) ?? [];
+              const stamps = stampsByDay.get(day) ?? NO_STAMPS;
               const mine = me ? free.some((p) => p.id === me.id) : false;
               const inRange = range && day >= range.start && day <= range.end;
 
@@ -78,7 +84,7 @@ export const MonthGrid = ({
                     type="button"
                     onClick={(e) => onDayClick(day, e)}
                     onMouseEnter={() => onDayHover(day)}
-                    aria-label={`${date.toLocaleDateString("en-GB", { dateStyle: "full" })}${free.length ? `, free: ${free.map((p) => p.name).join(", ")}` : ""}`}
+                    aria-label={`${date.toLocaleDateString("en-GB", { dateStyle: "full" })}${free.length ? `, free: ${free.map((p) => p.name).join(", ")}` : ""}${stamps.length ? `, ${stamps.map((s) => `${s.person.name}: ${s.stamp.label}`).join(", ")}` : ""}`}
                     aria-pressed={mine}
                     className={`border-neutral-200 transition-colors hover:bg-neutral-200 ${col < 6 ? "border-r" : ""} ${inRange ? "!bg-accent-500/40" : ""}`}
                     style={{ gridColumn: col + 1, gridRow: "1 / -1" }}
@@ -106,6 +112,7 @@ export const MonthGrid = ({
                       />
                     ))}
                   </div>
+                  <StampLayer items={stamps} style={{ gridColumn: col + 1, gridRow: "1 / -1" }} />
                 </React.Fragment>
               );
             })}

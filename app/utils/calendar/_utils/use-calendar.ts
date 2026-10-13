@@ -3,10 +3,17 @@ import React from "react";
 import type { TCalendarAction, TCalendarData, TPerson } from "../_types";
 
 import { findByName, STORAGE_KEY_ME, STORAGE_KEY_SECRET } from "./identity";
+import { sameStamp } from "./stamps";
 
 const API = "/api/calendar";
 
-const EMPTY: TCalendarData = { people: [], plans: [], availability: {} };
+const EMPTY: TCalendarData = {
+  people: [],
+  plans: [],
+  availability: {},
+  stamps: [],
+  customStamps: [],
+};
 
 const readStorage = <T>(key: string): T | null => {
   try {
@@ -44,6 +51,17 @@ const applyAction = (data: TCalendarData, action: TCalendarAction): TCalendarDat
       return { ...data, plans: [...data.plans, action.plan] };
     case "plan-delete":
       return { ...data, plans: data.plans.filter((p) => p.id !== action.id) };
+    case "stamp": {
+      const rest = data.stamps.filter((s) => !sameStamp(s, action.stamp));
+      return { ...data, stamps: action.on ? [...rest, action.stamp] : rest };
+    }
+    case "stamp-label-add":
+      return {
+        ...data,
+        customStamps: [...new Set([...data.customStamps, action.label])].sort(),
+      };
+    case "stamp-label-delete":
+      return { ...data, customStamps: data.customStamps.filter((l) => l !== action.label) };
   }
 };
 
