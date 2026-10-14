@@ -1,1 +1,1766 @@
-{}
+{
+  "abi-masatora": {
+    "sumoApiId": 22,
+    "shikona": "Abi",
+    "kanji": "阿炎 政虎",
+    "topRank": "Sekiwake",
+    "heya": "Shikoroyama",
+    "country": "Japan",
+    "retired": false
+  },
+  "akinoshima-katsumi": {
+    "sumoApiId": 3833,
+    "shikona": "Akinoshima Katsumi",
+    "kanji": null,
+    "topRank": "Sekiwake",
+    "heya": "Futagoyama",
+    "country": "Japan",
+    "retired": true
+  },
+  "akiseyama-mitsuhiko": {
+    "sumoApiId": 109,
+    "shikona": "Akiseyama Mitsuhiko",
+    "kanji": null,
+    "topRank": "Maegashira",
+    "heya": "Kise",
+    "country": "Japan",
+    "retired": true
+  },
+  "akua-shoma": {
+    "sumoApiId": 73,
+    "shikona": "Akua",
+    "kanji": "天空海",
+    "topRank": "Maegashira",
+    "heya": "Tatsunami",
+    "country": "Japan",
+    "retired": false
+  },
+  "aminishiki-ryuji": {
+    "sumoApiId": 3247,
+    "shikona": "Aminishiki Ryuji",
+    "kanji": null,
+    "topRank": "Sekiwake",
+    "heya": "Isegahama",
+    "country": "Japan",
+    "retired": true
+  },
+  "aoiyama-kosuke": {
+    "sumoApiId": 23,
+    "shikona": "Aoiyama Kosuke",
+    "kanji": null,
+    "topRank": "Sekiwake",
+    "heya": "Kasugano",
+    "country": "Bulgaria",
+    "retired": true
+  },
+  "aonishiki-arata": {
+    "sumoApiId": 8854,
+    "shikona": "Aonishiki",
+    "kanji": "安青錦 新大",
+    "topRank": "Ozeki",
+    "heya": "Ajigawa",
+    "country": "Ukraine",
+    "retired": false
+  },
+  "asahakuryu-taro": {
+    "sumoApiId": 607,
+    "shikona": "Asahakuryu",
+    "kanji": "朝白龍 太郎",
+    "topRank": "Maegashira",
+    "heya": "Takasago",
+    "country": "Mongolia",
+    "retired": false
+  },
+  "asahifuji-seiya": {
+    "sumoApiId": 5649,
+    "shikona": "Asahifuji Seiya",
+    "kanji": null,
+    "topRank": "Yokozuna",
+    "heya": "Oshima",
+    "country": "Japan",
+    "retired": true
+  },
+  "asahiyutaka-katsuteru": {
+    "sumoApiId": 5146,
+    "shikona": "Asahiyutaka Katsuteru",
+    "kanji": null,
+    "topRank": "Komusubi",
+    "heya": "Oshima",
+    "country": "Japan",
+    "retired": true
+  },
+  "asakoryu-takuma": {
+    "sumoApiId": 164,
+    "shikona": "Asakoryu",
+    "kanji": "朝紅龍 琢馬",
+    "topRank": "Maegashira",
+    "heya": "Takasago",
+    "country": "Japan",
+    "retired": false
+  },
+  "asanoyama-hiroki": {
+    "sumoApiId": 2,
+    "shikona": "Asanoyama",
+    "kanji": "朝乃山 広暉",
+    "topRank": "Ozeki",
+    "heya": "Takasago",
+    "country": "Japan",
+    "retired": false
+  },
+  "asasekiryu-taro": {
+    "sumoApiId": 3398,
+    "shikona": "Asasekiryu Taro",
+    "kanji": null,
+    "topRank": "Sekiwake",
+    "heya": "Takasago",
+    "country": "Mongolia",
+    "retired": true
+  },
+  "asasuiryu-ryoma": {
+    "sumoApiId": 8859,
+    "shikona": "Asasuiryu",
+    "kanji": "朝翠龍 涼馬",
+    "topRank": "Maegashira",
+    "heya": "Takasago",
+    "country": "Japan",
+    "retired": false
+  },
+  "asazenshin-itsuki": {
+    "sumoApiId": 150,
+    "shikona": "Asazenshin",
+    "kanji": "朝前進",
+    "topRank": "Juryo",
+    "heya": "Takasago",
+    "country": "Japan",
+    "retired": false
+  },
+  "atamifuji-sakutaro": {
+    "sumoApiId": 74,
+    "shikona": "Atamifuji",
+    "kanji": "熱海富士 朔太郎",
+    "topRank": "Sekiwake",
+    "heya": "Isegahama",
+    "country": "Japan",
+    "retired": false
+  },
+  "azumaryu-tsuyoshi": {
+    "sumoApiId": 18,
+    "shikona": "Azumaryu Tsuyoshi",
+    "kanji": null,
+    "topRank": "Maegashira",
+    "heya": "Tamanoi",
+    "country": "Mongolia",
+    "retired": true
+  },
+  "bushozan-kotaro": {
+    "sumoApiId": 52,
+    "shikona": "Bushozan",
+    "kanji": "武将山",
+    "topRank": "Maegashira",
+    "heya": "Fujishima",
+    "country": "Japan",
+    "retired": false
+  },
+  "chiyomaru-kazuki": {
+    "sumoApiId": 42,
+    "shikona": "Chiyomaru",
+    "kanji": "千代丸",
+    "topRank": "Maegashira",
+    "heya": "Kokonoe",
+    "country": "Japan",
+    "retired": true
+  },
+  "chiyonofuji-mitsugu": {
+    "sumoApiId": 1024,
+    "shikona": "Chiyonofuji Mitsugu",
+    "kanji": null,
+    "topRank": "Yokozuna",
+    "heya": "Kokonoe",
+    "country": "Japan",
+    "retired": true
+  },
+  "chiyonokuni-toshiki": {
+    "sumoApiId": 51,
+    "shikona": "Chiyonokuni Toshiki",
+    "kanji": null,
+    "topRank": "Maegashira",
+    "heya": "Kokonoe",
+    "country": "Japan",
+    "retired": true
+  },
+  "chiyonoo-miyohito": {
+    "sumoApiId": 184,
+    "shikona": "Chiyonoo",
+    "kanji": "千代ノ皇",
+    "topRank": "Maegashira",
+    "heya": "Kokonoe",
+    "country": "Japan",
+    "retired": false
+  },
+  "chiyonoumi-meitaro": {
+    "sumoApiId": 104,
+    "shikona": "Chiyonoumi Meitaro",
+    "kanji": null,
+    "topRank": "Juryo",
+    "heya": "Kokonoe",
+    "country": "Japan",
+    "retired": true
+  },
+  "chiyootori-yuki": {
+    "sumoApiId": 670,
+    "shikona": "Chiyootori Yuki",
+    "kanji": null,
+    "topRank": "Komusubi",
+    "heya": "Kokonoe",
+    "country": "Japan",
+    "retired": true
+  },
+  "chiyosakae-eita": {
+    "sumoApiId": 68,
+    "shikona": "Chiyosakae",
+    "kanji": "千代栄",
+    "topRank": "Juryo",
+    "heya": "Kokonoe",
+    "country": "Japan",
+    "retired": true
+  },
+  "chiyoshoma-fujio": {
+    "sumoApiId": 39,
+    "shikona": "Chiyoshoma",
+    "kanji": "千代翔馬 富士雄",
+    "topRank": "Maegashira",
+    "heya": "Kokonoe",
+    "country": "Mongolia",
+    "retired": false
+  },
+  "chiyotaikai-ryuji": {
+    "sumoApiId": 3858,
+    "shikona": "Chiyotaikai Ryuji",
+    "kanji": null,
+    "topRank": "Ozeki",
+    "heya": "Kokonoe",
+    "country": "Japan",
+    "retired": true
+  },
+  "chiyotairyu-hidemasa": {
+    "sumoApiId": 637,
+    "shikona": "Chiyotairyu Hidemasa",
+    "kanji": null,
+    "topRank": "Komusubi",
+    "heya": "Kokonoe",
+    "country": "Japan",
+    "retired": true
+  },
+  "churanoumi-yoshihisa": {
+    "sumoApiId": 71,
+    "shikona": "Churanoumi",
+    "kanji": "美ノ海 義久",
+    "topRank": "Maegashira",
+    "heya": "Kise",
+    "country": "Japan",
+    "retired": false
+  },
+  "daiamami-genki": {
+    "sumoApiId": 64,
+    "shikona": "Daiamami",
+    "kanji": "大奄美",
+    "topRank": "Maegashira",
+    "heya": "Oitekaze",
+    "country": "Japan",
+    "retired": true
+  },
+  "daieisho-hayato": {
+    "sumoApiId": 9,
+    "shikona": "Daieisho",
+    "kanji": "大栄翔 勇人",
+    "topRank": "Sekiwake",
+    "heya": "Oitekaze",
+    "country": "Japan",
+    "retired": false
+  },
+  "daijuyama-tadaaki": {
+    "sumoApiId": 987,
+    "shikona": "Daijuyama Tadaaki",
+    "kanji": null,
+    "topRank": "Sekiwake",
+    "heya": "Futagoyama",
+    "country": "Japan",
+    "retired": true
+  },
+  "daiseizan-daisuke": {
+    "sumoApiId": 378,
+    "shikona": "Daiseizan",
+    "kanji": "大青山 大介",
+    "topRank": "Maegashira",
+    "heya": "Arashio",
+    "country": "China",
+    "retired": false
+  },
+  "daishoho-kiyohiro": {
+    "sumoApiId": 48,
+    "shikona": "Daishoho",
+    "kanji": "大翔鵬",
+    "topRank": "Maegashira",
+    "heya": "Oitekaze",
+    "country": "Mongolia",
+    "retired": true
+  },
+  "daishomaru-shogo": {
+    "sumoApiId": 168,
+    "shikona": "Daishomaru",
+    "kanji": "大翔丸",
+    "topRank": "Maegashira",
+    "heya": "Oitekaze",
+    "country": "Japan",
+    "retired": true
+  },
+  "daitetsu-tadamitsu": {
+    "sumoApiId": 964,
+    "shikona": "Daitetsu Tadamitsu",
+    "kanji": null,
+    "topRank": "Komusubi",
+    "heya": "Nishonoseki",
+    "country": "Japan",
+    "retired": true
+  },
+  "daizen-takahiro": {
+    "sumoApiId": 3838,
+    "shikona": "Daizen Takahiro",
+    "kanji": null,
+    "topRank": "Komusubi",
+    "heya": "Nishonoseki",
+    "country": "Japan",
+    "retired": true
+  },
+  "dejima-takeharu": {
+    "sumoApiId": 3852,
+    "shikona": "Dejima Takeharu",
+    "kanji": null,
+    "topRank": "Ozeki",
+    "heya": "Musashigawa",
+    "country": "Japan",
+    "retired": true
+  },
+  "dewanoryu-kazuki": {
+    "sumoApiId": 135,
+    "shikona": "Dewanoryu",
+    "kanji": "出羽ノ龍 和希",
+    "topRank": "Juryo",
+    "heya": "Dewanoumi",
+    "country": "Mongolia",
+    "retired": false
+  },
+  "endo-shota": {
+    "sumoApiId": 17,
+    "shikona": "Endo",
+    "kanji": "遠藤",
+    "topRank": "Komusubi",
+    "heya": "Oitekaze",
+    "country": "Japan",
+    "retired": true
+  },
+  "enho-yuya": {
+    "sumoApiId": 62,
+    "shikona": "Enho",
+    "kanji": "炎鵬 友哉",
+    "topRank": "Maegashira",
+    "heya": "Isegahama",
+    "country": "Japan",
+    "retired": false
+  },
+  "fujiazuma-kazuyoshi": {
+    "sumoApiId": 121,
+    "shikona": "Fujiazuma",
+    "kanji": "富士東",
+    "topRank": "Maegashira",
+    "heya": "Tamanoi",
+    "country": "Japan",
+    "retired": false
+  },
+  "fujinokawa-seigo": {
+    "sumoApiId": 615,
+    "shikona": "Fujinokawa",
+    "kanji": "藤ノ川 成剛",
+    "topRank": "Sekiwake",
+    "heya": "Isenoumi",
+    "country": "Japan",
+    "retired": false
+  },
+  "fujiryoga": {
+    "sumoApiId": 9051,
+    "shikona": "Fujiryoga",
+    "kanji": "藤凌駕 雅治",
+    "topRank": "Maegashira",
+    "heya": "Fujishima",
+    "country": "Japan",
+    "retired": false
+  },
+  "fujiseiun-tatsuki": {
+    "sumoApiId": 82,
+    "shikona": "Fujiseiun",
+    "kanji": "藤青雲 龍輝",
+    "topRank": "Maegashira",
+    "heya": "Fujishima",
+    "country": "Japan",
+    "retired": false
+  },
+  "futeno-izumi": {
+    "sumoApiId": 4361,
+    "shikona": "Futeno Izumi",
+    "kanji": null,
+    "topRank": "Komusubi",
+    "heya": "Dewanoumi",
+    "country": "Japan",
+    "retired": true
+  },
+  "gagamaru-masaru": {
+    "sumoApiId": 3222,
+    "shikona": "Gagamaru Masaru",
+    "kanji": null,
+    "topRank": "Komusubi",
+    "heya": "Kise",
+    "country": "Georgia",
+    "retired": true
+  },
+  "goeido-gotaro": {
+    "sumoApiId": 3249,
+    "shikona": "Goeido Gotaro",
+    "kanji": null,
+    "topRank": "Ozeki",
+    "heya": "Sakaigawa",
+    "country": "Japan",
+    "retired": true
+  },
+  "gonoyama-toki": {
+    "sumoApiId": 56,
+    "shikona": "Gonoyama",
+    "kanji": "豪ノ山 登輝",
+    "topRank": "Maegashira",
+    "heya": "Takekuma",
+    "country": "Japan",
+    "retired": false
+  },
+  "hakuho-sho": {
+    "sumoApiId": 3081,
+    "shikona": "Hakuho Sho",
+    "kanji": null,
+    "topRank": "Yokozuna",
+    "heya": "Miyagino",
+    "country": "Mongolia",
+    "retired": true
+  },
+  "hakunofuji-tetsuya": {
+    "sumoApiId": 3,
+    "shikona": "Hakunofuji",
+    "kanji": "伯乃富士 哲也",
+    "topRank": "Komusubi",
+    "heya": "Isegahama",
+    "country": "Japan",
+    "retired": false
+  },
+  "hakuyozan-ryosuke": {
+    "sumoApiId": 59,
+    "shikona": "Hakuyozan",
+    "kanji": "白鷹山",
+    "topRank": "Juryo",
+    "heya": "Takadagawa",
+    "country": "Japan",
+    "retired": false
+  },
+  "hamanoshima-keishi": {
+    "sumoApiId": 3743,
+    "shikona": "Hamanoshima Keishi",
+    "kanji": null,
+    "topRank": "Komusubi",
+    "heya": "Mihogaseki",
+    "country": "Japan",
+    "retired": true
+  },
+  "hatsuyama-sho": {
+    "sumoApiId": 77,
+    "shikona": "Hatsuyama",
+    "kanji": "羽出山 将",
+    "topRank": "Maegashira",
+    "heya": "Tamanoi",
+    "country": "Japan",
+    "retired": false
+  },
+  "hidenoumi-takuya": {
+    "sumoApiId": 60,
+    "shikona": "Hidenoumi",
+    "kanji": "英乃海",
+    "topRank": "Maegashira",
+    "heya": "Kise",
+    "country": "Japan",
+    "retired": true
+  },
+  "himukamaru-akihiro": {
+    "sumoApiId": 611,
+    "shikona": "Himukamaru",
+    "kanji": "日向丸",
+    "topRank": "Juryo",
+    "heya": "Kise",
+    "country": "Japan",
+    "retired": false
+  },
+  "hiradoumi-yuki": {
+    "sumoApiId": 24,
+    "shikona": "Hiradoumi",
+    "kanji": "平戸海 雄貴",
+    "topRank": "Komusubi",
+    "heya": "Sakaigawa",
+    "country": "Japan",
+    "retired": false
+  },
+  "hitoshi-hidetada": {
+    "sumoApiId": 111,
+    "shikona": "Hitoshi",
+    "kanji": "日翔志 英忠",
+    "topRank": "Maegashira",
+    "heya": "Oitekaze",
+    "country": "Japan",
+    "retired": false
+  },
+  "hokuseiho-osamu": {
+    "sumoApiId": 53,
+    "shikona": "Hokuseiho Osamu",
+    "kanji": null,
+    "topRank": "Maegashira",
+    "heya": "Miyagino",
+    "country": "Japan",
+    "retired": true
+  },
+  "hokutofuji-daiki": {
+    "sumoApiId": 27,
+    "shikona": "Hokutofuji",
+    "kanji": "北勝富士",
+    "topRank": "Komusubi",
+    "heya": "Hakkaku",
+    "country": "Japan",
+    "retired": true
+  },
+  "hokutoriki-hideki": {
+    "sumoApiId": 4065,
+    "shikona": "Hokutoriki Hideki",
+    "kanji": null,
+    "topRank": "Sekiwake",
+    "heya": "Hakkaku",
+    "country": "Japan",
+    "retired": true
+  },
+  "hokutoumi-nobuyoshi": {
+    "sumoApiId": 1136,
+    "shikona": "Hokutoumi Nobuyoshi",
+    "kanji": null,
+    "topRank": "Yokozuna",
+    "heya": "Kokonoe",
+    "country": "Japan",
+    "retired": true
+  },
+  "homasho-noriyuki": {
+    "sumoApiId": 4177,
+    "shikona": "Homasho Noriyuki",
+    "kanji": null,
+    "topRank": "Komusubi",
+    "heya": "Shikoroyama",
+    "country": "Japan",
+    "retired": true
+  },
+  "hoshoryu-tomokatsu": {
+    "sumoApiId": 19,
+    "shikona": "Hoshoryu",
+    "kanji": "豊昇龍 智勝",
+    "topRank": "Yokozuna",
+    "heya": "Tatsunami",
+    "country": "Mongolia",
+    "retired": false
+  },
+  "ichinojo-takashi": {
+    "sumoApiId": 46,
+    "shikona": "Ichinojo Takashi",
+    "kanji": null,
+    "topRank": "Sekiwake",
+    "heya": "Minato",
+    "country": "Mongolia",
+    "retired": true
+  },
+  "ichiyamamoto-daiki": {
+    "sumoApiId": 11,
+    "shikona": "Ichiyamamoto",
+    "kanji": "一山本 大生",
+    "topRank": "Maegashira",
+    "heya": "Hanaregoma",
+    "country": "Japan",
+    "retired": false
+  },
+  "ikioi-shota": {
+    "sumoApiId": 3120,
+    "shikona": "Ikioi Shota",
+    "kanji": null,
+    "topRank": "Sekiwake",
+    "heya": "Isenoumi",
+    "country": "Japan",
+    "retired": true
+  },
+  "irodori-takateru": {
+    "sumoApiId": 705,
+    "shikona": "Irodori Takateru",
+    "kanji": null,
+    "topRank": "Juryo",
+    "heya": "Shikoroyama",
+    "country": "Japan",
+    "retired": true
+  },
+  "ishiura-shikanosuke": {
+    "sumoApiId": 368,
+    "shikona": "Ishiura Shikanosuke",
+    "kanji": null,
+    "topRank": "Maegashira",
+    "heya": "Miyagino",
+    "country": "Japan",
+    "retired": true
+  },
+  "iwakiyama-ryuta": {
+    "sumoApiId": 4053,
+    "shikona": "Iwakiyama Ryuta",
+    "kanji": null,
+    "topRank": "Komusubi",
+    "heya": "Sakaigawa",
+    "country": "Japan",
+    "retired": true
+  },
+  "jokoryu-takayuki": {
+    "sumoApiId": 671,
+    "shikona": "Jokoryu Takayuki",
+    "kanji": null,
+    "topRank": "Komusubi",
+    "heya": "Kise",
+    "country": "Japan",
+    "retired": true
+  },
+  "kagayaki-taishi": {
+    "sumoApiId": 29,
+    "shikona": "Kagayaki",
+    "kanji": "輝 大士",
+    "topRank": "Maegashira",
+    "heya": "Takadagawa",
+    "country": "Japan",
+    "retired": false
+  },
+  "kaio-hiroyuki": {
+    "sumoApiId": 4071,
+    "shikona": "Kaio Hiroyuki",
+    "kanji": null,
+    "topRank": "Ozeki",
+    "heya": "Tomozuna",
+    "country": "Japan",
+    "retired": true
+  },
+  "kaisei-ichiro": {
+    "sumoApiId": 674,
+    "shikona": "Kaisei Ichiro",
+    "kanji": null,
+    "topRank": "Sekiwake",
+    "heya": "Oshima",
+    "country": "Brazil",
+    "retired": true
+  },
+  "kaisho-asaki": {
+    "sumoApiId": 69,
+    "shikona": "Kaisho",
+    "kanji": "魁勝",
+    "topRank": "Juryo",
+    "heya": "Asakayama",
+    "country": "Japan",
+    "retired": false
+  },
+  "kakizoe-toru": {
+    "sumoApiId": 4324,
+    "shikona": "Kakizoe Toru",
+    "kanji": null,
+    "topRank": "Komusubi",
+    "heya": "Fujishima",
+    "country": "Japan",
+    "retired": true
+  },
+  "kakuryu-rikisaburo": {
+    "sumoApiId": 3181,
+    "shikona": "Kakuryu Rikisaburo",
+    "kanji": null,
+    "topRank": "Yokozuna",
+    "heya": "Michinoku",
+    "country": "Mongolia",
+    "retired": true
+  },
+  "kashiwado-tsuyoshi": {
+    "sumoApiId": 1319,
+    "shikona": "Kashiwado Tsuyoshi",
+    "kanji": null,
+    "topRank": "Yokozuna",
+    "heya": "Isenoumi",
+    "country": "Japan",
+    "retired": true
+  },
+  "kayo-yasutoki": {
+    "sumoApiId": 142,
+    "shikona": "Kayo",
+    "kanji": "嘉陽 快宗",
+    "topRank": "Maegashira",
+    "heya": "Nakamura",
+    "country": "Japan",
+    "retired": false
+  },
+  "kazekeno-genta": {
+    "sumoApiId": 78,
+    "shikona": "Kazekeno",
+    "kanji": "風賢央 厳太",
+    "topRank": "Juryo",
+    "heya": "Oshiogawa",
+    "country": "Japan",
+    "retired": false
+  },
+  "kazuma-torakaze": {
+    "sumoApiId": 8865,
+    "shikona": "Kazuma",
+    "kanji": "一意 虎風",
+    "topRank": "Maegashira",
+    "heya": "Kise",
+    "country": "Japan",
+    "retired": false
+  },
+  "kinbozan-haruki": {
+    "sumoApiId": 50,
+    "shikona": "Kinbozan",
+    "kanji": "金峰山 晴樹",
+    "topRank": "Maegashira",
+    "heya": "Kise",
+    "country": "Kazakhstan",
+    "retired": false
+  },
+  "kirishima-kazuhiro": {
+    "sumoApiId": 956,
+    "shikona": "Kirishima Kazuhiro",
+    "kanji": null,
+    "topRank": "Ozeki",
+    "heya": "Izutsu",
+    "country": "Japan",
+    "retired": true
+  },
+  "kirishima-tetsuo": {
+    "sumoApiId": 7,
+    "shikona": "Kirishima",
+    "kanji": "霧島 鐵力",
+    "topRank": "Ozeki",
+    "heya": "Otowayama",
+    "country": "Mongolia",
+    "retired": false
+  },
+  "kisenosato-yutaka": {
+    "sumoApiId": 3285,
+    "shikona": "Kisenosato Yutaka",
+    "kanji": null,
+    "topRank": "Yokozuna",
+    "heya": "Tagonoura",
+    "country": "Japan",
+    "retired": true
+  },
+  "kitanoumi-toshimitsu": {
+    "sumoApiId": 1036,
+    "shikona": "Kitanoumi Toshimitsu",
+    "kanji": null,
+    "topRank": "Yokozuna",
+    "heya": "Mihogaseki",
+    "country": "Japan",
+    "retired": true
+  },
+  "kitanowaka-daisuke": {
+    "sumoApiId": 66,
+    "shikona": "Kitanowaka",
+    "kanji": "北の若 大輔",
+    "topRank": "Maegashira",
+    "heya": "Hakkaku",
+    "country": "Japan",
+    "retired": false
+  },
+  "kizakiumi-shinnosuke": {
+    "sumoApiId": 3173,
+    "shikona": "Kizakiumi Shinnosuke",
+    "kanji": null,
+    "topRank": "Juryo",
+    "heya": "Kise",
+    "country": "Japan",
+    "retired": true
+  },
+  "koboyama-daizo": {
+    "sumoApiId": 1196,
+    "shikona": "Koboyama Daizo",
+    "kanji": null,
+    "topRank": "Sekiwake",
+    "heya": "Kumagatani",
+    "country": "Japan",
+    "retired": true
+  },
+  "kotoeiho-hiroki": {
+    "sumoApiId": 112,
+    "shikona": "Kotoeiho",
+    "kanji": "琴栄峰 央起",
+    "topRank": "Maegashira",
+    "heya": "Sadogatake",
+    "country": "Japan",
+    "retired": false
+  },
+  "kotoeko-mitsunori": {
+    "sumoApiId": 30,
+    "shikona": "Kotoeko Mitsunori",
+    "kanji": null,
+    "topRank": "Maegashira",
+    "heya": "Sadogatake",
+    "country": "Japan",
+    "retired": true
+  },
+  "kotoinazuma-yoshihiro": {
+    "sumoApiId": 1550,
+    "shikona": "Kotoinazuma Yoshihiro",
+    "kanji": null,
+    "topRank": "Komusubi",
+    "heya": "Sadogatake",
+    "country": "Japan",
+    "retired": true
+  },
+  "kotokaze-koki": {
+    "sumoApiId": 1023,
+    "shikona": "Kotokaze Koki",
+    "kanji": null,
+    "topRank": "Ozeki",
+    "heya": "Sadogatake",
+    "country": "Japan",
+    "retired": true
+  },
+  "kotokuzan-taro": {
+    "sumoApiId": 70,
+    "shikona": "Kotokuzan",
+    "kanji": "荒篤山",
+    "topRank": "Maegashira",
+    "heya": "Arashio",
+    "country": "Japan",
+    "retired": false
+  },
+  "kotonishiki-katsuhiro": {
+    "sumoApiId": 4912,
+    "shikona": "Kotonishiki Katsuhiro",
+    "kanji": null,
+    "topRank": "Sekiwake",
+    "heya": "Sadogatake",
+    "country": "Japan",
+    "retired": true
+  },
+  "kotonowaka-terumasa": {
+    "sumoApiId": 3850,
+    "shikona": "Kotonowaka Terumasa",
+    "kanji": null,
+    "topRank": "Sekiwake",
+    "heya": "Sadogatake",
+    "country": "Japan",
+    "retired": true
+  },
+  "kotooshu-katsunori": {
+    "sumoApiId": 4226,
+    "shikona": "Kotooshu Katsunori",
+    "kanji": null,
+    "topRank": "Ozeki",
+    "heya": "Sadogatake",
+    "country": "Bulgaria",
+    "retired": true
+  },
+  "kotoshogiku-kazuhiro": {
+    "sumoApiId": 3142,
+    "shikona": "Kotoshogiku Kazuhiro",
+    "kanji": null,
+    "topRank": "Ozeki",
+    "heya": "Sadogatake",
+    "country": "Japan",
+    "retired": true
+  },
+  "kotoshoho-yoshinari": {
+    "sumoApiId": 8,
+    "shikona": "Kotoshoho",
+    "kanji": "琴勝峰 吉成",
+    "topRank": "Sekiwake",
+    "heya": "Sadogatake",
+    "country": "Japan",
+    "retired": false
+  },
+  "kotoyuki-kazuyoshi": {
+    "sumoApiId": 3158,
+    "shikona": "Kotoyuki Kazuyoshi",
+    "kanji": null,
+    "topRank": "Sekiwake",
+    "heya": "Sadogatake",
+    "country": "Japan",
+    "retired": true
+  },
+  "kotoyusho-yoshihiro": {
+    "sumoApiId": 115,
+    "shikona": "Kotoyusho Yoshihiro",
+    "kanji": null,
+    "topRank": "Juryo",
+    "heya": "Sadogatake",
+    "country": "Japan",
+    "retired": true
+  },
+  "kotozakura-masakatsu": {
+    "sumoApiId": 20,
+    "shikona": "Kotozakura",
+    "kanji": "琴櫻 将傑",
+    "topRank": "Ozeki",
+    "heya": "Sadogatake",
+    "country": "Japan",
+    "retired": false
+  },
+  "kyokushuho-koki": {
+    "sumoApiId": 672,
+    "shikona": "Kyokushuho Koki",
+    "kanji": null,
+    "topRank": "Maegashira",
+    "heya": "Tomozuna",
+    "country": "Mongolia",
+    "retired": true
+  },
+  "kyokutaisei-takuya": {
+    "sumoApiId": 377,
+    "shikona": "Kyokutaisei Takuya",
+    "kanji": null,
+    "topRank": "Maegashira",
+    "heya": "Oshima",
+    "country": "Japan",
+    "retired": true
+  },
+  "kyokutenho-masaru": {
+    "sumoApiId": 3835,
+    "shikona": "Kyokutenho Masaru",
+    "kanji": null,
+    "topRank": "Sekiwake",
+    "heya": "Tomozuna",
+    "country": "Mongolia",
+    "retired": true
+  },
+  "meisei-chikara": {
+    "sumoApiId": 38,
+    "shikona": "Meisei",
+    "kanji": "明生 力",
+    "topRank": "Sekiwake",
+    "heya": "Tatsunami",
+    "country": "Japan",
+    "retired": false
+  },
+  "midorifuji-kazunari": {
+    "sumoApiId": 34,
+    "shikona": "Midorifuji",
+    "kanji": "翠富士 一成",
+    "topRank": "Maegashira",
+    "heya": "Isegahama",
+    "country": "Japan",
+    "retired": false
+  },
+  "mienofuji-shingo": {
+    "sumoApiId": 85,
+    "shikona": "Mienofuji",
+    "kanji": "三重ノ富士",
+    "topRank": "Juryo",
+    "heya": "Isegahama",
+    "country": "Japan",
+    "retired": false
+  },
+  "mita-taiki": {
+    "sumoApiId": 8856,
+    "shikona": "Mita",
+    "kanji": "三田",
+    "topRank": "Juryo",
+    "heya": "Futagoyama",
+    "country": "Japan",
+    "retired": false
+  },
+  "mitakeumi-hisashi": {
+    "sumoApiId": 26,
+    "shikona": "Mitakeumi",
+    "kanji": "御嶽海 久司",
+    "topRank": "Ozeki",
+    "heya": "Dewanoumi",
+    "country": "Japan",
+    "retired": false
+  },
+  "mitoizumi-masayuki": {
+    "sumoApiId": 1560,
+    "shikona": "Mitoizumi Masayuki",
+    "kanji": null,
+    "topRank": "Sekiwake",
+    "heya": "Takasago",
+    "country": "Japan",
+    "retired": true
+  },
+  "mitoryu-takayuki": {
+    "sumoApiId": 32,
+    "shikona": "Mitoryu",
+    "kanji": "水戸龍",
+    "topRank": "Maegashira",
+    "heya": "Nishikido",
+    "country": "Mongolia",
+    "retired": true
+  },
+  "miyabiyama-tetsushi": {
+    "sumoApiId": 3854,
+    "shikona": "Miyabiyama Tetsushi",
+    "kanji": null,
+    "topRank": "Ozeki",
+    "heya": "Fujishima",
+    "country": "Japan",
+    "retired": true
+  },
+  "musashimaru-koyo": {
+    "sumoApiId": 3859,
+    "shikona": "Musashimaru Koyo",
+    "kanji": null,
+    "topRank": "Yokozuna",
+    "heya": "Musashigawa",
+    "country": "U.S.A.",
+    "retired": true
+  },
+  "musoyama-masashi": {
+    "sumoApiId": 3855,
+    "shikona": "Musoyama Masashi",
+    "kanji": null,
+    "topRank": "Ozeki",
+    "heya": "Musashigawa",
+    "country": "Japan",
+    "retired": true
+  },
+  "myogiryu-yasunari": {
+    "sumoApiId": 36,
+    "shikona": "Myogiryu Yasunari",
+    "kanji": null,
+    "topRank": "Sekiwake",
+    "heya": "Sakaigawa",
+    "country": "Japan",
+    "retired": true
+  },
+  "nabatame-tatsuya": {
+    "sumoApiId": 117,
+    "shikona": "Nabatame",
+    "kanji": "生田目 竜也",
+    "topRank": "Juryo",
+    "heya": "Futagoyama",
+    "country": "Japan",
+    "retired": false
+  },
+  "nishikifuji-ryusei": {
+    "sumoApiId": 40,
+    "shikona": "Nishikifuji",
+    "kanji": "錦富士 隆聖",
+    "topRank": "Maegashira",
+    "heya": "Isegahama",
+    "country": "Japan",
+    "retired": false
+  },
+  "nishikigi-tetsuya": {
+    "sumoApiId": 16,
+    "shikona": "Nishikigi",
+    "kanji": "錦木 徹也",
+    "topRank": "Komusubi",
+    "heya": "Isenoumi",
+    "country": "Japan",
+    "retired": false
+  },
+  "nishinoryu-ryutaro": {
+    "sumoApiId": 89,
+    "shikona": "Nishinoryu",
+    "kanji": "西ノ龍",
+    "topRank": "Juryo",
+    "heya": "Sakaigawa",
+    "country": "Japan",
+    "retired": false
+  },
+  "oginishiki-yasutoshi": {
+    "sumoApiId": 3830,
+    "shikona": "Oginishiki Yasutoshi",
+    "kanji": null,
+    "topRank": "Komusubi",
+    "heya": "Dewanoumi",
+    "country": "Japan",
+    "retired": true
+  },
+  "oho-konosuke": {
+    "sumoApiId": 41,
+    "shikona": "Oho",
+    "kanji": "王鵬 幸之介",
+    "topRank": "Sekiwake",
+    "heya": "Otake",
+    "country": "Japan",
+    "retired": false
+  },
+  "okinoumi-ayumi": {
+    "sumoApiId": 47,
+    "shikona": "Okinoumi Ayumi",
+    "kanji": null,
+    "topRank": "Sekiwake",
+    "heya": "Hakkaku",
+    "country": "Japan",
+    "retired": true
+  },
+  "onokatsu-kazuhiro": {
+    "sumoApiId": 8853,
+    "shikona": "Onokatsu",
+    "kanji": "阿武剋 一弘",
+    "topRank": "Maegashira",
+    "heya": "Onomatsu",
+    "country": "Mongolia",
+    "retired": false
+  },
+  "onokuni-yasushi": {
+    "sumoApiId": 904,
+    "shikona": "Onokuni Yasushi",
+    "kanji": null,
+    "topRank": "Yokozuna",
+    "heya": "Hanaregoma",
+    "country": "Japan",
+    "retired": true
+  },
+  "onosato-daiki": {
+    "sumoApiId": 8850,
+    "shikona": "Onosato",
+    "kanji": "大の里 泰輝",
+    "topRank": "Yokozuna",
+    "heya": "Nishonoseki",
+    "country": "Japan",
+    "retired": false
+  },
+  "onosho-fumiya": {
+    "sumoApiId": 10,
+    "shikona": "Onosho Fumiya",
+    "kanji": null,
+    "topRank": "Komusubi",
+    "heya": "Onomatsu",
+    "country": "Japan",
+    "retired": true
+  },
+  "oshoma-degi": {
+    "sumoApiId": 61,
+    "shikona": "Oshoma",
+    "kanji": "欧勝馬 出気",
+    "topRank": "Komusubi",
+    "heya": "Naruto",
+    "country": "Mongolia",
+    "retired": false
+  },
+  "oshoumi-seiya": {
+    "sumoApiId": 95,
+    "shikona": "Oshoumi",
+    "kanji": "欧勝海",
+    "topRank": "Maegashira",
+    "heya": "Naruto",
+    "country": "Japan",
+    "retired": false
+  },
+  "roga-tokiyoshi": {
+    "sumoApiId": 55,
+    "shikona": "Roga",
+    "kanji": "狼雅 外喜義",
+    "topRank": "Maegashira",
+    "heya": "Futagoyama",
+    "country": "Mongolia",
+    "retired": false
+  },
+  "ryogoku-kajinosuke": {
+    "sumoApiId": 5895,
+    "shikona": "Ryogoku Kajinosuke",
+    "kanji": null,
+    "topRank": "Komusubi",
+    "heya": "Dewanoumi",
+    "country": "Japan",
+    "retired": true
+  },
+  "ryuden-goshi": {
+    "sumoApiId": 15,
+    "shikona": "Ryuden",
+    "kanji": "竜電 剛至",
+    "topRank": "Komusubi",
+    "heya": "Takadagawa",
+    "country": "Japan",
+    "retired": false
+  },
+  "sadanoumi-koji": {
+    "sumoApiId": 990,
+    "shikona": "Sadanoumi Koji",
+    "kanji": null,
+    "topRank": "Komusubi",
+    "heya": "Dewanoumi",
+    "country": "Japan",
+    "retired": true
+  },
+  "sadanoumi-takashi": {
+    "sumoApiId": 35,
+    "shikona": "Sadanoumi",
+    "kanji": "佐田の海 貴士",
+    "topRank": "Maegashira",
+    "heya": "Sakaigawa",
+    "country": "Japan",
+    "retired": false
+  },
+  "shiden-takumi": {
+    "sumoApiId": 134,
+    "shikona": "Shiden",
+    "kanji": "紫雷",
+    "topRank": "Juryo",
+    "heya": "Kise",
+    "country": "Japan",
+    "retired": true
+  },
+  "shimanoumi-koyo": {
+    "sumoApiId": 65,
+    "shikona": "Shimanoumi",
+    "kanji": "志摩ノ海",
+    "topRank": "Maegashira",
+    "heya": "Kise",
+    "country": "Japan",
+    "retired": false
+  },
+  "shimazuumi-sora": {
+    "sumoApiId": 57,
+    "shikona": "Shimazuumi",
+    "kanji": "島津海",
+    "topRank": "Maegashira",
+    "heya": "Hanaregoma",
+    "country": "Japan",
+    "retired": false
+  },
+  "shirokuma-yuta": {
+    "sumoApiId": 98,
+    "shikona": "Shirokuma",
+    "kanji": "白熊 優太",
+    "topRank": "Maegashira",
+    "heya": "Nishonoseki",
+    "country": "Japan",
+    "retired": false
+  },
+  "shishi-masaru": {
+    "sumoApiId": 86,
+    "shikona": "Shishi",
+    "kanji": "獅司 大",
+    "topRank": "Maegashira",
+    "heya": "Ikazuchi",
+    "country": "Ukraine",
+    "retired": false
+  },
+  "shodai-naoya": {
+    "sumoApiId": 33,
+    "shikona": "Shodai",
+    "kanji": "正代 直也",
+    "topRank": "Ozeki",
+    "heya": "Tokitsukaze",
+    "country": "Japan",
+    "retired": false
+  },
+  "shohozan-yuya": {
+    "sumoApiId": 673,
+    "shikona": "Shohozan Yuya",
+    "kanji": null,
+    "topRank": "Komusubi",
+    "heya": "Hanaregoma",
+    "country": "Japan",
+    "retired": true
+  },
+  "shonannoumi-momotaro": {
+    "sumoApiId": 49,
+    "shikona": "Shonannoumi",
+    "kanji": "湘南乃海 桃太郎",
+    "topRank": "Maegashira",
+    "heya": "Takadagawa",
+    "country": "Japan",
+    "retired": false
+  },
+  "sokokurai-eikichi": {
+    "sumoApiId": 3223,
+    "shikona": "Sokokurai Eikichi",
+    "kanji": null,
+    "topRank": "Maegashira",
+    "heya": "Arashio",
+    "country": "China",
+    "retired": true
+  },
+  "tagaryu-shoji": {
+    "sumoApiId": 967,
+    "shikona": "Tagaryu Shoji",
+    "kanji": null,
+    "topRank": "Sekiwake",
+    "heya": "Kagamiyama",
+    "country": "Japan",
+    "retired": true
+  },
+  "taiho-koki": {
+    "sumoApiId": 1511,
+    "shikona": "Taiho Koki",
+    "kanji": null,
+    "topRank": "Yokozuna",
+    "heya": "Nishonoseki",
+    "country": "Japan",
+    "retired": true
+  },
+  "takagenji-satoshi": {
+    "sumoApiId": 3080,
+    "shikona": "Takagenji Satoshi",
+    "kanji": null,
+    "topRank": "Maegashira",
+    "heya": "Tokiwayama",
+    "country": "Japan",
+    "retired": true
+  },
+  "takakeisho-takanobu": {
+    "sumoApiId": 1,
+    "shikona": "Takakeisho Takanobu",
+    "kanji": null,
+    "topRank": "Ozeki",
+    "heya": "Tokiwayama",
+    "country": "Japan",
+    "retired": true
+  },
+  "takakento-terutora": {
+    "sumoApiId": 63,
+    "shikona": "Takakento",
+    "kanji": "貴健斗",
+    "topRank": "Juryo",
+    "heya": "Tokiwayama",
+    "country": "Japan",
+    "retired": false
+  },
+  "takamisakari-seiken": {
+    "sumoApiId": 4068,
+    "shikona": "Takamisakari Seiken",
+    "kanji": null,
+    "topRank": "Komusubi",
+    "heya": "Azumazeki",
+    "country": "Japan",
+    "retired": true
+  },
+  "takamisugi-takakatsu": {
+    "sumoApiId": 1213,
+    "shikona": "Takamisugi Takakatsu",
+    "kanji": null,
+    "topRank": "Komusubi",
+    "heya": "Futagoyama",
+    "country": "Japan",
+    "retired": true
+  },
+  "takanosho-nobuaki": {
+    "sumoApiId": 37,
+    "shikona": "Takanosho",
+    "kanji": "隆の勝 伸明",
+    "topRank": "Sekiwake",
+    "heya": "Tokiwayama",
+    "country": "Japan",
+    "retired": false
+  },
+  "takarafuji-daisuke": {
+    "sumoApiId": 25,
+    "shikona": "Takarafuji",
+    "kanji": "宝富士 大輔",
+    "topRank": "Sekiwake",
+    "heya": "Isegahama",
+    "country": "Japan",
+    "retired": true
+  },
+  "takayasu-akira": {
+    "sumoApiId": 44,
+    "shikona": "Takayasu",
+    "kanji": "高安 晃",
+    "topRank": "Ozeki",
+    "heya": "Tagonoura",
+    "country": "Japan",
+    "retired": false
+  },
+  "takekaze-akira": {
+    "sumoApiId": 3273,
+    "shikona": "Takekaze Akira",
+    "kanji": null,
+    "topRank": "Sekiwake",
+    "heya": "Oguruma",
+    "country": "Japan",
+    "retired": true
+  },
+  "takerufuji-mikiya": {
+    "sumoApiId": 5,
+    "shikona": "Takerufuji",
+    "kanji": "尊富士 弥輝也",
+    "topRank": "Maegashira",
+    "heya": "Isegahama",
+    "country": "Japan",
+    "retired": false
+  },
+  "tamakasuga-ryoji": {
+    "sumoApiId": 3843,
+    "shikona": "Tamakasuga Ryoji",
+    "kanji": null,
+    "topRank": "Sekiwake",
+    "heya": "Kataonami",
+    "country": "Japan",
+    "retired": true
+  },
+  "tamanoshima-arata": {
+    "sumoApiId": 3848,
+    "shikona": "Tamanoshima Arata",
+    "kanji": null,
+    "topRank": "Sekiwake",
+    "heya": "Kataonami",
+    "country": "Japan",
+    "retired": true
+  },
+  "tamashoho-manpei": {
+    "sumoApiId": 101,
+    "shikona": "Tamashoho",
+    "kanji": "玉正鳳 萬平",
+    "topRank": "Maegashira",
+    "heya": "Kataonami",
+    "country": "Mongolia",
+    "retired": false
+  },
+  "tamawashi-ichiro": {
+    "sumoApiId": 14,
+    "shikona": "Tamawashi",
+    "kanji": "玉鷲 一朗",
+    "topRank": "Sekiwake",
+    "heya": "Kataonami",
+    "country": "Mongolia",
+    "retired": false
+  },
+  "terao-tsunefumi": {
+    "sumoApiId": 794,
+    "shikona": "Terao Tsunefumi",
+    "kanji": null,
+    "topRank": "Sekiwake",
+    "heya": "Izutsu",
+    "country": "Japan",
+    "retired": true
+  },
+  "terunofuji-haruo": {
+    "sumoApiId": 45,
+    "shikona": "Terunofuji Haruo",
+    "kanji": "照ノ富士 春雄",
+    "topRank": "Yokozuna",
+    "heya": "Isegahama",
+    "country": "Mongolia",
+    "retired": true
+  },
+  "terutsuyoshi-shoki": {
+    "sumoApiId": 67,
+    "shikona": "Terutsuyoshi Shoki",
+    "kanji": null,
+    "topRank": "Maegashira",
+    "heya": "Isegahama",
+    "country": "Japan",
+    "retired": true
+  },
+  "tobizaru-masaya": {
+    "sumoApiId": 21,
+    "shikona": "Tobizaru",
+    "kanji": "翔猿 正也",
+    "topRank": "Komusubi",
+    "heya": "Oitekaze",
+    "country": "Japan",
+    "retired": false
+  },
+  "tochiazuma-daisuke": {
+    "sumoApiId": 3849,
+    "shikona": "Tochiazuma Daisuke",
+    "kanji": null,
+    "topRank": "Ozeki",
+    "heya": "Tamanoi",
+    "country": "Japan",
+    "retired": true
+  },
+  "tochimusashi-yota": {
+    "sumoApiId": 72,
+    "shikona": "Tochimusashi",
+    "kanji": "栃武蔵",
+    "topRank": "Juryo",
+    "heya": "Kasugano",
+    "country": "Japan",
+    "retired": false
+  },
+  "tochinohana-hitoshi": {
+    "sumoApiId": 4070,
+    "shikona": "Tochinohana Hitoshi",
+    "kanji": null,
+    "topRank": "Komusubi",
+    "heya": "Kasugano",
+    "country": "Japan",
+    "retired": true
+  },
+  "tochinonada-taiichi": {
+    "sumoApiId": 3847,
+    "shikona": "Tochinonada Taiichi",
+    "kanji": null,
+    "topRank": "Sekiwake",
+    "heya": "Kasugano",
+    "country": "Japan",
+    "retired": true
+  },
+  "tochinoshin-tsuyoshi": {
+    "sumoApiId": 43,
+    "shikona": "Tochinoshin Tsuyoshi",
+    "kanji": null,
+    "topRank": "Ozeki",
+    "heya": "Kasugano",
+    "country": "Georgia",
+    "retired": true
+  },
+  "tochinowaka-kiyotaka": {
+    "sumoApiId": 5079,
+    "shikona": "Tochinowaka Kiyotaka",
+    "kanji": null,
+    "topRank": "Sekiwake",
+    "heya": "Kasugano",
+    "country": "Japan",
+    "retired": true
+  },
+  "tochiozan-yuichiro": {
+    "sumoApiId": 3195,
+    "shikona": "Tochiozan Yuichiro",
+    "kanji": null,
+    "topRank": "Sekiwake",
+    "heya": "Kasugano",
+    "country": "Japan",
+    "retired": true
+  },
+  "tochitaikai-yu": {
+    "sumoApiId": 81,
+    "shikona": "Tochitaikai",
+    "kanji": "栃大海 雄",
+    "topRank": "Maegashira",
+    "heya": "Kasugano",
+    "country": "Japan",
+    "retired": false
+  },
+  "tochitsukasa-tetsuo": {
+    "sumoApiId": 6165,
+    "shikona": "Tochitsukasa Tetsuo",
+    "kanji": null,
+    "topRank": "Sekiwake",
+    "heya": "Kasugano",
+    "country": "Japan",
+    "retired": true
+  },
+  "tohakuryu-masahito": {
+    "sumoApiId": 54,
+    "shikona": "Tohakuryu",
+    "kanji": "東白龍 雅士",
+    "topRank": "Maegashira",
+    "heya": "Tamanoi",
+    "country": "Japan",
+    "retired": false
+  },
+  "toki-susumu": {
+    "sumoApiId": 3842,
+    "shikona": "Toki Susumu",
+    "kanji": null,
+    "topRank": "Komusubi",
+    "heya": "Takasago",
+    "country": "Japan",
+    "retired": true
+  },
+  "tokihayate-hideki": {
+    "sumoApiId": 83,
+    "shikona": "Tokihayate",
+    "kanji": "時疾風 秀喜",
+    "topRank": "Maegashira",
+    "heya": "Tokitsukaze",
+    "country": "Japan",
+    "retired": false
+  },
+  "tokushoryu-makoto": {
+    "sumoApiId": 103,
+    "shikona": "Tokushoryu Makoto",
+    "kanji": null,
+    "topRank": "Maegashira",
+    "heya": "Kise",
+    "country": "Japan",
+    "retired": true
+  },
+  "tomokaze-yuta": {
+    "sumoApiId": 102,
+    "shikona": "Tomokaze",
+    "kanji": "友風 想大",
+    "topRank": "Maegashira",
+    "heya": "Nakamura",
+    "country": "Japan",
+    "retired": false
+  },
+  "tomonohana-shinya": {
+    "sumoApiId": 3733,
+    "shikona": "Tomonohana Shinya",
+    "kanji": null,
+    "topRank": "Komusubi",
+    "heya": "Tatsunami",
+    "country": "Japan",
+    "retired": true
+  },
+  "tosanoumi-toshio": {
+    "sumoApiId": 3857,
+    "shikona": "Tosanoumi Toshio",
+    "kanji": null,
+    "topRank": "Sekiwake",
+    "heya": "Isenoumi",
+    "country": "Japan",
+    "retired": true
+  },
+  "toyohibiki-ryuta": {
+    "sumoApiId": 3140,
+    "shikona": "Toyohibiki Ryuta",
+    "kanji": null,
+    "topRank": "Maegashira",
+    "heya": "Sakaigawa",
+    "country": "Japan",
+    "retired": true
+  },
+  "toyonoshima-daiki": {
+    "sumoApiId": 3204,
+    "shikona": "Toyonoshima Daiki",
+    "kanji": null,
+    "topRank": "Sekiwake",
+    "heya": "Tokitsukaze",
+    "country": "Japan",
+    "retired": true
+  },
+  "tsurugisho-momotaro": {
+    "sumoApiId": 31,
+    "shikona": "Tsurugisho",
+    "kanji": "剣翔",
+    "topRank": "Maegashira",
+    "heya": "Oitekaze",
+    "country": "Japan",
+    "retired": true
+  },
+  "tsushimanada-masamitsu": {
+    "sumoApiId": 58,
+    "shikona": "Tsushimanada",
+    "kanji": "對馬洋",
+    "topRank": "Juryo",
+    "heya": "Sakaigawa",
+    "country": "Japan",
+    "retired": false
+  },
+  "ura-kazuki": {
+    "sumoApiId": 28,
+    "shikona": "Ura",
+    "kanji": "宇良 和輝",
+    "topRank": "Komusubi",
+    "heya": "Kise",
+    "country": "Japan",
+    "retired": false
+  },
+  "wakakoyu-masaya": {
+    "sumoApiId": 3645,
+    "shikona": "Wakakoyu Masaya",
+    "kanji": null,
+    "topRank": "Komusubi",
+    "heya": "Onomatsu",
+    "country": "Japan",
+    "retired": true
+  },
+  "wakamotoharu-minato": {
+    "sumoApiId": 13,
+    "shikona": "Wakamotoharu",
+    "kanji": "若元春 港",
+    "topRank": "Sekiwake",
+    "heya": "Arashio",
+    "country": "Japan",
+    "retired": false
+  },
+  "wakanosato-shinobu": {
+    "sumoApiId": 3851,
+    "shikona": "Wakanosato Shinobu",
+    "kanji": null,
+    "topRank": "Sekiwake",
+    "heya": "Tagonoura",
+    "country": "Japan",
+    "retired": true
+  },
+  "wakanosho-eido": {
+    "sumoApiId": 195,
+    "shikona": "Wakanosho",
+    "kanji": "若ノ勝 栄道",
+    "topRank": "Maegashira",
+    "heya": "Tokiwayama",
+    "country": "Japan",
+    "retired": false
+  },
+  "wakashimazu-mutsuo": {
+    "sumoApiId": 980,
+    "shikona": "Wakashimazu Mutsuo",
+    "kanji": null,
+    "topRank": "Ozeki",
+    "heya": "Futagoyama",
+    "country": "Japan",
+    "retired": true
+  },
+  "wakatakakage-atsushi": {
+    "sumoApiId": 12,
+    "shikona": "Wakatakakage",
+    "kanji": "若隆景 渥",
+    "topRank": "Sekiwake",
+    "heya": "Arashio",
+    "country": "Japan",
+    "retired": false
+  },
+  "wakatakamoto-wataru": {
+    "sumoApiId": 114,
+    "shikona": "Wakatakamoto",
+    "kanji": "若隆元",
+    "topRank": "Makushita",
+    "heya": "Arashio",
+    "country": "Japan",
+    "retired": true
+  },
+  "yago-takanori": {
+    "sumoApiId": 106,
+    "shikona": "Yago",
+    "kanji": "矢後",
+    "topRank": "Maegashira",
+    "heya": "Oshiogawa",
+    "country": "Japan",
+    "retired": false
+  },
+  "yoshikaze-masatsugu": {
+    "sumoApiId": 3248,
+    "shikona": "Yoshikaze Masatsugu",
+    "kanji": null,
+    "topRank": "Sekiwake",
+    "heya": "Oguruma",
+    "country": "Japan",
+    "retired": true
+  },
+  "yoshinofuji-naoya": {
+    "sumoApiId": 8857,
+    "shikona": "Yoshinofuji",
+    "kanji": "義ノ富士 直哉",
+    "topRank": "Komusubi",
+    "heya": "Isegahama",
+    "country": "Japan",
+    "retired": false
+  },
+  "yuma-takeru": {
+    "sumoApiId": 108,
+    "shikona": "Yuma",
+    "kanji": "勇磨",
+    "topRank": "Juryo",
+    "heya": "Onomatsu",
+    "country": "Japan",
+    "retired": true
+  },
+  "yutakayama-ryota": {
+    "sumoApiId": 636,
+    "shikona": "Yutakayama Ryota",
+    "kanji": null,
+    "topRank": "Maegashira",
+    "heya": "Tokitsukaze",
+    "country": "Japan",
+    "retired": true
+  }
+}

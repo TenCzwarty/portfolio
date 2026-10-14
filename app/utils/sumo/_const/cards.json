@@ -95,7 +95,7 @@
         "number": "05",
         "subset": "base",
         "rikishi": [
-          "takakeisho-mitsunobu"
+          "takakeisho-takanobu"
         ],
         "title": "Takakeisho Mitsunobu",
         "theme": "regular",
@@ -215,7 +215,7 @@
         "number": "11",
         "subset": "base",
         "rikishi": [
-          "asanoyama-hideki"
+          "asanoyama-hiroki"
         ],
         "title": "Asanoyama Hideki",
         "theme": "regular",
@@ -455,7 +455,7 @@
         "number": "23",
         "subset": "base",
         "rikishi": [
-          "enho-akira"
+          "enho-yuya"
         ],
         "title": "Enho Akira",
         "theme": "regular",
@@ -635,7 +635,7 @@
         "number": "32",
         "subset": "base",
         "rikishi": [
-          "ishiura-masakatsu"
+          "ishiura-shikanosuke"
         ],
         "title": "Ishiura Masakatsu",
         "theme": "regular",
@@ -1035,7 +1035,7 @@
         "number": "52",
         "subset": "base",
         "rikishi": [
-          "kiribayama-tetsuo"
+          "kirishima-tetsuo"
         ],
         "title": "Kiribayama Tetsuo",
         "theme": "regular",
@@ -1075,7 +1075,7 @@
         "number": "54",
         "subset": "base",
         "rikishi": [
-          ""
+          "ichiyamamoto-daiki"
         ],
         "title": "一山本大生",
         "theme": "regular",
@@ -1115,7 +1115,7 @@
         "number": "56",
         "subset": "base",
         "rikishi": [
-          "kotonowaka-masahiro"
+          "kotozakura-masakatsu"
         ],
         "title": "Kotonowaka Masahiro",
         "theme": "regular",
@@ -1255,7 +1255,7 @@
         "number": "63",
         "subset": "base",
         "rikishi": [
-          "asaki-kaisho"
+          "kaisho-asaki"
         ],
         "title": "Asaki Kaisho",
         "theme": "regular",
@@ -1275,7 +1275,7 @@
         "number": "64",
         "subset": "base",
         "rikishi": [
-          "wakamotoharu"
+          "wakamotoharu-minato"
         ],
         "title": "Wakamotoharu",
         "theme": "regular",
@@ -1395,7 +1395,7 @@
         "number": "70",
         "subset": "base",
         "rikishi": [
-          ""
+          "irodori-takateru"
         ],
         "title": "彩尊光",
         "theme": "regular",
@@ -1435,7 +1435,7 @@
         "number": "72",
         "subset": "base",
         "rikishi": [
-          "enho-akira"
+          "enho-yuya"
         ],
         "title": "Enho Akira",
         "theme": "regular",
@@ -1475,7 +1475,7 @@
         "number": "74",
         "subset": "base",
         "rikishi": [
-          "kotonowaka-masahiro"
+          "kotozakura-masakatsu"
         ],
         "title": "Kotonowaka Masahiro",
         "theme": "regular",
@@ -1595,7 +1595,7 @@
         "number": "80",
         "subset": "base",
         "rikishi": [
-          "takakeisho-mitsunobu"
+          "takakeisho-takanobu"
         ],
         "title": "Takakeisho Mitsunobu",
         "theme": "regular",
@@ -1696,7 +1696,7 @@
         "number": "85",
         "subset": "base",
         "rikishi": [
-          "asanoyama-hideki"
+          "asanoyama-hiroki"
         ],
         "title": "Asanoyama Hideki",
         "theme": "regular",
@@ -1756,7 +1756,7 @@
         "number": "88",
         "subset": "base",
         "rikishi": [
-          "enho-akira",
+          "enho-yuya",
           "terutsuyoshi-shoki"
         ],
         "title": "Enho Akira / Terutsuyoshi Shoki",
@@ -1870,7 +1870,7 @@
         "number": "03",
         "subset": "base",
         "rikishi": [
-          "takakeisho-mitsunobu"
+          "takakeisho-takanobu"
         ],
         "title": "Takakeisho Mitsunobu",
         "theme": "regular",
@@ -1890,7 +1890,7 @@
         "number": "04",
         "subset": "base",
         "rikishi": [
-          "asanoyama-hideki"
+          "asanoyama-hiroki"
         ],
         "title": "Asanoyama Hideki",
         "theme": "regular",
@@ -2030,7 +2030,7 @@
         "number": "11",
         "subset": "base",
         "rikishi": [
-          "takanosho-nobuakiu"
+          "takanosho-nobuaki"
         ],
         "title": "Takanosho Nobuakiu",
         "theme": "regular",
@@ -2050,7 +2050,7 @@
         "number": "12",
         "subset": "base",
         "rikishi": [
-          "nosho-fumiya"
+          "onosho-fumiya"
         ],
         "title": "Ōnosho Fumiya",
         "theme": "regular",
@@ -2090,7 +2090,7 @@
         "number": "14",
         "subset": "base",
         "rikishi": [
-          "kiribayama-tetsuo"
+          "kirishima-tetsuo"
         ],
         "title": "Kiribayama Tetsuo",
         "theme": "regular",
@@ -2190,7 +2190,7 @@
         "number": "19",
         "subset": "base",
         "rikishi": [
-          "enho-akira"
+          "enho-yuya"
         ],
         "title": "Enho Akira",
         "theme": "regular",
@@ -2270,7 +2270,7 @@
         "number": "23",
         "subset": "base",
         "rikishi": [
-          "ishiura-masakatsu"
+          "ishiura-shikanosuke"
         ],
         "title": "Ishiura Masakatsu",
         "theme": "regular",
@@ -2390,7 +2390,7 @@
         "number": "29",
         "subset": "base",
         "rikishi": [
-          "shimanoumi-koyou"
+          "shimanoumi-koyo"
         ],
         "title": "Shimanoumi Koyou",
         "theme": "regular",
@@ -2450,7 +2450,7 @@
         "number": "32",
         "subset": "base",
         "rikishi": [
-          "shohozan-yuyau"
+          "shohozan-yuya"
         ],
         "title": "Shohozan Yuyau",
         "theme": "regular",
@@ -2490,7 +2490,7 @@
         "number": "34",
         "subset": "base",
         "rikishi": [
-          "kotonowaka-masahiro"
+          "kotozakura-masakatsu"
         ],
         "title": "Kotonowaka Masahiro",
         "theme": "regular",
@@ -2710,7 +2710,7 @@
         "number": "45",
         "subset": "base",
         "rikishi": [
-          "takakeisho-mitsunobu"
+          "takakeisho-takanobu"
         ],
         "title": "Takakeisho Mitsunobu",
         "theme": "regular",
@@ -2730,7 +2730,7 @@
         "number": "46",
         "subset": "base",
         "rikishi": [
-          "asanoyama-hideki"
+          "asanoyama-hiroki"
         ],
         "title": "Asanoyama Hideki",
         "theme": "regular",
@@ -2950,7 +2950,7 @@
         "number": "57",
         "subset": "base",
         "rikishi": [
-          "enho-akira"
+          "enho-yuya"
         ],
         "title": "Enho Akira",
         "theme": "regular",
@@ -3230,7 +3230,7 @@
         "number": "71",
         "subset": "base",
         "rikishi": [
-          "takakeisho-mitsunobu"
+          "takakeisho-takanobu"
         ],
         "title": "Takakeisho Mitsunobu",
         "theme": "regular",
@@ -3250,7 +3250,7 @@
         "number": "72",
         "subset": "base",
         "rikishi": [
-          "asanoyama-hideki"
+          "asanoyama-hiroki"
         ],
         "title": "Asanoyama Hideki",
         "theme": "regular",
@@ -3270,7 +3270,7 @@
         "number": "73",
         "subset": "base",
         "rikishi": [
-          "kiribayama-tetsuo"
+          "kirishima-tetsuo"
         ],
         "title": "Kiribayama Tetsuo",
         "theme": "regular",
@@ -3290,7 +3290,7 @@
         "number": "74",
         "subset": "base",
         "rikishi": [
-          "kotonowaka-masahiro"
+          "kotozakura-masakatsu"
         ],
         "title": "Kotonowaka Masahiro",
         "theme": "regular",
@@ -3370,7 +3370,7 @@
         "number": "78",
         "subset": "base",
         "rikishi": [
-          "ryosuke-hakuyozan"
+          "hakuyozan-ryosuke"
         ],
         "title": "Ryosuke Hakuyozan",
         "theme": "regular",
@@ -3410,7 +3410,7 @@
         "number": "80",
         "subset": "base",
         "rikishi": [
-          "midorifuj"
+          "midorifuji-kazunari"
         ],
         "title": "Midorifuj",
         "theme": "regular",
@@ -3463,7 +3463,7 @@
         "number": "01",
         "subset": "base",
         "rikishi": [
-          "hakuh-sh"
+          "hakuho-sho"
         ],
         "title": "Hakuhō Shō",
         "theme": "regular",
@@ -3483,7 +3483,7 @@
         "number": "02",
         "subset": "base",
         "rikishi": [
-          "kakury-rikisabur"
+          "kakuryu-rikisaburo"
         ],
         "title": "Kakuryū Rikisaburō",
         "theme": "regular",
@@ -3503,7 +3503,7 @@
         "number": "03",
         "subset": "base",
         "rikishi": [
-          "takakeish-mitsunobu"
+          "takakeisho-takanobu"
         ],
         "title": "Takakeishō Mitsunobu",
         "theme": "regular",
@@ -3523,7 +3523,7 @@
         "number": "04",
         "subset": "base",
         "rikishi": [
-          "asanoyama-hideki"
+          "asanoyama-hiroki"
         ],
         "title": "Asanoyama Hideki",
         "theme": "regular",
@@ -3543,7 +3543,7 @@
         "number": "05",
         "subset": "base",
         "rikishi": [
-          "sh-dai-naoya"
+          "shodai-naoya"
         ],
         "title": "Shōdai Naoya",
         "theme": "regular",
@@ -3583,7 +3583,7 @@
         "number": "07",
         "subset": "base",
         "rikishi": [
-          "takanosh-nobuaki"
+          "takanosho-nobuaki"
         ],
         "title": "Takanoshō Nobuaki",
         "theme": "regular",
@@ -3643,7 +3643,7 @@
         "number": "10",
         "subset": "base",
         "rikishi": [
-          "kiribayama-tetsuo"
+          "kirishima-tetsuo"
         ],
         "title": "Kiribayama Tetsuo",
         "theme": "regular",
@@ -3683,7 +3683,7 @@
         "number": "12",
         "subset": "base",
         "rikishi": [
-          "nosh-fumiya"
+          "onosho-fumiya"
         ],
         "title": "Ōnoshō Fumiya",
         "theme": "regular",
@@ -3703,7 +3703,7 @@
         "number": "13",
         "subset": "base",
         "rikishi": [
-          "daieish-hayato"
+          "daieisho-hayato"
         ],
         "title": "Daieishō Hayato",
         "theme": "regular",
@@ -3803,7 +3803,7 @@
         "number": "18",
         "subset": "base",
         "rikishi": [
-          "my-giry-yasunari"
+          "myogiryu-yasunari"
         ],
         "title": "Myōgiryū Yasunari",
         "theme": "regular",
@@ -3823,7 +3823,7 @@
         "number": "19",
         "subset": "base",
         "rikishi": [
-          "kotosh-h-yoshinari"
+          "kotoshoho-yoshinari"
         ],
         "title": "Kotoshōhō Yoshinari",
         "theme": "regular",
@@ -3863,7 +3863,7 @@
         "number": "21",
         "subset": "base",
         "rikishi": [
-          "tamawashi-ichir"
+          "tamawashi-ichiro"
         ],
         "title": "Tamawashi Ichirō",
         "theme": "regular",
@@ -3903,7 +3903,7 @@
         "number": "23",
         "subset": "base",
         "rikishi": [
-          "end-sh-ta"
+          "endo-shota"
         ],
         "title": "Endō Shōta",
         "theme": "regular",
@@ -3923,7 +3923,7 @@
         "number": "24",
         "subset": "base",
         "rikishi": [
-          "aoiyama-k-suke"
+          "aoiyama-kosuke"
         ],
         "title": "Aoiyama Kōsuke",
         "theme": "regular",
@@ -3943,7 +3943,7 @@
         "number": "25",
         "subset": "base",
         "rikishi": [
-          "terutsuyoshi-sh-ki"
+          "terutsuyoshi-shoki"
         ],
         "title": "Terutsuyoshi Shōki",
         "theme": "regular",
@@ -3963,7 +3963,7 @@
         "number": "26",
         "subset": "base",
         "rikishi": [
-          "tokush-ry-makoto"
+          "tokushoryu-makoto"
         ],
         "title": "Tokushōryū Makoto",
         "theme": "regular",
@@ -4003,7 +4003,7 @@
         "number": "28",
         "subset": "base",
         "rikishi": [
-          "ry-den-g-shi"
+          "ryuden-goshi"
         ],
         "title": "Ryūden Gōshi",
         "theme": "regular",
@@ -4063,7 +4063,7 @@
         "number": "31",
         "subset": "base",
         "rikishi": [
-          "enh-akira"
+          "enho-yuya"
         ],
         "title": "Enhō Akira",
         "theme": "regular",
@@ -4083,7 +4083,7 @@
         "number": "32",
         "subset": "base",
         "rikishi": [
-          "yutakayama-ry-ta"
+          "yutakayama-ryota"
         ],
         "title": "Yutakayama Ryōta",
         "theme": "regular",
@@ -4103,7 +4103,7 @@
         "number": "33",
         "subset": "base",
         "rikishi": [
-          "kaisei-ichir"
+          "kaisei-ichiro"
         ],
         "title": "Kaisei Ichirō",
         "theme": "regular",
@@ -4123,7 +4123,7 @@
         "number": "34",
         "subset": "base",
         "rikishi": [
-          "h-sh-ry-tomokatsu"
+          "hoshoryu-tomokatsu"
         ],
         "title": "Hōshōryū Tomokatsu",
         "theme": "regular",
@@ -4143,7 +4143,7 @@
         "number": "35",
         "subset": "base",
         "rikishi": [
-          "ichinoj-takashi"
+          "ichinojo-takashi"
         ],
         "title": "Ichinojō Takashi",
         "theme": "regular",
@@ -4183,7 +4183,7 @@
         "number": "37",
         "subset": "base",
         "rikishi": [
-          "kotonowaka-masahiro"
+          "kotozakura-masakatsu"
         ],
         "title": "Kotonowaka Masahiro",
         "theme": "regular",
@@ -4203,7 +4203,7 @@
         "number": "38",
         "subset": "base",
         "rikishi": [
-          "chiyotairy-hidemasa"
+          "chiyotairyu-hidemasa"
         ],
         "title": "Chiyotairyū Hidemasa",
         "theme": "regular",
@@ -4223,7 +4223,7 @@
         "number": "39",
         "subset": "base",
         "rikishi": [
-          "kotoy-ki-kazuyoshi"
+          "kotoyuki-kazuyoshi"
         ],
         "title": "Kotoyūki Kazuyoshi",
         "theme": "regular",
@@ -4243,7 +4243,7 @@
         "number": "40",
         "subset": "base",
         "rikishi": [
-          "chiyosh-ma-fujio"
+          "chiyoshoma-fujio"
         ],
         "title": "Chiyoshōma Fujio",
         "theme": "regular",
@@ -4263,7 +4263,7 @@
         "number": "41",
         "subset": "base",
         "rikishi": [
-          "akua-sh-ma"
+          "akua-shoma"
         ],
         "title": "Akua Shōma",
         "theme": "regular",
@@ -4323,7 +4323,7 @@
         "number": "44",
         "subset": "base",
         "rikishi": [
-          "chiyondo-miyohito"
+          "chiyonoo-miyohito"
         ],
         "title": "Chiyondo Miyohito",
         "theme": "regular",
@@ -4363,7 +4363,7 @@
         "number": "46",
         "subset": "base",
         "rikishi": [
-          "sh-h-zan-y-ya"
+          "shohozan-yuya"
         ],
         "title": "Shōhōzan Yūya",
         "theme": "regular",
@@ -4403,7 +4403,7 @@
         "number": "48",
         "subset": "base",
         "rikishi": [
-          "kotosh-giku-kazuhiro"
+          "kotoshogiku-kazuhiro"
         ],
         "title": "Kotoshōgiku Kazuhiro",
         "theme": "regular",
@@ -4543,7 +4543,7 @@
         "number": "55",
         "subset": "base",
         "rikishi": [
-          "chiyo-tori-y-ki"
+          "chiyootori-yuki"
         ],
         "title": "Chiyoōtori Yūki",
         "theme": "regular",
@@ -4563,7 +4563,7 @@
         "number": "56",
         "subset": "base",
         "rikishi": [
-          "azumary-tsuyoshi"
+          "azumaryu-tsuyoshi"
         ],
         "title": "Azumaryū Tsuyoshi",
         "theme": "regular",
@@ -4603,7 +4603,7 @@
         "number": "58",
         "subset": "base",
         "rikishi": [
-          "ikioi-sh-ta"
+          "ikioi-shota"
         ],
         "title": "Ikioi Shōta",
         "theme": "regular",
@@ -4623,7 +4623,7 @@
         "number": "59",
         "subset": "base",
         "rikishi": [
-          "tsurugish-momotar"
+          "tsurugisho-momotaro"
         ],
         "title": "Tsurugishō Momotarō",
         "theme": "regular",
@@ -4643,7 +4643,7 @@
         "number": "60",
         "subset": "base",
         "rikishi": [
-          "daish-maru-sh-go"
+          "daishomaru-shogo"
         ],
         "title": "Daishōmaru Shōgo",
         "theme": "regular",
@@ -4683,7 +4683,7 @@
         "number": "62",
         "subset": "base",
         "rikishi": [
-          "kyokush-h-k-ki"
+          "kyokushuho-koki"
         ],
         "title": "Kyokushūhō Kōki",
         "theme": "regular",
@@ -4703,7 +4703,7 @@
         "number": "63",
         "subset": "base",
         "rikishi": [
-          "mitory-takayuki"
+          "mitoryu-takayuki"
         ],
         "title": "Mitoryū Takayuki",
         "theme": "regular",
@@ -4763,7 +4763,7 @@
         "number": "66",
         "subset": "base",
         "rikishi": [
-          "j-k-ry-takayuki"
+          "jokoryu-takayuki"
         ],
         "title": "Jōkōryū Takayuki",
         "theme": "regular",
@@ -4883,7 +4883,7 @@
         "number": "72",
         "subset": "base",
         "rikishi": [
-          "tohakuryu-masashito"
+          "tohakuryu-masahito"
         ],
         "title": "Tohakuryu Masashito",
         "theme": "regular",
@@ -4903,7 +4903,7 @@
         "number": "73",
         "subset": "base",
         "rikishi": [
-          "kotosh-h-yoshinari"
+          "kotoshoho-yoshinari"
         ],
         "title": "Kotoshōhō Yoshinari",
         "theme": "regular",
@@ -4923,7 +4923,7 @@
         "number": "74",
         "subset": "base",
         "rikishi": [
-          "h-sh-ry-tomokatsu"
+          "hoshoryu-tomokatsu"
         ],
         "title": "Hōshōryū Tomokatsu",
         "theme": "regular",
@@ -4943,7 +4943,7 @@
         "number": "75",
         "subset": "base",
         "rikishi": [
-          "kotonowaka-masahiro"
+          "kotozakura-masakatsu"
         ],
         "title": "Kotonowaka Masahiro",
         "theme": "regular",
@@ -4983,7 +4983,7 @@
         "number": "77",
         "subset": "base",
         "rikishi": [
-          "hakuh-sh"
+          "hakuho-sho"
         ],
         "title": "Hakuhō Shō",
         "theme": "regular",
@@ -5003,7 +5003,7 @@
         "number": "78",
         "subset": "base",
         "rikishi": [
-          "kakury-rikisabur"
+          "kakuryu-rikisaburo"
         ],
         "title": "Kakuryū Rikisaburō",
         "theme": "regular",
@@ -5023,7 +5023,7 @@
         "number": "79",
         "subset": "base",
         "rikishi": [
-          "takakeish-mitsunobu"
+          "takakeisho-takanobu"
         ],
         "title": "Takakeishō Mitsunobu",
         "theme": "regular",
@@ -5043,7 +5043,7 @@
         "number": "80",
         "subset": "base",
         "rikishi": [
-          "asanoyama-hideki"
+          "asanoyama-hiroki"
         ],
         "title": "Asanoyama Hideki",
         "theme": "regular",
@@ -5063,7 +5063,7 @@
         "number": "81",
         "subset": "base",
         "rikishi": [
-          "sh-dai-naoya"
+          "shodai-naoya"
         ],
         "title": "Shōdai Naoya",
         "theme": "regular",
@@ -5103,7 +5103,7 @@
         "number": "83",
         "subset": "base",
         "rikishi": [
-          "takanosh-nobuaki"
+          "takanosho-nobuaki"
         ],
         "title": "Takanoshō Nobuaki",
         "theme": "regular",
@@ -5163,7 +5163,7 @@
         "number": "86",
         "subset": "base",
         "rikishi": [
-          "kiribayama-tetsuo"
+          "kirishima-tetsuo"
         ],
         "title": "Kiribayama Tetsuo",
         "theme": "regular",
@@ -5223,7 +5223,7 @@
         "number": "89",
         "subset": "base",
         "rikishi": [
-          "end-sh-ta"
+          "endo-shota"
         ],
         "title": "Endō Shōta",
         "theme": "regular",
@@ -5243,7 +5243,7 @@
         "number": "90",
         "subset": "base",
         "rikishi": [
-          "enh-akira"
+          "enho-yuya"
         ],
         "title": "Enhō Akira",
         "theme": "regular",
@@ -6969,7 +6969,7 @@
         "number": "04",
         "subset": "base",
         "rikishi": [
-          "asanoyama-hideki"
+          "asanoyama-hiroki"
         ],
         "title": "Asanoyama Hideki",
         "theme": "regular",
@@ -6989,7 +6989,7 @@
         "number": "05",
         "subset": "base",
         "rikishi": [
-          "takakeisho-mitsunobu"
+          "takakeisho-takanobu"
         ],
         "title": "Takakeisho Mitsunobu",
         "theme": "regular",
@@ -7229,7 +7229,7 @@
         "number": "17",
         "subset": "base",
         "rikishi": [
-          "kiribayama-tetsuo"
+          "kirishima-tetsuo"
         ],
         "title": "Kiribayama Tetsuo",
         "theme": "regular",
@@ -7389,7 +7389,7 @@
         "number": "25",
         "subset": "base",
         "rikishi": [
-          "kotonowaka-masahiro"
+          "kotozakura-masakatsu"
         ],
         "title": "Kotonowaka Masahiro",
         "theme": "regular",
@@ -7789,7 +7789,7 @@
         "number": "45",
         "subset": "base",
         "rikishi": [
-          "asanoyama-hideki"
+          "asanoyama-hiroki"
         ],
         "title": "Asanoyama Hideki",
         "theme": "regular",
@@ -7809,7 +7809,7 @@
         "number": "46",
         "subset": "base",
         "rikishi": [
-          "takakeisho-mitsunobu"
+          "takakeisho-takanobu"
         ],
         "title": "Takakeisho Mitsunobu",
         "theme": "regular",
@@ -8109,7 +8109,7 @@
         "number": "61",
         "subset": "base",
         "rikishi": [
-          "enho-akira"
+          "enho-yuya"
         ],
         "title": "Enho Akira",
         "theme": "regular",
@@ -8149,7 +8149,7 @@
         "number": "63",
         "subset": "base",
         "rikishi": [
-          "hoshoryu"
+          "hoshoryu-tomokatsu"
         ],
         "title": "Hoshoryu",
         "theme": "regular",
@@ -8169,7 +8169,7 @@
         "number": "64",
         "subset": "base",
         "rikishi": [
-          "midorofuji"
+          "midorifuji-kazunari"
         ],
         "title": "Midorofuji",
         "theme": "regular",
@@ -8189,7 +8189,7 @@
         "number": "65",
         "subset": "base",
         "rikishi": [
-          "terutsuyoshi"
+          "terutsuyoshi-shoki"
         ],
         "title": "Terutsuyoshi",
         "theme": "regular",
@@ -8209,7 +8209,7 @@
         "number": "66",
         "subset": "base",
         "rikishi": [
-          "kotoeko"
+          "kotoeko-mitsunori"
         ],
         "title": "Kotoeko",
         "theme": "regular",
@@ -8229,7 +8229,7 @@
         "number": "67",
         "subset": "base",
         "rikishi": [
-          "tokushoryu"
+          "tokushoryu-makoto"
         ],
         "title": "Tokushoryu",
         "theme": "regular",
@@ -8249,7 +8249,7 @@
         "number": "68",
         "subset": "base",
         "rikishi": [
-          "ishiura"
+          "ishiura-shikanosuke"
         ],
         "title": "Ishiura",
         "theme": "regular",
@@ -8269,7 +8269,7 @@
         "number": "69",
         "subset": "base",
         "rikishi": [
-          "enho"
+          "enho-yuya"
         ],
         "title": "Enho",
         "theme": "regular",
@@ -8289,7 +8289,7 @@
         "number": "70",
         "subset": "base",
         "rikishi": [
-          "ura"
+          "ura-kazuki"
         ],
         "title": "Ura",
         "theme": "regular",
@@ -8429,7 +8429,7 @@
         "number": "77",
         "subset": "base",
         "rikishi": [
-          "kakuryu-juryo-promotion"
+          "kakuryu-rikisaburo"
         ],
         "title": "Kakuryu   Juryo Promotion",
         "theme": "regular",
@@ -8449,7 +8449,7 @@
         "number": "78",
         "subset": "base",
         "rikishi": [
-          "kakuryu-makuuchi-debut"
+          "kakuryu-rikisaburo"
         ],
         "title": "Kakuryu   Makuuchi Debut",
         "theme": "regular",
@@ -8469,7 +8469,7 @@
         "number": "79",
         "subset": "base",
         "rikishi": [
-          "kakuryu-ozeki-promotion"
+          "kakuryu-rikisaburo"
         ],
         "title": "Kakuryu   Ozeki Promotion",
         "theme": "regular",
@@ -8489,7 +8489,7 @@
         "number": "80",
         "subset": "base",
         "rikishi": [
-          "kakuryu-first-emperor"
+          "kakuryu-rikisaburo"
         ],
         "title": "Kakuryu   First Emperor",
         "theme": "regular",
@@ -8509,7 +8509,7 @@
         "number": "81",
         "subset": "base",
         "rikishi": [
-          "kakuryu-yokozuna-promotion"
+          "kakuryu-rikisaburo"
         ],
         "title": "Kakuryu   Yokozuna Promotion",
         "theme": "regular",
@@ -8582,7 +8582,7 @@
         "number": "03",
         "subset": "base",
         "rikishi": [
-          "takakeisho-mitsunobu"
+          "takakeisho-takanobu"
         ],
         "title": "Takakeisho Mitsunobu",
         "theme": "regular",
@@ -8662,7 +8662,7 @@
         "number": "07",
         "subset": "base",
         "rikishi": [
-          "kiribayama-tetsuo"
+          "kirishima-tetsuo"
         ],
         "title": "Kiribayama Tetsuo",
         "theme": "regular",
@@ -9062,7 +9062,7 @@
         "number": "27",
         "subset": "base",
         "rikishi": [
-          "asanoyama-hideki"
+          "asanoyama-hiroki"
         ],
         "title": "Asanoyama Hideki",
         "theme": "regular",
@@ -9082,7 +9082,7 @@
         "number": "28",
         "subset": "base",
         "rikishi": [
-          "kotonowaka-masahiro"
+          "kotozakura-masakatsu"
         ],
         "title": "Kotonowaka Masahiro",
         "theme": "regular",
@@ -9762,7 +9762,7 @@
         "number": "62",
         "subset": "base",
         "rikishi": [
-          "enho-akira"
+          "enho-yuya"
         ],
         "title": "Enho Akira",
         "theme": "regular",
@@ -9842,7 +9842,7 @@
         "number": "66",
         "subset": "base",
         "rikishi": [
-          "asanowaka-itsuki"
+          "asazenshin-itsuki"
         ],
         "title": "Asanowaka Itsuki",
         "theme": "regular",
@@ -10395,7 +10395,7 @@
         "number": "03",
         "subset": "base",
         "rikishi": [
-          "takakeisho-mitsunobu"
+          "takakeisho-takanobu"
         ],
         "title": "Takakeisho Mitsunobu",
         "theme": "regular",
@@ -10635,7 +10635,7 @@
         "number": "15",
         "subset": "base",
         "rikishi": [
-          "kiribayama-tetsuo"
+          "kirishima-tetsuo"
         ],
         "title": "Kiribayama Tetsuo",
         "theme": "regular",
@@ -10735,7 +10735,7 @@
         "number": "20",
         "subset": "base",
         "rikishi": [
-          "kotonowaka-masahiro"
+          "kotozakura-masakatsu"
         ],
         "title": "Kotonowaka Masahiro",
         "theme": "regular",
@@ -11235,7 +11235,7 @@
         "number": "45",
         "subset": "base",
         "rikishi": [
-          "takakeisho-mitsunobu"
+          "takakeisho-takanobu"
         ],
         "title": "Takakeisho Mitsunobu",
         "theme": "regular",
@@ -11475,7 +11475,7 @@
         "number": "57",
         "subset": "base",
         "rikishi": [
-          "kotonowaka-masahiro"
+          "kotozakura-masakatsu"
         ],
         "title": "Kotonowaka Masahiro",
         "theme": "regular",
@@ -11595,7 +11595,7 @@
         "number": "63",
         "subset": "base",
         "rikishi": [
-          "takakeisho-mitsunobu"
+          "takakeisho-takanobu"
         ],
         "title": "Takakeisho Mitsunobu",
         "theme": "regular",
@@ -11795,7 +11795,7 @@
         "number": "73",
         "subset": "base",
         "rikishi": [
-          "kotonowaka-masahiro"
+          "kotozakura-masakatsu"
         ],
         "title": "Kotonowaka Masahiro",
         "theme": "regular",
@@ -12014,7 +12014,7 @@
         "number": "02",
         "subset": "base",
         "rikishi": [
-          "takakeisho-mitsunobu"
+          "takakeisho-takanobu"
         ],
         "title": "Takakeisho Mitsunobu",
         "theme": "regular",
@@ -12134,7 +12134,7 @@
         "number": "08",
         "subset": "base",
         "rikishi": [
-          "kiribayama-tetsuo"
+          "kirishima-tetsuo"
         ],
         "title": "Kiribayama Tetsuo",
         "theme": "regular",
@@ -12214,7 +12214,7 @@
         "number": "12",
         "subset": "base",
         "rikishi": [
-          "kotonowaka-masahiro"
+          "kotozakura-masakatsu"
         ],
         "title": "Kotonowaka Masahiro",
         "theme": "regular",
@@ -12834,7 +12834,7 @@
         "number": "43",
         "subset": "base",
         "rikishi": [
-          "t-hakury-masahito"
+          "tohakuryu-masahito"
         ],
         "title": "Tōhakuryū Masahito",
         "theme": "regular",
@@ -13214,7 +13214,7 @@
         "number": "62",
         "subset": "base",
         "rikishi": [
-          "asaki-kaisho"
+          "kaisho-asaki"
         ],
         "title": "Asaki Kaisho",
         "theme": "regular",
@@ -13234,7 +13234,7 @@
         "number": "63",
         "subset": "base",
         "rikishi": [
-          "enho-akira"
+          "enho-yuya"
         ],
         "title": "Enho Akira",
         "theme": "regular",
@@ -13574,7 +13574,7 @@
         "number": "80",
         "subset": "base",
         "rikishi": [
-          "kiribayama-tetsuo"
+          "kirishima-tetsuo"
         ],
         "title": "Kiribayama Tetsuo",
         "theme": "regular",
@@ -13827,7 +13827,7 @@
         "number": "02",
         "subset": "base",
         "rikishi": [
-          "takakeisho-mitsunobu"
+          "takakeisho-takanobu"
         ],
         "title": "Takakeisho Mitsunobu",
         "theme": "regular",
@@ -13887,7 +13887,7 @@
         "number": "05",
         "subset": "base",
         "rikishi": [
-          "kiribayama-tetsuo"
+          "kirishima-tetsuo"
         ],
         "title": "Kiribayama Tetsuo",
         "theme": "regular",
@@ -13927,7 +13927,7 @@
         "number": "07",
         "subset": "base",
         "rikishi": [
-          "kotonowaka-masahiro"
+          "kotozakura-masakatsu"
         ],
         "title": "Kotonowaka Masahiro",
         "theme": "regular",
@@ -14671,7 +14671,7 @@
         "number": "44",
         "subset": "base",
         "rikishi": [
-          "takakeisho-mitsunobu",
+          "takakeisho-takanobu",
           "takanosho-nobuaki",
           "takakento-terutora"
         ],
@@ -14737,7 +14737,7 @@
         "number": "47",
         "subset": "base",
         "rikishi": [
-          "kotonowaka-masahiro",
+          "kotozakura-masakatsu",
           "kotoshoho-yoshinari",
           "kotoeko-mitsunori"
         ],
@@ -14962,8 +14962,8 @@
         "subset": "base",
         "rikishi": [
           "hokuseiho-osamu",
-          "enho-akira",
-          "ochiai-tetsuya"
+          "enho-yuya",
+          "hakunofuji-tetsuya"
         ],
         "title": "Hokuseiho Osamu / Enho Akira / Ochiai Tetsuya",
         "theme": "regular",
@@ -15090,7 +15090,7 @@
         "number": "63",
         "subset": "base",
         "rikishi": [
-          "enho-akira"
+          "enho-yuya"
         ],
         "title": "Enho Akira",
         "theme": "regular",
@@ -15214,7 +15214,7 @@
         "number": "69",
         "subset": "base",
         "rikishi": [
-          "takakeisho-mitsunobu"
+          "takakeisho-takanobu"
         ],
         "title": "Takakeisho Mitsunobu",
         "theme": "regular",
@@ -15234,7 +15234,7 @@
         "number": "70",
         "subset": "base",
         "rikishi": [
-          "kotonowaka-masahiro"
+          "kotozakura-masakatsu"
         ],
         "title": "Kotonowaka Masahiro",
         "theme": "regular",
@@ -15394,7 +15394,7 @@
         "number": "78",
         "subset": "base",
         "rikishi": [
-          "ochiai-tetsuya"
+          "hakunofuji-tetsuya"
         ],
         "title": "Ochiai Tetsuya",
         "theme": "regular",
@@ -15607,7 +15607,7 @@
         "number": "07",
         "subset": "base",
         "rikishi": [
-          "kotonowaka-masahiro"
+          "kotozakura-masakatsu"
         ],
         "title": "Kotonowaka Masahiro",
         "theme": "regular",
@@ -16187,7 +16187,7 @@
         "number": "36",
         "subset": "base",
         "rikishi": [
-          "yuta-tomokaze"
+          "tomokaze-yuta"
         ],
         "title": "Yuta Tomokaze",
         "theme": "regular",
@@ -16547,7 +16547,7 @@
         "number": "54",
         "subset": "base",
         "rikishi": [
-          "hakuoho-tetsuya"
+          "hakunofuji-tetsuya"
         ],
         "title": "Hakuoho Tetsuya",
         "theme": "regular",
@@ -16647,7 +16647,7 @@
         "number": "59",
         "subset": "base",
         "rikishi": [
-          "yuta-takahashi"
+          "shirokuma-yuta"
         ],
         "title": "Yuta Takahashi",
         "theme": "regular",
@@ -16707,7 +16707,7 @@
         "number": "62",
         "subset": "base",
         "rikishi": [
-          "tenshoho-shingo"
+          "mienofuji-shingo"
         ],
         "title": "Tenshoho Shingo",
         "theme": "regular",
@@ -16727,7 +16727,7 @@
         "number": "63",
         "subset": "base",
         "rikishi": [
-          "hitoshi-tadakatsu"
+          "hitoshi-hidetada"
         ],
         "title": "Hitoshi Tadakatsu",
         "theme": "regular",
@@ -16987,7 +16987,7 @@
         "number": "76",
         "subset": "base",
         "rikishi": [
-          "hakuoho-tetsuya"
+          "hakunofuji-tetsuya"
         ],
         "title": "Hakuoho Tetsuya",
         "theme": "regular",
@@ -17027,7 +17027,7 @@
         "number": "78",
         "subset": "base",
         "rikishi": [
-          "takakeish-takanobu"
+          "takakeisho-takanobu"
         ],
         "title": "Takakeishō Takanobu",
         "theme": "regular",
@@ -17127,7 +17127,7 @@
         "number": "83",
         "subset": "base",
         "rikishi": [
-          "kotonowaka-masahiro"
+          "kotozakura-masakatsu"
         ],
         "title": "Kotonowaka Masahiro",
         "theme": "regular",
@@ -17380,7 +17380,7 @@
         "number": "05",
         "subset": "base",
         "rikishi": [
-          "kotonowaka-masahiro"
+          "kotozakura-masakatsu"
         ],
         "title": "Kotonowaka Masahiro",
         "theme": "regular",
@@ -18440,7 +18440,7 @@
         "number": "58",
         "subset": "base",
         "rikishi": [
-          "ryosuke-hakuyozan"
+          "hakuyozan-ryosuke"
         ],
         "title": "Ryosuke Hakuyozan",
         "theme": "regular",
@@ -18762,7 +18762,7 @@
         "subset": "base",
         "rikishi": [
           "kotonowaka-terumasa",
-          "kotonowaka-masahiro"
+          "kotozakura-masakatsu"
         ],
         "title": "Kotonowaka Terumasa / Kotonowaka Masahiro",
         "theme": "regular",
@@ -18866,7 +18866,7 @@
         "number": "79",
         "subset": "base",
         "rikishi": [
-          "kotonowaka-masahiro"
+          "kotozakura-masakatsu"
         ],
         "title": "Kotonowaka Masahiro",
         "theme": "regular",
@@ -18886,7 +18886,7 @@
         "number": "80",
         "subset": "base",
         "rikishi": [
-          "kotonowaka-masahiro"
+          "kotozakura-masakatsu"
         ],
         "title": "Kotonowaka Masahiro",
         "theme": "regular",
@@ -19839,7 +19839,7 @@
         "number": "46",
         "subset": "base",
         "rikishi": [
-          "hakuoho-tetsuya"
+          "hakunofuji-tetsuya"
         ],
         "title": "Hakuoho Tetsuya",
         "theme": "regular",
@@ -20259,7 +20259,7 @@
         "number": "67",
         "subset": "base",
         "rikishi": [
-          "wakaikari-seigo"
+          "fujinokawa-seigo"
         ],
         "title": "Wakaikari Seigo",
         "theme": "regular",
@@ -21214,7 +21214,7 @@
         "number": "24",
         "subset": "base",
         "rikishi": [
-          "hakuoho-tetsuya"
+          "hakunofuji-tetsuya"
         ],
         "title": "Hakuoho Tetsuya",
         "theme": "regular",
@@ -22527,7 +22527,7 @@
         "number": "08",
         "subset": "base",
         "rikishi": [
-          "hakuoho-tetsuya"
+          "hakunofuji-tetsuya"
         ],
         "title": "Hakuoho Tetsuya",
         "theme": "regular",
@@ -23727,7 +23727,7 @@
         "number": "68",
         "subset": "base",
         "rikishi": [
-          "fujiryoga-masaharu"
+          "fujiryoga"
         ],
         "title": "Fujiryoga Masaharu",
         "theme": "regular",
@@ -25006,7 +25006,7 @@
         "number": "41",
         "subset": "base",
         "rikishi": [
-          "fujiryoga-masaharu"
+          "fujiryoga"
         ],
         "title": "Fujiryoga Masaharu",
         "theme": "regular",
@@ -25206,8 +25206,8 @@
         "number": "51",
         "subset": "base",
         "rikishi": [
-          "kirishima",
-          "hoshoryu"
+          "kirishima-tetsuo",
+          "hoshoryu-tomokatsu"
         ],
         "title": "Kirishima / Hoshoryu",
         "theme": "regular",
@@ -25227,9 +25227,9 @@
         "number": "52",
         "subset": "base",
         "rikishi": [
-          "oshoma",
-          "hoshoryu",
-          "asahakuryu"
+          "oshoma-degi",
+          "hoshoryu-tomokatsu",
+          "asahakuryu-taro"
         ],
         "title": "Oshoma / Hoshoryu / Asahakuryu",
         "theme": "regular",
@@ -25249,8 +25249,8 @@
         "number": "53",
         "subset": "base",
         "rikishi": [
-          "onosato",
-          "oshoumi"
+          "onosato-daiki",
+          "oshoumi-seiya"
         ],
         "title": "Onosato / Oshoumi",
         "theme": "regular",
@@ -25270,8 +25270,8 @@
         "number": "54",
         "subset": "base",
         "rikishi": [
-          "aonishiki",
-          "shishi"
+          "aonishiki-arata",
+          "shishi-masaru"
         ],
         "title": "Aonishiki / Shishi",
         "theme": "regular",
@@ -25291,8 +25291,8 @@
         "number": "55",
         "subset": "base",
         "rikishi": [
-          "midorifuji",
-          "atamifuji"
+          "midorifuji-kazunari",
+          "atamifuji-sakutaro"
         ],
         "title": "Midorifuji / Atamifuji",
         "theme": "regular",
@@ -25312,10 +25312,10 @@
         "number": "56",
         "subset": "base",
         "rikishi": [
-          "shodai",
-          "sadanoumi",
-          "yoshinofuji",
-          "fujiseiun"
+          "shodai-naoya",
+          "sadanoumi-takashi",
+          "yoshinofuji-naoya",
+          "fujiseiun-tatsuki"
         ],
         "title": "Shodai / Sadanoumi / Yoshinofuji / Fujiseiun",
         "theme": "regular",
@@ -25335,8 +25335,9 @@
         "number": "57",
         "subset": "base",
         "rikishi": [
-          "asakoryu",
-          "ura-gonoyama"
+          "asakoryu-takuma",
+          "ura-kazuki",
+          "gonoyama-toki"
         ],
         "title": "Asakoryu / Ura / Gonoyama",
         "theme": "regular",
@@ -25356,8 +25357,8 @@
         "number": "58",
         "subset": "base",
         "rikishi": [
-          "tamashoho",
-          "tamawashi"
+          "tamashoho-manpei",
+          "tamawashi-ichiro"
         ],
         "title": "Tamashoho / Tamawashi",
         "theme": "regular",
@@ -25377,8 +25378,8 @@
         "number": "59",
         "subset": "base",
         "rikishi": [
-          "churanoumi",
-          "kayo"
+          "churanoumi-yoshihisa",
+          "kayo-yasutoki"
         ],
         "title": "Churanoumi / Kayo",
         "theme": "regular",
@@ -25398,7 +25399,8 @@
         "number": "60",
         "subset": "base",
         "rikishi": [
-          "onami-brothers-wakatakakage-and-wakamotoharu"
+          "wakatakakage-atsushi",
+          "wakamotoharu-minato"
         ],
         "title": "Onami Brothers ! (Wakatakakage and Wakamotoharu)",
         "theme": "regular",
@@ -25418,7 +25420,8 @@
         "number": "61",
         "subset": "base",
         "rikishi": [
-          "tebakari-brothers-kotoshoho-and-kotoeiho"
+          "kotoshoho-yoshinari",
+          "kotoeiho-hiroki"
         ],
         "title": "Tebakari Brothers ! (Kotoshoho and Kotoeiho)",
         "theme": "regular",
@@ -25438,7 +25441,8 @@
         "number": "62",
         "subset": "base",
         "rikishi": [
-          "ishizaki-brothers-asakoryu-and-asasuiryu"
+          "asakoryu-takuma",
+          "asasuiryu-ryoma"
         ],
         "title": "Ishizaki Brothers ! (Asakoryu and Asasuiryu)",
         "theme": "regular",
@@ -25758,10 +25762,10 @@
         "number": "78",
         "subset": "base",
         "rikishi": [
-          "abi",
-          "tamawashi",
-          "ichiyamamoto",
-          "wakamotoharu"
+          "abi-masatora",
+          "tamawashi-ichiro",
+          "ichiyamamoto-daiki",
+          "wakamotoharu-minato"
         ],
         "title": "Abi / Tamawashi / Ichiyamamoto / Wakamotoharu",
         "theme": "regular",

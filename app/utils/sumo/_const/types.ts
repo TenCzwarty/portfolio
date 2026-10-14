@@ -33,10 +33,13 @@ export type TSumoSet = {
 export type TSumoSetsJson = Array<TSumoSet>;
 
 export type TRikishi = {
+  sumoApiId: number;
   shikona: string;
-  kanji: string;
-  topRank: string;
-  country: string;
+  kanji: string | null;
+  topRank: string | null;
+  heya: string | null;
+  country: string | null;
+  retired: boolean;
 };
 
 export type TRikishiMap = Record<string, TRikishi>;
