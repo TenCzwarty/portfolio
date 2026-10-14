@@ -98,57 +98,61 @@ export const IssueCard = ({ issue, details, options, onUpdate, onComment }: TIss
       {!details ? (
         <div className="h-40 animate-pulse rounded-xl bg-neutral-200/60" />
       ) : (
-        <>
-          <div className="flex flex-wrap items-center gap-2">
-            <AssigneePicker
-              assignee={details.assignee}
-              search={searchUsers}
-              loadImage={loadImage}
-              onChange={(user) => onUpdate({ type: "assignee", user })}
+        // one column on narrow screens (fields, description, discussion), on wide ones the
+        // description gets the left column and everything else stacks on the right
+        <div className="grid gap-5 xl:grid-cols-2 xl:grid-rows-[auto_1fr] xl:gap-x-8">
+          <div className="flex flex-col gap-4 xl:col-start-2 xl:row-start-1">
+            <div className="flex flex-wrap items-center gap-2">
+              <AssigneePicker
+                assignee={details.assignee}
+                search={searchUsers}
+                loadImage={loadImage}
+                onChange={(user) => onUpdate({ type: "assignee", user })}
+              />
+              <select
+                aria-label="priorytet"
+                value={details.priority?.id ?? ""}
+                onChange={(e) => {
+                  const priority = priorities.find((p) => p.id === e.target.value);
+                  if (priority) onUpdate({ type: "priority", priority });
+                }}
+                className={pillClass}
+              >
+                {!details.priority && <option value="">bez priorytetu</option>}
+                {priorities.map((p) => (
+                  <option key={p.id} value={p.id}>
+                    {p.name}
+                  </option>
+                ))}
+              </select>
+              <select
+                aria-label="parent"
+                value={details.parent?.key ?? ""}
+                onChange={(e) =>
+                  onUpdate({
+                    type: "parent",
+                    parent: parents.find((p) => p.key === e.target.value) ?? null,
+                  })
+                }
+                className={`${pillClass} max-w-full truncate sm:max-w-72`}
+              >
+                <option value="">bez parenta</option>
+                {parents.map((p) => (
+                  <option key={p.key} value={p.key}>
+                    {p.key}: {p.summary}
+                  </option>
+                ))}
+              </select>
+            </div>
+
+            <LabelsEditor
+              available={labels}
+              labels={details.labels}
+              onChange={(labels) => onUpdate({ type: "labels", labels })}
             />
-            <select
-              aria-label="priorytet"
-              value={details.priority?.id ?? ""}
-              onChange={(e) => {
-                const priority = priorities.find((p) => p.id === e.target.value);
-                if (priority) onUpdate({ type: "priority", priority });
-              }}
-              className={pillClass}
-            >
-              {!details.priority && <option value="">bez priorytetu</option>}
-              {priorities.map((p) => (
-                <option key={p.id} value={p.id}>
-                  {p.name}
-                </option>
-              ))}
-            </select>
-            <select
-              aria-label="parent"
-              value={details.parent?.key ?? ""}
-              onChange={(e) =>
-                onUpdate({
-                  type: "parent",
-                  parent: parents.find((p) => p.key === e.target.value) ?? null,
-                })
-              }
-              className={`${pillClass} max-w-full truncate sm:max-w-72`}
-            >
-              <option value="">bez parenta</option>
-              {parents.map((p) => (
-                <option key={p.key} value={p.key}>
-                  {p.key}: {p.summary}
-                </option>
-              ))}
-            </select>
           </div>
 
-          <LabelsEditor
-            available={labels}
-            labels={details.labels}
-            onChange={(labels) => onUpdate({ type: "labels", labels })}
-          />
-
-          <section>
+          <section className="min-w-0 xl:col-start-1 xl:row-span-2 xl:row-start-1">
             <Heading>opis</Heading>
             <RichHtml
               html={details.descriptionHtml}
@@ -158,44 +162,46 @@ export const IssueCard = ({ issue, details, options, onUpdate, onComment }: TIss
             />
           </section>
 
-          {details.links.length > 0 && (
-            <section>
-              <Heading>powiązane</Heading>
-              <ul className="space-y-1 text-sm">
-                {details.links.map((link) => (
-                  <li key={`${link.relation}-${link.key}`} className="flex flex-wrap gap-x-2">
-                    <span className="opacity-60">{link.relation}</span>
-                    <a
-                      href={browse(link.key)}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="font-semibold hover:underline"
-                    >
-                      {link.key}
-                    </a>
-                    <span>{link.summary}</span>
-                    <span className="text-xs opacity-60">({link.status})</span>
-                  </li>
-                ))}
-              </ul>
-            </section>
-          )}
+          <div className="flex min-w-0 flex-col gap-5 xl:col-start-2 xl:row-start-2">
+            {details.links.length > 0 && (
+              <section>
+                <Heading>powiązane</Heading>
+                <ul className="space-y-1 text-sm">
+                  {details.links.map((link) => (
+                    <li key={`${link.relation}-${link.key}`} className="flex flex-wrap gap-x-2">
+                      <span className="opacity-60">{link.relation}</span>
+                      <a
+                        href={browse(link.key)}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="font-semibold hover:underline"
+                      >
+                        {link.key}
+                      </a>
+                      <span>{link.summary}</span>
+                      <span className="text-xs opacity-60">({link.status})</span>
+                    </li>
+                  ))}
+                </ul>
+              </section>
+            )}
 
-          <section>
-            <Heading>komentarze ({details.comments.length})</Heading>
-            <div className="space-y-3">
-              {details.comments.map((comment) => (
-                <div key={comment.id} className="rounded-xl bg-white/60 p-3">
-                  <div className="mb-1 text-xs opacity-60">
-                    {comment.author} · {formatDate(comment.created)}
+            <section>
+              <Heading>komentarze ({details.comments.length})</Heading>
+              <div className="space-y-3">
+                {details.comments.map((comment) => (
+                  <div key={comment.id} className="rounded-xl bg-white/60 p-3">
+                    <div className="mb-1 text-xs opacity-60">
+                      {comment.author} · {formatDate(comment.created)}
+                    </div>
+                    <RichHtml html={comment.html} site={site} loadImage={loadImage} />
                   </div>
-                  <RichHtml html={comment.html} site={site} loadImage={loadImage} />
-                </div>
-              ))}
-              <CommentForm onSave={onComment} />
-            </div>
-          </section>
-        </>
+                ))}
+                <CommentForm onSave={onComment} />
+              </div>
+            </section>
+          </div>
+        </div>
       )}
     </article>
   );
