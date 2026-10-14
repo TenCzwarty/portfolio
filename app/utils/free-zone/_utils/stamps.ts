@@ -1,6 +1,6 @@
 import type { TStamp } from "../_types";
 
-export const DEFAULT_STAMPS = ["?", "NC", "WRO", "WAW"];
+export const DEFAULT_STAMPS = ["NC", "WRO", "WAW"];
 
 export const STAMP_MAX_LENGTH = 12;
 
@@ -51,8 +51,15 @@ export const STAMP_ICON_NAMES = [
 
 export type TStampIconName = (typeof STAMP_ICON_NAMES)[number];
 
-export const isStampIcon = (v: unknown): v is TStampIconName =>
-  typeof v === "string" && (STAMP_ICON_NAMES as ReadonlyArray<string>).includes(v);
+/** any other Lucide icon, by its kebab-case name: "l:mountain-snow" */
+export const LUCIDE_PREFIX = "l:";
+const RE_LUCIDE_ICON = /^l:[a-z0-9]+(-[a-z0-9]+)*$/;
+
+export const isCuratedIcon = (v: string): v is TStampIconName =>
+  (STAMP_ICON_NAMES as ReadonlyArray<string>).includes(v);
+
+export const isStampIcon = (v: unknown): v is string =>
+  typeof v === "string" && v.length <= 64 && (isCuratedIcon(v) || RE_LUCIDE_ICON.test(v));
 
 export const isStampLabel = (v: unknown): v is string => typeof v === "string" && RE_STAMP.test(v);
 
