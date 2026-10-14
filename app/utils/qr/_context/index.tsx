@@ -1,3 +1,5 @@
+"use client";
+
 import React from "react";
 
 import { useLocalStorage } from "~/utils/use-local-storage";

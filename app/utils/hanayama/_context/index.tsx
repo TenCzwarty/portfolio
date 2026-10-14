@@ -1,3 +1,5 @@
+"use client";
+
 import React from "react";
 
 import { useFilterRarity } from "~/app/utils/hanayama/_helpers/use-filter-rarity";

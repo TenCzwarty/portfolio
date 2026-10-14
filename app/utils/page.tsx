@@ -1,8 +1,15 @@
 import { DownloadIcon } from "lucide-react";
+import type { Metadata } from "next";
 import Link from "next/link";
 
 import { Pill } from "~/components/pill";
 import { Section } from "~/components/section";
+
+export const metadata: Metadata = {
+  title: "Utils",
+  description:
+    "Small apps and scripts that do not deserve their own website.",
+};
 
 export default function UtilsPage() {
   return (
