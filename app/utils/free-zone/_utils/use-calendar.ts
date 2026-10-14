@@ -166,12 +166,23 @@ export const useCalendar = () => {
     setHydrated(true);
     refresh();
 
-    const onFocus = () => refresh();
-    window.addEventListener("focus", onFocus);
-    const interval = window.setInterval(refresh, 60_000);
+    // Every fetch costs Redis commands from a monthly free quota, so a tab nobody looks at
+    // stays quiet: no polling while hidden, one fresh fetch when it comes back.
+    // Focus and visibility often fire together, hence the short guard against doubles.
+    let lastFetch = Date.now();
+    const refreshIfStale = (minAgeMs: number) => {
+      if (document.hidden || Date.now() - lastFetch < minAgeMs) return;
+      lastFetch = Date.now();
+      refresh();
+    };
+    const onReturn = () => refreshIfStale(5_000);
+    const interval = window.setInterval(() => refreshIfStale(55_000), 60_000);
+    window.addEventListener("focus", onReturn);
+    document.addEventListener("visibilitychange", onReturn);
 
     return () => {
-      window.removeEventListener("focus", onFocus);
+      window.removeEventListener("focus", onReturn);
+      document.removeEventListener("visibilitychange", onReturn);
       window.clearInterval(interval);
     };
   }, [refresh]);
