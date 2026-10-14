@@ -2,10 +2,10 @@ import { Redis } from "@upstash/redis";
 import { NextResponse } from "next/server";
 import { createHash, timingSafeEqual } from "node:crypto";
 
-import type { TCalendarData, TPerson, TPlan } from "~/app/utils/calendar/_types";
-import { findByName } from "~/app/utils/calendar/_utils/identity";
-import { DEFAULT_STAMPS, parseStamp, serializeStamp } from "~/app/utils/calendar/_utils/stamps";
-import { LIMITS, parseAction } from "~/app/utils/calendar/_utils/validate";
+import type { TCalendarData, TPerson, TPlan } from "~/app/utils/free-zone/_types";
+import { findByName } from "~/app/utils/free-zone/_utils/identity";
+import { DEFAULT_STAMPS, parseStamp, serializeStamp } from "~/app/utils/free-zone/_utils/stamps";
+import { LIMITS, parseAction } from "~/app/utils/free-zone/_utils/validate";
 
 export const dynamic = "force-dynamic";
 
@@ -14,6 +14,9 @@ const KEY_PEOPLE = "kalendarz:people";
 const KEY_PLANS = "kalendarz:plans";
 const KEY_AVAILABILITY = "kalendarz:availability";
 const KEY_STAMPS = "kalendarz:stamps";
+// label -> { icon? }; a hash because set members get number-parsed by Upstash ("007" -> 7)
+const KEY_STAMP_DEFS = "kalendarz:stamp-defs";
+// labels added before icons existed - still read, no longer written
 const KEY_CUSTOM_STAMPS = "kalendarz:custom-stamps";
 
 /**
@@ -61,13 +64,16 @@ const error = (message: string, status: number) =>
 export async function GET(request: Request) {
   const db = getRedis();
   if (!db) return error("Redis is not configured", 503);
+  // names, plans and who-is-where are private: without the secret nothing leaves the server
+  if (!canEdit(request)) return error("This calendar is private", 401);
 
-  const [people, plans, availability, stamps, customStamps] = await Promise.all([
+  const [people, plans, availability, stamps, legacyCustomStamps, stampDefs] = await Promise.all([
     db.hgetall<Record<string, TPerson>>(KEY_PEOPLE),
     db.hgetall<Record<string, TPlan>>(KEY_PLANS),
     db.smembers(KEY_AVAILABILITY),
     db.smembers(KEY_STAMPS),
     db.smembers(KEY_CUSTOM_STAMPS),
+    db.hgetall<Record<string, { icon?: string }>>(KEY_STAMP_DEFS),
   ]);
 
   const availabilityByPerson: TCalendarData["availability"] = {};
@@ -81,8 +87,15 @@ export async function GET(request: Request) {
     plans: Object.values(plans ?? {}).sort((a, b) => a.start.localeCompare(b.start)),
     availability: availabilityByPerson,
     stamps: stamps.map((m) => parseStamp(String(m))).filter((s) => s !== null),
-    customStamps: customStamps.map(String).sort(),
-    canEdit: canEdit(request),
+    customStamps: [...new Set([...legacyCustomStamps.map(String), ...Object.keys(stampDefs ?? {})])]
+      .filter((label) => !DEFAULT_STAMPS.includes(label))
+      .sort(),
+    stampIcons: Object.fromEntries(
+      Object.entries(stampDefs ?? {}).flatMap(([label, def]) =>
+        def?.icon ? [[label, def.icon]] : []
+      )
+    ),
+    canEdit: true,
   };
 
   return NextResponse.json(data, { headers: { "Cache-Control": "no-store" } });
@@ -141,16 +154,22 @@ export async function POST(request: Request) {
       else await db.srem(KEY_STAMPS, member);
       break;
     }
-    case "stamp-label-add": {
-      if (DEFAULT_STAMPS.includes(action.label)) break;
-      if ((await db.scard(KEY_CUSTOM_STAMPS)) >= LIMITS.customStamps) {
+    case "stamp-def": {
+      const { label, icon } = action;
+      const isKnown =
+        DEFAULT_STAMPS.includes(label) ||
+        (await db.hexists(KEY_STAMP_DEFS, label)) ||
+        (await db.sismember(KEY_CUSTOM_STAMPS, label));
+      if (!isKnown && (await db.hlen(KEY_STAMP_DEFS)) >= LIMITS.customStamps) {
         return error("Too many custom stamps", 409);
       }
-      await db.sadd(KEY_CUSTOM_STAMPS, action.label);
+      await db.hset(KEY_STAMP_DEFS, { [label]: icon ? { icon } : {} });
       break;
     }
     // stamps already placed with this label stay - only the shortcut disappears
     case "stamp-label-delete":
+      if (DEFAULT_STAMPS.includes(action.label)) break;
+      await db.hdel(KEY_STAMP_DEFS, action.label);
       await db.srem(KEY_CUSTOM_STAMPS, action.label);
       break;
     case "plan-delete":

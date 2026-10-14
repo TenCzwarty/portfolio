@@ -45,10 +45,15 @@ const securityHeaders = [
 const nextConfig: NextConfig = {
   async redirects() {
     return [
-      // the calendar used to live under a Polish name; old links (query string included) keep working
+      // the page was "kalendarz", then "calendar"; old links (secret key included) keep working
       {
         source: "/utils/kalendarz",
-        destination: "/utils/calendar",
+        destination: "/utils/free-zone",
+        permanent: true,
+      },
+      {
+        source: "/utils/calendar",
+        destination: "/utils/free-zone",
         permanent: true,
       },
     ];

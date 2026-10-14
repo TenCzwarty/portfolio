@@ -3,7 +3,7 @@ import React from "react";
 import type { TCalendarAction, TCalendarData, TPerson } from "../_types";
 
 import { findByName, STORAGE_KEY_ME, STORAGE_KEY_SECRET } from "./identity";
-import { sameStamp } from "./stamps";
+import { DEFAULT_STAMPS, sameStamp } from "./stamps";
 
 const API = "/api/calendar";
 
@@ -13,6 +13,7 @@ const EMPTY: TCalendarData = {
   availability: {},
   stamps: [],
   customStamps: [],
+  stampIcons: {},
 };
 
 const readStorage = <T>(key: string): T | null => {
@@ -31,6 +32,9 @@ const writeStorage = (key: string, value: unknown) => {
     // private mode etc. – the page still works for this visit
   }
 };
+
+const withoutKey = <T>(record: Record<string, T>, key: string) =>
+  Object.fromEntries(Object.entries(record).filter(([k]) => k !== key));
 
 /** Pure reducer so the UI can update before the server answers */
 const applyAction = (data: TCalendarData, action: TCalendarAction): TCalendarData => {
@@ -62,20 +66,30 @@ const applyAction = (data: TCalendarData, action: TCalendarAction): TCalendarDat
       const rest = data.stamps.filter((s) => !sameStamp(s, action.stamp));
       return { ...data, stamps: action.on ? [...rest, action.stamp] : rest };
     }
-    case "stamp-label-add":
+    case "stamp-def": {
+      const otherIcons = withoutKey(data.stampIcons, action.label);
       return {
         ...data,
-        customStamps: [...new Set([...data.customStamps, action.label])].sort(),
+        customStamps: DEFAULT_STAMPS.includes(action.label)
+          ? data.customStamps
+          : [...new Set([...data.customStamps, action.label])].sort(),
+        stampIcons: action.icon ? { ...otherIcons, [action.label]: action.icon } : otherIcons,
       };
-    case "stamp-label-delete":
-      return { ...data, customStamps: data.customStamps.filter((l) => l !== action.label) };
+    }
+    case "stamp-label-delete": {
+      return {
+        ...data,
+        customStamps: data.customStamps.filter((l) => l !== action.label),
+        stampIcons: withoutKey(data.stampIcons, action.label),
+      };
+    }
   }
 };
 
 export const useCalendar = () => {
   const [data, setData] = React.useState<TCalendarData>(EMPTY);
   const [canEdit, setCanEdit] = React.useState(false);
-  const [status, setStatus] = React.useState<"loading" | "ready" | "error">("loading");
+  const [status, setStatus] = React.useState<"loading" | "ready" | "locked" | "error">("loading");
   const [errorMessage, setErrorMessage] = React.useState<string | null>(null);
   const [me, setMeState] = React.useState<TPerson | null>(null);
   const [hydrated, setHydrated] = React.useState(false);
@@ -93,6 +107,13 @@ export const useCalendar = () => {
     try {
       const response = await fetch(API, { headers: headers(), cache: "no-store" });
       const json = await response.json();
+      // no or wrong secret: not an error, just a calendar this browser may not see
+      if (response.status === 401) {
+        setData(EMPTY);
+        setCanEdit(false);
+        setStatus("locked");
+        return;
+      }
       if (!response.ok) throw new Error(json.error ?? "Could not load the calendar");
 
       const { canEdit: editable, ...rest } = json as TCalendarData & { canEdit: boolean };
@@ -189,6 +210,8 @@ export const useCalendar = () => {
     } catch {}
     secretRef.current = null;
     setCanEdit(false);
+    setData(EMPTY);
+    setStatus("locked");
   };
 
   return {

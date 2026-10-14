@@ -1,6 +1,7 @@
 import React from "react";
 
 import type { TDay, TPerson, TPlan } from "../../_types";
+import { textColorOn } from "../../_utils/colors";
 import { fromDay, WEEKDAYS } from "../../_utils/dates";
 import { layoutWeekPlans } from "../../_utils/layout-plans";
 import { StampLayer, type TStampItem } from "../stamp-layer";
@@ -15,7 +16,7 @@ type TMonthGrid = {
   stampsByDay: Map<TDay, Array<TStampItem>>;
   me: TPerson | null;
   /** plan being picked right now, drawn as a ghost bar */
-  draft: { start: TDay; end: TDay; title: string } | null;
+  draft: { start: TDay; end: TDay; title: string; createdBy: string } | null;
   selectedPlanId: string | null;
   /** while picking a range, bars must not swallow clicks meant for days */
   plansClickable: boolean;
@@ -28,7 +29,9 @@ const DRAFT_ID = "draft";
 
 const NO_STAMPS: Array<TStampItem> = [];
 
-const LANE_HEIGHT = "1.625rem";
+// thin bands along the bottom of the cells - a plan marks the days without covering them
+const LANE_HEIGHT = "1rem";
+const FALLBACK_COLOR = "#57534e";
 
 export const MonthGrid = ({
   weeks,
@@ -61,7 +64,7 @@ export const MonthGrid = ({
       {weeks.map((week) => {
         const segments = layoutWeekPlans(
           week,
-          draft ? [...plans, { id: DRAFT_ID, createdBy: "", ...draft }] : plans
+          draft ? [...plans, { id: DRAFT_ID, ...draft }] : plans
         );
         const lanes = segments.reduce((max, s) => Math.max(max, s.lane + 1), 0);
 
@@ -74,7 +77,7 @@ export const MonthGrid = ({
               // grows only when plans need room
               minHeight: "min(10cqw, 5.5rem)",
               // repeat(0, …) is invalid CSS and would drop the whole template
-              gridTemplateRows: `auto ${lanes ? `repeat(${lanes}, ${LANE_HEIGHT})` : ""} minmax(1.25rem, 1fr)`,
+              gridTemplateRows: `auto minmax(1.25rem, 1fr) ${lanes ? `repeat(${lanes}, ${LANE_HEIGHT})` : ""}`,
             }}
           >
             {week.map((day, col) => {
@@ -106,7 +109,7 @@ export const MonthGrid = ({
                   </div>
                   <div
                     className="pointer-events-none flex flex-wrap content-end gap-1 px-1.5 py-1 sm:px-4 sm:py-2"
-                    style={{ gridColumn: col + 1, gridRow: lanes + 2 }}
+                    style={{ gridColumn: col + 1, gridRow: 2 }}
                   >
                     {free.map((p) => (
                       <span
@@ -117,28 +120,39 @@ export const MonthGrid = ({
                       />
                     ))}
                   </div>
-                  <StampLayer items={stamps} style={{ gridColumn: col + 1, gridRow: "1 / -1" }} />
+                  <StampLayer
+                    items={stamps}
+                    // above the plan bands: stamps let clicks through, so plans stay clickable
+                    style={{ gridColumn: col + 1, gridRow: "1 / -1", zIndex: 20 }}
+                  />
                 </React.Fragment>
               );
             })}
 
-            {segments.map(({ plan, from, to, lane, continuesBefore, continuesAfter }) => (
-              <button
-                key={plan.id}
-                tabIndex={plan.id === DRAFT_ID ? -1 : undefined}
-                type="button"
-                onClick={() => onPlanClick(plan)}
-                title={plan.title}
-                className={`bg-primary-800 z-10 mx-0.5 my-px flex items-center gap-1 truncate px-1.5 text-left text-xs leading-none text-white sm:mx-1 sm:px-2 sm:text-sm ${continuesBefore ? "rounded-l-none" : "rounded-l-md"} ${continuesAfter ? "rounded-r-none" : "rounded-r-md"} ${selectedPlanId === plan.id ? "ring-accent-900 ring-2" : ""} ${plan.id === DRAFT_ID ? "pointer-events-none border-2 border-dashed border-white/80 opacity-80" : plansClickable ? "" : "pointer-events-none opacity-70"}`}
-                style={{ gridColumn: `${from + 1} / ${to + 2}`, gridRow: lane + 2 }}
-              >
-                <span
-                  className="size-1.5 shrink-0 rounded-full"
-                  style={{ background: creatorColor(plan.createdBy) ?? "transparent" }}
-                />
-                <span className="truncate">{plan.title}</span>
-              </button>
-            ))}
+            {segments.map(({ plan, from, to, lane, continuesBefore, continuesAfter }) => {
+              const color = creatorColor(plan.createdBy) ?? FALLBACK_COLOR;
+              const isDraft = plan.id === DRAFT_ID;
+
+              return (
+                <button
+                  key={plan.id}
+                  tabIndex={isDraft ? -1 : undefined}
+                  type="button"
+                  onClick={() => onPlanClick(plan)}
+                  title={plan.title}
+                  className={`z-10 mb-0.5 flex items-center truncate px-1.5 text-left text-[0.6rem] leading-none font-semibold sm:px-2 sm:text-[0.7rem] ${continuesBefore ? "" : "ml-0.5 rounded-l-sm sm:ml-1"} ${continuesAfter ? "" : "mr-0.5 rounded-r-sm sm:mr-1"} ${selectedPlanId === plan.id ? "ring-primary-900 ring-2" : ""} ${isDraft ? "pointer-events-none border border-dashed" : plansClickable ? "hover:brightness-110" : "pointer-events-none opacity-60"}`}
+                  style={{
+                    gridColumn: `${from + 1} / ${to + 2}`,
+                    gridRow: lane + 3,
+                    ...(isDraft
+                      ? { background: `${color}40`, borderColor: color, color: "inherit" }
+                      : { background: color, color: textColorOn(color) }),
+                  }}
+                >
+                  <span className="truncate">{plan.title}</span>
+                </button>
+              );
+            })}
           </div>
         );
       })}

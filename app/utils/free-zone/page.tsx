@@ -46,7 +46,7 @@ const MODES: Array<{ value: TMode; label: string; hint: string }> = [
 
 const STORAGE_KEY_HIDE_PLANS = "kalendarz:hide-plans";
 
-export default function UtilsCalendarPage() {
+export default function UtilsFreeZonePage() {
   const {
     data,
     canEdit,
@@ -105,7 +105,8 @@ export default function UtilsCalendarPage() {
     for (const stamp of data.stamps) {
       const person = people.find((p) => p.id === stamp.personId);
       if (!person) continue;
-      map.set(stamp.day, [...(map.get(stamp.day) ?? []), { stamp, person }]);
+      const icon = data.stampIcons[stamp.label];
+      map.set(stamp.day, [...(map.get(stamp.day) ?? []), { stamp, person, icon }]);
     }
     // same person order as the dots, so a cell reads the same way every time
     for (const list of map.values()) {
@@ -116,7 +117,7 @@ export default function UtilsCalendarPage() {
       );
     }
     return map;
-  }, [people, data.stamps]);
+  }, [people, data.stamps, data.stampIcons]);
 
   const stampLabels = [...DEFAULT_STAMPS, ...data.customStamps];
 
@@ -218,10 +219,10 @@ export default function UtilsCalendarPage() {
         <AccordionController>
           {(accordionProps) => (
             <div className="mt-16 mb-8 ml-4">
-              <h1 className="text-xl font-semibold sm:text-3xl">Calendar</h1>
+              <h1 className="text-xl font-semibold sm:text-3xl">Free Zone</h1>
               <div className="flex gap-2">
                 <p>shared plans and who&apos;s free when</p>
-                <AccordionExtraSettingsToggle {...accordionProps} />
+                {status !== "locked" && <AccordionExtraSettingsToggle {...accordionProps} />}
               </div>
 
               <Accordion {...accordionProps}>
@@ -271,179 +272,184 @@ export default function UtilsCalendarPage() {
             </div>
           )}
 
-          {hydrated && status === "ready" && !canEdit && (
+          {status === "locked" ? (
             <div className="rounded-xl border border-neutral-200 p-4 text-sm">
-              view only — open the secret link to make changes
+              this calendar is private — open it with the secret link
             </div>
-          )}
+          ) : (
+            <>
+              {showIdentityForm && (
+                <IdentityForm
+                  key={me?.id ?? "new"}
+                  me={me}
+                  people={people}
+                  onSave={(person) => {
+                    setMe(person);
+                    setEditingMe(false);
+                  }}
+                  onCancel={me ? () => setEditingMe(false) : undefined}
+                />
+              )}
 
-          {showIdentityForm && (
-            <IdentityForm
-              key={me?.id ?? "new"}
-              me={me}
-              people={people}
-              onSave={(person) => {
-                setMe(person);
-                setEditingMe(false);
-              }}
-              onCancel={me ? () => setEditingMe(false) : undefined}
-            />
-          )}
+              <div className="ml-4 flex flex-col gap-4">
+                <h2 className="text-lg font-semibold sm:text-xl">
+                  {hydrated ? formatMonth(cursor.year, cursor.month) : "\u00a0"}
+                </h2>
 
-          <div className="ml-4 flex flex-col gap-4">
-            <h2 className="text-lg font-semibold sm:text-xl">
-              {hydrated ? formatMonth(cursor.year, cursor.month) : "\u00a0"}
-            </h2>
+                {/* -ml-4 cancels the pill padding, so pill text lines up with the heading */}
+                <div className="-ml-4 flex flex-wrap items-center gap-4">
+                  {canEdit &&
+                    me &&
+                    MODES.map(({ value, label, hint }) => (
+                      <React.Fragment key={value}>
+                        <Tooltip id={`calendar-mode-${value}`}>{hint}</Tooltip>
+                        <button
+                          type="button"
+                          aria-pressed={mode === value}
+                          data-tooltip-id={`calendar-mode-${value}`}
+                          onClick={() => toggleMode(value)}
+                        >
+                          <Pill
+                            classes={
+                              mode === value
+                                ? "bg-accent-500 text-primary-900"
+                                : "bg-primary-900 hover:bg-accent-500 hover:text-primary-900"
+                            }
+                          >
+                            {label}
+                          </Pill>
+                        </button>
+                      </React.Fragment>
+                    ))}
 
-            {/* -ml-4 cancels the pill padding, so pill text lines up with the heading */}
-            <div className="-ml-4 flex flex-wrap items-center gap-4">
-              {canEdit &&
-                me &&
-                MODES.map(({ value, label, hint }) => (
-                  <React.Fragment key={value}>
-                    <Tooltip id={`calendar-mode-${value}`}>{hint}</Tooltip>
+                  <div className="-mr-1 ml-auto flex items-center">
                     <button
                       type="button"
-                      aria-pressed={mode === value}
-                      data-tooltip-id={`calendar-mode-${value}`}
-                      onClick={() => toggleMode(value)}
+                      onClick={() => shiftMonth(-1)}
+                      aria-label="previous month"
+                      className="rounded-full p-1 hover:bg-neutral-200"
                     >
-                      <Pill
-                        classes={
-                          mode === value
-                            ? "bg-accent-500 text-primary-900"
-                            : "bg-primary-900 hover:bg-accent-500 hover:text-primary-900"
-                        }
-                      >
-                        {label}
-                      </Pill>
+                      <ChevronLeftIcon size={20} />
                     </button>
-                  </React.Fragment>
-                ))}
+                    <button
+                      type="button"
+                      onClick={goToday}
+                      className="rounded-full px-3 py-1 text-sm hover:bg-neutral-200"
+                    >
+                      today
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => shiftMonth(1)}
+                      aria-label="next month"
+                      className="rounded-full p-1 hover:bg-neutral-200"
+                    >
+                      <ChevronRightIcon size={20} />
+                    </button>
+                  </div>
+                </div>
 
-              <div className="-mr-1 ml-auto flex items-center">
-                <button
-                  type="button"
-                  onClick={() => shiftMonth(-1)}
-                  aria-label="previous month"
-                  className="rounded-full p-1 hover:bg-neutral-200"
-                >
-                  <ChevronLeftIcon size={20} />
-                </button>
-                <button
-                  type="button"
-                  onClick={goToday}
-                  className="rounded-full px-3 py-1 text-sm hover:bg-neutral-200"
-                >
-                  today
-                </button>
-                <button
-                  type="button"
-                  onClick={() => shiftMonth(1)}
-                  aria-label="next month"
-                  className="rounded-full p-1 hover:bg-neutral-200"
-                >
-                  <ChevronRightIcon size={20} />
-                </button>
+                {canEdit && me && mode === "stamp" && (
+                  <StampPicker
+                    labels={stampLabels}
+                    customLabels={data.customStamps}
+                    icons={data.stampIcons}
+                    selected={selectedStamp}
+                    onSelect={setSelectedStamp}
+                    onDefine={(label, icon) => {
+                      send({ type: "stamp-def", label, icon });
+                      setSelectedStamp(label);
+                    }}
+                    onDelete={(label) => {
+                      send({ type: "stamp-label-delete", label });
+                      setSelectedStamp(DEFAULT_STAMPS[0]);
+                    }}
+                  />
+                )}
               </div>
-            </div>
 
-            {canEdit && me && mode === "stamp" && (
-              <StampPicker
-                labels={stampLabels}
-                customLabels={data.customStamps}
-                selected={selectedStamp}
-                onSelect={setSelectedStamp}
-                onAdd={(label) => {
-                  send({ type: "stamp-label-add", label });
-                  setSelectedStamp(label);
-                }}
-                onDelete={(label) => {
-                  send({ type: "stamp-label-delete", label });
-                  setSelectedStamp(DEFAULT_STAMPS[0]);
-                }}
-              />
-            )}
-          </div>
-
-          {/* the page is prerendered at build time: anything date-based must wait for the browser,
+              {/* the page is prerendered at build time: anything date-based must wait for the browser,
               otherwise "today" and the month would be frozen at the build date until hydration */}
-          <div className={status === "loading" ? "animate-pulse opacity-60" : ""}>
-            {/* also waits for the first fetch: cells mounted before the data arrives would treat
+              <div className={status === "loading" ? "animate-pulse opacity-60" : ""}>
+                {/* also waits for the first fetch: cells mounted before the data arrives would treat
                 every stamp as freshly placed and play the stamping animation all at once */}
-            {!hydrated || status === "loading" ? (
-              <div className="aspect-[7/5] rounded-xl border border-neutral-200" />
-            ) : (
-              <MonthGrid
-                weeks={weeks}
-                month={cursor.month}
-                today={today}
-                plans={visiblePlans}
-                people={people}
-                freeByDay={freeByDay}
-                stampsByDay={stampsByDay}
-                me={me}
-                draft={
-                  mode === "plan" && previewRange ? { ...previewRange, title: "new plan" } : null
-                }
-                selectedPlanId={selectedPlanId}
-                plansClickable={mode === null || !canEdit}
-                onDayClick={onDayClick}
-                onDayHover={(day) => rangeStart && !newPlanRange && setRangeHover(day)}
-                onPlanClick={(plan) => {
-                  resetPlanSelection();
-                  setEditingPlanId(null);
-                  setSelectedPlanId(plan.id === selectedPlanId ? null : plan.id);
-                }}
-              />
-            )}
-          </div>
+                {!hydrated || status === "loading" ? (
+                  <div className="aspect-[7/5] rounded-xl border border-neutral-200" />
+                ) : (
+                  <MonthGrid
+                    weeks={weeks}
+                    month={cursor.month}
+                    today={today}
+                    plans={visiblePlans}
+                    people={people}
+                    freeByDay={freeByDay}
+                    stampsByDay={stampsByDay}
+                    me={me}
+                    draft={
+                      mode === "plan" && previewRange && me
+                        ? { ...previewRange, title: "new plan", createdBy: me.id }
+                        : null
+                    }
+                    selectedPlanId={selectedPlanId}
+                    plansClickable={mode === null || !canEdit}
+                    onDayClick={onDayClick}
+                    onDayHover={(day) => rangeStart && !newPlanRange && setRangeHover(day)}
+                    onPlanClick={(plan) => {
+                      resetPlanSelection();
+                      setEditingPlanId(null);
+                      setSelectedPlanId(plan.id === selectedPlanId ? null : plan.id);
+                    }}
+                  />
+                )}
+              </div>
 
-          <div className="ml-4">
-            <Legend
-              people={people}
-              availability={data.availability}
-              monthDays={monthDays}
-              me={me}
-            />
-          </div>
+              <div className="ml-4">
+                <Legend
+                  people={people}
+                  availability={data.availability}
+                  monthDays={monthDays}
+                  me={me}
+                />
+              </div>
 
-          {newPlanRange && (
-            <PlanForm
-              start={newPlanRange.start}
-              end={newPlanRange.end}
-              onSave={onAddPlan}
-              onCancel={resetPlanSelection}
-            />
-          )}
+              {newPlanRange && (
+                <PlanForm
+                  start={newPlanRange.start}
+                  end={newPlanRange.end}
+                  onSave={onAddPlan}
+                  onCancel={resetPlanSelection}
+                />
+              )}
 
-          {editingPlan && (
-            <PlanForm
-              key={editingPlan.id}
-              start={editingPlan.start}
-              end={editingPlan.end}
-              initial={editingPlan}
-              onSave={({ title, description }) => {
-                send({ type: "plan-update", id: editingPlan.id, title, description });
-                setEditingPlanId(null);
-              }}
-              onCancel={() => setEditingPlanId(null)}
-            />
-          )}
+              {editingPlan && (
+                <PlanForm
+                  key={editingPlan.id}
+                  start={editingPlan.start}
+                  end={editingPlan.end}
+                  initial={editingPlan}
+                  onSave={({ title, description }) => {
+                    send({ type: "plan-update", id: editingPlan.id, title, description });
+                    setEditingPlanId(null);
+                  }}
+                  onCancel={() => setEditingPlanId(null)}
+                />
+              )}
 
-          {selectedPlan && !editingPlan && (
-            <PlanDetails
-              plan={selectedPlan}
-              people={people}
-              availability={data.availability}
-              canEdit={canEdit}
-              onEdit={() => setEditingPlanId(selectedPlan.id)}
-              onDelete={() => {
-                send({ type: "plan-delete", id: selectedPlan.id });
-                setSelectedPlanId(null);
-              }}
-              onClose={() => setSelectedPlanId(null)}
-            />
+              {selectedPlan && !editingPlan && (
+                <PlanDetails
+                  plan={selectedPlan}
+                  people={people}
+                  availability={data.availability}
+                  canEdit={canEdit}
+                  onEdit={() => setEditingPlanId(selectedPlan.id)}
+                  onDelete={() => {
+                    send({ type: "plan-delete", id: selectedPlan.id });
+                    setSelectedPlanId(null);
+                  }}
+                  onClose={() => setSelectedPlanId(null)}
+                />
+              )}
+            </>
           )}
         </div>
       </Section>

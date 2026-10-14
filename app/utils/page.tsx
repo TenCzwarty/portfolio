@@ -71,9 +71,9 @@ export default function UtilsPage() {
             </div>
           </Link>
 
-          <Link href="/utils/calendar" className="block">
+          <Link href="/utils/free-zone" className="block">
             <div className="flex flex-col rounded-xl border border-neutral-200 p-4 hover:bg-neutral-200">
-              <h3 className="text-lg font-semibold sm:text-xl">Calendar</h3>
+              <h3 className="text-lg font-semibold sm:text-xl">Free Zone</h3>
               <div className="text-sm">shared plans and who&apos;s free when</div>
             </div>
           </Link>

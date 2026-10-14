@@ -25,6 +25,8 @@ export type TCalendarData = {
   stamps: Array<TStamp>;
   /** labels added by the group on top of DEFAULT_STAMPS */
   customStamps: Array<string>;
+  /** label -> icon name, for default and custom stamps alike */
+  stampIcons: Record<string, string>;
 };
 
 export type TStamp = {
@@ -40,5 +42,6 @@ export type TCalendarAction =
   | { type: "plan-delete"; id: string }
   | { type: "plan-update"; id: string; title: string; description?: string }
   | { type: "stamp"; stamp: TStamp; on: boolean }
-  | { type: "stamp-label-add"; label: string }
+  /** adds a custom stamp and/or sets its icon (null removes the icon) */
+  | { type: "stamp-def"; label: string; icon: string | null }
   | { type: "stamp-label-delete"; label: string };
