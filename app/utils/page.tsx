@@ -10,40 +10,29 @@ export default function UtilsPage() {
       <Section>
         <div className="mt-16 mb-8 ml-4">
           <h1 className="text-xl font-semibold sm:text-3xl">Utils</h1>
-          <p>
-            place for apps / scripts I need that do not deserve their own
-            website
-          </p>
+          <p>place for apps / scripts I need that do not deserve their own website</p>
         </div>
 
         <div className="space-y-4">
-          <Link href="/utils/qr">
+          <Link href="/utils/qr" className="block">
             <div className="flex flex-col rounded-xl border border-neutral-200 p-4 hover:bg-neutral-200">
-              <h3 className="text-lg font-semibold sm:text-xl">
-                QR Code Generator
-              </h3>
+              <h3 className="text-lg font-semibold sm:text-xl">QR Code Generator</h3>
               <div className="text-sm">quickly create qr codes, no bs</div>
             </div>
           </Link>
 
-          <Link href="/utils/hanayama">
-            <div className="mt-4 flex flex-col rounded-xl border border-neutral-200 p-4 hover:bg-neutral-200">
-              <h3 className="text-lg font-semibold sm:text-xl">
-                Hanayama Tracker
-              </h3>
+          <Link href="/utils/hanayama" className="block">
+            <div className="flex flex-col rounded-xl border border-neutral-200 p-4 hover:bg-neutral-200">
+              <h3 className="text-lg font-semibold sm:text-xl">Hanayama Tracker</h3>
               <div className="text-sm">track your metal puzzles collection</div>
             </div>
           </Link>
 
-          <div className="mt-4 flex flex-col rounded-xl border border-neutral-200 p-4">
+          <div className="flex flex-col rounded-xl border border-neutral-200 p-4">
             <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
               <div>
-                <h3 className="text-lg font-semibold sm:text-xl">
-                  Photo Slideshow
-                </h3>
-                <div className="text-sm">
-                  local photo slider with simple transitions
-                </div>
+                <h3 className="text-lg font-semibold sm:text-xl">Photo Slideshow</h3>
+                <div className="text-sm">local photo slider with simple transitions</div>
               </div>
 
               <div>
@@ -62,42 +51,34 @@ export default function UtilsPage() {
             </div>
           </div>
 
-          <Link href="/utils/spin?elements=A,B,C">
-            <div className="mt-4 flex flex-col rounded-xl border border-neutral-200 p-4 hover:bg-neutral-200">
+          <Link href="/utils/spin?elements=A,B,C" className="block">
+            <div className="flex flex-col rounded-xl border border-neutral-200 p-4 hover:bg-neutral-200">
               <h3 className="text-lg font-semibold sm:text-xl">Spin The Wheel</h3>
-              <div className="text-sm">
-                pick a random element from a list
-              </div>
+              <div className="text-sm">pick a random element from a list</div>
             </div>
           </Link>
 
-          <Link href="/utils/kalendarz">
-            <div className="mt-4 flex flex-col rounded-xl border border-neutral-200 p-4 hover:bg-neutral-200">
+          <Link href="/utils/kalendarz" className="block">
+            <div className="flex flex-col rounded-xl border border-neutral-200 p-4 hover:bg-neutral-200">
               <h3 className="text-lg font-semibold sm:text-xl">Kalendarz</h3>
               <div className="text-sm">shared plans and who&apos;s free when</div>
             </div>
           </Link>
 
-          <Link href="/utils/meeple-circus">
-            <div className="mt-4 flex flex-col rounded-xl border border-neutral-200 p-4 hover:bg-neutral-200">
-              <h3 className="text-lg font-semibold sm:text-xl">
-                Meeple Circus
-              </h3>
+          <Link href="/utils/meeple-circus" className="block">
+            <div className="flex flex-col rounded-xl border border-neutral-200 p-4 hover:bg-neutral-200">
+              <h3 className="text-lg font-semibold sm:text-xl">Meeple Circus</h3>
               <div className="text-sm">music timer for a forgotten board game</div>
             </div>
           </Link>
 
-          <div className="mt-4 flex cursor-not-allowed flex-col rounded-xl border border-neutral-200 p-4">
-            <h3 className="text-lg font-semibold sm:text-xl">
-              Month Time Block
-            </h3>
+          <div className="flex cursor-not-allowed flex-col rounded-xl border border-neutral-200 p-4">
+            <h3 className="text-lg font-semibold sm:text-xl">Month Time Block</h3>
             <div className="text-sm">in progress...</div>
           </div>
 
           <div className="flex cursor-not-allowed flex-col rounded-xl border border-neutral-200 p-4">
-            <h3 className="text-lg font-semibold sm:text-xl">
-              Secret Santa Generator
-            </h3>
+            <h3 className="text-lg font-semibold sm:text-xl">Secret Santa Generator</h3>
             <div className="text-sm">in progress...</div>
           </div>
 
