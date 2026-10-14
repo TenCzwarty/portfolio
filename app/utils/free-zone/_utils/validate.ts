@@ -1,6 +1,6 @@
 import type { TCalendarAction, TDay, TPerson, TPlan, TStamp } from "../_types";
 
-import { isStampLabel } from "./stamps";
+import { isStampIcon, isStampLabel, normalizeStamp } from "./stamps";
 
 const RE_DAY = /^\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01])$/;
 const RE_COLOR = /^#[0-9a-f]{6}$/i;
@@ -96,7 +96,12 @@ export const parseAction = (v: unknown): TCalendarAction | null => {
             on: v.on,
           }
         : null;
-    case "stamp-label-add":
+    case "stamp-def":
+      return isStampLabel(v.label) &&
+        v.label === normalizeStamp(v.label) &&
+        (v.icon === null || isStampIcon(v.icon))
+        ? { type: "stamp-def", label: v.label, icon: v.icon }
+        : null;
     case "stamp-label-delete":
       return isStampLabel(v.label) ? { type: v.type, label: v.label } : null;
     default:

@@ -3,7 +3,7 @@ import React from "react";
 import type { TCalendarAction, TCalendarData, TPerson } from "../_types";
 
 import { findByName, STORAGE_KEY_ME, STORAGE_KEY_SECRET } from "./identity";
-import { sameStamp } from "./stamps";
+import { DEFAULT_STAMPS, sameStamp } from "./stamps";
 
 const API = "/api/calendar";
 
@@ -13,6 +13,7 @@ const EMPTY: TCalendarData = {
   availability: {},
   stamps: [],
   customStamps: [],
+  stampIcons: {},
 };
 
 const readStorage = <T>(key: string): T | null => {
@@ -31,6 +32,9 @@ const writeStorage = (key: string, value: unknown) => {
     // private mode etc. – the page still works for this visit
   }
 };
+
+const withoutKey = <T>(record: Record<string, T>, key: string) =>
+  Object.fromEntries(Object.entries(record).filter(([k]) => k !== key));
 
 /** Pure reducer so the UI can update before the server answers */
 const applyAction = (data: TCalendarData, action: TCalendarAction): TCalendarData => {
@@ -62,13 +66,23 @@ const applyAction = (data: TCalendarData, action: TCalendarAction): TCalendarDat
       const rest = data.stamps.filter((s) => !sameStamp(s, action.stamp));
       return { ...data, stamps: action.on ? [...rest, action.stamp] : rest };
     }
-    case "stamp-label-add":
+    case "stamp-def": {
+      const otherIcons = withoutKey(data.stampIcons, action.label);
       return {
         ...data,
-        customStamps: [...new Set([...data.customStamps, action.label])].sort(),
+        customStamps: DEFAULT_STAMPS.includes(action.label)
+          ? data.customStamps
+          : [...new Set([...data.customStamps, action.label])].sort(),
+        stampIcons: action.icon ? { ...otherIcons, [action.label]: action.icon } : otherIcons,
       };
-    case "stamp-label-delete":
-      return { ...data, customStamps: data.customStamps.filter((l) => l !== action.label) };
+    }
+    case "stamp-label-delete": {
+      return {
+        ...data,
+        customStamps: data.customStamps.filter((l) => l !== action.label),
+        stampIcons: withoutKey(data.stampIcons, action.label),
+      };
+    }
   }
 };
 

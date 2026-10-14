@@ -2,13 +2,57 @@ import type { TStamp } from "../_types";
 
 export const DEFAULT_STAMPS = ["?", "NC", "WRO", "WAW"];
 
-export const STAMP_MAX_LENGTH = 4;
+export const STAMP_MAX_LENGTH = 12;
 
-// short and loud on purpose: it has to fit a 50px cell next to other people's stamps.
-// No ".", so no label can look like a float that Upstash would auto-parse ("1.50" -> 1.5)
-const RE_STAMP = new RegExp(`^[A-Z0-9ĄĆĘŁŃÓŚŹŻ?!]{1,${STAMP_MAX_LENGTH}}$`);
+// letters (any alphabet), digits, spaces and a little punctuation - never "|", the separator
+const RE_STAMP = new RegExp(`^[\\p{L}\\p{N}?!&'+\\- ]{1,${STAMP_MAX_LENGTH}}$`, "u");
 
-export const normalizeStamp = (label: string) => label.trim().toLocaleUpperCase("pl");
+export const normalizeStamp = (label: string) =>
+  label.trim().replace(/\s+/g, " ").toLocaleUpperCase("pl");
+
+/** names of the icons a stamp can carry, see _components/stamp-icon for the drawings */
+export const STAMP_ICON_NAMES = [
+  "help",
+  "plane",
+  "train",
+  "car",
+  "bus",
+  "bike",
+  "ship",
+  "home",
+  "bed",
+  "work",
+  "laptop",
+  "school",
+  "mountain",
+  "trees",
+  "tent",
+  "beach",
+  "sun",
+  "snow",
+  "party",
+  "beer",
+  "wine",
+  "coffee",
+  "food",
+  "cake",
+  "gift",
+  "music",
+  "ticket",
+  "game",
+  "sport",
+  "heart",
+  "baby",
+  "dog",
+  "doctor",
+  "star",
+  "pin",
+] as const;
+
+export type TStampIconName = (typeof STAMP_ICON_NAMES)[number];
+
+export const isStampIcon = (v: unknown): v is TStampIconName =>
+  typeof v === "string" && (STAMP_ICON_NAMES as ReadonlyArray<string>).includes(v);
 
 export const isStampLabel = (v: unknown): v is string => typeof v === "string" && RE_STAMP.test(v);
 
@@ -68,9 +112,11 @@ export const placeStamps = (stamps: Array<TStamp>) => {
 
     const base = slot === -1 ? SLOTS[preferred] : SLOTS[slot];
     if (slot !== -1) taken.add(slot);
+    // a long label would hang off the side of the cell from an edge slot - keep those centred
+    const isLong = (key.split("|")[2] ?? "").length > 5;
 
     placements.set(key, {
-      x: base.x + (((h >>> 8) % 11) - 5), // ±5%
+      x: (isLong ? 50 : base.x) + (((h >>> 8) % 11) - 5), // ±5%
       y: base.y + (((h >>> 12) % 9) - 4), // ±4%
       rotation: ((h >>> 16) % 41) - 20, // -20deg .. 20deg
     });

@@ -2,8 +2,9 @@ import React from "react";
 
 import type { TPerson, TStamp } from "../../_types";
 import { placeStamps, serializeStamp } from "../../_utils/stamps";
+import { StampIcon } from "../stamp-icon";
 
-export type TStampItem = { stamp: TStamp; person: TPerson };
+export type TStampItem = { stamp: TStamp; person: TPerson; icon?: string };
 
 type TStampLayer = {
   items: Array<TStampItem>;
@@ -52,7 +53,7 @@ export const StampLayer = ({ items, style }: TStampLayer) => {
 
   return (
     <div className="pointer-events-none relative overflow-hidden" style={style}>
-      {shown.map(({ item: { stamp, person }, phase }) => {
+      {shown.map(({ item: { stamp, person, icon }, phase }) => {
         const key = serializeStamp(stamp);
         const { x, y, rotation } = placements.get(key)!;
         const animation =
@@ -67,7 +68,7 @@ export const StampLayer = ({ items, style }: TStampLayer) => {
                 setLeaving((l) => l.filter((i) => serializeStamp(i.stamp) !== key));
               else enteringRef.current.delete(key);
             }}
-            className={`stamp ${animation} absolute rounded border bg-white/50 px-0.5 text-[0.5rem] leading-2.5 font-bold tracking-wide sm:rounded-md sm:border-2 sm:px-1.5 sm:text-xs sm:leading-4 sm:tracking-wider`}
+            className={`stamp ${animation} absolute flex max-w-[90%] items-center gap-0.5 rounded border bg-white/50 px-0.5 text-[0.5rem] leading-2.5 font-bold tracking-wide whitespace-nowrap sm:gap-1 sm:rounded-md sm:border-2 sm:px-1.5 sm:text-xs sm:leading-4 sm:tracking-wider`}
             style={
               {
                 left: `${x}%`,
@@ -78,7 +79,8 @@ export const StampLayer = ({ items, style }: TStampLayer) => {
               } as React.CSSProperties
             }
           >
-            {stamp.label}
+            <StampIcon name={icon} className="size-2 shrink-0 sm:size-3" />
+            <span className="truncate">{stamp.label}</span>
           </span>
         );
       })}

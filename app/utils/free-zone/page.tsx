@@ -46,7 +46,7 @@ const MODES: Array<{ value: TMode; label: string; hint: string }> = [
 
 const STORAGE_KEY_HIDE_PLANS = "kalendarz:hide-plans";
 
-export default function UtilsCalendarPage() {
+export default function UtilsFreeZonePage() {
   const {
     data,
     canEdit,
@@ -105,7 +105,8 @@ export default function UtilsCalendarPage() {
     for (const stamp of data.stamps) {
       const person = people.find((p) => p.id === stamp.personId);
       if (!person) continue;
-      map.set(stamp.day, [...(map.get(stamp.day) ?? []), { stamp, person }]);
+      const icon = data.stampIcons[stamp.label];
+      map.set(stamp.day, [...(map.get(stamp.day) ?? []), { stamp, person, icon }]);
     }
     // same person order as the dots, so a cell reads the same way every time
     for (const list of map.values()) {
@@ -116,7 +117,7 @@ export default function UtilsCalendarPage() {
       );
     }
     return map;
-  }, [people, data.stamps]);
+  }, [people, data.stamps, data.stampIcons]);
 
   const stampLabels = [...DEFAULT_STAMPS, ...data.customStamps];
 
@@ -218,7 +219,7 @@ export default function UtilsCalendarPage() {
         <AccordionController>
           {(accordionProps) => (
             <div className="mt-16 mb-8 ml-4">
-              <h1 className="text-xl font-semibold sm:text-3xl">Calendar</h1>
+              <h1 className="text-xl font-semibold sm:text-3xl">Free Zone</h1>
               <div className="flex gap-2">
                 <p>shared plans and who&apos;s free when</p>
                 {status !== "locked" && <AccordionExtraSettingsToggle {...accordionProps} />}
@@ -352,10 +353,11 @@ export default function UtilsCalendarPage() {
                   <StampPicker
                     labels={stampLabels}
                     customLabels={data.customStamps}
+                    icons={data.stampIcons}
                     selected={selectedStamp}
                     onSelect={setSelectedStamp}
-                    onAdd={(label) => {
-                      send({ type: "stamp-label-add", label });
+                    onDefine={(label, icon) => {
+                      send({ type: "stamp-def", label, icon });
                       setSelectedStamp(label);
                     }}
                     onDelete={(label) => {
