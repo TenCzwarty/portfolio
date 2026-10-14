@@ -384,8 +384,8 @@ export default function UtilsCalendarPage() {
                     stampsByDay={stampsByDay}
                     me={me}
                     draft={
-                      mode === "plan" && previewRange
-                        ? { ...previewRange, title: "new plan" }
+                      mode === "plan" && previewRange && me
+                        ? { ...previewRange, title: "new plan", createdBy: me.id }
                         : null
                     }
                     selectedPlanId={selectedPlanId}

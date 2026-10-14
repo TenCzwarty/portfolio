@@ -38,8 +38,8 @@ const SLOTS = [
   { x: 72, y: 28 },
   { x: 44, y: 50 },
   { x: 74, y: 52 },
-  { x: 44, y: 74 },
-  { x: 74, y: 76 },
+  { x: 44, y: 70 },
+  { x: 74, y: 72 },
 ];
 
 export type TStampPlacement = { x: number; y: number; rotation: number };
