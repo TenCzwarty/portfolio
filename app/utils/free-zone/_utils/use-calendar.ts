@@ -3,10 +3,18 @@ import React from "react";
 import type { TCalendarAction, TCalendarData, TPerson } from "../_types";
 
 import { findByName, STORAGE_KEY_ME, STORAGE_KEY_SECRET } from "./identity";
+import { DEFAULT_STAMPS, sameStamp } from "./stamps";
 
-const API = "/api/kalendarz";
+const API = "/api/calendar";
 
-const EMPTY: TCalendarData = { people: [], plans: [], availability: {} };
+const EMPTY: TCalendarData = {
+  people: [],
+  plans: [],
+  availability: {},
+  stamps: [],
+  customStamps: [],
+  stampIcons: {},
+};
 
 const readStorage = <T>(key: string): T | null => {
   try {
@@ -24,6 +32,9 @@ const writeStorage = (key: string, value: unknown) => {
     // private mode etc. – the page still works for this visit
   }
 };
+
+const withoutKey = <T>(record: Record<string, T>, key: string) =>
+  Object.fromEntries(Object.entries(record).filter(([k]) => k !== key));
 
 /** Pure reducer so the UI can update before the server answers */
 const applyAction = (data: TCalendarData, action: TCalendarAction): TCalendarData => {
@@ -44,13 +55,41 @@ const applyAction = (data: TCalendarData, action: TCalendarAction): TCalendarDat
       return { ...data, plans: [...data.plans, action.plan] };
     case "plan-delete":
       return { ...data, plans: data.plans.filter((p) => p.id !== action.id) };
+    case "plan-update":
+      return {
+        ...data,
+        plans: data.plans.map((p) =>
+          p.id === action.id ? { ...p, title: action.title, description: action.description } : p
+        ),
+      };
+    case "stamp": {
+      const rest = data.stamps.filter((s) => !sameStamp(s, action.stamp));
+      return { ...data, stamps: action.on ? [...rest, action.stamp] : rest };
+    }
+    case "stamp-def": {
+      const otherIcons = withoutKey(data.stampIcons, action.label);
+      return {
+        ...data,
+        customStamps: DEFAULT_STAMPS.includes(action.label)
+          ? data.customStamps
+          : [...new Set([...data.customStamps, action.label])].sort(),
+        stampIcons: action.icon ? { ...otherIcons, [action.label]: action.icon } : otherIcons,
+      };
+    }
+    case "stamp-label-delete": {
+      return {
+        ...data,
+        customStamps: data.customStamps.filter((l) => l !== action.label),
+        stampIcons: withoutKey(data.stampIcons, action.label),
+      };
+    }
   }
 };
 
 export const useCalendar = () => {
   const [data, setData] = React.useState<TCalendarData>(EMPTY);
   const [canEdit, setCanEdit] = React.useState(false);
-  const [status, setStatus] = React.useState<"loading" | "ready" | "error">("loading");
+  const [status, setStatus] = React.useState<"loading" | "ready" | "locked" | "error">("loading");
   const [errorMessage, setErrorMessage] = React.useState<string | null>(null);
   const [me, setMeState] = React.useState<TPerson | null>(null);
   const [hydrated, setHydrated] = React.useState(false);
@@ -59,7 +98,7 @@ export const useCalendar = () => {
   const headers = React.useCallback(
     (): HeadersInit => ({
       "Content-Type": "application/json",
-      ...(secretRef.current ? { "x-kalendarz-key": secretRef.current } : {}),
+      ...(secretRef.current ? { "x-calendar-key": secretRef.current } : {}),
     }),
     []
   );
@@ -68,7 +107,14 @@ export const useCalendar = () => {
     try {
       const response = await fetch(API, { headers: headers(), cache: "no-store" });
       const json = await response.json();
-      if (!response.ok) throw new Error(json.error ?? "Nie udało się pobrać danych");
+      // no or wrong secret: not an error, just a calendar this browser may not see
+      if (response.status === 401) {
+        setData(EMPTY);
+        setCanEdit(false);
+        setStatus("locked");
+        return;
+      }
+      if (!response.ok) throw new Error(json.error ?? "Could not load the calendar");
 
       const { canEdit: editable, ...rest } = json as TCalendarData & { canEdit: boolean };
       setData(rest);
@@ -77,7 +123,7 @@ export const useCalendar = () => {
       setErrorMessage(null);
     } catch (e) {
       setStatus("error");
-      setErrorMessage(e instanceof Error ? e.message : "Nie udało się pobrać danych");
+      setErrorMessage(e instanceof Error ? e.message : "Could not load the calendar");
     }
   }, [headers]);
 
@@ -92,10 +138,10 @@ export const useCalendar = () => {
         });
         if (!response.ok) {
           const json = await response.json().catch(() => ({}));
-          throw new Error(json.error ?? "Nie udało się zapisać");
+          throw new Error(json.error ?? "Could not save");
         }
       } catch (e) {
-        setErrorMessage(e instanceof Error ? e.message : "Nie udało się zapisać");
+        setErrorMessage(e instanceof Error ? e.message : "Could not save");
         await refresh();
       }
     },
@@ -105,10 +151,12 @@ export const useCalendar = () => {
   // pick up the secret from the link once, then hide it from the address bar
   React.useEffect(() => {
     const url = new URL(window.location.href);
-    const fromUrl = url.searchParams.get("klucz");
+    // "klucz" is the pre-rename name of the param, links with it are still out there
+    const fromUrl = url.searchParams.get("key") ?? url.searchParams.get("klucz");
 
     if (fromUrl) {
       writeStorage(STORAGE_KEY_SECRET, fromUrl);
+      url.searchParams.delete("key");
       url.searchParams.delete("klucz");
       window.history.replaceState(null, "", url.pathname + url.search + url.hash);
     }
@@ -162,6 +210,8 @@ export const useCalendar = () => {
     } catch {}
     secretRef.current = null;
     setCanEdit(false);
+    setData(EMPTY);
+    setStatus("locked");
   };
 
   return {

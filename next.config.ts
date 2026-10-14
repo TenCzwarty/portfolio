@@ -38,16 +38,26 @@ const securityHeaders = [
   },
   {
     key: "Permissions-Policy",
-    value: [
-      "camera=()",
-      "microphone=()",
-      "geolocation=()",
-      "browsing-topics=",
-    ].join(", "),
+    value: ["camera=()", "microphone=()", "geolocation=()", "browsing-topics="].join(", "),
   },
 ];
 
 const nextConfig: NextConfig = {
+  async redirects() {
+    return [
+      // the page was "kalendarz", then "calendar"; old links (secret key included) keep working
+      {
+        source: "/utils/kalendarz",
+        destination: "/utils/free-zone",
+        permanent: true,
+      },
+      {
+        source: "/utils/calendar",
+        destination: "/utils/free-zone",
+        permanent: true,
+      },
+    ];
+  },
   async headers() {
     return [
       {
