@@ -1,6 +1,6 @@
 import type { TStamp } from "../_types";
 
-export const DEFAULT_STAMPS = ["?", "NC", "WRO", "WAW"];
+export const DEFAULT_STAMPS = ["NC", "WRO", "WAW"];
 
 export const STAMP_MAX_LENGTH = 12;
 

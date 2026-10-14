@@ -9,7 +9,6 @@ import {
   AccordionController,
   AccordionExtraSettingsToggle,
 } from "~/components/accordion";
-import { Pill } from "~/components/pill";
 import { Section } from "~/components/section";
 import { Tooltip } from "~/components/tooltip";
 
@@ -296,33 +295,32 @@ export default function UtilsFreeZonePage() {
                   {hydrated ? formatMonth(cursor.year, cursor.month) : "\u00a0"}
                 </h2>
 
-                {/* -ml-4 cancels the pill padding, so pill text lines up with the heading */}
-                <div className="-ml-4 flex flex-wrap items-center gap-4">
+                {/* one row on any screen; the negative margin cancels the pill padding, so the
+                    first pill's text lines up with the heading */}
+                <div className="-ml-3 flex items-center gap-2 sm:-ml-4 sm:gap-4">
                   {canEdit &&
                     me &&
                     MODES.map(({ value, label, hint }) => (
                       <React.Fragment key={value}>
                         <Tooltip id={`calendar-mode-${value}`}>{hint}</Tooltip>
+                        {/* same look as the site's Pill, but sized down on phones to fit one row */}
                         <button
                           type="button"
                           aria-pressed={mode === value}
                           data-tooltip-id={`calendar-mode-${value}`}
                           onClick={() => toggleMode(value)}
+                          className={`rounded-full px-3 py-1 text-sm sm:px-4 sm:text-base ${
+                            mode === value
+                              ? "bg-accent-500 text-primary-900"
+                              : "bg-primary-900 hover:bg-accent-500 hover:text-primary-900 text-white"
+                          }`}
                         >
-                          <Pill
-                            classes={
-                              mode === value
-                                ? "bg-accent-500 text-primary-900"
-                                : "bg-primary-900 hover:bg-accent-500 hover:text-primary-900"
-                            }
-                          >
-                            {label}
-                          </Pill>
+                          {label}
                         </button>
                       </React.Fragment>
                     ))}
 
-                  <div className="-mr-1 ml-auto flex items-center">
+                  <div className="-mr-1 ml-auto flex shrink-0 items-center">
                     <button
                       type="button"
                       onClick={() => shiftMonth(-1)}
@@ -334,7 +332,7 @@ export default function UtilsFreeZonePage() {
                     <button
                       type="button"
                       onClick={goToday}
-                      className="rounded-full px-3 py-1 text-sm hover:bg-neutral-200"
+                      className="rounded-full px-2 py-1 text-sm hover:bg-neutral-200 sm:px-3"
                     >
                       today
                     </button>
