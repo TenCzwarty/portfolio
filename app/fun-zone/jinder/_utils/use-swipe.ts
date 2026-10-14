@@ -24,6 +24,8 @@ export const useSwipe = (onSwipe: (keep: boolean) => void, enabled: boolean) => 
       if (!enabled || e.button !== 0) return;
       if ((e.target as HTMLElement).closest(IGNORED)) return;
       start.current = { x: e.clientX, y: e.clientY };
+      // capture right away – grabbed near the edge, the pointer leaves the card within a few px
+      e.currentTarget.setPointerCapture(e.pointerId);
     },
     onPointerMove: (e: React.PointerEvent) => {
       if (!start.current) return;
@@ -37,7 +39,7 @@ export const useSwipe = (onSwipe: (keep: boolean) => void, enabled: boolean) => 
         }
         if (Math.abs(dx) < SLOP) return;
         setDragging(true);
-        e.currentTarget.setPointerCapture(e.pointerId);
+        window.getSelection()?.removeAllRanges();
       }
       setOffset(dx);
     },
@@ -48,6 +50,8 @@ export const useSwipe = (onSwipe: (keep: boolean) => void, enabled: boolean) => 
       setDragging(false);
     },
     onPointerCancel: () => reset(),
+    // dragging selected text would start the browser's own drag & drop and cancel the swipe
+    onDragStart: (e: React.DragEvent) => e.preventDefault(),
   };
 
   return { offset, dragging, handlers, reset, threshold: THRESHOLD };

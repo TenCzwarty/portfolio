@@ -104,7 +104,7 @@ export const Deck = ({ client, plan, onChangePlan }: TDeck) => {
   const offset = swipe.offset;
   const x = leaving ? (leaving === "right" ? "150%" : "-150%") : `${offset}px`;
   const rotation = leaving ? (leaving === "right" ? 12 : -12) : offset / 25;
-  const stamp = leaving ? 1 : Math.min(1, Math.abs(offset) / swipe.threshold);
+  const glow = leaving ? 1 : Math.min(1, Math.abs(offset) / swipe.threshold);
   const goingRight = leaving ? leaving === "right" : offset > 0;
 
   return (
@@ -191,6 +191,18 @@ export const Deck = ({ client, plan, onChangePlan }: TDeck) => {
 
       {deck.current && (
         <>
+          {/* screen edges light up in the direction of the swipe, behind the moving card */}
+          <div
+            aria-hidden="true"
+            style={{ opacity: goingRight ? 0 : glow }}
+            className={`pointer-events-none fixed inset-y-0 left-0 z-20 w-1/3 bg-linear-to-r from-red-500/60 to-transparent ${swipe.dragging ? "" : "transition-opacity duration-200"}`}
+          />
+          <div
+            aria-hidden="true"
+            style={{ opacity: goingRight ? glow : 0 }}
+            className={`pointer-events-none fixed inset-y-0 right-0 z-20 w-1/3 bg-linear-to-l from-green-500/60 to-transparent ${swipe.dragging ? "" : "transition-opacity duration-200"}`}
+          />
+
           <div ref={cardRef} className="relative py-2">
             <div
               {...swipe.handlers}
@@ -201,14 +213,6 @@ export const Deck = ({ client, plan, onChangePlan }: TDeck) => {
               }}
               className={`relative rounded-xl border border-neutral-200 bg-neutral-100 p-4 shadow-sm sm:p-6 ${swipe.dragging ? "z-30 cursor-grabbing shadow-xl select-none" : leaving ? "z-30" : "cursor-grab"}`}
             >
-              <div
-                aria-hidden="true"
-                style={{ opacity: stamp }}
-                className={`pointer-events-none absolute top-4 z-10 rounded-md border-4 bg-neutral-100/90 px-3 py-1 text-xl font-bold uppercase ${goingRight ? "left-4 -rotate-12 border-green-600 text-green-700" : "right-4 rotate-12 border-red-600 text-red-700"}`}
-              >
-                {goingRight ? "zostaje" : (plan.target?.name ?? "brak n+2")}
-              </div>
-
               <IssueCard
                 key={deck.current.key}
                 issue={deck.current}
