@@ -24,6 +24,8 @@ const message = (e: unknown) => (e instanceof Error ? e.message : "Coś poszło 
 
 const applyUpdate = <T extends TIssueSummary>(issue: T, update: TIssueUpdate): T => {
   switch (update.type) {
+    case "summary":
+      return { ...issue, summary: update.summary };
     case "assignee":
       return { ...issue, assignee: update.user };
     case "labels":
@@ -169,10 +171,10 @@ export const useDeck = (client: TJiraClient, plan: TPlan, filter: TPersonFilter)
     const before = details[key];
     const beforeSummary = issues.find((issue) => issue.key === key);
     if (before) setDetails((d) => ({ ...d, [key]: applyUpdate(before, change) }));
-    // the people bar counts from the list, so it has to follow assignee changes too
-    if (change.type === "assignee") {
+    // the card header and the people bar read the list, so it follows these changes too
+    if (change.type === "assignee" || change.type === "summary") {
       // a reassigned card stays on screen even if the filter no longer matches it
-      setPinned(key);
+      if (change.type === "assignee") setPinned(key);
       setIssues((list) =>
         list.map((issue) => (issue.key === key ? applyUpdate(issue, change) : issue))
       );

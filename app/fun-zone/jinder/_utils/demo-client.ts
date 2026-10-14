@@ -274,6 +274,7 @@ export const createDemoClient = (): TJiraClient => {
     update: async (key, update) => {
       await wait(150);
       const issue = get(key);
+      if (update.type === "summary") issue.summary = update.summary;
       if (update.type === "assignee") issue.assignee = update.user;
       if (update.type === "labels") issue.labels = update.labels;
       if (update.type === "priority") issue.priority = update.priority;

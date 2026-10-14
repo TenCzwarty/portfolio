@@ -72,6 +72,7 @@ export type TIssueDetails = TIssueSummary & {
 export type TIssueUpdate =
   | { type: "assignee"; user: TUser | null }
   | { type: "labels"; labels: Array<string> }
+  | { type: "summary"; summary: string }
   | { type: "priority"; priority: TPriority }
   | { type: "parent"; parent: TEpic | null };
 

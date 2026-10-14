@@ -63,7 +63,8 @@ export default function FunZoneJinderPage() {
   };
 
   return (
-    <main className="min-h-[calc(100dvh-56px)]">
+    // clipped here, at full viewport width, so a swiped card can fly to the screen edge
+    <main className="min-h-[calc(100dvh-56px)] overflow-x-clip">
       <Section>
         {client ? (
           <div className="mt-8" />

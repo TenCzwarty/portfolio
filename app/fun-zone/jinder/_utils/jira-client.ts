@@ -236,11 +236,13 @@ export const createJiraClient = (credentials: TCredentials): TJiraClient => {
     update: async (key, update) => {
       if (update.type === "parent") return setParent(key, update.parent);
       const fields =
-        update.type === "assignee"
-          ? { assignee: update.user ? { accountId: update.user.accountId } : null }
-          : update.type === "labels"
-            ? { labels: update.labels }
-            : { priority: { id: update.priority.id } };
+        update.type === "summary"
+          ? { summary: update.summary }
+          : update.type === "assignee"
+            ? { assignee: update.user ? { accountId: update.user.accountId } : null }
+            : update.type === "labels"
+              ? { labels: update.labels }
+              : { priority: { id: update.priority.id } };
       await call("PUT", `/rest/api/3/issue/${key}`, { fields });
     },
 

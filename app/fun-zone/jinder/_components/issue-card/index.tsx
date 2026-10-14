@@ -13,6 +13,7 @@ import { AssigneePicker } from "../assignee-picker";
 import { CommentForm } from "../comment-form";
 import { LabelsEditor } from "../labels-editor";
 import { RichHtml } from "../rich-html";
+import { TitleEditor } from "../title-editor";
 
 /** what the card can offer in its pickers, shared by every card of the deck */
 export type TCardOptions = {
@@ -88,7 +89,10 @@ export const IssueCard = ({ issue, details, options, onUpdate, onComment }: TIss
             </span>
           )}
         </div>
-        <h2 className="text-xl font-semibold sm:text-2xl">{issue.summary}</h2>
+        <TitleEditor
+          title={issue.summary}
+          onSave={(summary) => onUpdate({ type: "summary", summary })}
+        />
       </header>
 
       {!details ? (

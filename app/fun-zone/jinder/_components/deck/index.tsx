@@ -191,7 +191,7 @@ export const Deck = ({ client, plan, onChangePlan }: TDeck) => {
 
       {deck.current && (
         <>
-          <div ref={cardRef} className="relative overflow-x-clip py-2">
+          <div ref={cardRef} className="relative py-2">
             <div
               {...swipe.handlers}
               style={{
@@ -199,7 +199,7 @@ export const Deck = ({ client, plan, onChangePlan }: TDeck) => {
                 transition: swipe.dragging ? "none" : `transform ${FLY_MS}ms ease-out`,
                 touchAction: "pan-y",
               }}
-              className={`relative rounded-xl border border-neutral-200 bg-neutral-100 p-4 shadow-sm sm:p-6 ${swipe.dragging ? "cursor-grabbing select-none" : ""}`}
+              className={`relative rounded-xl border border-neutral-200 bg-neutral-100 p-4 shadow-sm sm:p-6 ${swipe.dragging ? "z-30 cursor-grabbing shadow-xl select-none" : leaving ? "z-30" : "cursor-grab"}`}
             >
               <div
                 aria-hidden="true"
