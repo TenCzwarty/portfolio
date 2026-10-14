@@ -61,6 +61,8 @@ const error = (message: string, status: number) =>
 export async function GET(request: Request) {
   const db = getRedis();
   if (!db) return error("Redis is not configured", 503);
+  // names, plans and who-is-where are private: without the secret nothing leaves the server
+  if (!canEdit(request)) return error("This calendar is private", 401);
 
   const [people, plans, availability, stamps, customStamps] = await Promise.all([
     db.hgetall<Record<string, TPerson>>(KEY_PEOPLE),
@@ -82,7 +84,7 @@ export async function GET(request: Request) {
     availability: availabilityByPerson,
     stamps: stamps.map((m) => parseStamp(String(m))).filter((s) => s !== null),
     customStamps: customStamps.map(String).sort(),
-    canEdit: canEdit(request),
+    canEdit: true,
   };
 
   return NextResponse.json(data, { headers: { "Cache-Control": "no-store" } });

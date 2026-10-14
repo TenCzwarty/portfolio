@@ -75,7 +75,7 @@ const applyAction = (data: TCalendarData, action: TCalendarAction): TCalendarDat
 export const useCalendar = () => {
   const [data, setData] = React.useState<TCalendarData>(EMPTY);
   const [canEdit, setCanEdit] = React.useState(false);
-  const [status, setStatus] = React.useState<"loading" | "ready" | "error">("loading");
+  const [status, setStatus] = React.useState<"loading" | "ready" | "locked" | "error">("loading");
   const [errorMessage, setErrorMessage] = React.useState<string | null>(null);
   const [me, setMeState] = React.useState<TPerson | null>(null);
   const [hydrated, setHydrated] = React.useState(false);
@@ -93,6 +93,13 @@ export const useCalendar = () => {
     try {
       const response = await fetch(API, { headers: headers(), cache: "no-store" });
       const json = await response.json();
+      // no or wrong secret: not an error, just a calendar this browser may not see
+      if (response.status === 401) {
+        setData(EMPTY);
+        setCanEdit(false);
+        setStatus("locked");
+        return;
+      }
       if (!response.ok) throw new Error(json.error ?? "Could not load the calendar");
 
       const { canEdit: editable, ...rest } = json as TCalendarData & { canEdit: boolean };
@@ -189,6 +196,8 @@ export const useCalendar = () => {
     } catch {}
     secretRef.current = null;
     setCanEdit(false);
+    setData(EMPTY);
+    setStatus("locked");
   };
 
   return {
