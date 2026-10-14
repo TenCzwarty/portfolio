@@ -1,20 +1,24 @@
 import React from "react";
 
+import { loadAllIcons } from "../../_utils/all-icons";
 import {
   isStampLabel,
+  LUCIDE_PREFIX,
   normalizeStamp,
   STAMP_ICON_NAMES,
   STAMP_MAX_LENGTH,
-  type TStampIconName,
 } from "../../_utils/stamps";
-import { STAMP_ICONS, StampIcon } from "../stamp-icon";
+import { CURATED_LUCIDE_NAMES, STAMP_ICONS, StampIcon } from "../stamp-icon";
+
+// enough to browse, few enough that each result's icon file can load without a stampede
+const MAX_EXTRA_RESULTS = 60;
 
 type TStampEditor = {
   /** undefined = creating a new stamp */
   label?: string;
   icon: string | null;
   canDelete: boolean;
-  onSave: (label: string, icon: TStampIconName | null) => void;
+  onSave: (label: string, icon: string | null) => void;
   onDelete: () => void;
   onCancel: () => void;
 };
@@ -30,7 +34,9 @@ export const StampEditor = ({
 }: TStampEditor) => {
   const isNew = label === undefined;
   const [name, setName] = React.useState("");
-  const [picked, setPicked] = React.useState<TStampIconName | null>(icon as TStampIconName | null);
+  const [picked, setPicked] = React.useState<string | null>(icon);
+  // names of every Lucide icon, fetched on the first search
+  const [allNames, setAllNames] = React.useState<Array<string> | null>(null);
   const [query, setQuery] = React.useState("");
 
   const finalLabel = isNew ? normalizeStamp(name) : label;
@@ -40,6 +46,24 @@ export const StampEditor = ({
   const matches = STAMP_ICON_NAMES.filter(
     (n) => !q || n.includes(q) || STAMP_ICONS[n].keywords.includes(q)
   );
+
+  React.useEffect(() => {
+    if (!q || allNames) return;
+    let cancelled = false;
+    loadAllIcons()
+      .then((all) => !cancelled && setAllNames([...all.keys()]))
+      .catch(() => {});
+    return () => {
+      cancelled = true;
+    };
+  }, [q, allNames]);
+
+  const extraAll = q
+    ? (allNames ?? []).filter(
+        (n) => n.includes(q.replace(/\s+/g, "-")) && !CURATED_LUCIDE_NAMES.has(n)
+      )
+    : [];
+  const extra = extraAll.slice(0, MAX_EXTRA_RESULTS);
 
   const onSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -101,7 +125,7 @@ export const StampEditor = ({
             <button
               key={n}
               type="button"
-              title={n}
+              title={STAMP_ICONS[n].lucide}
               aria-label={n}
               aria-pressed={picked === n}
               onClick={() => setPicked(n)}
@@ -110,8 +134,32 @@ export const StampEditor = ({
               <StampIcon name={n} className="size-4" />
             </button>
           ))}
+          {extra.map((n) => {
+            const value = `${LUCIDE_PREFIX}${n}`;
+            return (
+              <button
+                key={n}
+                type="button"
+                title={n}
+                aria-label={n}
+                aria-pressed={picked === value}
+                onClick={() => setPicked(value)}
+                className={`${cell} ${picked === value ? "bg-primary-900 text-white" : "hover:bg-neutral-200"}`}
+              >
+                <StampIcon name={value} className="size-4" />
+              </button>
+            );
+          })}
         </div>
-        {!matches.length && <p className="opacity-60">nothing found</p>}
+        {extraAll.length > extra.length && (
+          <p className="opacity-60">
+            {extraAll.length - extra.length} more — type a bit more to narrow it down
+          </p>
+        )}
+        {q && allNames === null && <p className="opacity-60">searching all icons…</p>}
+        {q && allNames && !matches.length && !extra.length && (
+          <p className="opacity-60">nothing found</p>
+        )}
       </div>
 
       {/* -ml-4 cancels the button padding, so the labels line up with the text above */}
