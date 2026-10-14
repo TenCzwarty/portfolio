@@ -86,7 +86,7 @@ export default function FunZonePage() {
             </div>
           </div>
 
-          <Link href="/fun-zone/jinder">
+          <Link href="/fun-zone/jinder" className="block">
             <div className="flex flex-col rounded-xl border border-neutral-200 p-4 hover:bg-neutral-200">
               <h3 className="text-lg font-semibold sm:text-xl">Jinder</h3>
               <div className="text-sm">
