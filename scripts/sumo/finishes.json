@@ -1,0 +1,122 @@
+{
+  "_about": "Which printings (finishes) BBM made of each Reiwa-era sumo set, from BBM's official product articles and checklist PDFs. apply-finishes.mjs writes the `parallels` into cards.json; everything else is notes. Ranges are card numbers in cards.json (they match the official checklists 1:1). confidence: confirmed = stated per card in the official checklist; stated = stated in the official article, no per-card list needed.",
+  "_finishes": {
+    "kira": "キラカード: sparkle-printed version of the same card (same number and photo), 1 per pack. effect: sparkle.",
+    "kira-heart": "2026 S2 only: rarer kira parallel with a heart pattern (ハート柄). effect: sparkle.",
+    "kira-star": "2026 S2 only: rarer kira parallel with a star pattern (星柄). effect: sparkle."
+  },
+  "sets": {
+    "20s1": {
+      "parallels": [],
+      "confidence": "stated",
+      "notes": "No parallels. Regular-card frame colour varies by rank, which BBM does not treat as a parallel. 8 autographs.",
+      "sources": ["https://www.bbm-japan.com/article/detail/4530"]
+    },
+    "20s2": {
+      "parallels": [],
+      "confidence": "stated",
+      "notes": "No parallels. 11 autographs.",
+      "sources": ["https://www.bbm-japan.com/article/detail/4447"]
+    },
+    "21s1": {
+      "parallels": [],
+      "confidence": "stated",
+      "notes": "No parallels. 9 autographs.",
+      "sources": ["https://www.bbm-japan.com/article/detail/13248"]
+    },
+    "21h": {
+      "parallels": [],
+      "confidence": "stated",
+      "notes": "Legend Heroes: no parallels. 45 autographs.",
+      "sources": ["https://www.bbm-japan.com/article/detail/24705"]
+    },
+    "21s2": {
+      "parallels": [],
+      "confidence": "confirmed",
+      "notes": "Takumi: no parallels, and no finish marks on the checklist. 8 autographs.",
+      "sources": [
+        "https://www.bbm-japan.com/article/detail/18617",
+        "https://www.sportsclick.jp/user_data/signlist/2021sumotakumi_list.pdf"
+      ]
+    },
+    "22s1": {
+      "parallels": [],
+      "confidence": "stated",
+      "notes": "No parallels. 9 autographs.",
+      "sources": ["https://www.bbm-japan.com/article/detail/28827"]
+    },
+    "22s2": {
+      "parallels": [],
+      "confidence": "stated",
+      "notes": "Hana: no parallels. 10 autographs.",
+      "sources": ["https://www.bbm-japan.com/article/detail/32303"]
+    },
+    "23s1": {
+      "parallels": [],
+      "confidence": "stated",
+      "notes": "No parallels. 11 autographs.",
+      "sources": ["https://www.bbm-japan.com/article/detail/39460"]
+    },
+    "23s2": {
+      "parallels": [],
+      "confidence": "stated",
+      "notes": "Kizuna: no parallels. 10 autographs.",
+      "sources": ["https://www.bbm-japan.com/article/detail/41860"]
+    },
+    "24s1": {
+      "parallels": [],
+      "confidence": "stated",
+      "notes": "No parallels. 10 autographs.",
+      "sources": ["https://www.bbm-japan.com/article/detail/48636"]
+    },
+    "24s2": {
+      "parallels": [],
+      "confidence": "confirmed",
+      "notes": "Hibiki: no parallels, and no finish marks on the checklist. Insert TREASURE: 5 cards, 25 copies each. 12 autographs.",
+      "sources": [
+        "https://www.bbm-japan.com/article/detail/51634",
+        "https://www.sportsclick.jp/user_data/signlist/2024hibiki_list2.pdf"
+      ]
+    },
+    "25s1": {
+      "parallels": [{ "finish": "kira", "cards": ["01-42", "71-81"] }],
+      "confidence": "confirmed",
+      "notes": "First set with kira: makuuchi regulars and the 縁起物 subset. Insert 至宝 SH1-SH7: 50 copies each on gold-foil paper, plus a 1-of-1 light-purple foil (薄紫箔) parallel of each — the first 1-of-1 in the sumo line. 12 autographs.",
+      "sources": [
+        "https://www.bbm-japan.com/article/detail/57947",
+        "https://www.sportsclick.jp/user_data/signlist/2025sumo_list.pdf"
+      ]
+    },
+    "25s2": {
+      "parallels": [{ "finish": "kira", "cards": ["01-42", "47-64"] }],
+      "confidence": "confirmed",
+      "notes": "Nagomi: kira for all regulars and the Smile! subset. Insert TREASURE TSM1-TSM7: 25 copies each. 13 autographs, Hoshoryu also as a 30-copy photo variation. Card 71 「二子山 雅高」 is oyakata Futagoyama (ex-Miyabiyama).",
+      "sources": [
+        "https://www.bbm-japan.com/article/detail/60796",
+        "https://www.sportsclick.jp/user_data/signlist/2025sumo-nagomi_list.pdf"
+      ]
+    },
+    "26s1": {
+      "parallels": [{ "finish": "kira", "cards": ["01-42", "71-76", "81-87", "90"] }],
+      "confidence": "confirmed",
+      "notes": "Kira uses a cherry-blossom pattern. Inserts 巨星 KY1-KY2 and 明星 MY1-MY5: 50 copies each in gold foil on gold paper, plus a 1-of-1 purple foil (パープル箔) parallel of each. 14 autographs, Onosato also as a 30-copy variation.",
+      "sources": [
+        "https://www.bbm-japan.com/article/detail/67001",
+        "https://www.sportsclick.jp/user_data/signlist/2026sumo_list.pdf"
+      ]
+    },
+    "26s2": {
+      "parallels": [
+        { "finish": "kira", "cards": ["01-42", "51-62", "70-81"] },
+        { "finish": "kira-heart", "cards": ["01-42", "51-62", "70-81"] },
+        { "finish": "kira-star", "cards": ["01-42", "51-62", "70-81"] }
+      ],
+      "confidence": "confirmed",
+      "notes": "Sato: kira in three tiers (regular, heart, star) for regulars, 同郷の絆, 兄弟！ and Another Scene. Cards 01-08 (komusubi and up) also have a secret version with a different photo — a photo variation, not a finish, so not in cards.json. Insert TREASURE TSM1-TSM8: 25 copies each. 14 autographs and 4 combo autographs (first in the series).",
+      "sources": [
+        "https://www.bbm-japan.com/article/detail/70445",
+        "https://www.sportsclick.jp/user_data/signlist/2026sumosato_list.pdf"
+      ]
+    }
+  }
+}

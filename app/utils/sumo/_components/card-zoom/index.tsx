@@ -90,8 +90,8 @@ export const CardZoom = (props: TCardZoomProps) => {
           </div>
           <p className="max-w-xs text-center text-xs text-neutral-400">
             {catalogued.size > 1
-              ? "• printed for this card, the rest are previews."
-              : "Preview only: which versions this card was printed in isn't catalogued yet."}
+              ? `Printed as ${finishes.map((finish) => finish.name).join(", ")} (•); the rest are previews.`
+              : "Printed in the standard version only; the other finishes are previews."}
           </p>
         </div>
 

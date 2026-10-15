@@ -77,13 +77,19 @@ export const SumoCard = (props: TSumoCardProps) => {
             )}
           </div>
 
+          {/* One compact pill: the full list is in the zoomed view and the title */}
           {finishes.length > 1 && (
-            <div className="absolute top-1 right-1 flex gap-0.5">
-              {finishes.slice(1).map((finish) => (
-                <Pill key={finish.id} classes="!px-1.5 !py-0 text-[10px]">
-                  {finish.name}
-                </Pill>
-              ))}
+            <div
+              className="absolute top-1 right-1"
+              title={finishes
+                .slice(1)
+                .map((finish) => finish.name)
+                .join(", ")}
+            >
+              <Pill classes="!px-1.5 !py-0 text-[10px]">
+                {finishes[1].name}
+                {finishes.length > 2 && ` +${finishes.length - 2}`}
+              </Pill>
             </div>
           )}
         </FoilCard>
