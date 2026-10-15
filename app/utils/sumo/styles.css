@@ -7,6 +7,8 @@
   --mx: 50%;
   --my: 50%;
   --hyp: 0;
+  --tx: 0;
+  --ty: 0;
   perspective: 800px;
 }
 
@@ -82,35 +84,38 @@
   opacity: 1;
 }
 
-/* Sparkle / Glitter parallel: grids of tiny glints with mismatched sizes
-   (so no regular pattern shows) drifting at different speeds, so they
-   twinkle as the card tilts, lit only around the light */
+/* Sparkle / Glitter parallel: a fixed grid of printed glitter dots; as the
+   card tilts, some of them flare into four-point stars. Which ones flare is
+   picked by two sparse stripe masks at different angles that slide with the
+   tilt, intersected with the light spot. */
+.sumo-foil[data-effect="sparkle"] {
+  --glint-grid: 14px;
+}
+
 .sumo-foil[data-effect="sparkle"] .sumo-foil__shine {
+  background-image: radial-gradient(circle, rgb(255 255 255 / 0.3) 0 0.6px, transparent 1.1px);
+  background-size: var(--glint-grid) var(--glint-grid);
+  mix-blend-mode: screen;
+}
+
+.sumo-foil[data-effect="sparkle"] .sumo-foil__shine::after {
+  content: "";
+  position: absolute;
+  inset: 0;
   background-image:
-    radial-gradient(circle, rgb(255 255 255) 0 0.8px, transparent 1.3px),
-    radial-gradient(circle, hsl(190 100% 85%) 0 0.6px, transparent 1px),
-    radial-gradient(circle, hsl(320 100% 88%) 0 0.6px, transparent 1px),
-    radial-gradient(circle, hsl(50 100% 85%) 0 0.5px, transparent 0.9px),
-    radial-gradient(circle, rgb(255 255 255) 0 1.1px, transparent 1.6px);
-  background-size:
-    13px 17px,
-    19px 11px,
-    23px 29px,
-    7px 31px,
-    37px 41px;
-  background-position:
-    calc(var(--mx) * 0.3) calc(var(--my) * 0.3),
-    calc(var(--mx) * -0.5 + 5px) calc(var(--my) * 0.4 + 3px),
-    calc(var(--mx) * 0.7 + 9px) calc(var(--my) * -0.6 + 14px),
-    calc(var(--mx) * -0.2 + 2px) calc(var(--my) * 0.9 + 7px),
-    calc(var(--mx) * 0.4 + 17px) calc(var(--my) * 0.2 + 21px);
-  mask-image: radial-gradient(
-    farthest-corner circle at var(--mx) var(--my),
-    black 0%,
-    rgb(0 0 0 / 0.5) 30%,
-    transparent 65%
-  );
-  mix-blend-mode: color-dodge;
+    radial-gradient(ellipse 7px 0.8px, rgb(255 255 255), transparent),
+    radial-gradient(ellipse 0.8px 7px, rgb(255 255 255), transparent),
+    radial-gradient(circle, rgb(255 255 255) 0 1.4px, transparent 3px);
+  background-size: var(--glint-grid) var(--glint-grid);
+  mask-image:
+    repeating-linear-gradient(60deg, black 0 8px, transparent 12px 37px, black 41px),
+    repeating-linear-gradient(-25deg, black 0 10px, transparent 14px 47px, black 51px),
+    radial-gradient(farthest-corner circle at var(--mx) var(--my), black 0%, transparent 70%);
+  mask-position:
+    calc(var(--tx) * 140px) calc(var(--ty) * 100px),
+    calc(var(--tx) * -170px) calc(var(--ty) * 120px),
+    0 0;
+  mask-composite: intersect;
 }
 
 /* Prismatic 1-of-1: rainbow bands over a fine diagonal grain, sliding
@@ -147,19 +152,18 @@
   filter: brightness(0.55) contrast(1.5) saturate(1.3);
 }
 
-/* Gold / purple foil: one-hue metallic bands. The
-   foil color comes from --leaf-* so both share the same recipe; the gaps
-   between bands are near black, which color-dodge leaves untouched. */
+/* Gold / purple foil: one-hue metallic bands sliding with the light. The
+   foil color comes from --leaf-* so both share the same recipe. */
 .sumo-foil[data-effect="gold"] {
-  --leaf-dark: hsl(35 60% 3%);
-  --leaf-mid: hsl(40 85% 32%);
-  --leaf-light: hsl(48 100% 70%);
+  --leaf-dark: hsl(35 80% 22%);
+  --leaf-mid: hsl(42 90% 48%);
+  --leaf-light: hsl(48 100% 78%);
 }
 
 .sumo-foil[data-effect="purple"] {
-  --leaf-dark: hsl(275 60% 3%);
-  --leaf-mid: hsl(285 70% 32%);
-  --leaf-light: hsl(300 100% 75%);
+  --leaf-dark: hsl(275 70% 20%);
+  --leaf-mid: hsl(285 75% 50%);
+  --leaf-light: hsl(300 100% 82%);
 }
 
 .sumo-foil[data-effect="gold"] .sumo-foil__shine,
@@ -167,17 +171,15 @@
   background-image: repeating-linear-gradient(
     120deg,
     var(--leaf-dark) 0%,
-    var(--leaf-dark) 8%,
-    var(--leaf-mid) 12%,
-    var(--leaf-light) 14%,
-    var(--leaf-mid) 16%,
-    var(--leaf-dark) 20%,
-    var(--leaf-dark) 28%
+    var(--leaf-mid) 6%,
+    var(--leaf-light) 10%,
+    var(--leaf-mid) 14%,
+    var(--leaf-dark) 22%
   );
   background-size: 300% 300%;
   background-position: var(--mx) var(--my);
   mix-blend-mode: color-dodge;
-  filter: contrast(1.2);
+  filter: brightness(0.75) contrast(1.4);
 }
 
 /* Colored finishes get stronger toward the edges, where real foil catches

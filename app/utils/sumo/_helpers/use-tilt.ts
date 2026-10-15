@@ -5,6 +5,7 @@ const REDUCED_MOTION = "(prefers-reduced-motion: reduce)";
 /**
  * Tilts an element toward the pointer by writing CSS variables on it:
  * --rx / --ry (rotation in deg), --mx / --my (pointer position in %),
+ * --tx / --ty (the same, unitless, -0.5 to 0.5),
  * --hyp (0 at the center, 1 at a corner) and data-active while hovered.
  * Styles live in styles.css (.sumo-foil). Writes straight to the DOM once
  * per frame, so moving the mouse never re-renders React.
@@ -34,13 +35,17 @@ export const useTilt = <T extends HTMLElement>(maxTilt: number) => {
         element.style.setProperty("--mx", `${((x + 0.5) * 100).toFixed(1)}%`);
         element.style.setProperty("--my", `${((y + 0.5) * 100).toFixed(1)}%`);
         element.style.setProperty("--hyp", Math.min(Math.hypot(x, y) / 0.7071, 1).toFixed(3));
+        // Unitless copies for calc(var(--tx) * 1px): % positions don't move
+        // a mask that's as big as its box
+        element.style.setProperty("--tx", x.toFixed(3));
+        element.style.setProperty("--ty", y.toFixed(3));
       });
     };
 
     const onPointerLeave = () => {
       cancelAnimationFrame(frame);
       delete element.dataset.active;
-      for (const name of ["--rx", "--ry", "--mx", "--my", "--hyp"]) {
+      for (const name of ["--rx", "--ry", "--mx", "--my", "--hyp", "--tx", "--ty"]) {
         element.style.removeProperty(name);
       }
     };
