@@ -5,15 +5,21 @@ import type { TFoilCardProps } from "./types";
 import { useTilt } from "~sumo/_helpers/use-tilt";
 
 /**
- * Card surface that tilts toward the cursor with a foil shine and a glare
- * spot following it. The outer element catches the pointer and stays still,
- * so the tilt doesn't change what's under the cursor and jitter.
+ * Card surface that tilts toward the cursor with a finish-specific shine
+ * (see `effect`) and a glare spot following it. The outer element catches the
+ * pointer and stays still, so the tilt doesn't change what's under the cursor
+ * and jitter.
  */
-export const FoilCard = ({ maxTilt = 10, className = "", children }: TFoilCardProps) => {
+export const FoilCard = ({
+  maxTilt = 10,
+  effect = "sleeve",
+  className = "",
+  children,
+}: TFoilCardProps) => {
   const ref = useTilt<HTMLDivElement>(maxTilt);
 
   return (
-    <div ref={ref} className="sumo-foil">
+    <div ref={ref} className="sumo-foil" data-effect={effect}>
       <div className={`sumo-foil__card ${className}`}>
         {children}
         <div className="sumo-foil__shine" aria-hidden />

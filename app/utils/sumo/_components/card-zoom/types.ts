@@ -1,5 +1,6 @@
+import type { TFinish } from "~sumo/_const/types";
+
 export type TCardZoomProps = {
-  open: boolean;
   onClose: () => void;
   src: string;
   alt: string;
@@ -8,4 +9,5 @@ export type TCardZoomProps = {
   kanji: string;
   /** one line per rikishi: current name · top rank · heya */
   details: Array<string>;
+  finishes: Array<TFinish>;
 };

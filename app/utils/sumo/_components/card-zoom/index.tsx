@@ -5,21 +5,25 @@ import React from "react";
 import type { TCardZoomProps } from "./types";
 
 import { FoilCard } from "~sumo/_components/foil-card";
+import { FINISH_EFFECTS } from "~sumo/_const";
 
 /**
  * Enlarged card in a native <dialog>: Esc, focus trapping and the top layer
  * come for free. Closes on Esc, the close button or a click on the backdrop.
+ * Starts on the card's own finish; the buttons preview it in any finish.
+ * Mount it only while zoomed: it opens on mount.
  */
 export const CardZoom = (props: TCardZoomProps) => {
-  const { open, onClose, src, alt, number, name, kanji, details } = props;
+  const { onClose, src, alt, number, name, kanji, details, finishes } = props;
   const ref = React.useRef<HTMLDialogElement>(null);
+  const [effect, setEffect] = React.useState(finishes[0]?.effect ?? "sleeve");
 
   React.useEffect(() => {
-    const dialog = ref.current;
-    if (!dialog) return;
-    if (open && !dialog.open) dialog.showModal();
-    if (!open && dialog.open) dialog.close();
-  }, [open]);
+    // Strict mode runs this twice; showModal throws on some browsers if already open
+    if (ref.current && !ref.current.open) ref.current.showModal();
+  }, []);
+
+  const catalogued = new Set(finishes.map((finish) => finish.effect ?? "sleeve"));
 
   return (
     <dialog
@@ -32,7 +36,7 @@ export const CardZoom = (props: TCardZoomProps) => {
       onClick={(e) => e.target === e.currentTarget && onClose()}
     >
       <div className="flex flex-col items-center gap-4">
-        <FoilCard maxTilt={8} className="rounded-2xl">
+        <FoilCard maxTilt={8} effect={effect} className="rounded-2xl">
           {/* Local scans, already small: next/image would only re-encode them */}
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
@@ -52,6 +56,43 @@ export const CardZoom = (props: TCardZoomProps) => {
               {line}
             </div>
           ))}
+        </div>
+
+        <div className="flex flex-col items-center gap-2">
+          <div
+            role="group"
+            aria-label="Preview finish"
+            className="flex flex-wrap justify-center gap-1"
+          >
+            {FINISH_EFFECTS.map((option) => (
+              <button
+                key={option.effect}
+                type="button"
+                aria-pressed={effect === option.effect}
+                onClick={() => setEffect(option.effect)}
+                className={`rounded-lg px-3 py-1.5 text-sm ${
+                  effect === option.effect
+                    ? "bg-white text-neutral-900"
+                    : "text-white hover:bg-white/10"
+                }`}
+              >
+                {option.label}
+                {catalogued.size > 1 && catalogued.has(option.effect) && (
+                  <>
+                    <span aria-hidden className="ml-1">
+                      •
+                    </span>
+                    <span className="sr-only"> (printed for this card)</span>
+                  </>
+                )}
+              </button>
+            ))}
+          </div>
+          <p className="max-w-xs text-center text-xs text-neutral-400">
+            {catalogued.size > 1
+              ? "• printed for this card, the rest are previews."
+              : "Preview only: which versions this card was printed in isn't catalogued yet."}
+          </p>
         </div>
 
         <button

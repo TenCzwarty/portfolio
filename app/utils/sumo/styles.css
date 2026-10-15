@@ -1,4 +1,5 @@
-/* Foil card: tilt toward the cursor + rainbow shine + glare (see use-tilt.ts) */
+/* Foil card: tilt toward the cursor + a finish-specific shine + glare
+   (see use-tilt.ts). data-effect on .sumo-foil picks the finish. */
 
 .sumo-foil {
   --rx: 0deg;
@@ -38,9 +39,83 @@
   transition: opacity 0.5s ease;
 }
 
-/* Rainbow bands over a fine diagonal grain, sliding opposite ways as the
-   card tilts, dodged into the image like a holo print */
-.sumo-foil__shine {
+.sumo-foil__glare {
+  background-image: radial-gradient(
+    farthest-corner circle at var(--mx) var(--my),
+    rgb(255 255 255 / 0.6) 0%,
+    rgb(255 255 255 / 0.2) 25%,
+    transparent 60%
+  );
+  mix-blend-mode: overlay;
+}
+
+.sumo-foil[data-active] .sumo-foil__glare {
+  opacity: 1;
+}
+
+/* Standard card in a sleeve: no color, just a soft band of white light
+   sliding across the plastic */
+.sumo-foil[data-effect="sleeve"] .sumo-foil__shine {
+  background-image:
+    linear-gradient(
+      115deg,
+      transparent 38%,
+      rgb(255 255 255 / 0.35) 46%,
+      rgb(255 255 255 / 0.12) 52%,
+      transparent 60%
+    ),
+    radial-gradient(
+      farthest-corner circle at var(--mx) var(--my),
+      rgb(255 255 255 / 0.3) 0%,
+      transparent 45%
+    );
+  background-size:
+    250% 250%,
+    100% 100%;
+  background-position:
+    var(--mx) var(--my),
+    0 0;
+  mix-blend-mode: screen;
+}
+
+.sumo-foil[data-active][data-effect="sleeve"] .sumo-foil__shine {
+  opacity: 1;
+}
+
+/* Sparkle / Glitter parallel: grids of tiny glints with mismatched sizes
+   (so no regular pattern shows) drifting at different speeds, so they
+   twinkle as the card tilts, lit only around the light */
+.sumo-foil[data-effect="sparkle"] .sumo-foil__shine {
+  background-image:
+    radial-gradient(circle, rgb(255 255 255) 0 0.8px, transparent 1.3px),
+    radial-gradient(circle, hsl(190 100% 85%) 0 0.6px, transparent 1px),
+    radial-gradient(circle, hsl(320 100% 88%) 0 0.6px, transparent 1px),
+    radial-gradient(circle, hsl(50 100% 85%) 0 0.5px, transparent 0.9px),
+    radial-gradient(circle, rgb(255 255 255) 0 1.1px, transparent 1.6px);
+  background-size:
+    13px 17px,
+    19px 11px,
+    23px 29px,
+    7px 31px,
+    37px 41px;
+  background-position:
+    calc(var(--mx) * 0.3) calc(var(--my) * 0.3),
+    calc(var(--mx) * -0.5 + 5px) calc(var(--my) * 0.4 + 3px),
+    calc(var(--mx) * 0.7 + 9px) calc(var(--my) * -0.6 + 14px),
+    calc(var(--mx) * -0.2 + 2px) calc(var(--my) * 0.9 + 7px),
+    calc(var(--mx) * 0.4 + 17px) calc(var(--my) * 0.2 + 21px);
+  mask-image: radial-gradient(
+    farthest-corner circle at var(--mx) var(--my),
+    black 0%,
+    rgb(0 0 0 / 0.5) 30%,
+    transparent 65%
+  );
+  mix-blend-mode: color-dodge;
+}
+
+/* Prismatic 1-of-1: rainbow bands over a fine diagonal grain, sliding
+   opposite ways as the card tilts, dodged into the image */
+.sumo-foil[data-effect="prismatic"] .sumo-foil__shine {
   background-image:
     repeating-linear-gradient(
       110deg,
@@ -72,22 +147,47 @@
   filter: brightness(0.55) contrast(1.5) saturate(1.3);
 }
 
-.sumo-foil__glare {
-  background-image: radial-gradient(
-    farthest-corner circle at var(--mx) var(--my),
-    rgb(255 255 255 / 0.6) 0%,
-    rgb(255 255 255 / 0.2) 25%,
-    transparent 60%
-  );
-  mix-blend-mode: overlay;
+/* Gold / purple foil: one-hue metallic bands. The
+   foil color comes from --leaf-* so both share the same recipe; the gaps
+   between bands are near black, which color-dodge leaves untouched. */
+.sumo-foil[data-effect="gold"] {
+  --leaf-dark: hsl(35 60% 3%);
+  --leaf-mid: hsl(40 85% 32%);
+  --leaf-light: hsl(48 100% 70%);
 }
 
-/* Stronger toward the edges, where real foil catches the most light */
-.sumo-foil[data-active] .sumo-foil__shine {
+.sumo-foil[data-effect="purple"] {
+  --leaf-dark: hsl(275 60% 3%);
+  --leaf-mid: hsl(285 70% 32%);
+  --leaf-light: hsl(300 100% 75%);
+}
+
+.sumo-foil[data-effect="gold"] .sumo-foil__shine,
+.sumo-foil[data-effect="purple"] .sumo-foil__shine {
+  background-image: repeating-linear-gradient(
+    120deg,
+    var(--leaf-dark) 0%,
+    var(--leaf-dark) 8%,
+    var(--leaf-mid) 12%,
+    var(--leaf-light) 14%,
+    var(--leaf-mid) 16%,
+    var(--leaf-dark) 20%,
+    var(--leaf-dark) 28%
+  );
+  background-size: 300% 300%;
+  background-position: var(--mx) var(--my);
+  mix-blend-mode: color-dodge;
+  filter: contrast(1.2);
+}
+
+/* Colored finishes get stronger toward the edges, where real foil catches
+   the most light */
+.sumo-foil[data-active]:not([data-effect="sleeve"]) .sumo-foil__shine {
   opacity: calc(0.3 + var(--hyp) * 0.4);
 }
 
-.sumo-foil[data-active] .sumo-foil__glare {
+/* Glints are tiny and already masked to the light, so show them fully */
+.sumo-foil[data-active][data-effect="sparkle"] .sumo-foil__shine {
   opacity: 1;
 }
 

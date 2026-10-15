@@ -47,7 +47,10 @@ export const SumoCard = (props: TSumoCardProps) => {
   return (
     <>
       <div className="flex flex-col items-center gap-1" title={details.join("\n")}>
-        <FoilCard className="rounded-xl border border-neutral-200 bg-white p-2">
+        <FoilCard
+          effect={finishes[0]?.effect}
+          className="rounded-xl border border-neutral-200 bg-white p-2"
+        >
           <div className="relative h-[160px] w-[112px] overflow-hidden rounded-lg bg-neutral-100">
             {imageSrc ? (
               <button
@@ -93,9 +96,8 @@ export const SumoCard = (props: TSumoCardProps) => {
         )}
       </div>
 
-      {imageSrc && (
+      {imageSrc && zoomed && (
         <CardZoom
-          open={zoomed}
           onClose={() => setZoomed(false)}
           src={imageSrc}
           alt={title}
@@ -103,6 +105,7 @@ export const SumoCard = (props: TSumoCardProps) => {
           name={displayName}
           kanji={kanji}
           details={details}
+          finishes={finishes}
         />
       )}
     </>

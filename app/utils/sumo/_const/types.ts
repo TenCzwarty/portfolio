@@ -1,9 +1,17 @@
+/**
+ * How a printing catches the light, mapped to the BBM finishes:
+ * sleeve = standard card (in a sleeve), sparkle = Sparkle / Glitter parallel,
+ * gold = gold foil (金箔), purple = purple foil (紫箔), prismatic = 1-of-1 rainbow
+ */
+export type TFinishEffect = "sleeve" | "sparkle" | "gold" | "purple" | "prismatic";
+
 export type TFinish = {
   id: string;
   name: string;
   printRun: number | null;
   chase?: boolean;
-  effect?: "holo" | "foil" | "prismatic";
+  /** missing = sleeve */
+  effect?: TFinishEffect;
 };
 
 export type TSumoCard = {
