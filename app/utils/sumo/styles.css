@@ -1,1 +1,116 @@
-/* placeholder for future holo/foil card effects */
+/* Foil card: tilt toward the cursor + rainbow shine + glare (see use-tilt.ts) */
+
+.sumo-foil {
+  --rx: 0deg;
+  --ry: 0deg;
+  --mx: 50%;
+  --my: 50%;
+  --hyp: 0;
+  perspective: 800px;
+}
+
+.sumo-foil__card {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  transform: rotateX(var(--rx)) rotateY(var(--ry));
+  transition:
+    transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1),
+    box-shadow 0.6s ease;
+  will-change: transform;
+}
+
+.sumo-foil[data-active] .sumo-foil__card {
+  transition:
+    transform 0.12s ease-out,
+    box-shadow 0.3s ease;
+  box-shadow: 0 14px 28px -10px rgb(0 0 0 / 0.4);
+}
+
+.sumo-foil__shine,
+.sumo-foil__glare {
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  border-radius: inherit;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+
+/* Rainbow bands over a fine diagonal grain, sliding opposite ways as the
+   card tilts, dodged into the image like a holo print */
+.sumo-foil__shine {
+  background-image:
+    repeating-linear-gradient(
+      110deg,
+      hsl(2 100% 73%) 0%,
+      hsl(53 100% 69%) 7%,
+      hsl(93 100% 69%) 14%,
+      hsl(176 100% 76%) 21%,
+      hsl(228 100% 74%) 28%,
+      hsl(283 100% 73%) 35%,
+      hsl(2 100% 73%) 42%
+    ),
+    repeating-linear-gradient(
+      -45deg,
+      hsl(230 50% 12%) 0%,
+      hsl(180 10% 60%) 3.8%,
+      hsl(180 29% 66%) 4.5%,
+      hsl(180 10% 60%) 5.2%,
+      hsl(230 50% 12%) 10%,
+      hsl(230 50% 12%) 12%
+    );
+  background-size:
+    400% 400%,
+    300% 300%;
+  background-position:
+    var(--mx) var(--my),
+    calc(100% - var(--mx)) calc(100% - var(--my));
+  background-blend-mode: overlay;
+  mix-blend-mode: color-dodge;
+  filter: brightness(0.55) contrast(1.5) saturate(1.3);
+}
+
+.sumo-foil__glare {
+  background-image: radial-gradient(
+    farthest-corner circle at var(--mx) var(--my),
+    rgb(255 255 255 / 0.6) 0%,
+    rgb(255 255 255 / 0.2) 25%,
+    transparent 60%
+  );
+  mix-blend-mode: overlay;
+}
+
+/* Stronger toward the edges, where real foil catches the most light */
+.sumo-foil[data-active] .sumo-foil__shine {
+  opacity: calc(0.3 + var(--hyp) * 0.4);
+}
+
+.sumo-foil[data-active] .sumo-foil__glare {
+  opacity: 1;
+}
+
+/* Zoomed card dialog */
+
+.sumo-zoom::backdrop {
+  background: rgb(0 0 0 / 0.7);
+  backdrop-filter: blur(4px);
+}
+
+.sumo-zoom[open] {
+  animation: sumo-zoom-in 0.2s ease-out;
+}
+
+@keyframes sumo-zoom-in {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sumo-zoom[open] {
+    animation: none;
+  }
+}

@@ -7,6 +7,8 @@ import { Pill } from "~/components/pill";
 
 import type { TSumoCardProps } from "./types";
 
+import { CardZoom } from "~sumo/_components/card-zoom";
+import { FoilCard } from "~sumo/_components/foil-card";
 import { getRikishi } from "~sumo/_const";
 
 const RIKISHI = getRikishi();
@@ -14,6 +16,7 @@ const RIKISHI = getRikishi();
 export const SumoCard = (props: TSumoCardProps) => {
   const { title, number, src, finishes, rikishi } = props;
   const [imgError, setImgError] = React.useState(false);
+  const [zoomed, setZoomed] = React.useState(false);
 
   const people = rikishi.map((slug) => RIKISHI[slug]);
 
@@ -29,59 +32,79 @@ export const SumoCard = (props: TSumoCardProps) => {
     .filter(Boolean)
     .join(" / ");
 
-  const tooltip = people
-    .map((person, i) => {
-      if (!person) return printedNames[i];
-      const currentShikona = person.shikona.split(" ")[0];
-      const name =
-        currentShikona === printedNames[i]
-          ? currentShikona
-          : `${currentShikona} (${printedNames[i]} on card)`;
-      return [name, person.topRank, person.heya].filter(Boolean).join(" · ");
-    })
-    .join("\n");
+  const details = people.map((person, i) => {
+    if (!person) return printedNames[i];
+    const currentShikona = person.shikona.split(" ")[0];
+    const name =
+      currentShikona === printedNames[i]
+        ? currentShikona
+        : `${currentShikona} (${printedNames[i]} on card)`;
+    return [name, person.topRank, person.heya].filter(Boolean).join(" · ");
+  });
 
-  const imageSrc = src ? `/images/utils/sumo/${src}` : null;
+  const imageSrc = src && !imgError ? `/images/utils/sumo/${src}` : null;
 
   return (
-    <div className="flex flex-col items-center gap-1" title={tooltip}>
-      <div className="group relative rounded-xl border border-neutral-200 bg-white p-2">
-        <div className="relative h-[160px] w-[112px] overflow-hidden rounded-lg bg-neutral-100">
-          {imageSrc && !imgError ? (
-            <NextImage
-              src={imageSrc}
-              fill
-              sizes="112px"
-              className="object-cover"
-              alt={title}
-              onError={() => setImgError(true)}
-              unoptimized
-            />
-          ) : (
-            <div className="flex h-full w-full flex-col items-center justify-center text-center text-neutral-400">
-              <span className="text-2xl font-bold">#{number}</span>
-              <span className="mt-1 px-1 text-xs leading-tight">{displayName}</span>
+    <>
+      <div className="flex flex-col items-center gap-1" title={details.join("\n")}>
+        <FoilCard className="rounded-xl border border-neutral-200 bg-white p-2">
+          <div className="relative h-[160px] w-[112px] overflow-hidden rounded-lg bg-neutral-100">
+            {imageSrc ? (
+              <button
+                type="button"
+                onClick={() => setZoomed(true)}
+                className="block h-full w-full cursor-zoom-in"
+                aria-label={`Zoom in on #${number} ${displayName}`}
+              >
+                <NextImage
+                  src={imageSrc}
+                  fill
+                  sizes="112px"
+                  className="object-cover"
+                  alt={title}
+                  onError={() => setImgError(true)}
+                  unoptimized
+                />
+              </button>
+            ) : (
+              <div className="flex h-full w-full flex-col items-center justify-center text-center text-neutral-400">
+                <span className="text-2xl font-bold">#{number}</span>
+                <span className="mt-1 px-1 text-xs leading-tight">{displayName}</span>
+              </div>
+            )}
+          </div>
+
+          {finishes.length > 1 && (
+            <div className="absolute top-1 right-1 flex gap-0.5">
+              {finishes.slice(1).map((finish) => (
+                <Pill key={finish.id} classes="!px-1.5 !py-0 text-[10px]">
+                  {finish.name}
+                </Pill>
+              ))}
             </div>
           )}
-        </div>
+        </FoilCard>
 
-        {finishes.length > 1 && (
-          <div className="absolute top-1 right-1 flex gap-0.5">
-            {finishes.slice(1).map((finish) => (
-              <Pill key={finish.id} classes="!px-1.5 !py-0 text-[10px]">
-                {finish.name}
-              </Pill>
-            ))}
-          </div>
+        <h4 className="max-w-[120px] truncate text-center text-xs">{displayName}</h4>
+        {kanji && (
+          <span className="-mt-1 max-w-[120px] truncate text-center text-[10px] text-neutral-500">
+            {kanji}
+          </span>
         )}
       </div>
 
-      <h4 className="max-w-[120px] truncate text-center text-xs">{displayName}</h4>
-      {kanji && (
-        <span className="-mt-1 max-w-[120px] truncate text-center text-[10px] text-neutral-500">
-          {kanji}
-        </span>
+      {imageSrc && (
+        <CardZoom
+          open={zoomed}
+          onClose={() => setZoomed(false)}
+          src={imageSrc}
+          alt={title}
+          number={number}
+          name={displayName}
+          kanji={kanji}
+          details={details}
+        />
       )}
-    </div>
+    </>
   );
 };
