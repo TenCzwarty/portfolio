@@ -1,1 +1,187 @@
-/* placeholder for future holo/foil card effects */
+/* Foil card: tilt toward the cursor + a finish-specific shine + glare
+   (see use-tilt.ts). data-effect on .sumo-foil picks the finish. */
+
+.sumo-foil {
+  --rx: 0deg;
+  --ry: 0deg;
+  --mx: 50%;
+  --my: 50%;
+  --hyp: 0;
+  --tx: 0;
+  --ty: 0;
+  perspective: 800px;
+}
+
+.sumo-foil__card {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  transform: rotateX(var(--rx)) rotateY(var(--ry));
+  transition:
+    transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1),
+    box-shadow 0.6s ease;
+  will-change: transform;
+}
+
+.sumo-foil[data-active] .sumo-foil__card {
+  transition:
+    transform 0.12s ease-out,
+    box-shadow 0.3s ease;
+  box-shadow: 0 14px 28px -10px rgb(0 0 0 / 0.4);
+}
+
+.sumo-foil__shine,
+.sumo-foil__glare {
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  border-radius: inherit;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+
+.sumo-foil__glare {
+  background-image: radial-gradient(
+    farthest-corner circle at var(--mx) var(--my),
+    rgb(255 255 255 / 0.6) 0%,
+    rgb(255 255 255 / 0.2) 25%,
+    transparent 60%
+  );
+  mix-blend-mode: overlay;
+}
+
+.sumo-foil[data-active] .sumo-foil__glare {
+  opacity: 1;
+}
+
+/* Standard card in a sleeve: no color, just a soft band of white light
+   sliding across the plastic */
+.sumo-foil[data-effect="sleeve"] .sumo-foil__shine {
+  background-image:
+    linear-gradient(
+      115deg,
+      transparent 38%,
+      rgb(255 255 255 / 0.35) 46%,
+      rgb(255 255 255 / 0.12) 52%,
+      transparent 60%
+    ),
+    radial-gradient(
+      farthest-corner circle at var(--mx) var(--my),
+      rgb(255 255 255 / 0.3) 0%,
+      transparent 45%
+    );
+  background-size:
+    250% 250%,
+    100% 100%;
+  background-position:
+    var(--mx) var(--my),
+    0 0;
+  mix-blend-mode: screen;
+}
+
+.sumo-foil[data-active][data-effect="sleeve"] .sumo-foil__shine {
+  opacity: 1;
+}
+
+/* Kira (sparkle) parallels: a fixed, faint printed pattern where some motifs
+   flare up as the card tilts. Which ones flare is picked by two sparse stripe
+   masks at different angles that slide with the tilt (--tx/--ty),
+   intersected with the light spot. Each set's pattern sets --pattern (faint),
+   --pattern-lit (lit) and --pattern-size. */
+
+/* 2025: plain glitter, specks on two mismatched grids so no grid shows */
+.sumo-foil[data-effect="sparkle"] {
+  --pattern:
+    radial-gradient(circle, rgb(255 255 255 / 0.35) 0 0.5px, transparent 0.9px),
+    radial-gradient(circle, rgb(255 255 255 / 0.25) 0 0.5px, transparent 0.9px);
+  --pattern-lit:
+    radial-gradient(circle, rgb(255 255 255) 0 1px, transparent 2.2px),
+    radial-gradient(circle, hsl(190 100% 88%) 0 1px, transparent 2.2px);
+  --pattern-size: 9px 11px, 13px 7px;
+}
+
+/* 2026 S2 Dots: a regular dot grid, lit dots become four-point stars */
+.sumo-foil[data-effect="dots"] {
+  --pattern: radial-gradient(circle, rgb(255 255 255 / 0.3) 0 0.6px, transparent 1.1px);
+  --pattern-lit:
+    radial-gradient(ellipse 7px 0.8px, rgb(255 255 255), transparent),
+    radial-gradient(ellipse 0.8px 7px, rgb(255 255 255), transparent),
+    radial-gradient(circle, rgb(255 255 255) 0 1.4px, transparent 3px);
+  --pattern-size: 14px 14px;
+}
+
+/* 2026 S2 Hearts / Stars, 2026 S1 Sakura: small printed motifs */
+.sumo-foil[data-effect="hearts"] {
+  --pattern: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 18 18'%3E%3Cg fill='%23fff' fill-opacity='.15' transform='translate(9 9) scale(1)'%3E%3Cpath d='M0 3.6 L-3.4 0.2 A2.1 2.1 0 0 1 0 -2.9 A2.1 2.1 0 0 1 3.4 0.2 Z'/%3E%3C/g%3E%3C/svg%3E");
+  --pattern-lit: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 18 18'%3E%3Cg fill='%23ffc2da' transform='translate(9 9) scale(1.4)'%3E%3Cpath d='M0 3.6 L-3.4 0.2 A2.1 2.1 0 0 1 0 -2.9 A2.1 2.1 0 0 1 3.4 0.2 Z'/%3E%3C/g%3E%3C/svg%3E");
+  --pattern-size: 18px 18px;
+}
+
+.sumo-foil[data-effect="stars"] {
+  --pattern: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 18 18'%3E%3Cg fill='%23fff' fill-opacity='.15' transform='translate(9 9) scale(1)'%3E%3Cpath d='M0.00 -4.60 L1.12 -1.54 L4.37 -1.42 L1.81 0.59 L2.70 3.72 L0.00 1.90 L-2.70 3.72 L-1.81 0.59 L-4.37 -1.42 L-1.12 -1.54 Z'/%3E%3C/g%3E%3C/svg%3E");
+  --pattern-lit: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 18 18'%3E%3Cg fill='%23fff4bf' transform='translate(9 9) scale(1.4)'%3E%3Cpath d='M0.00 -4.60 L1.12 -1.54 L4.37 -1.42 L1.81 0.59 L2.70 3.72 L0.00 1.90 L-2.70 3.72 L-1.81 0.59 L-4.37 -1.42 L-1.12 -1.54 Z'/%3E%3C/g%3E%3C/svg%3E");
+  --pattern-size: 18px 18px;
+}
+
+.sumo-foil[data-effect="sakura"] {
+  --pattern: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 20 20'%3E%3Cg fill='%23fff' fill-opacity='.15' transform='translate(10 10) scale(1)'%3E%3Cellipse cx='0' cy='-2.6' rx='1.7' ry='2.6' transform='rotate(0)'/%3E%3Cellipse cx='0' cy='-2.6' rx='1.7' ry='2.6' transform='rotate(72)'/%3E%3Cellipse cx='0' cy='-2.6' rx='1.7' ry='2.6' transform='rotate(144)'/%3E%3Cellipse cx='0' cy='-2.6' rx='1.7' ry='2.6' transform='rotate(216)'/%3E%3Cellipse cx='0' cy='-2.6' rx='1.7' ry='2.6' transform='rotate(288)'/%3E%3C/g%3E%3C/svg%3E");
+  --pattern-lit: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 20 20'%3E%3Cg fill='%23ffd9e8' transform='translate(10 10) scale(1.4)'%3E%3Cellipse cx='0' cy='-2.6' rx='1.7' ry='2.6' transform='rotate(0)'/%3E%3Cellipse cx='0' cy='-2.6' rx='1.7' ry='2.6' transform='rotate(72)'/%3E%3Cellipse cx='0' cy='-2.6' rx='1.7' ry='2.6' transform='rotate(144)'/%3E%3Cellipse cx='0' cy='-2.6' rx='1.7' ry='2.6' transform='rotate(216)'/%3E%3Cellipse cx='0' cy='-2.6' rx='1.7' ry='2.6' transform='rotate(288)'/%3E%3C/g%3E%3C/svg%3E");
+  --pattern-size: 20px 20px;
+}
+
+.sumo-foil[data-effect="sparkle"] .sumo-foil__shine,
+.sumo-foil[data-effect="dots"] .sumo-foil__shine,
+.sumo-foil[data-effect="hearts"] .sumo-foil__shine,
+.sumo-foil[data-effect="stars"] .sumo-foil__shine,
+.sumo-foil[data-effect="sakura"] .sumo-foil__shine {
+  background-image: var(--pattern);
+  background-size: var(--pattern-size);
+  mix-blend-mode: screen;
+}
+
+.sumo-foil__shine::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: var(--pattern-lit, none);
+  background-size: var(--pattern-size, auto);
+  mask-image:
+    repeating-linear-gradient(60deg, black 0 8px, transparent 12px 37px, black 41px),
+    repeating-linear-gradient(-25deg, black 0 10px, transparent 14px 47px, black 51px),
+    radial-gradient(farthest-corner circle at var(--mx) var(--my), black 0%, transparent 70%);
+  mask-position:
+    calc(var(--tx) * 140px) calc(var(--ty) * 100px),
+    calc(var(--tx) * -170px) calc(var(--ty) * 120px),
+    0 0;
+  mask-composite: intersect;
+}
+
+/* The lit motifs are already masked to the light, so show them fully */
+.sumo-foil[data-active]:not([data-effect="sleeve"]) .sumo-foil__shine {
+  opacity: 1;
+}
+
+/* Zoomed card dialog */
+
+.sumo-zoom::backdrop {
+  background: rgb(0 0 0 / 0.7);
+  backdrop-filter: blur(4px);
+}
+
+.sumo-zoom[open] {
+  animation: sumo-zoom-in 0.2s ease-out;
+}
+
+@keyframes sumo-zoom-in {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sumo-zoom[open] {
+    animation: none;
+  }
+}
