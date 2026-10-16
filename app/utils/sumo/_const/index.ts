@@ -11,7 +11,8 @@ export const STORAGE_KEY_OWNED_FINISHES = "sumo-owned-finishes";
 export const FINISH_EFFECTS: Array<{ effect: TFinishEffect; label: string }> = [
   { effect: "sleeve", label: "Standard" },
   { effect: "sparkle", label: "Sparkle" },
-  { effect: "gold", label: "Gold foil" },
-  { effect: "purple", label: "Purple foil" },
-  { effect: "prismatic", label: "Prismatic 1/1" },
+  { effect: "sakura", label: "Sakura" },
+  { effect: "dots", label: "Dots" },
+  { effect: "hearts", label: "Hearts" },
+  { effect: "stars", label: "Stars" },
 ];

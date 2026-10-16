@@ -84,29 +84,68 @@
   opacity: 1;
 }
 
-/* Sparkle / Glitter parallel: a fixed grid of printed glitter dots; as the
-   card tilts, some of them flare into four-point stars. Which ones flare is
-   picked by two sparse stripe masks at different angles that slide with the
-   tilt, intersected with the light spot. */
+/* Kira (sparkle) parallels: a fixed, faint printed pattern where some motifs
+   flare up as the card tilts. Which ones flare is picked by two sparse stripe
+   masks at different angles that slide with the tilt (--tx/--ty),
+   intersected with the light spot. Each set's pattern sets --pattern (faint),
+   --pattern-lit (lit) and --pattern-size. */
+
+/* 2025: plain glitter, specks on two mismatched grids so no grid shows */
 .sumo-foil[data-effect="sparkle"] {
-  --glint-grid: 14px;
+  --pattern:
+    radial-gradient(circle, rgb(255 255 255 / 0.35) 0 0.5px, transparent 0.9px),
+    radial-gradient(circle, rgb(255 255 255 / 0.25) 0 0.5px, transparent 0.9px);
+  --pattern-lit:
+    radial-gradient(circle, rgb(255 255 255) 0 1px, transparent 2.2px),
+    radial-gradient(circle, hsl(190 100% 88%) 0 1px, transparent 2.2px);
+  --pattern-size: 9px 11px, 13px 7px;
 }
 
-.sumo-foil[data-effect="sparkle"] .sumo-foil__shine {
-  background-image: radial-gradient(circle, rgb(255 255 255 / 0.3) 0 0.6px, transparent 1.1px);
-  background-size: var(--glint-grid) var(--glint-grid);
-  mix-blend-mode: screen;
-}
-
-.sumo-foil[data-effect="sparkle"] .sumo-foil__shine::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background-image:
+/* 2026 S2 Dots: a regular dot grid, lit dots become four-point stars */
+.sumo-foil[data-effect="dots"] {
+  --pattern: radial-gradient(circle, rgb(255 255 255 / 0.3) 0 0.6px, transparent 1.1px);
+  --pattern-lit:
     radial-gradient(ellipse 7px 0.8px, rgb(255 255 255), transparent),
     radial-gradient(ellipse 0.8px 7px, rgb(255 255 255), transparent),
     radial-gradient(circle, rgb(255 255 255) 0 1.4px, transparent 3px);
-  background-size: var(--glint-grid) var(--glint-grid);
+  --pattern-size: 14px;
+}
+
+/* 2026 S2 Hearts / Stars, 2026 S1 Sakura: small printed motifs */
+.sumo-foil[data-effect="hearts"] {
+  --pattern: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 18 18'%3E%3Cg fill='%23fff' fill-opacity='.15' transform='translate(9 9) scale(1)'%3E%3Cpath d='M0 3.6 L-3.4 0.2 A2.1 2.1 0 0 1 0 -2.9 A2.1 2.1 0 0 1 3.4 0.2 Z'/%3E%3C/g%3E%3C/svg%3E");
+  --pattern-lit: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 18 18'%3E%3Cg fill='%23ffc2da' transform='translate(9 9) scale(1.4)'%3E%3Cpath d='M0 3.6 L-3.4 0.2 A2.1 2.1 0 0 1 0 -2.9 A2.1 2.1 0 0 1 3.4 0.2 Z'/%3E%3C/g%3E%3C/svg%3E");
+  --pattern-size: 18px;
+}
+
+.sumo-foil[data-effect="stars"] {
+  --pattern: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 18 18'%3E%3Cg fill='%23fff' fill-opacity='.15' transform='translate(9 9) scale(1)'%3E%3Cpath d='M0.00 -4.60 L1.12 -1.54 L4.37 -1.42 L1.81 0.59 L2.70 3.72 L0.00 1.90 L-2.70 3.72 L-1.81 0.59 L-4.37 -1.42 L-1.12 -1.54 Z'/%3E%3C/g%3E%3C/svg%3E");
+  --pattern-lit: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 18 18'%3E%3Cg fill='%23fff4bf' transform='translate(9 9) scale(1.4)'%3E%3Cpath d='M0.00 -4.60 L1.12 -1.54 L4.37 -1.42 L1.81 0.59 L2.70 3.72 L0.00 1.90 L-2.70 3.72 L-1.81 0.59 L-4.37 -1.42 L-1.12 -1.54 Z'/%3E%3C/g%3E%3C/svg%3E");
+  --pattern-size: 18px;
+}
+
+.sumo-foil[data-effect="sakura"] {
+  --pattern: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 20 20'%3E%3Cg fill='%23fff' fill-opacity='.15' transform='translate(10 10) scale(1)'%3E%3Cellipse cx='0' cy='-2.6' rx='1.7' ry='2.6' transform='rotate(0)'/%3E%3Cellipse cx='0' cy='-2.6' rx='1.7' ry='2.6' transform='rotate(72)'/%3E%3Cellipse cx='0' cy='-2.6' rx='1.7' ry='2.6' transform='rotate(144)'/%3E%3Cellipse cx='0' cy='-2.6' rx='1.7' ry='2.6' transform='rotate(216)'/%3E%3Cellipse cx='0' cy='-2.6' rx='1.7' ry='2.6' transform='rotate(288)'/%3E%3C/g%3E%3C/svg%3E");
+  --pattern-lit: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 20 20'%3E%3Cg fill='%23ffd9e8' transform='translate(10 10) scale(1.4)'%3E%3Cellipse cx='0' cy='-2.6' rx='1.7' ry='2.6' transform='rotate(0)'/%3E%3Cellipse cx='0' cy='-2.6' rx='1.7' ry='2.6' transform='rotate(72)'/%3E%3Cellipse cx='0' cy='-2.6' rx='1.7' ry='2.6' transform='rotate(144)'/%3E%3Cellipse cx='0' cy='-2.6' rx='1.7' ry='2.6' transform='rotate(216)'/%3E%3Cellipse cx='0' cy='-2.6' rx='1.7' ry='2.6' transform='rotate(288)'/%3E%3C/g%3E%3C/svg%3E");
+  --pattern-size: 20px;
+}
+
+.sumo-foil[data-effect="sparkle"] .sumo-foil__shine,
+.sumo-foil[data-effect="dots"] .sumo-foil__shine,
+.sumo-foil[data-effect="hearts"] .sumo-foil__shine,
+.sumo-foil[data-effect="stars"] .sumo-foil__shine,
+.sumo-foil[data-effect="sakura"] .sumo-foil__shine {
+  background-image: var(--pattern);
+  background-size: var(--pattern-size);
+  mix-blend-mode: screen;
+}
+
+.sumo-foil__shine::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: var(--pattern-lit, none);
+  background-size: var(--pattern-size, auto);
   mask-image:
     repeating-linear-gradient(60deg, black 0 8px, transparent 12px 37px, black 41px),
     repeating-linear-gradient(-25deg, black 0 10px, transparent 14px 47px, black 51px),
@@ -118,78 +157,8 @@
   mask-composite: intersect;
 }
 
-/* Prismatic 1-of-1: rainbow bands over a fine diagonal grain, sliding
-   opposite ways as the card tilts, dodged into the image */
-.sumo-foil[data-effect="prismatic"] .sumo-foil__shine {
-  background-image:
-    repeating-linear-gradient(
-      110deg,
-      hsl(2 100% 73%) 0%,
-      hsl(53 100% 69%) 7%,
-      hsl(93 100% 69%) 14%,
-      hsl(176 100% 76%) 21%,
-      hsl(228 100% 74%) 28%,
-      hsl(283 100% 73%) 35%,
-      hsl(2 100% 73%) 42%
-    ),
-    repeating-linear-gradient(
-      -45deg,
-      hsl(230 50% 12%) 0%,
-      hsl(180 10% 60%) 3.8%,
-      hsl(180 29% 66%) 4.5%,
-      hsl(180 10% 60%) 5.2%,
-      hsl(230 50% 12%) 10%,
-      hsl(230 50% 12%) 12%
-    );
-  background-size:
-    400% 400%,
-    300% 300%;
-  background-position:
-    var(--mx) var(--my),
-    calc(100% - var(--mx)) calc(100% - var(--my));
-  background-blend-mode: overlay;
-  mix-blend-mode: color-dodge;
-  filter: brightness(0.55) contrast(1.5) saturate(1.3);
-}
-
-/* Gold / purple foil: one-hue metallic bands sliding with the light. The
-   foil color comes from --leaf-* so both share the same recipe. */
-.sumo-foil[data-effect="gold"] {
-  --leaf-dark: hsl(35 80% 22%);
-  --leaf-mid: hsl(42 90% 48%);
-  --leaf-light: hsl(48 100% 78%);
-}
-
-.sumo-foil[data-effect="purple"] {
-  --leaf-dark: hsl(275 70% 20%);
-  --leaf-mid: hsl(285 75% 50%);
-  --leaf-light: hsl(300 100% 82%);
-}
-
-.sumo-foil[data-effect="gold"] .sumo-foil__shine,
-.sumo-foil[data-effect="purple"] .sumo-foil__shine {
-  background-image: repeating-linear-gradient(
-    120deg,
-    var(--leaf-dark) 0%,
-    var(--leaf-mid) 6%,
-    var(--leaf-light) 10%,
-    var(--leaf-mid) 14%,
-    var(--leaf-dark) 22%
-  );
-  background-size: 300% 300%;
-  background-position: var(--mx) var(--my);
-  mix-blend-mode: color-dodge;
-  filter: brightness(0.75) contrast(1.4);
-}
-
-/* Colored finishes get stronger toward the edges, where real foil catches
-   the most light */
+/* The lit motifs are already masked to the light, so show them fully */
 .sumo-foil[data-active]:not([data-effect="sleeve"]) .sumo-foil__shine {
-  opacity: calc(0.3 + var(--hyp) * 0.4);
-}
-
-/* Glints are tiny and already masked to the light, so show them fully */
-.sumo-foil[data-active][data-effect="sparkle"] .sumo-foil__shine {
   opacity: 1;
 }
 

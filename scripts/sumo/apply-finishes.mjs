@@ -16,10 +16,23 @@ const FINISHES_PATH = "finishes.json";
 const CARDS_PATH = "../../app/utils/sumo/_const/cards.json";
 
 // finishes.json id -> finish written to cards.json (see TFinish in types.ts)
+// Names follow TCDB / the hobby; BBM calls them all キラ (kira)
 const FINISHES = {
-  kira: { id: "kira", name: "Kira", printRun: null, effect: "sparkle" },
-  "kira-heart": { id: "kira-heart", name: "Heart kira", printRun: null, effect: "sparkle" },
-  "kira-star": { id: "kira-star", name: "Star kira", printRun: null, effect: "sparkle" },
+  sparkle: { id: "sparkle", name: "Sparkle", printRun: null, effect: "sparkle" },
+  "sakura-sparkle": {
+    id: "sakura-sparkle",
+    name: "Sakura sparkle",
+    printRun: null,
+    effect: "sakura",
+  },
+  "dots-sparkle": { id: "dots-sparkle", name: "Dots sparkle", printRun: null, effect: "dots" },
+  "hearts-sparkle": {
+    id: "hearts-sparkle",
+    name: "Hearts sparkle",
+    printRun: null,
+    effect: "hearts",
+  },
+  "stars-sparkle": { id: "stars-sparkle", name: "Stars sparkle", printRun: null, effect: "stars" },
 };
 
 const dryRun = process.argv.includes("--dry-run");

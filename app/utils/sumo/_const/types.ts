@@ -1,9 +1,10 @@
 /**
- * How a printing catches the light, mapped to the BBM finishes:
- * sleeve = standard card (in a sleeve), sparkle = Sparkle / Glitter parallel,
- * gold = gold foil (金箔), purple = purple foil (紫箔), prismatic = 1-of-1 rainbow
+ * How a printing catches the light. BBM's only parallel on catalogued cards
+ * is kira (sparkle), in a pattern that changes per set (scripts/sumo/finishes.json):
+ * sleeve = standard card (in a sleeve), sparkle = plain glitter (2025),
+ * sakura = cherry blossoms (2026 S1), dots / hearts / stars = 2026 S2 tiers
  */
-export type TFinishEffect = "sleeve" | "sparkle" | "gold" | "purple" | "prismatic";
+export type TFinishEffect = "sleeve" | "sparkle" | "sakura" | "dots" | "hearts" | "stars";
 
 export type TFinish = {
   id: string;
