@@ -3,8 +3,6 @@
 import React from "react";
 import NextImage from "next/image";
 
-import { Pill } from "~/components/pill";
-
 import type { TSumoCardProps } from "./types";
 
 import { CardZoom } from "~sumo/_components/card-zoom";
@@ -76,22 +74,6 @@ export const SumoCard = (props: TSumoCardProps) => {
               </div>
             )}
           </div>
-
-          {/* One compact pill: the full list is in the zoomed view and the title */}
-          {finishes.length > 1 && (
-            <div
-              className="absolute top-1 right-1"
-              title={finishes
-                .slice(1)
-                .map((finish) => finish.name)
-                .join(", ")}
-            >
-              <Pill classes="!px-1.5 !py-0 text-[10px]">
-                {finishes[1].name}
-                {finishes.length > 2 && ` +${finishes.length - 2}`}
-              </Pill>
-            </div>
-          )}
         </FoilCard>
 
         <h4 className="max-w-[120px] truncate text-center text-xs">{displayName}</h4>
