@@ -73,6 +73,14 @@ export default function UtilsFreeZonePage() {
   const [rangeHover, setRangeHover] = React.useState<TDay | null>(null);
   const [newPlanRange, setNewPlanRange] = React.useState<{ start: TDay; end: TDay } | null>(null);
   const [selectedPlanId, setSelectedPlanId] = React.useState<string | null>(null);
+  // days highlighted by hand in view mode: a scratchpad for this screen only, never saved
+  const [preselected, setPreselected] = React.useState<Set<TDay>>(() => new Set());
+  const togglePreselected = (day: TDay) =>
+    setPreselected((days) => {
+      const next = new Set(days);
+      if (!next.delete(day)) next.add(day);
+      return next;
+    });
   const [selectedStamp, setSelectedStamp] = React.useState(DEFAULT_STAMPS[0]);
   // stamp whose options box is open: null = none, "" = a new one
   const [editingStamp, setEditingStamp] = React.useState<string | null>(null);
@@ -163,7 +171,11 @@ export default function UtilsFreeZonePage() {
 
   const onDayClick = (day: TDay, event: React.MouseEvent) => {
     setSelectedPlanId(null);
-    if (!canEdit || mode === null) return;
+    if (mode === null) {
+      togglePreselected(day);
+      return;
+    }
+    if (!canEdit) return;
     if (!me) {
       setEditingMe(true);
       return;
@@ -401,6 +413,7 @@ export default function UtilsFreeZonePage() {
                               : null
                           }
                           selectedPlanId={selectedPlanId}
+                          preselected={preselected}
                           plansClickable={mode === null || !canEdit}
                           onDayClick={onDayClick}
                           onDayHover={(day) => rangeStart && !newPlanRange && setRangeHover(day)}

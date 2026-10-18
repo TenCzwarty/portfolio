@@ -18,6 +18,8 @@ type TMonthGrid = {
   /** plan being picked right now, drawn as a ghost bar */
   draft: { start: TDay; end: TDay; title: string; createdBy: string } | null;
   selectedPlanId: string | null;
+  /** days marked by hand in view mode (local only) */
+  preselected: Set<TDay>;
   /** while picking a range, bars must not swallow clicks meant for days */
   plansClickable: boolean;
   onDayClick: (day: TDay, event: React.MouseEvent) => void;
@@ -44,6 +46,7 @@ export const MonthGrid = ({
   me,
   draft,
   selectedPlanId,
+  preselected,
   plansClickable,
   onDayClick,
   onDayHover,
@@ -94,7 +97,8 @@ export const MonthGrid = ({
                     onMouseEnter={() => onDayHover(day)}
                     aria-label={`${date.toLocaleDateString("en-GB", { dateStyle: "full" })}${free.length ? `, free: ${free.map((p) => p.name).join(", ")}` : ""}${stamps.length ? `, ${stamps.map((s) => `${s.person.name}: ${s.stamp.label}`).join(", ")}` : ""}`}
                     aria-pressed={mine}
-                    className={`border-neutral-200 transition-colors hover:bg-neutral-200 ${col < 6 ? "border-r" : ""}`}
+                    aria-current={preselected.has(day) ? "true" : undefined}
+                    className={`border-neutral-200 transition-colors ${preselected.has(day) ? "bg-accent-500/60 hover:bg-accent-500/80" : "hover:bg-neutral-200"} ${col < 6 ? "border-r" : ""}`}
                     style={{ gridColumn: col + 1, gridRow: "1 / -1" }}
                   />
                   <div
