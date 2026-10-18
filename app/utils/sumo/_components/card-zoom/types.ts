@@ -9,5 +9,6 @@ export type TCardZoomProps = {
   kanji: string;
   /** one line per rikishi: current name · top rank · heya */
   details: Array<string>;
+  cardId: string;
   finishes: Array<TFinish>;
 };

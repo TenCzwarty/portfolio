@@ -4,7 +4,7 @@ import type { TSumoCardSetProps } from "./types";
 
 import { SumoCard } from "~sumo/_components/card";
 
-export const SumoCardSet = ({ sumoSet }: TSumoCardSetProps) => {
+export const SumoCardSet = ({ sumoSet, isSettingsOpened }: TSumoCardSetProps) => {
   const { set, year, label, cards } = sumoSet;
 
   const subtitle = label ? `${year} — ${label}` : `${year}`;
@@ -24,7 +24,7 @@ export const SumoCardSet = ({ sumoSet }: TSumoCardSetProps) => {
 
       <div className="mt-4 flex flex-wrap gap-4">
         {cards.map((card) => (
-          <SumoCard key={card.id} {...card} />
+          <SumoCard key={card.id} {...card} isSettingsOpened={isSettingsOpened} />
         ))}
       </div>
     </div>

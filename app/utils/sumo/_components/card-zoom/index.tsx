@@ -1,12 +1,13 @@
 "use client";
 
 import React from "react";
+import { CheckIcon, PlusIcon } from "lucide-react";
 
 import type { TCardZoomProps } from "./types";
 
 import { FoilCard } from "~sumo/_components/foil-card";
 import { FINISH_EFFECTS } from "~sumo/_const";
-import { useSumoContext } from "~sumo/_context";
+import { ownedKey, useSumoContext } from "~sumo/_context";
 
 /**
  * Enlarged card in a native <dialog>: Esc, focus trapping and the top layer
@@ -15,9 +16,9 @@ import { useSumoContext } from "~sumo/_context";
  * Mount it only while zoomed: it opens on mount.
  */
 export const CardZoom = (props: TCardZoomProps) => {
-  const { onClose, src, alt, number, name, kanji, details, finishes } = props;
+  const { onClose, src, alt, number, name, kanji, details, cardId, finishes } = props;
   const ref = React.useRef<HTMLDialogElement>(null);
-  const { isShowingFinishPreviews } = useSumoContext();
+  const { isShowingFinishPreviews, isOwned, toggleOwned } = useSumoContext();
   const [effect, setEffect] = React.useState(finishes[0]?.effect ?? "sleeve");
 
   React.useEffect(() => {
@@ -107,6 +108,39 @@ export const CardZoom = (props: TCardZoomProps) => {
                 ? `Printed as ${printedNames} (•); the rest are previews.`
                 : `Printed as ${printedNames}.`}
           </p>
+        </div>
+
+        {/* Only finishes that exist can be collected */}
+        <div
+          role="group"
+          aria-label="Your collection"
+          className="flex flex-wrap items-center justify-center gap-1"
+        >
+          <span className="mr-1 text-sm text-neutral-400">collection</span>
+          {finishes.map((finish) => {
+            const key = ownedKey(cardId, finish.id);
+            const owned = isOwned(key);
+
+            return (
+              <button
+                key={finish.id}
+                type="button"
+                aria-pressed={owned}
+                onClick={() => {
+                  toggleOwned(key);
+                  setEffect(finish.effect ?? "sleeve");
+                }}
+                className={`flex items-center gap-1 rounded-lg border px-3 py-1.5 text-sm ${
+                  owned
+                    ? "bg-accent-900 border-transparent text-white"
+                    : "border-white/30 text-white hover:bg-white/10"
+                }`}
+              >
+                {owned ? <CheckIcon size={14} aria-hidden /> : <PlusIcon size={14} aria-hidden />}
+                {finish.name}
+              </button>
+            );
+          })}
         </div>
 
         <button
