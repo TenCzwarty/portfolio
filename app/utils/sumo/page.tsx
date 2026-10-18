@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { LayersIcon } from "lucide-react";
+import { LayersIcon, SparklesIcon } from "lucide-react";
 
 import { getAllSets } from "~/app/utils/sumo/_const";
 import {
@@ -9,13 +9,16 @@ import {
   AccordionController,
   AccordionExtraSettingsToggle,
 } from "~/components/accordion";
+import { IconToggle } from "~/components/icon-toggle";
 import { Section } from "~/components/section";
 
 import "./styles.css";
 
 import { SumoCardSet } from "~sumo/_components/card-set";
+import { useSumoContext } from "~sumo/_context";
 
 export default function UtilsSumoTrackerPage() {
+  const { toggleIsShowingFinishPreviews } = useSumoContext();
   const allSets = getAllSets();
   const [selectedSetCode, setSelectedSetCode] = React.useState(allSets[allSets.length - 1].code);
 
@@ -37,7 +40,16 @@ export default function UtilsSumoTrackerPage() {
 
                 <Accordion {...accordionProps}>
                   <div className="mt-4 -ml-4 flex flex-col space-y-2 rounded-xl border border-neutral-200 p-4">
-                    <span className="text-sm text-neutral-500">settings coming soon</span>
+                    <div className="flex gap-2">
+                      <h4 className="mr-2">finish previews</h4>
+                      <IconToggle
+                        id="finish-previews"
+                        title="preview finishes a card wasn't printed in"
+                        toggleFunction={toggleIsShowingFinishPreviews}
+                      >
+                        <SparklesIcon />
+                      </IconToggle>
+                    </div>
                   </div>
                 </Accordion>
               </div>

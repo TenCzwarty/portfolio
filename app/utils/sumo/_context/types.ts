@@ -1,2 +1,5 @@
-// eslint-disable-next-line @typescript-eslint/no-empty-object-type -- placeholder for future ownership tracking
-export type TSumoContext = {};
+export type TSumoContext = {
+  /** zoomed card offers every finish as a preview, not only the printed ones */
+  isShowingFinishPreviews: boolean;
+  toggleIsShowingFinishPreviews: () => void;
+};

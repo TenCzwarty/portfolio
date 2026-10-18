@@ -6,6 +6,7 @@ import type { TCardZoomProps } from "./types";
 
 import { FoilCard } from "~sumo/_components/foil-card";
 import { FINISH_EFFECTS } from "~sumo/_const";
+import { useSumoContext } from "~sumo/_context";
 
 /**
  * Enlarged card in a native <dialog>: Esc, focus trapping and the top layer
@@ -16,6 +17,7 @@ import { FINISH_EFFECTS } from "~sumo/_const";
 export const CardZoom = (props: TCardZoomProps) => {
   const { onClose, src, alt, number, name, kanji, details, finishes } = props;
   const ref = React.useRef<HTMLDialogElement>(null);
+  const { isShowingFinishPreviews } = useSumoContext();
   const [effect, setEffect] = React.useState(finishes[0]?.effect ?? "sleeve");
 
   React.useEffect(() => {
@@ -24,6 +26,12 @@ export const CardZoom = (props: TCardZoomProps) => {
   }, []);
 
   const catalogued = new Set(finishes.map((finish) => finish.effect ?? "sleeve"));
+  const options = isShowingFinishPreviews
+    ? FINISH_EFFECTS
+    : FINISH_EFFECTS.filter((option) => catalogued.has(option.effect));
+  // Dots only make sense when previews are mixed in with printed finishes
+  const isMarkingPrinted = isShowingFinishPreviews && catalogued.size > 1;
+  const printedNames = finishes.map((finish) => finish.name).join(", ");
 
   return (
     <dialog
@@ -59,39 +67,45 @@ export const CardZoom = (props: TCardZoomProps) => {
         </div>
 
         <div className="flex flex-col items-center gap-2">
-          <div
-            role="group"
-            aria-label="Preview finish"
-            className="flex flex-wrap justify-center gap-1"
-          >
-            {FINISH_EFFECTS.map((option) => (
-              <button
-                key={option.effect}
-                type="button"
-                aria-pressed={effect === option.effect}
-                onClick={() => setEffect(option.effect)}
-                className={`rounded-lg px-3 py-1.5 text-sm ${
-                  effect === option.effect
-                    ? "bg-white text-neutral-900"
-                    : "text-white hover:bg-white/10"
-                }`}
-              >
-                {option.label}
-                {catalogued.size > 1 && catalogued.has(option.effect) && (
-                  <>
-                    <span aria-hidden className="ml-1">
-                      •
-                    </span>
-                    <span className="sr-only"> (printed for this card)</span>
-                  </>
-                )}
-              </button>
-            ))}
-          </div>
+          {options.length > 1 && (
+            <div
+              role="group"
+              aria-label={isShowingFinishPreviews ? "Preview finish" : "Finish"}
+              className="flex flex-wrap justify-center gap-1"
+            >
+              {options.map((option) => (
+                <button
+                  key={option.effect}
+                  type="button"
+                  aria-pressed={effect === option.effect}
+                  onClick={() => setEffect(option.effect)}
+                  className={`rounded-lg px-3 py-1.5 text-sm ${
+                    effect === option.effect
+                      ? "bg-white text-neutral-900"
+                      : "text-white hover:bg-white/10"
+                  }`}
+                >
+                  {option.label}
+                  {isMarkingPrinted && catalogued.has(option.effect) && (
+                    <>
+                      <span aria-hidden className="ml-1">
+                        •
+                      </span>
+                      <span className="sr-only"> (printed for this card)</span>
+                    </>
+                  )}
+                </button>
+              ))}
+            </div>
+          )}
           <p className="max-w-xs text-center text-xs text-neutral-400">
-            {catalogued.size > 1
-              ? `Printed as ${finishes.map((finish) => finish.name).join(", ")} (•); the rest are previews.`
-              : "Printed in the standard version only; the other finishes are previews."}
+            {catalogued.size === 1
+              ? isShowingFinishPreviews
+                ? "Printed in the standard version only; the other finishes are previews."
+                : "Printed in the standard version only."
+              : isShowingFinishPreviews
+                ? `Printed as ${printedNames} (•); the rest are previews.`
+                : `Printed as ${printedNames}.`}
           </p>
         </div>
 

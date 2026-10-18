@@ -1,3 +1,6 @@
 import type { TSumoContext } from "./types";
 
-export const init: TSumoContext = {};
+export const init: TSumoContext = {
+  isShowingFinishPreviews: true,
+  toggleIsShowingFinishPreviews: () => {},
+};
