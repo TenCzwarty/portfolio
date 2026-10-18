@@ -46,6 +46,16 @@ const CARD_FIXES = {
   "26s2.base.62": ["asakoryu", "asasuiryu"], // "Ishizaki Brothers !"
 };
 
+// Card id -> title as actually printed, where TCDB has a typo
+const TITLE_FIXES = {
+  "20s2.base.11": "Takanosho Nobuaki", // TCDB: "Nobuakiu"
+  "20s2.base.32": "Shohozan Yuya", // TCDB: "Yuyau"
+  "20s2.base.80": "Midorifuji", // TCDB: "Midorifuj"
+  "21s1.base.44": "Chiyonoo Miyohito", // TCDB: "Chiyondo"
+  "21s1.base.72": "Tohakuryu Masahito", // TCDB: "Masashito"
+  "21s2.base.64": "Midorifuji", // TCDB: "Midorofuji"
+};
+
 // Slug -> sumo-api rikishi id, for names the matcher can't resolve
 const OVERRIDES = {
   midorifuj: 34, // TCDB typo
@@ -134,7 +144,10 @@ const main = async () => {
   const sets = JSON.parse(cardsRaw);
   const cards = sets.flatMap((set) => set.cards);
 
-  for (const card of cards) if (CARD_FIXES[card.id]) card.rikishi = CARD_FIXES[card.id];
+  for (const card of cards) {
+    if (CARD_FIXES[card.id]) card.rikishi = CARD_FIXES[card.id];
+    if (TITLE_FIXES[card.id]) card.title = TITLE_FIXES[card.id];
+  }
 
   const slugs = new Map(); // slug -> printed name (first seen)
   for (const card of cards)
