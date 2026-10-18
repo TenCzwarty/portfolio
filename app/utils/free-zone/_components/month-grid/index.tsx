@@ -24,6 +24,8 @@ type TMonthGrid = {
   plansClickable: boolean;
   onDayClick: (day: TDay, event: React.MouseEvent) => void;
   onDayHover: (day: TDay) => void;
+  onDayPointerDown: (day: TDay, event: React.PointerEvent) => void;
+  onDayPointerEnter: (day: TDay) => void;
   onPlanClick: (plan: TPlan) => void;
 };
 
@@ -50,12 +52,15 @@ export const MonthGrid = ({
   plansClickable,
   onDayClick,
   onDayHover,
+  onDayPointerDown,
+  onDayPointerEnter,
   onPlanClick,
 }: TMonthGrid) => {
   const creatorColor = (id: string) => people.find((p) => p.id === id)?.color;
 
   return (
-    <div className="@container overflow-hidden rounded-xl border border-neutral-200">
+    // select-none: dragging across days must not select the day numbers' text
+    <div className="@container overflow-hidden rounded-xl border border-neutral-200 select-none">
       <div className="grid grid-cols-7 border-b border-neutral-200 text-sm">
         {WEEKDAYS.map((d) => (
           <div key={d} className="px-1.5 py-2 sm:px-4">
@@ -95,6 +100,8 @@ export const MonthGrid = ({
                     type="button"
                     onClick={(e) => onDayClick(day, e)}
                     onMouseEnter={() => onDayHover(day)}
+                    onPointerDown={(e) => onDayPointerDown(day, e)}
+                    onPointerEnter={() => onDayPointerEnter(day)}
                     aria-label={`${date.toLocaleDateString("en-GB", { dateStyle: "full" })}${free.length ? `, free: ${free.map((p) => p.name).join(", ")}` : ""}${stamps.length ? `, ${stamps.map((s) => `${s.person.name}: ${s.stamp.label}`).join(", ")}` : ""}`}
                     aria-pressed={mine}
                     aria-current={preselected.has(day) ? "true" : undefined}

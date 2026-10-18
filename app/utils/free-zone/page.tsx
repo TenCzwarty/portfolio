@@ -19,7 +19,7 @@ import { PlanForm } from "./_components/plan-form";
 import { StampEditor } from "./_components/stamp-editor";
 import { type TStampItem } from "./_components/stamp-layer";
 import { StampChips } from "./_components/stamp-picker";
-import { formatMonth, fromDay, getMonthWeeks, toDay } from "./_utils/dates";
+import { addDays, formatMonth, fromDay, getMonthWeeks, toDay } from "./_utils/dates";
 import { newId } from "./_utils/identity";
 import { DEFAULT_STAMPS, sameStamp } from "./_utils/stamps";
 import { useCalendar } from "./_utils/use-calendar";
@@ -81,6 +81,54 @@ export default function UtilsFreeZonePage() {
       if (!next.delete(day)) next.add(day);
       return next;
     });
+
+  // range preselect: shift+click from the last clicked day, or drag with the mouse.
+  // A drag that starts on a marked day unmarks, so the same gesture also clears.
+  const anchorRef = React.useRef<TDay | null>(null);
+  const dragRef = React.useRef<{ start: TDay; adding: boolean; base: Set<TDay> } | null>(null);
+  const skipClickRef = React.useRef(false);
+
+  const withRange = (base: Set<TDay>, from: TDay, to: TDay, adding: boolean) => {
+    const next = new Set(base);
+    const [start, end] = [from, to].sort();
+    for (let d = start; d <= end; d = addDays(d, 1)) {
+      if (adding) next.add(d);
+      else next.delete(d);
+    }
+    return next;
+  };
+
+  // mouse only: on touch, dragging has to keep scrolling the page
+  const onDayPointerDown = (day: TDay, e: React.PointerEvent) => {
+    if (mode !== null || e.pointerType !== "mouse" || e.button !== 0) return;
+    skipClickRef.current = true; // the click that follows is already handled here
+    setSelectedPlanId(null);
+
+    const anchor = anchorRef.current;
+    anchorRef.current = day;
+    if (e.shiftKey && anchor) {
+      setPreselected((days) => withRange(days, anchor, day, true));
+      return;
+    }
+    const adding = !preselected.has(day);
+    dragRef.current = { start: day, adding, base: preselected };
+    setPreselected(withRange(preselected, day, day, adding));
+  };
+
+  const onDayPointerEnter = (day: TDay) => {
+    const drag = dragRef.current;
+    if (drag) setPreselected(withRange(drag.base, drag.start, day, drag.adding));
+  };
+
+  React.useEffect(() => {
+    const endDrag = () => {
+      dragRef.current = null;
+      // released outside a day: no click comes, so don't swallow the next real one
+      window.setTimeout(() => (skipClickRef.current = false), 0);
+    };
+    window.addEventListener("pointerup", endDrag);
+    return () => window.removeEventListener("pointerup", endDrag);
+  }, []);
   const [selectedStamp, setSelectedStamp] = React.useState(DEFAULT_STAMPS[0]);
   // stamp whose options box is open: null = none, "" = a new one
   const [editingStamp, setEditingStamp] = React.useState<string | null>(null);
@@ -172,6 +220,12 @@ export default function UtilsFreeZonePage() {
   const onDayClick = (day: TDay, event: React.MouseEvent) => {
     setSelectedPlanId(null);
     if (mode === null) {
+      if (skipClickRef.current) {
+        skipClickRef.current = false;
+        return;
+      }
+      // touch and keyboard land here: one day at a time
+      anchorRef.current = day;
       togglePreselected(day);
       return;
     }
@@ -417,6 +471,8 @@ export default function UtilsFreeZonePage() {
                           plansClickable={mode === null || !canEdit}
                           onDayClick={onDayClick}
                           onDayHover={(day) => rangeStart && !newPlanRange && setRangeHover(day)}
+                          onDayPointerDown={onDayPointerDown}
+                          onDayPointerEnter={onDayPointerEnter}
                           onPlanClick={(plan) => {
                             resetPlanSelection();
                             setEditingPlanId(null);
