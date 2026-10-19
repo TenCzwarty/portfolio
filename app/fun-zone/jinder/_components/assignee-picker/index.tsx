@@ -42,14 +42,14 @@ export const AssigneePicker = ({ assignee, search, loadImage, onChange }: TAssig
         className="flex items-center gap-1.5 rounded-full border border-neutral-200 py-1 pr-3 pl-1 text-sm hover:bg-neutral-200"
       >
         <Avatar user={assignee} loadImage={loadImage} />
-        {assignee?.displayName ?? "nieprzypisany"}
+        {assignee?.displayName ?? "unassigned"}
       </button>
 
       {open && (
         <div className="absolute z-20 mt-1 w-64 rounded-xl border border-neutral-200 bg-white p-2 shadow-lg">
           <input
             autoFocus
-            placeholder="szukaj osoby"
+            placeholder="search people"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             onKeyDown={(e) => e.key === "Escape" && setOpen(false)}
@@ -63,7 +63,7 @@ export const AssigneePicker = ({ assignee, search, loadImage, onChange }: TAssig
                 className="flex w-full items-center gap-2 rounded-md p-1.5 text-left opacity-70 hover:bg-neutral-100"
               >
                 <Avatar user={null} loadImage={loadImage} />
-                nieprzypisany
+                unassigned
               </button>
             </li>
             {results.map((user) => (

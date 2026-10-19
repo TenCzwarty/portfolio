@@ -40,13 +40,13 @@ export const Summary = ({
           <span>{byKey.get(d.key)?.summary}</span>
           {d.failed && (
             <>
-              <span className="text-red-700">nie przeniesiono: {d.failed}</span>
+              <span className="text-red-700">not moved: {d.failed}</span>
               <button
                 type="button"
                 onClick={() => onRetry(d.key)}
                 className="rounded-full border border-red-300 px-2 text-xs text-red-800 hover:bg-red-50"
               >
-                ponów
+                retry
               </button>
             </>
           )}
@@ -58,22 +58,22 @@ export const Summary = ({
   return (
     <div className="flex flex-col gap-5 rounded-xl border border-neutral-200 p-4">
       <h3 className="text-lg font-semibold sm:text-xl">
-        {issues.length === 0 ? `${planned.name} jest pusty` : "to wszystko"}
+        {issues.length === 0 ? `${planned.name} is empty` : "that's all"}
       </h3>
 
       {issues.length > 0 && (
         <>
           <section>
             <h4 className="mb-2 font-semibold">
-              zostaje w {planned.name}: {kept.length}
+              kept in {planned.name}: {kept.length}
             </h4>
-            {kept.length ? <List items={kept} /> : <p className="text-sm opacity-60">nic</p>}
+            {kept.length ? <List items={kept} /> : <p className="text-sm opacity-60">nothing</p>}
           </section>
           <section>
             <h4 className="mb-2 font-semibold">
-              poleciało do {target?.name ?? "następnego"}: {moved.length}
+              moved to {target?.name ?? "the next sprint"}: {moved.length}
             </h4>
-            {moved.length ? <List items={moved} /> : <p className="text-sm opacity-60">nic</p>}
+            {moved.length ? <List items={moved} /> : <p className="text-sm opacity-60">nothing</p>}
           </section>
         </>
       )}
@@ -85,7 +85,7 @@ export const Summary = ({
             onClick={onUndo}
             className="rounded-full border border-neutral-200 px-4 py-1 hover:bg-neutral-200"
           >
-            cofnij ostatni
+            undo last
           </button>
         )}
         <button
@@ -93,7 +93,7 @@ export const Summary = ({
           onClick={onRestart}
           className="bg-primary-900 hover:bg-accent-500 hover:text-primary-900 rounded-full px-4 py-1 text-white"
         >
-          przejrzyj sprint jeszcze raz
+          review the sprint again
         </button>
       </div>
     </div>

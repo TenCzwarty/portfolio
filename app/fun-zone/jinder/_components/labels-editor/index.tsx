@@ -49,7 +49,7 @@ export const LabelsEditor = ({ labels, available, onChange }: TLabelsEditor) => 
           <button
             type="button"
             onClick={() => onChange(labels.filter((l) => l !== label))}
-            aria-label={`usuń label ${label}`}
+            aria-label={`remove label ${label}`}
             className="rounded-full px-1.5 hover:bg-white"
           >
             ×
@@ -98,7 +98,7 @@ export const LabelsEditor = ({ labels, available, onChange }: TLabelsEditor) => 
             ))}
             {suggestions.length === 0 && (
               <li className="p-1.5 opacity-60">
-                {available ? "brak takiego labela w Jirze" : "ładuję labele…"}
+                {available ? "no such label in Jira" : "loading labels…"}
               </li>
             )}
           </ul>

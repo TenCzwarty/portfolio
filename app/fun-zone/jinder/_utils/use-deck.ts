@@ -20,7 +20,7 @@ export type TPlan = {
 
 type TDecisionState = TDecision & { failed?: string };
 
-const message = (e: unknown) => (e instanceof Error ? e.message : "Coś poszło nie tak");
+const message = (e: unknown) => (e instanceof Error ? e.message : "Something went wrong");
 
 const applyUpdate = <T extends TIssueSummary>(issue: T, update: TIssueUpdate): T => {
   switch (update.type) {
@@ -124,7 +124,7 @@ export const useDeck = (client: TJiraClient, plan: TPlan, filter: TPersonFilter)
     }
     // unassigned last, everyone else by name
     return [...byId.values()].sort((a, b) =>
-      !a.user ? 1 : !b.user ? -1 : a.user.displayName.localeCompare(b.user.displayName, "pl")
+      !a.user ? 1 : !b.user ? -1 : a.user.displayName.localeCompare(b.user.displayName)
     );
   }, [issues, decisions]);
 
@@ -139,7 +139,7 @@ export const useDeck = (client: TJiraClient, plan: TPlan, filter: TPersonFilter)
 
     enqueue(() => client.moveToSprint(key, plan.target!.id)).catch((e) => {
       setDecisions((d) => d.map((x) => (x.key === key ? { ...x, failed: message(e) } : x)));
-      setErrorMessage(`${key} nie przeniósł się do ${plan.target!.name}: ${message(e)}`);
+      setErrorMessage(`${key} was not moved to ${plan.target!.name}: ${message(e)}`);
     });
   };
 
@@ -163,7 +163,7 @@ export const useDeck = (client: TJiraClient, plan: TPlan, filter: TPersonFilter)
     try {
       await enqueue(() => client.moveToSprint(last.key, plan.planned.id));
     } catch (e) {
-      setErrorMessage(`${last.key} nie wrócił do ${plan.planned.name}: ${message(e)}`);
+      setErrorMessage(`${last.key} did not return to ${plan.planned.name}: ${message(e)}`);
     }
   };
 

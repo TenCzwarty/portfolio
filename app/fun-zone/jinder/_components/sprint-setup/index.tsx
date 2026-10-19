@@ -38,7 +38,7 @@ export const SprintSetup = ({ client, onStart, onError }: TSprintSetup) => {
         setBoards(list);
         if (list.length === 1) setBoardId(list[0].id);
       } catch (e) {
-        if (!stale) onError(e instanceof Error ? e.message : "Nie udało się pobrać boardów");
+        if (!stale) onError(e instanceof Error ? e.message : "Could not load the boards");
       }
     }, 300);
     return () => {
@@ -60,7 +60,7 @@ export const SprintSetup = ({ client, onStart, onError }: TSprintSetup) => {
       setPlannedId(planned?.id ?? 0);
       setTargetId(target?.id ?? 0);
     } catch (e) {
-      onError(e instanceof Error ? e.message : "Nie udało się pobrać sprintów");
+      onError(e instanceof Error ? e.message : "Could not load the sprints");
     }
   }, [client, boardId, onError]);
 
@@ -75,14 +75,14 @@ export const SprintSetup = ({ client, onStart, onError }: TSprintSetup) => {
 
   return (
     <div className="flex flex-col gap-4 rounded-xl border border-neutral-200 p-4">
-      <h3 className="text-lg font-semibold sm:text-xl">co planujemy?</h3>
+      <h3 className="text-lg font-semibold sm:text-xl">what are we planning?</h3>
 
       <label className="flex flex-col gap-1 text-sm">
         board
         <div className="flex flex-col gap-2 sm:flex-row">
           {!client.demo && (
             <input
-              placeholder="filtruj po nazwie"
+              placeholder="filter by name"
               value={query}
               onChange={(e) => setQuery(e.target.value)}
               className={`${selectClass} sm:w-48`}
@@ -93,7 +93,7 @@ export const SprintSetup = ({ client, onStart, onError }: TSprintSetup) => {
             onChange={(e) => setBoardId(Number(e.target.value))}
             className={`${selectClass} flex-1`}
           >
-            <option value={0}>— wybierz board —</option>
+            <option value={0}>— pick a board —</option>
             {/* keep the remembered board selectable even when the filter hides it */}
             {boardId > 0 && !boards.some((b) => b.id === boardId) && (
               <option value={boardId}>board #{boardId}</option>
@@ -113,14 +113,14 @@ export const SprintSetup = ({ client, onStart, onError }: TSprintSetup) => {
       )}
 
       {sprints && sprints.length === 0 && (
-        <Warning>Ten board nie ma aktywnych ani przyszłych sprintów.</Warning>
+        <Warning>This board has no active or future sprints.</Warning>
       )}
 
       {sprints && sprints.length > 0 && (
         <>
           <div className="grid gap-3 sm:grid-cols-2">
             <label className="flex flex-col gap-1 text-sm">
-              przeglądamy sprint (n+1)
+              sprint to review (n+1)
               <select
                 value={plannedId}
                 onChange={(e) => {
@@ -133,19 +133,19 @@ export const SprintSetup = ({ client, onStart, onError }: TSprintSetup) => {
                 {sprints.map((s) => (
                   <option key={s.id} value={s.id}>
                     {s.name}
-                    {s.state === "active" ? " (aktywny)" : ""}
+                    {s.state === "active" ? " (active)" : ""}
                   </option>
                 ))}
               </select>
             </label>
             <label className="flex flex-col gap-1 text-sm">
-              swipe w lewo przenosi do (n+2)
+              swipe left moves to (n+2)
               <select
                 value={target ? targetId : 0}
                 onChange={(e) => setTargetId(Number(e.target.value))}
                 className={selectClass}
               >
-                <option value={0}>— brak —</option>
+                <option value={0}>— none —</option>
                 {sprints
                   .filter((s) => s.id !== plannedId)
                   .map((s) => (
@@ -159,23 +159,23 @@ export const SprintSetup = ({ client, onStart, onError }: TSprintSetup) => {
 
           {stillActive && planned?.state === "future" && (
             <Warning>
-              {stillActive.name} jest nadal aktywny. Zamknij go najpierw w Jirze i przenieś
-              niedokończone taski do {planned.name}, inaczej nie pojawią się w talii.
+              {stillActive.name} is still active. Complete it in Jira first and move its unfinished
+              issues to {planned.name}, otherwise they will not show up in the deck.
             </Warning>
           )}
 
           {!target && (
             <Warning>
               <p>
-                Nie ma sprintu po {planned?.name ?? "wybranym"}, więc swipe w lewo nie będzie
-                działał. Utwórz go w Jirze (Backlog → Create sprint) i odśwież listę.
+                There is no sprint after {planned?.name ?? "the selected one"}, so swiping left will
+                not work. Create it in Jira (Backlog → Create sprint) and refresh the list.
               </p>
               <button
                 type="button"
                 onClick={loadSprints}
                 className="mt-2 flex items-center gap-1 rounded-full border border-amber-300 px-3 py-0.5 hover:bg-amber-100"
               >
-                <RefreshCwIcon size={14} /> odśwież sprinty
+                <RefreshCwIcon size={14} /> refresh sprints
               </button>
             </Warning>
           )}
@@ -186,7 +186,7 @@ export const SprintSetup = ({ client, onStart, onError }: TSprintSetup) => {
               checked={spilledFirst}
               onChange={(e) => setSpilledFirst(e.target.checked)}
             />
-            najpierw taski, które spadły z poprzedniego sprintu
+            issues that spilled over from the previous sprint first
           </label>
 
           <button
@@ -195,7 +195,7 @@ export const SprintSetup = ({ client, onStart, onError }: TSprintSetup) => {
             onClick={() => planned && onStart({ boardId, planned, target, spilledFirst })}
             className="bg-primary-900 hover:bg-accent-500 hover:text-primary-900 self-start rounded-full px-4 py-1 text-white disabled:opacity-50"
           >
-            zaczynamy
+            let&apos;s go
           </button>
         </>
       )}

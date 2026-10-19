@@ -88,14 +88,14 @@ const authorize = (req: TProxyRequest, url: URL, site: string): { auth: boolean 
 
 const image = async (response: Response) => {
   const type = response.headers.get("content-type") ?? "";
-  if (!response.ok) return error(`Jira odpowiedziała błędem ${response.status}`, response.status);
-  if (!type.startsWith("image/")) return error("To nie jest obrazek", 415);
+  if (!response.ok) return error(`Jira answered with error ${response.status}`, response.status);
+  if (!type.startsWith("image/")) return error("Not an image", 415);
   if (Number(response.headers.get("content-length")) > MAX_IMAGE_BYTES) {
-    return error("Obrazek jest za duży", 413);
+    return error("Image too large", 413);
   }
 
   const bytes = await response.arrayBuffer();
-  if (bytes.byteLength > MAX_IMAGE_BYTES) return error("Obrazek jest za duży", 413);
+  if (bytes.byteLength > MAX_IMAGE_BYTES) return error("Image too large", 413);
 
   return new NextResponse(bytes, {
     headers: { "Content-Type": type, "Cache-Control": "private, max-age=3600" },
@@ -104,20 +104,20 @@ const image = async (response: Response) => {
 
 export async function POST(request: Request) {
   const req = parse(await request.json().catch(() => null));
-  if (!req) return error("Niepoprawne zapytanie", 400);
+  if (!req) return error("Invalid request", 400);
 
   const site = req.site.trim().toLowerCase();
-  if (!SITE.test(site)) return error("Adres musi wyglądać jak twojafirma.atlassian.net", 400);
+  if (!SITE.test(site)) return error("The site must look like yourcompany.atlassian.net", 400);
 
   let url: URL;
   try {
     url = new URL(req.path, `https://${site}`);
   } catch {
-    return error("Niepoprawny adres", 400);
+    return error("Invalid address", 400);
   }
 
   const access = authorize(req, url, site);
-  if (!access) return error("Niedozwolony endpoint", 403);
+  if (!access) return error("Endpoint not allowed", 403);
 
   const auth = Buffer.from(`${req.email.trim()}:${req.token.trim()}`).toString("base64");
 
@@ -143,6 +143,6 @@ export async function POST(request: Request) {
       headers: { "Content-Type": "application/json", "Cache-Control": "no-store" },
     });
   } catch {
-    return error("Jira nie odpowiada", 502);
+    return error("Jira is not responding", 502);
   }
 }

@@ -17,9 +17,9 @@ const API = "/api/jira";
 /* eslint-disable @typescript-eslint/no-explicit-any -- raw Jira payloads, mapped right below */
 
 const errorMessage = (status: number, json: any) => {
-  if (status === 401) return "Jira nie przyjęła emaila albo tokena";
+  if (status === 401) return "Jira did not accept the email or token";
   const messages = [...(json?.errorMessages ?? []), ...Object.values(json?.errors ?? {})];
-  return messages.length ? messages.join(", ") : `Jira odpowiedziała błędem ${status}`;
+  return messages.length ? messages.join(", ") : `Jira answered with error ${status}`;
 };
 
 const toUser = (raw: any): TUser | null =>

@@ -3,23 +3,23 @@ import type { TEpic, TIssueDetails, TJiraClient, TPriority, TSprint, TUser } fro
 import { textToHtml } from "./adf";
 
 const AVATAR_COLORS: Record<string, string> = {
-  "u-ania": "#e8590c",
-  "u-bartek": "#1971c2",
-  "u-celina": "#2f9e44",
-  "u-darek": "#9c36b5",
+  "u-alice": "#e8590c",
+  "u-bob": "#1971c2",
+  "u-carol": "#2f9e44",
+  "u-dave": "#9c36b5",
 };
 
 const USERS: Array<TUser> = [
-  { accountId: "u-ania", displayName: "Ania Frontend" },
-  { accountId: "u-bartek", displayName: "Bartek Backend" },
-  { accountId: "u-celina", displayName: "Celina QA" },
-  { accountId: "u-darek", displayName: "Darek DevOps" },
+  { accountId: "u-alice", displayName: "Alice Frontend" },
+  { accountId: "u-bob", displayName: "Bob Backend" },
+  { accountId: "u-carol", displayName: "Carol QA" },
+  { accountId: "u-dave", displayName: "Dave DevOps" },
 ].map((user) => ({ ...user, avatarUrl: `/demo/avatar/${user.accountId}` }));
 
 const EPICS: Array<TEpic> = [
-  { key: "DEMO-1", summary: "Formularze 2.0" },
-  { key: "DEMO-2", summary: "Raportowanie" },
-  { key: "DEMO-3", summary: "Infrastruktura" },
+  { key: "DEMO-1", summary: "Forms 2.0" },
+  { key: "DEMO-2", summary: "Reporting" },
+  { key: "DEMO-3", summary: "Infrastructure" },
 ];
 
 const EXTRA_LABELS = ["backend", "security", "ux", "performance"];
@@ -35,8 +35,8 @@ const DEMO_IMAGES: Record<string, () => string> = {
     <rect x="24" y="68" width="300" height="20" rx="4" fill="#dee2e6"/>
     <rect x="24" y="100" width="260" height="20" rx="4" fill="#dee2e6"/>
     <rect x="336" y="140" width="120" height="36" rx="18" fill="#1971c2"/>
-    <text x="396" y="164" font-family="sans-serif" font-size="14" fill="#fff" text-anchor="middle">Zapisz</text>
-    <text x="320" y="132" font-family="sans-serif" font-size="13" fill="#c92a2a">kliknij 2x ↓</text>
+    <text x="396" y="164" font-family="sans-serif" font-size="14" fill="#fff" text-anchor="middle">Save</text>
+    <text x="320" y="132" font-family="sans-serif" font-size="13" fill="#c92a2a">click twice ↓</text>
   </svg>`,
   ...Object.fromEntries(
     Object.entries(AVATAR_COLORS).map(([id, color]) => [
@@ -75,53 +75,53 @@ type TSeed = Omit<
 const SEED: Array<TSeed> = [
   {
     key: "DEMO-101",
-    summary: "Przycisk „Zapisz” zapisuje dopiero za drugim razem",
+    summary: "The Save button only saves on the second click",
     type: "Bug",
     status: "To Do",
     spilledFrom: "DEMO Sprint 41",
     description:
-      "Kroki:\n1. Otwórz formularz profilu\n2. Kliknij Zapisz\n3. Nic się nie dzieje, kliknij jeszcze raz\nOczekiwane: zapis za pierwszym razem.\nFaktyczne: użytkownicy nauczyli się klikać dwa razy i uważają to za feature.",
+      "Steps:\n1. Open the profile form\n2. Click Save\n3. Nothing happens, click again\nExpected: saved on the first click.\nActual: users learned to click twice and consider it a feature.",
     html: `<p><img src="${SCREENSHOT}" alt="screenshot.png"></p>`,
     labels: ["frontend", "regression"],
     priority: "High",
-    assignee: "u-ania",
+    assignee: "u-alice",
     parent: "DEMO-1",
     comments: [
-      ["Celina QA", "Reprodukuje się tylko w Safari. I u prezesa."],
-      ["Ania Frontend", "Debounce na onClick, 300 ms. Ktoś kiedyś chciał dobrze."],
+      ["Carol QA", "Only reproduces in Safari. And on the CEO's laptop."],
+      ["Alice Frontend", "A 300 ms debounce on onClick. Someone once meant well."],
     ],
     links: [
-      { key: "DEMO-87", summary: "Refactor formularzy", status: "Done", relation: "is caused by" },
+      { key: "DEMO-87", summary: "Forms refactor", status: "Done", relation: "is caused by" },
     ],
   },
   {
     key: "DEMO-102",
-    summary: "Migracja na nową wersję frameworka",
+    summary: "Migrate to the new framework version",
     type: "Story",
     status: "To Do",
     spilledFrom: "DEMO Sprint 41",
     description:
-      "Ten task przechodzi ze sprintu do sprintu od marca.\nNikt go nie chce, nikt go nie zamyka.\nDefinition of done: aplikacja działa tak samo jak wcześniej, tylko na nowszych bibliotekach.",
+      "This issue has been rolling from sprint to sprint since March.\nNobody wants it, nobody closes it.\nDefinition of done: the app works exactly as before, just on newer libraries.",
     labels: ["tech-debt"],
     priority: "Medium",
-    comments: [["Bartek Backend", "Może w przyszłym sprincie."]],
+    comments: [["Bob Backend", "Maybe next sprint."]],
     links: [],
   },
   {
     key: "DEMO-103",
-    summary: "Eksport raportu do PDF",
+    summary: "Export the report to PDF",
     type: "Story",
     status: "To Do",
     description:
-      "Jako manager chcę wyeksportować raport do PDF, żeby go wydrukować, zeskanować i wysłać mailem.\nAkceptacja: PDF ma logo firmy w prawym górnym rogu.",
+      "As a manager I want to export the report to PDF, so I can print it, scan it and email it.\nAcceptance: the PDF has the company logo in the top right corner.",
     labels: ["reports"],
     priority: "High",
-    assignee: "u-bartek",
+    assignee: "u-bob",
     parent: "DEMO-2",
     links: [
       {
         key: "DEMO-110",
-        summary: "Nowe logo firmy",
+        summary: "New company logo",
         status: "In Progress",
         relation: "is blocked by",
       },
@@ -129,66 +129,64 @@ const SEED: Array<TSeed> = [
   },
   {
     key: "DEMO-104",
-    summary: "Ciemny motyw",
+    summary: "Dark mode",
     type: "Story",
     status: "To Do",
-    description:
-      "Użytkownicy pytają o ciemny motyw.\nKonkretnie jeden użytkownik, ale pyta bardzo często.",
+    description: "Users keep asking for dark mode.\nOne user, specifically, but very often.",
     labels: ["frontend", "nice-to-have"],
     priority: "Low",
     links: [],
   },
   {
     key: "DEMO-105",
-    summary: "Certyfikat SSL wygasa za 9 dni",
+    summary: "SSL certificate expires in 9 days",
     type: "Task",
     status: "To Do",
     description:
-      "Automatyczne odnawianie wyłączył ktoś, kto już tu nie pracuje.\nWłączyć z powrotem.",
+      "Auto-renewal was turned off by someone who no longer works here.\nTurn it back on.",
     labels: ["ops"],
     priority: "Highest",
-    assignee: "u-darek",
+    assignee: "u-dave",
     parent: "DEMO-3",
-    comments: [["Darek DevOps", "To ja go wyłączyłem. Nadal tu pracuję. Były powody."]],
+    comments: [["Dave DevOps", "I turned it off. I still work here. There were reasons."]],
     links: [],
   },
   {
     key: "DEMO-106",
-    summary: "Testy E2E są czerwone co trzeci build",
+    summary: "E2E tests are red on every third build",
     type: "Bug",
     status: "To Do",
     spilledFrom: "DEMO Sprint 41",
-    description:
-      "Flaky test logowania.\nObecne rozwiązanie zespołu: re-run.\nProponowane rozwiązanie: naprawić.",
+    description: "Flaky login test.\nCurrent team solution: re-run.\nProposed solution: fix it.",
     labels: ["testing"],
     priority: "Medium",
-    assignee: "u-celina",
+    assignee: "u-carol",
     links: [],
   },
   {
     key: "DEMO-107",
-    summary: "Spike: czy możemy użyć AI do estymacji tasków",
+    summary: "Spike: can we use AI to estimate issues",
     type: "Task",
     status: "To Do",
     description:
-      "Timebox: 2 dni.\nPytanie badawcze: czy model językowy zgaduje story pointy lepiej niż planning poker.\nHipoteza zerowa: oba zgadują.",
+      "Timebox: 2 days.\nResearch question: does a language model guess story points better than planning poker.\nNull hypothesis: both are guessing.",
     labels: ["research"],
     priority: "Lowest",
     links: [],
   },
   {
     key: "DEMO-108",
-    summary: "Aktualizacja dokumentacji API",
+    summary: "Update the API docs",
     type: "Task",
     status: "To Do",
-    description: "Dokumentacja opisuje endpointy, których nie ma, i pomija te, które są.",
+    description: "The docs describe endpoints that do not exist and skip the ones that do.",
     labels: ["docs"],
     priority: "Medium",
-    assignee: "u-bartek",
+    assignee: "u-bob",
     links: [
       {
         key: "DEMO-103",
-        summary: "Eksport raportu do PDF",
+        summary: "Export the report to PDF",
         status: "To Do",
         relation: "relates to",
       },
@@ -226,7 +224,7 @@ export const createDemoClient = (): TJiraClient => {
 
   const get = (key: string) => {
     const issue = issues.get(key);
-    if (!issue) throw new Error(`Nie ma ${key}`);
+    if (!issue) throw new Error(`No issue ${key}`);
     return issue;
   };
 

@@ -78,7 +78,7 @@ export const Deck = ({ client, plan, onChangePlan }: TDeck) => {
     deck.undo();
   };
 
-  // ← / → decide, z cofa, o otwiera w Jirze
+  // ← / → decide, z undoes, o opens in Jira
   const keyHandler = React.useRef<(e: KeyboardEvent) => void>(() => {});
   keyHandler.current = (e) => {
     if (isTyping(e.target) || e.altKey || e.metaKey) return;
@@ -112,7 +112,7 @@ export const Deck = ({ client, plan, onChangePlan }: TDeck) => {
       {deck.errorMessage && (
         <div className="flex items-center justify-between gap-4 rounded-xl border border-red-300 bg-red-50 p-4 text-sm text-red-800">
           {deck.errorMessage}
-          <button type="button" onClick={deck.clearError} aria-label="zamknij" className="px-2">
+          <button type="button" onClick={deck.clearError} aria-label="close" className="px-2">
             ×
           </button>
         </div>
@@ -124,8 +124,8 @@ export const Deck = ({ client, plan, onChangePlan }: TDeck) => {
           {deck.status === "ready" && deck.issues.length > 0 && (
             <span className="opacity-70">
               {" "}
-              · przejrzane {deck.decisions.length} / {deck.issues.length} · zostaje {kept} ·
-              wyleciało {moved}
+              · reviewed {deck.decisions.length} / {deck.issues.length} · kept {kept} · moved{" "}
+              {moved}
             </span>
           )}
         </div>
@@ -134,7 +134,7 @@ export const Deck = ({ client, plan, onChangePlan }: TDeck) => {
           onClick={onChangePlan}
           className="underline opacity-60 hover:opacity-100"
         >
-          zmień sprint
+          change sprint
         </button>
       </div>
 
@@ -149,15 +149,13 @@ export const Deck = ({ client, plan, onChangePlan }: TDeck) => {
 
       {!deck.done && !deck.current && filter && (
         <div className="flex flex-wrap items-center justify-between gap-2 rounded-xl border border-neutral-200 p-4">
-          <span>
-            {filteredName ? `${filteredName} nie ma` : "nie ma"} więcej tasków do przejrzenia
-          </span>
+          <span>{filteredName ? `${filteredName} has` : "there are"} no more issues to review</span>
           <button
             type="button"
             onClick={() => setFilter(null)}
             className="rounded-full border border-neutral-200 px-4 py-1 hover:bg-neutral-200"
           >
-            pokaż wszystkich
+            show everyone
           </button>
         </div>
       )}
@@ -172,7 +170,7 @@ export const Deck = ({ client, plan, onChangePlan }: TDeck) => {
           onClick={deck.reload}
           className="self-start rounded-full border border-neutral-200 px-4 py-1 hover:bg-neutral-200"
         >
-          spróbuj jeszcze raz
+          try again
         </button>
       )}
 
@@ -229,33 +227,33 @@ export const Deck = ({ client, plan, onChangePlan }: TDeck) => {
               type="button"
               onClick={() => decide(false)}
               disabled={!plan.target}
-              title={plan.target ? `przenieś do ${plan.target.name} (←)` : "nie ma sprintu n+2"}
+              title={plan.target ? `move to ${plan.target.name} (←)` : "there is no sprint n+2"}
               className="flex items-center gap-1.5 rounded-full border-2 border-red-600 px-4 py-2 text-red-700 hover:bg-red-50 disabled:opacity-40"
             >
               <ArrowLeftIcon size={18} />
-              <span className="hidden sm:inline">{plan.target?.name ?? "brak n+2"}</span>
+              <span className="hidden sm:inline">{plan.target?.name ?? "no n+2"}</span>
             </button>
             <button
               type="button"
               onClick={undo}
               disabled={deck.decisions.length === 0}
-              title="cofnij (z)"
+              title="undo (z)"
               className="flex items-center gap-1 rounded-full px-3 py-2 text-sm hover:bg-neutral-200 disabled:opacity-40"
             >
-              <Undo2Icon size={16} /> cofnij
+              <Undo2Icon size={16} /> undo
             </button>
             <button
               type="button"
               onClick={() => decide(true)}
-              title={`zostaje w ${plan.planned.name} (→)`}
+              title={`keep in ${plan.planned.name} (→)`}
               className="flex items-center gap-1.5 rounded-full border-2 border-green-600 px-4 py-2 text-green-700 hover:bg-green-50"
             >
-              <span className="hidden sm:inline">zostaje</span>
+              <span className="hidden sm:inline">keep</span>
               <ArrowRightIcon size={18} />
             </button>
           </div>
           <p className="hidden text-center text-xs opacity-60 sm:block">
-            ← / → decyzja · z cofa · o otwiera w Jirze · albo przeciągnij kartę
+            ← / → decide · z undo · o open in Jira · or drag the card
           </p>
         </>
       )}

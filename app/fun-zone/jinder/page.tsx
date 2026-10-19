@@ -34,7 +34,7 @@ export default function FunZoneJinderPage() {
       setMe(user);
       setClient(jira);
     } catch (e) {
-      setErrorMessage(e instanceof Error ? e.message : "Nie udało się połączyć");
+      setErrorMessage(e instanceof Error ? e.message : "Could not connect");
     } finally {
       setBusy(false);
     }
@@ -72,7 +72,8 @@ export default function FunZoneJinderPage() {
           <div className="mt-16 mb-8 ml-4">
             <h1 className="text-xl font-semibold sm:text-3xl">Jinder</h1>
             <p>
-              sprint planning jak randki: w prawo task zostaje w sprincie, w lewo leci do następnego
+              sprint planning as a dating app: swipe right to keep a task in the sprint, left to
+              send it to the next one
             </p>
           </div>
         )}
@@ -84,7 +85,7 @@ export default function FunZoneJinderPage() {
               <button
                 type="button"
                 onClick={() => setErrorMessage(null)}
-                aria-label="zamknij"
+                aria-label="close"
                 className="px-2"
               >
                 ×
@@ -96,7 +97,7 @@ export default function FunZoneJinderPage() {
             <div className="flex flex-wrap items-center justify-between gap-2 text-sm">
               <span className="opacity-70">
                 {client.demo
-                  ? "tryb demo, nic nie trafia do prawdziwej Jiry"
+                  ? "demo mode, nothing reaches a real Jira"
                   : `${me?.displayName ?? ""} @ ${client.site}`}
               </span>
               <button
@@ -104,7 +105,7 @@ export default function FunZoneJinderPage() {
                 onClick={disconnect}
                 className="underline opacity-60 hover:opacity-100"
               >
-                {client.demo ? "wyjdź z demo" : "rozłącz"}
+                {client.demo ? "leave demo" : "disconnect"}
               </button>
             </div>
           )}

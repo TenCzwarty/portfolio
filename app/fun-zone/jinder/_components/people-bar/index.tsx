@@ -21,10 +21,10 @@ type TPeopleBar = {
   loadImage: (url: string) => Promise<string | null>;
 };
 
-const firstName = (stats: TPersonStats) => stats.user?.displayName.split(/\s+/)[0] ?? "nikt";
+const firstName = (stats: TPersonStats) => stats.user?.displayName.split(/\s+/)[0] ?? "nobody";
 
 export const PeopleBar = ({ people, filter, onFilter, loadImage }: TPeopleBar) => (
-  <div className="flex gap-3 overflow-x-auto pb-1" role="toolbar" aria-label="filtruj po osobie">
+  <div className="flex gap-3 overflow-x-auto pb-1" role="toolbar" aria-label="filter by person">
     {people.map((stats) => {
       const active = filter === stats.id;
       const dimmed = filter !== null && !active;
@@ -34,7 +34,7 @@ export const PeopleBar = ({ people, filter, onFilter, loadImage }: TPeopleBar) =
           type="button"
           onClick={() => onFilter(active ? null : stats.id)}
           aria-pressed={active}
-          title={`${stats.user?.displayName ?? "nieprzypisane"}: zostaje ${stats.kept}, do przejrzenia ${stats.pending}`}
+          title={`${stats.user?.displayName ?? "unassigned"}: kept ${stats.kept}, to review ${stats.pending}`}
           className={`flex w-16 shrink-0 flex-col items-center gap-1 rounded-xl p-1.5 text-xs transition-opacity ${active ? "bg-neutral-200" : "hover:bg-neutral-200"} ${dimmed ? "opacity-40" : ""}`}
         >
           <span className="relative">

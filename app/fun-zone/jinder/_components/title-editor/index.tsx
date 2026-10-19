@@ -46,7 +46,7 @@ export const TitleEditor = ({ title, onSave }: TTitleEditor) => {
         <button
           type="button"
           onClick={start}
-          title="kliknij, żeby zmienić tytuł"
+          title="click to edit the title"
           className="group cursor-text rounded-md text-left hover:bg-white/70"
         >
           {title}
@@ -65,7 +65,7 @@ export const TitleEditor = ({ title, onSave }: TTitleEditor) => {
       autoFocus
       rows={1}
       maxLength={MAX_LENGTH}
-      aria-label="tytuł"
+      aria-label="title"
       value={draft}
       onChange={(e) => setDraft(e.target.value)}
       onFocus={(e) => e.target.select()}

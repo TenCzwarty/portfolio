@@ -38,18 +38,18 @@ export const ConnectForm = ({ initial, busy, onConnect, onDemo }: TConnectForm) 
         onSubmit={onSubmit}
         className="flex flex-col gap-3 rounded-xl border border-neutral-200 p-4"
       >
-        <h3 className="text-lg font-semibold sm:text-xl">połącz z Jirą</h3>
+        <h3 className="text-lg font-semibold sm:text-xl">connect to Jira</h3>
         <label className="flex flex-col gap-1 text-sm">
-          adres Jiry
+          Jira site
           <input
             required
-            placeholder="twojafirma.atlassian.net"
+            placeholder="yourcompany.atlassian.net"
             {...field("site")}
             className={inputClass}
           />
         </label>
         <label className="flex flex-col gap-1 text-sm">
-          email konta
+          account email
           <input
             required
             type="email"
@@ -69,21 +69,21 @@ export const ConnectForm = ({ initial, busy, onConnect, onDemo }: TConnectForm) 
           />
         </label>
         <p className="text-xs opacity-70">
-          token wygenerujesz w{" "}
+          create a token in your{" "}
           <LinkExternal
             href="https://id.atlassian.com/manage-profile/security/api-tokens"
-            label="ustawieniach konta Atlassian"
+            label="Atlassian account settings"
           />
-          . Przechodzi przez serwer tej strony tylko dlatego, że Jira nie wpuszcza zapytań prosto z
-          przeglądarki. Nic nie jest zapisywane po stronie serwera, a w przeglądarce token żyje do
-          zamknięcia karty.
+          . It passes through this site&apos;s server only because Jira does not accept requests
+          straight from the browser. Nothing is stored on the server, and in the browser the token
+          lives until you close the tab.
         </p>
         <button
           type="submit"
           disabled={busy}
           className="bg-primary-900 hover:bg-accent-500 hover:text-primary-900 self-start rounded-full px-4 py-1 text-white disabled:opacity-50"
         >
-          {busy ? "łączę…" : "połącz"}
+          {busy ? "connecting…" : "connect"}
         </button>
       </form>
 
@@ -92,7 +92,7 @@ export const ConnectForm = ({ initial, busy, onConnect, onDemo }: TConnectForm) 
         onClick={onDemo}
         className="self-start rounded-full border border-neutral-200 px-4 py-1 hover:bg-neutral-200"
       >
-        albo wypróbuj demo bez Jiry
+        or try the demo without Jira
       </button>
     </div>
   );

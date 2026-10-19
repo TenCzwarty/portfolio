@@ -35,7 +35,7 @@ type TIssueCard = {
 };
 
 const formatDate = (iso: string) =>
-  new Date(iso).toLocaleDateString("pl-PL", { day: "numeric", month: "short", year: "numeric" });
+  new Date(iso).toLocaleDateString("en-GB", { day: "numeric", month: "short", year: "numeric" });
 
 const TypeIcon = ({ url, loadImage }: { url?: string; loadImage: TCardOptions["loadImage"] }) => {
   const [src, setSrc] = React.useState<string | null>(null);
@@ -85,7 +85,7 @@ export const IssueCard = ({ issue, details, options, onUpdate, onComment }: TIss
           </span>
           {issue.spilledFrom && (
             <span className="flex items-center gap-1 rounded-full bg-amber-100 px-2 py-0.5 text-xs text-amber-900">
-              <HistoryIcon size={12} /> spadło z {issue.spilledFrom}
+              <HistoryIcon size={12} /> spilled over from {issue.spilledFrom}
             </span>
           )}
         </div>
@@ -110,7 +110,7 @@ export const IssueCard = ({ issue, details, options, onUpdate, onComment }: TIss
                 onChange={(user) => onUpdate({ type: "assignee", user })}
               />
               <select
-                aria-label="priorytet"
+                aria-label="priority"
                 value={details.priority?.id ?? ""}
                 onChange={(e) => {
                   const priority = priorities.find((p) => p.id === e.target.value);
@@ -118,7 +118,7 @@ export const IssueCard = ({ issue, details, options, onUpdate, onComment }: TIss
                 }}
                 className={pillClass}
               >
-                {!details.priority && <option value="">bez priorytetu</option>}
+                {!details.priority && <option value="">no priority</option>}
                 {priorities.map((p) => (
                   <option key={p.id} value={p.id}>
                     {p.name}
@@ -136,7 +136,7 @@ export const IssueCard = ({ issue, details, options, onUpdate, onComment }: TIss
                 }
                 className={`${pillClass} max-w-full truncate sm:max-w-72`}
               >
-                <option value="">bez parenta</option>
+                <option value="">no parent</option>
                 {parents.map((p) => (
                   <option key={p.key} value={p.key}>
                     {p.key}: {p.summary}
@@ -153,19 +153,19 @@ export const IssueCard = ({ issue, details, options, onUpdate, onComment }: TIss
           </div>
 
           <section className="min-w-0 xl:col-start-1 xl:row-span-2 xl:row-start-1">
-            <Heading>opis</Heading>
+            <Heading>description</Heading>
             <RichHtml
               html={details.descriptionHtml}
               site={site}
               loadImage={loadImage}
-              empty="brak opisu"
+              empty="no description"
             />
           </section>
 
           <div className="flex min-w-0 flex-col gap-5 xl:col-start-2 xl:row-start-2">
             {details.links.length > 0 && (
               <section>
-                <Heading>powiązane</Heading>
+                <Heading>linked issues</Heading>
                 <ul className="space-y-1 text-sm">
                   {details.links.map((link) => (
                     <li key={`${link.relation}-${link.key}`} className="flex flex-wrap gap-x-2">
@@ -187,7 +187,7 @@ export const IssueCard = ({ issue, details, options, onUpdate, onComment }: TIss
             )}
 
             <section>
-              <Heading>komentarze ({details.comments.length})</Heading>
+              <Heading>comments ({details.comments.length})</Heading>
               <div className="space-y-3">
                 {details.comments.map((comment) => (
                   <div key={comment.id} className="rounded-xl bg-white/60 p-3">

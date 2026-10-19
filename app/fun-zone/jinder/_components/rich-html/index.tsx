@@ -59,7 +59,7 @@ const prepare = (html: string, site: string) => {
 const placeholder = (doc: Document, img: HTMLImageElement) => {
   const span = doc.createElement("span");
   span.className = "img";
-  span.textContent = img.alt ? `[${img.alt}]` : "[obrazek – zobacz w Jirze]";
+  span.textContent = img.alt ? `[${img.alt}]` : "[image – see it in Jira]";
   img.replaceWith(span);
 };
 
@@ -68,7 +68,7 @@ const placeholder = (doc: Document, img: HTMLImageElement) => {
  * third party and the page holds an API token. allow-same-origin lets us measure its height
  * and swap in the images.
  */
-export const RichHtml = ({ html, site, loadImage, empty = "brak" }: TRichHtml) => {
+export const RichHtml = ({ html, site, loadImage, empty = "none" }: TRichHtml) => {
   const ref = React.useRef<HTMLIFrameElement>(null);
   const [height, setHeight] = React.useState(0);
   const observer = React.useRef<ResizeObserver | null>(null);
@@ -106,7 +106,7 @@ export const RichHtml = ({ html, site, loadImage, empty = "brak" }: TRichHtml) =
   return (
     <iframe
       ref={ref}
-      title="treść z Jiry"
+      title="content from Jira"
       sandbox="allow-same-origin allow-popups allow-popups-to-escape-sandbox"
       srcDoc={srcDoc}
       onLoad={onLoad}
