@@ -28,7 +28,7 @@ export const IdentityForm = ({
   // re-read while the site theme changes, so the swatches fade along with the page
   // (the form only mounts in the browser, after hydration, so the CSS variables are there)
   const themeTick = useThemeTick();
-   
+
   const palette = React.useMemo(themePalette, [themeTick]);
   const others = people.filter((p) => p.id !== me?.id);
   const takenColors = others.map((p) => p.color);
@@ -133,11 +133,15 @@ export const IdentityForm = ({
               style={{ background: c }}
             />
           ))}
-          {/* the native picker hides behind a pill, so it doesn't pass for one more swatch */}
+          {/* the native picker hides behind a swatch-sized circle and a label, joined by a dashed
+              outline (like the stamp and its pencil), so it doesn't pass for one more swatch */}
           <label
-            className={`flex h-8 cursor-pointer items-center gap-2 rounded-full border-2 px-4 ${isCustom ? "border-primary-900" : "border-neutral-300 hover:bg-neutral-200"}`}
+            className={`flex h-8 cursor-pointer items-center gap-2 rounded-full border border-dashed pr-4 ${isCustom ? "border-primary-900" : "border-neutral-400 hover:bg-neutral-200"}`}
           >
-            {isCustom && <span className="size-4 rounded-full" style={{ background: color }} />}
+            <span
+              className="size-[30px] rounded-full"
+              style={{ background: isCustom ? color : "var(--color-neutral-200)" }}
+            />
             custom
             <input
               type="color"

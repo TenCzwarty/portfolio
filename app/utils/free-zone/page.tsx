@@ -90,6 +90,9 @@ export default function UtilsFreeZonePage() {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
+  // a name hovered (or tapped) under the calendar: only that person's things stay bright
+  const [highlightId, setHighlightId] = React.useState<string | null>(null);
+
   const [hidePlans, toggleHidePlansFlag] = useStoredFlag(STORAGE_KEY_HIDE_PLANS);
   const [hideDots, toggleHideDots] = useStoredFlag(STORAGE_KEY_HIDE_DOTS);
   const [hideStamps, toggleHideStamps] = useStoredFlag(STORAGE_KEY_HIDE_STAMPS);
@@ -466,8 +469,12 @@ export default function UtilsFreeZonePage() {
                         setEditingStamp(null);
                       }}
                       onDelete={() => {
-                        send({ type: "stamp-label-delete", label: editingStamp });
-                        toast(`deleted stamp "${stampName(editingStamp)}"`);
+                        const label = editingStamp;
+                        const icon = data.stampIcons[label] ?? null;
+                        send({ type: "stamp-label-delete", label });
+                        toast(`deleted stamp "${stampName(label)}"`, {
+                          undo: () => send({ type: "stamp-def", label, icon }),
+                        });
                         setSelectedStamp(DEFAULT_STAMPS[0]);
                         setEditingStamp(null);
                       }}
@@ -487,6 +494,7 @@ export default function UtilsFreeZonePage() {
                     </div>
                   ) : (
                     <MonthGrid
+                      highlightId={highlightId}
                       weeks={weeks}
                       month={cursor.month}
                       today={today}
@@ -519,7 +527,13 @@ export default function UtilsFreeZonePage() {
                 </div>
 
                 <div className="ml-4">
-                  <Legend people={people} me={me} onEditMe={canEdit ? openEditMe : undefined} />
+                  <Legend
+                    people={people}
+                    me={me}
+                    highlightId={highlightId}
+                    onHighlight={setHighlightId}
+                    onEditMe={canEdit ? openEditMe : undefined}
+                  />
                 </div>
 
                 {newPlanRange && (
@@ -558,10 +572,19 @@ export default function UtilsFreeZonePage() {
                     plan={selectedPlan}
                     people={people}
                     canEdit={canEdit}
+                    me={me}
                     onEdit={() => setEditingPlanId(selectedPlan.id)}
+                    onRsvp={(answer) =>
+                      me &&
+                      send({ type: "plan-rsvp", id: selectedPlan.id, personId: me.id, answer })
+                    }
                     onDelete={() => {
-                      send({ type: "plan-delete", id: selectedPlan.id });
-                      toast(`deleted plan "${selectedPlan.title}"`);
+                      // the whole plan, answers included, so undo brings it back as it was
+                      const plan = selectedPlan;
+                      send({ type: "plan-delete", id: plan.id });
+                      toast(`deleted plan "${plan.title}"`, {
+                        undo: () => send({ type: "plan-add", plan }),
+                      });
                       setSelectedPlanId(null);
                     }}
                     onClose={() => setSelectedPlanId(null)}

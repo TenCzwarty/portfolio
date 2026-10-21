@@ -9,13 +9,15 @@ export type TStampItem = { stamp: TStamp; person: TPerson; icon?: string };
 type TStampLayer = {
   items: Array<TStampItem>;
   style: React.CSSProperties;
+  /** someone's name is hovered under the calendar: everyone else's stamps fade */
+  highlightId?: string | null;
 };
 
 /**
  * Stamps of one day cell. New stamps get pressed in, removed ones peel off - but only for
  * changes after the cell appeared, so opening the page or switching months stays calm.
  */
-export const StampLayer = ({ items, style }: TStampLayer) => {
+export const StampLayer = ({ items, style, highlightId = null }: TStampLayer) => {
   const isMountedRef = React.useRef(false);
   const previousRef = React.useRef(items);
   const enteringRef = React.useRef(new Set<string>());
@@ -69,7 +71,7 @@ export const StampLayer = ({ items, style }: TStampLayer) => {
               else enteringRef.current.delete(key);
             }}
             // the frame belongs to text - an icon-only stamp is just the icon
-            className={`stamp ${animation} absolute flex max-w-[90%] items-center gap-0.5 px-0.5 text-[0.5rem] leading-2.5 font-bold tracking-wide whitespace-nowrap sm:gap-1 sm:px-1.5 sm:text-xs sm:leading-4 sm:tracking-wider ${stampText(stamp.label) ? "rounded border bg-white/50 sm:rounded-md sm:border-2" : ""}`}
+            className={`stamp ${animation} absolute flex max-w-[90%] items-center gap-0.5 px-0.5 text-[0.5rem] leading-2.5 font-bold tracking-wide whitespace-nowrap transition-opacity sm:gap-1 sm:px-1.5 sm:text-xs sm:leading-4 sm:tracking-wider ${stampText(stamp.label) ? "rounded border bg-white/50 sm:rounded-md sm:border-2" : ""} ${highlightId && highlightId !== person.id ? "opacity-20" : ""}`}
             style={
               {
                 left: `${x}%`,
@@ -80,7 +82,11 @@ export const StampLayer = ({ items, style }: TStampLayer) => {
               } as React.CSSProperties
             }
           >
-            <StampIcon name={icon} className="size-2 shrink-0 sm:size-3" />
+            {/* without text the icon is the whole stamp, so it gets bigger */}
+            <StampIcon
+              name={icon}
+              className={`shrink-0 ${stampText(stamp.label) ? "size-2 sm:size-3" : "size-3.5 sm:size-5"}`}
+            />
             {stampText(stamp.label) && <span className="truncate">{stamp.label}</span>}
           </span>
         );

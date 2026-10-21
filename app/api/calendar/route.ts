@@ -4,6 +4,7 @@ import { createHash, timingSafeEqual } from "node:crypto";
 
 import type { TCalendarData, TPerson, TPlan } from "~/app/utils/free-zone/_types";
 import { findByName } from "~/app/utils/free-zone/_utils/identity";
+import { withRsvp } from "~/app/utils/free-zone/_utils/rsvp";
 import {
   DEFAULT_STAMPS,
   parseStamp,
@@ -139,8 +140,16 @@ export async function POST(request: Request) {
     }
     case "plan-add": {
       if ((await db.hlen(KEY_PLANS)) >= LIMITS.plans) return error("Too many plans", 409);
-      const { id, title, description, start, end, createdBy } = action.plan;
-      await db.hset(KEY_PLANS, { [id]: { id, title, description, start, end, createdBy } });
+      const { id, title, description, start, end, createdBy, rsvp } = action.plan;
+      await db.hset(KEY_PLANS, { [id]: { id, title, description, start, end, createdBy, rsvp } });
+      break;
+    }
+    case "plan-rsvp": {
+      const plan = await db.hget<TPlan>(KEY_PLANS, action.id);
+      if (!plan) return error("Unknown plan", 404);
+      if (!(await db.hexists(KEY_PEOPLE, action.personId))) return error("Unknown person", 404);
+      const rsvp = withRsvp(plan.rsvp, action.personId, action.answer);
+      await db.hset(KEY_PLANS, { [action.id]: { ...plan, rsvp } });
       break;
     }
     case "plan-update": {

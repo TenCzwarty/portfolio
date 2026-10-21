@@ -3,6 +3,7 @@ import React from "react";
 import type { TCalendarAction, TCalendarData, TPerson } from "../_types";
 
 import { findByName, STORAGE_KEY_ME, STORAGE_KEY_SECRET } from "./identity";
+import { withRsvp } from "./rsvp";
 import { DEFAULT_STAMPS, sameStamp } from "./stamps";
 
 const API = "/api/calendar";
@@ -60,6 +61,13 @@ const applyAction = (data: TCalendarData, action: TCalendarAction): TCalendarDat
         ...data,
         plans: data.plans.map((p) =>
           p.id === action.id ? { ...p, title: action.title, description: action.description } : p
+        ),
+      };
+    case "plan-rsvp":
+      return {
+        ...data,
+        plans: data.plans.map((p) =>
+          p.id === action.id ? { ...p, rsvp: withRsvp(p.rsvp, action.personId, action.answer) } : p
         ),
       };
     case "stamp": {
