@@ -14,6 +14,8 @@ type TMonthGrid = {
   people: Array<TPerson>;
   freeByDay: Map<TDay, Array<TPerson>>;
   stampsByDay: Map<TDay, Array<TStampItem>>;
+  showDots: boolean;
+  showStamps: boolean;
   me: TPerson | null;
   /** plan being picked right now, drawn as a ghost bar */
   draft: { start: TDay; end: TDay; title: string; createdBy: string } | null;
@@ -41,6 +43,8 @@ export const MonthGrid = ({
   people,
   freeByDay,
   stampsByDay,
+  showDots,
+  showStamps,
   me,
   draft,
   selectedPlanId,
@@ -111,20 +115,25 @@ export const MonthGrid = ({
                     className="pointer-events-none flex flex-wrap content-end gap-1 px-1.5 py-1 sm:px-4 sm:py-2"
                     style={{ gridColumn: col + 1, gridRow: 2 }}
                   >
-                    {free.map((p) => (
-                      <span
-                        key={p.id}
-                        title={p.name}
-                        className="size-2 rounded-full sm:size-3"
-                        style={{ background: p.color }}
-                      />
-                    ))}
+                    {showDots &&
+                      free.map((p) => (
+                        <span
+                          key={p.id}
+                          title={p.name}
+                          className="size-2 rounded-full sm:size-3"
+                          style={{ background: p.color }}
+                        />
+                      ))}
                   </div>
-                  <StampLayer
-                    items={stamps}
-                    // above the plan bands: stamps let clicks through, so plans stay clickable
-                    style={{ gridColumn: col + 1, gridRow: "1 / -1", zIndex: 20 }}
-                  />
+                  {/* unmounted rather than emptied, so hiding doesn't peel every stamp off
+                  and showing again doesn't press them all in at once */}
+                  {showStamps && (
+                    <StampLayer
+                      items={stamps}
+                      // above the plan bands: stamps let clicks through, so plans stay clickable
+                      style={{ gridColumn: col + 1, gridRow: "1 / -1", zIndex: 20 }}
+                    />
+                  )}
                 </React.Fragment>
               );
             })}
