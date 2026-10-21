@@ -4,6 +4,9 @@ export const init: TSumoContext = {
   isShowingFinishPreviews: false,
   toggleIsShowingFinishPreviews: () => {},
 
+  cardSize: "medium",
+  setCardSize: () => {},
+
   ownedFinishes: [],
   setOwnedFinishes: () => {},
   toggleOwned: () => {},

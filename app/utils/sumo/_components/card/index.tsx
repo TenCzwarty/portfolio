@@ -10,12 +10,39 @@ import { FinishIcon } from "~sumo/_components/finish-icon";
 import { FoilCard } from "~sumo/_components/foil-card";
 import { getRikishi } from "~sumo/_const";
 import { ownedKey, useSumoContext } from "~sumo/_context";
+import type { TCardSize } from "~sumo/_context/types";
 
 const RIKISHI = getRikishi();
 
+// Full class names so Tailwind keeps them; large stays under the ~250×350 scans
+const SIZES = {
+  small: {
+    face: "h-[120px] w-[84px]",
+    px: "84px",
+    label: "max-w-[92px]",
+    number: "text-lg",
+    icon: 12,
+  },
+  medium: {
+    face: "h-[160px] w-[112px]",
+    px: "112px",
+    label: "max-w-[120px]",
+    number: "text-2xl",
+    icon: 14,
+  },
+  large: {
+    face: "h-[240px] w-[168px]",
+    px: "168px",
+    label: "max-w-[176px]",
+    number: "text-4xl",
+    icon: 16,
+  },
+} satisfies Record<TCardSize, unknown>;
+
 export const SumoCard = (props: TSumoCardProps) => {
   const { id, title, number, src, finishes, rikishi } = props;
-  const { isOwned } = useSumoContext();
+  const { isOwned, cardSize } = useSumoContext();
+  const size = SIZES[cardSize];
   const [imgError, setImgError] = React.useState(false);
   const [zoomed, setZoomed] = React.useState(false);
 
@@ -54,7 +81,7 @@ export const SumoCard = (props: TSumoCardProps) => {
     <NextImage
       src={imageSrc}
       fill
-      sizes="112px"
+      sizes={size.px}
       className="object-cover"
       alt={title}
       onError={() => setImgError(true)}
@@ -62,7 +89,7 @@ export const SumoCard = (props: TSumoCardProps) => {
     />
   ) : (
     <div className="flex h-full w-full flex-col items-center justify-center text-center text-neutral-400">
-      <span className="text-2xl font-bold">#{number}</span>
+      <span className={`${size.number} font-bold`}>#{number}</span>
       <span className="mt-1 px-1 text-xs leading-tight">{displayName}</span>
     </div>
   );
@@ -74,7 +101,7 @@ export const SumoCard = (props: TSumoCardProps) => {
           effect={shownFinish?.effect}
           className="rounded-xl border border-neutral-200 bg-white p-2"
         >
-          <div className="relative h-[160px] w-[112px] overflow-hidden rounded-lg bg-neutral-100">
+          <div className={`relative ${size.face} overflow-hidden rounded-lg bg-neutral-100`}>
             <button
               type="button"
               onClick={() => setZoomed(true)}
@@ -88,7 +115,7 @@ export const SumoCard = (props: TSumoCardProps) => {
           {ownedFinishes.length > 0 && (
             <div className="bg-accent-900 pointer-events-none absolute right-0 bottom-0 z-10 flex gap-1 rounded-md p-1.5 text-white">
               {ownedFinishes.map((finish) => (
-                <FinishIcon key={finish.id} effect={finish.effect ?? "sleeve"} size={14} />
+                <FinishIcon key={finish.id} effect={finish.effect ?? "sleeve"} size={size.icon} />
               ))}
               <span className="sr-only">
                 In your collection: {ownedFinishes.map((finish) => finish.name).join(", ")}
@@ -97,9 +124,9 @@ export const SumoCard = (props: TSumoCardProps) => {
           )}
         </FoilCard>
 
-        <h4 className="max-w-[120px] truncate text-center text-xs">{displayName}</h4>
+        <h4 className={`${size.label} truncate text-center text-xs`}>{displayName}</h4>
         {kanji && (
-          <span className="-mt-1 max-w-[120px] truncate text-center text-[10px] text-neutral-500">
+          <span className={`-mt-1 ${size.label} truncate text-center text-[10px] text-neutral-500`}>
             {kanji}
           </span>
         )}

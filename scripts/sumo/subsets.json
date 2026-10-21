@@ -1,0 +1,159 @@
+{
+  "_about": "Base-set chapters (themes) per set, from BBM's official checklist PDFs on sportsclick.jp (sources). Ranges are card numbers. 20s2 has no checklist online: its ranges follow the official article's line-up order and counts, which the card titles confirm. apply-subsets.mjs writes them into cards.json.",
+  "sets": {
+    "20s1": {
+      "source": "https://www.sportsclick.jp/user_data/signlist/2020sumo_list.pdf",
+      "themes": [
+        { "ja": "レギュラー", "en": "Regular", "cards": "1-70" },
+        { "ja": "期待の若手", "en": "Promising youth", "cards": "71-75" },
+        { "ja": "オフショット", "en": "Off-shot", "cards": "76-89" },
+        { "ja": "ありがとう稀勢の里", "en": "Thank you, Kisenosato", "cards": "90" }
+      ]
+    },
+    "20s2": {
+      "source": "https://www.bbm-japan.com/article/detail/4447",
+      "themes": [
+        { "ja": "レギュラー", "en": "Regular", "cards": "1-42" },
+        { "ja": "新弟子時代", "en": "Rookie days", "cards": "43-64" },
+        { "ja": "新横綱＆新大関", "en": "New yokozuna & ozeki", "cards": "65-72" },
+        { "ja": "新世代", "en": "New generation", "cards": "73-81" }
+      ]
+    },
+    "21s1": {
+      "source": "https://www.sportsclick.jp/user_data/signlist/2021sumo_list.pdf",
+      "themes": [
+        { "ja": "レギュラー", "en": "Regular", "cards": "1-70" },
+        { "ja": "新十両", "en": "New juryo", "cards": "71-72" },
+        { "ja": "期待の若手", "en": "Promising youth", "cards": "73-76" },
+        { "ja": "闘う男たち", "en": "Fighting men", "cards": "77-90" }
+      ]
+    },
+    "21h": {
+      "source": "https://www.sportsclick.jp/user_data/signlist/2021sumolegend_list.pdf",
+      "themes": [
+        { "ja": "レギュラー", "en": "Legends", "cards": "1-60" },
+        { "ja": "優勝伝説", "en": "Championship legends", "cards": "61-81" }
+      ]
+    },
+    "21s2": {
+      "source": "https://www.sportsclick.jp/user_data/signlist/2021sumotakumi_list.pdf",
+      "themes": [
+        { "ja": "レギュラー", "en": "Regular", "cards": "1-42" },
+        { "ja": "技能賞", "en": "Technique prize", "cards": "43-61" },
+        { "ja": "妙手", "en": "Masterful techniques", "cards": "62-70" },
+        { "ja": "新世代", "en": "New generation", "cards": "71-76" },
+        { "ja": "鶴竜の軌跡", "en": "Kakuryu's path", "cards": "77-81" }
+      ]
+    },
+    "22s1": {
+      "source": "https://www.sportsclick.jp/user_data/signlist/2022sumo_list.pdf",
+      "themes": [
+        { "ja": "レギュラー", "en": "Regular", "cards": "1-69" },
+        { "ja": "新十両", "en": "New juryo", "cards": "70-72" },
+        { "ja": "期待の若手", "en": "Promising youth", "cards": "73-76" },
+        { "ja": "新横綱 照ノ富士", "en": "New yokozuna Terunofuji", "cards": "77-81" },
+        { "ja": "白鵬の軌跡", "en": "Hakuho's path", "cards": "82-90" }
+      ]
+    },
+    "22s2": {
+      "source": "https://www.sportsclick.jp/user_data/signlist/2022sumo-hana_list.pdf",
+      "themes": [
+        { "ja": "レギュラー", "en": "Regular", "cards": "1-42" },
+        { "ja": "土俵の華", "en": "Flowers of the ring", "cards": "43-60" },
+        { "ja": "波の花", "en": "Salt throw", "cards": "61-76" },
+        { "ja": "同期の桜", "en": "Classmates", "cards": "77-79" },
+        { "ja": "祝 新大関＆初優勝", "en": "New ozeki & first title", "cards": "80-81" }
+      ]
+    },
+    "23s1": {
+      "source": "https://www.sportsclick.jp/user_data/signlist/2023sumo_list.pdf",
+      "themes": [
+        { "ja": "レギュラー", "en": "Regular", "cards": "1-70" },
+        { "ja": "新十両", "en": "New juryo", "cards": "71" },
+        { "ja": "期待の若手", "en": "Promising youth", "cards": "72-76" },
+        { "ja": "Smile!", "en": "Smile!", "cards": "77-84" },
+        { "ja": "いぶし銀", "en": "Unsung veterans", "cards": "85-90" }
+      ]
+    },
+    "23s2": {
+      "source": "https://www.sportsclick.jp/user_data/signlist/2023sumokizuna_list.pdf",
+      "themes": [
+        { "ja": "レギュラー", "en": "Regular", "cards": "1-42" },
+        { "ja": "部屋の絆", "en": "Stable bonds", "cards": "43-58" },
+        { "ja": "同期の絆", "en": "Classmate bonds", "cards": "59-65" },
+        { "ja": "兄弟の絆", "en": "Brother bonds", "cards": "66-67" },
+        { "ja": "師弟の絆", "en": "Master & disciple", "cards": "68-81" }
+      ]
+    },
+    "24s1": {
+      "source": "https://www.sportsclick.jp/user_data/signlist/2024sumo_list.pdf",
+      "themes": [
+        { "ja": "レギュラー", "en": "Regular", "cards": "1-70" },
+        { "ja": "新十両", "en": "New juryo", "cards": "71-72" },
+        { "ja": "期待の若手", "en": "Promising youth", "cards": "73-76" },
+        { "ja": "Smile!", "en": "Smile!", "cards": "77-90" }
+      ]
+    },
+    "24s2": {
+      "source": "https://www.sportsclick.jp/user_data/signlist/2024hibiki_list2.pdf",
+      "themes": [
+        { "ja": "レギュラー", "en": "Regular", "cards": "1-42" },
+        { "ja": "行司・呼出し", "en": "Referees & callers", "cards": "43-52" },
+        { "ja": "四股名", "en": "Ring names", "cards": "53-72" },
+        { "ja": "継承", "en": "Succession", "cards": "73-78" },
+        { "ja": "新大関", "en": "New ozeki", "cards": "79-80" },
+        { "ja": "初優勝", "en": "First title", "cards": "81" }
+      ]
+    },
+    "25s1": {
+      "source": "https://www.sportsclick.jp/user_data/signlist/2025sumo_list.pdf",
+      "themes": [
+        { "ja": "レギュラー", "en": "Regular", "cards": "1-70" },
+        { "ja": "縁起物", "en": "Lucky charms", "cards": "71-81" },
+        { "ja": "貴景勝の軌跡", "en": "Takakeisho's path", "cards": "82-85" },
+        { "ja": "新大関 大の里", "en": "New ozeki Onosato", "cards": "86-88" },
+        { "ja": "新十両", "en": "New juryo", "cards": "89" },
+        { "ja": "初優勝", "en": "First title", "cards": "90" }
+      ]
+    },
+    "25s2": {
+      "source": "https://www.sportsclick.jp/user_data/signlist/2025sumo-nagomi_list.pdf",
+      "themes": [
+        { "ja": "レギュラー", "en": "Regular", "cards": "1-42" },
+        { "ja": "マスコット", "en": "Mascots", "cards": "43-46" },
+        { "ja": "Smile!", "en": "Smile!", "cards": "47-64" },
+        { "ja": "My Favorite", "en": "My favorite", "cards": "65-71" },
+        { "ja": "新横綱 豊昇龍", "en": "New yokozuna Hoshoryu", "cards": "72-74" },
+        { "ja": "新立行司", "en": "New chief referees", "cards": "75-76" },
+        { "ja": "照ノ富士の軌跡", "en": "Terunofuji's path", "cards": "77-81" }
+      ]
+    },
+    "26s1": {
+      "source": "https://www.sportsclick.jp/user_data/signlist/2026sumo_list.pdf",
+      "themes": [
+        { "ja": "レギュラー", "en": "Regular", "cards": "1-70" },
+        { "ja": "始球式", "en": "Ceremonial first pitch", "cards": "71-76" },
+        {
+          "ja": "日本相撲協会100周年",
+          "en": "Sumo Association 100th anniversary",
+          "cards": "77-80"
+        },
+        { "ja": "縁起物", "en": "Lucky charms", "cards": "81-86" },
+        { "ja": "ありがとう遠藤", "en": "Thank you, Endo", "cards": "87" },
+        { "ja": "新十両", "en": "New juryo", "cards": "88-89" },
+        { "ja": "初優勝＆新大関誕生", "en": "First title & new ozeki", "cards": "90" }
+      ]
+    },
+    "26s2": {
+      "source": "https://www.sportsclick.jp/user_data/signlist/2026sumosato_list.pdf",
+      "themes": [
+        { "ja": "レギュラー", "en": "Regular", "cards": "1-42" },
+        { "ja": "郷里の星", "en": "Hometown stars", "cards": "43-50" },
+        { "ja": "同郷の絆", "en": "Hometown bonds", "cards": "51-59" },
+        { "ja": "兄弟！", "en": "Brothers!", "cards": "60-62" },
+        { "ja": "故郷を名に込めて", "en": "Hometown in the name", "cards": "63-69" },
+        { "ja": "Another Scene オフショット", "en": "Another scene: off-shot", "cards": "70-81" }
+      ]
+    }
+  }
+}

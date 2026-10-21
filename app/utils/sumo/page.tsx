@@ -16,12 +16,15 @@ import "./styles.css";
 
 import { SumoCardSet } from "~sumo/_components/card-set";
 import { useSumoContext } from "~sumo/_context";
+import type { TCardSize } from "~sumo/_context/types";
 import { useSumoQueryString } from "~sumo/_helpers/query-string";
+
+const CARD_SIZES: Array<TCardSize> = ["small", "medium", "large"];
 
 export default function UtilsSumoTrackerPage() {
   useSumoQueryString();
 
-  const { toggleIsShowingFinishPreviews } = useSumoContext();
+  const { toggleIsShowingFinishPreviews, cardSize, setCardSize } = useSumoContext();
   const allSets = getAllSets();
   const [selectedSetCode, setSelectedSetCode] = React.useState(allSets[allSets.length - 1].code);
 
@@ -53,6 +56,29 @@ export default function UtilsSumoTrackerPage() {
                       >
                         <SparklesIcon />
                       </IconToggle>
+                    </div>
+
+                    <div className="flex flex-wrap items-center gap-2">
+                      <h4 id="card-size-label" className="mr-2">
+                        card size
+                      </h4>
+                      <div role="group" aria-labelledby="card-size-label" className="flex gap-1">
+                        {CARD_SIZES.map((size) => (
+                          <button
+                            key={size}
+                            type="button"
+                            aria-pressed={cardSize === size}
+                            onClick={() => setCardSize(size)}
+                            className={`rounded-lg px-3 py-1 text-sm ${
+                              cardSize === size
+                                ? "bg-primary-900 text-white"
+                                : "text-neutral-500 hover:bg-neutral-200"
+                            }`}
+                          >
+                            {size}
+                          </button>
+                        ))}
+                      </div>
                     </div>
                   </div>
                 </Accordion>
