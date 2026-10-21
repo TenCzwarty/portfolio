@@ -140,7 +140,7 @@ export const CardZoom = (props: TCardZoomProps) => {
             ) : (
               <div className="flex aspect-[5/7] h-[min(75dvh,525px)] max-w-[calc(100vw-2rem)] flex-col items-center justify-center bg-neutral-100 text-neutral-400">
                 <span className="text-6xl font-bold">#{number}</span>
-                <span className="mt-2 text-xl">{name}</span>
+                <span className="mt-2 px-6 text-center text-xl">{name}</span>
               </div>
             )}
           </FoilCard>

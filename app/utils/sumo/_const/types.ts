@@ -21,11 +21,19 @@ export type TSumoCard = {
   subset: string;
   rikishi: Array<string>;
   title: string;
+  /** id of the set's theme (base-set chapter) the card belongs to */
   theme: string;
   rankAtIssue: string | null;
   src: string | null;
   tcdbImageUrl: string | null;
   finishes: Array<TFinish>;
+};
+
+/** A base-set chapter from BBM's checklist, e.g. "Smile!" or 縁起物 */
+export type TSumoTheme = {
+  id: string;
+  name: string;
+  nameJa: string;
 };
 
 export type TSumoSet = {
@@ -36,6 +44,8 @@ export type TSumoSet = {
   series: number | null;
   label: string | null;
   subsets: Array<string>;
+  /** in checklist order (scripts/sumo/subsets.json) */
+  themes: Array<TSumoTheme>;
   cards: Array<TSumoCard>;
 };
 
