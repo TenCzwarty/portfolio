@@ -1,14 +1,22 @@
 "use client";
 
 import React from "react";
-import { ChevronLeftIcon, ChevronRightIcon } from "lucide-react";
+import {
+  CalendarRangeIcon,
+  ChevronLeftIcon,
+  ChevronRightIcon,
+  EllipsisIcon,
+  StampIcon as StampToggleIcon,
+} from "lucide-react";
 
 import { useConfetti } from "~/app/utils/meeple-circus/_utils/use-confetti";
 import {
   Accordion,
   AccordionController,
   AccordionExtraSettingsToggle,
+  AccordionToggleMoreInfo,
 } from "~/components/accordion";
+import { IconToggle } from "~/components/icon-toggle";
 import { Section } from "~/components/section";
 
 import { IdentityForm } from "./_components/identity-form";
@@ -73,7 +81,6 @@ export default function UtilsFreeZonePage() {
   const [hideDots, toggleHideDots] = useStoredFlag(STORAGE_KEY_HIDE_DOTS);
   const [hideStamps, toggleHideStamps] = useStoredFlag(STORAGE_KEY_HIDE_STAMPS);
   const [editingPlanId, setEditingPlanId] = React.useState<string | null>(null);
-  const [editingMe, setEditingMe] = React.useState(false);
   const [rangeStart, setRangeStart] = React.useState<TDay | null>(null);
   const [rangeHover, setRangeHover] = React.useState<TDay | null>(null);
   const [newPlanRange, setNewPlanRange] = React.useState<{ start: TDay; end: TDay } | null>(null);
@@ -223,10 +230,7 @@ export default function UtilsFreeZonePage() {
       return;
     }
     if (!canEdit) return;
-    if (!me) {
-      setEditingMe(true);
-      return;
-    }
+    if (!me) return;
 
     if (mode === "availability") {
       const available = !(data.availability[me.id] ?? []).includes(day);
@@ -273,7 +277,8 @@ export default function UtilsFreeZonePage() {
   const showDots = !hideDots || mode === "availability";
   const showStamps = !hideStamps || mode === "stamp";
 
-  const showIdentityForm = hydrated && canEdit && (editingMe || !me);
+  // first visit only - changing an existing identity lives in the settings box
+  const showIdentityForm = hydrated && canEdit && !me;
 
   return (
     <main className="min-h-[calc(100dvh-56px)]">
@@ -289,43 +294,63 @@ export default function UtilsFreeZonePage() {
                 </div>
 
                 <Accordion {...accordionProps}>
-                  <div className="mt-4 -ml-4 flex flex-col items-start gap-2 rounded-xl border border-neutral-200 p-4 text-sm">
-                    <button
-                      type="button"
-                      onClick={toggleHidePlans}
-                      aria-pressed={hidePlans}
-                      className="underline hover:no-underline"
-                    >
-                      {hidePlans ? "show plans" : "hide plans"}
-                    </button>
-                    <button
-                      type="button"
-                      onClick={toggleHideDots}
-                      aria-pressed={hideDots}
-                      className="underline hover:no-underline"
-                    >
-                      {hideDots ? "show dots" : "hide dots"}
-                    </button>
-                    <button
-                      type="button"
-                      onClick={toggleHideStamps}
-                      aria-pressed={hideStamps}
-                      className="underline hover:no-underline"
-                    >
-                      {hideStamps ? "show stamps" : "hide stamps"}
-                    </button>
-                    {canEdit && me && (
-                      <button
-                        type="button"
-                        onClick={() => {
-                          setEditingMe(true);
-                          accordionProps.toggleIsOpened();
-                        }}
-                        className="underline hover:no-underline"
+                  <div className="mt-4 -ml-4 space-y-4 rounded-xl border border-neutral-200 p-4">
+                    <div className="flex items-center gap-2">
+                      <h4 className="mr-2">show</h4>
+                      <IconToggle
+                        id="dots"
+                        state={hideDots ? 0 : 1}
+                        toggleFunction={toggleHideDots}
                       >
-                        change name or color
-                      </button>
+                        <EllipsisIcon />
+                      </IconToggle>
+                      <IconToggle
+                        id="plans"
+                        state={hidePlans ? 0 : 1}
+                        toggleFunction={toggleHidePlans}
+                      >
+                        <CalendarRangeIcon />
+                      </IconToggle>
+                      <IconToggle
+                        id="stamps"
+                        state={hideStamps ? 0 : 1}
+                        toggleFunction={toggleHideStamps}
+                      >
+                        <StampToggleIcon />
+                      </IconToggle>
+                    </div>
+
+                    {canEdit && me && (
+                      <AccordionController>
+                        {(identityProps) => (
+                          <div className="rounded-md border border-neutral-200 p-4">
+                            <AccordionToggleMoreInfo
+                              name="change name or color"
+                              {...identityProps}
+                            />
+                            <Accordion {...identityProps}>
+                              {/* mounted only while open: reopening starts from the saved name, not a stale draft */}
+                              {identityProps.isOpened && (
+                                <div className="mt-4">
+                                  <IdentityForm
+                                    key={me.id}
+                                    me={me}
+                                    people={people}
+                                    embedded
+                                    onSave={(person) => {
+                                      setMe(person);
+                                      identityProps.toggleIsOpened();
+                                    }}
+                                    onCancel={identityProps.toggleIsOpened}
+                                  />
+                                </div>
+                              )}
+                            </Accordion>
+                          </div>
+                        )}
+                      </AccordionController>
                     )}
+
                     {canEdit && (
                       <button
                         type="button"
@@ -355,18 +380,7 @@ export default function UtilsFreeZonePage() {
                   </div>
                 ) : (
                   <>
-                    {showIdentityForm && (
-                      <IdentityForm
-                        key={me?.id ?? "new"}
-                        me={me}
-                        people={people}
-                        onSave={(person) => {
-                          setMe(person);
-                          setEditingMe(false);
-                        }}
-                        onCancel={me ? () => setEditingMe(false) : undefined}
-                      />
-                    )}
+                    {showIdentityForm && <IdentityForm me={null} people={people} onSave={setMe} />}
 
                     <div className="ml-4 flex flex-col gap-4">
                       {/* month, modes, stamps and navigation share one row, wrapping on narrow screens */}

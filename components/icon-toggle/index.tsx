@@ -9,11 +9,13 @@ export const IconToggle = ({
   id,
   numberOfStates = 2,
   initialState = 1,
+  state,
   title,
   children,
   toggleFunction,
 }: TIconToggle) => {
-  const [index, next] = useNToggle(numberOfStates, initialState);
+  const [ownIndex, next] = useNToggle(numberOfStates, initialState);
+  const index = state ?? ownIndex;
 
   const onClick = () => {
     next();
@@ -27,6 +29,7 @@ export const IconToggle = ({
       <button
         data-tooltip-id={id}
         onClick={onClick}
+        aria-pressed={numberOfStates === 2 ? index === 1 : undefined}
         className={["text-neutral-500", "text-accent-900", "text-black"][index]}
       >
         {children}

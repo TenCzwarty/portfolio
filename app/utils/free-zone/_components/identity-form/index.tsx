@@ -9,9 +9,11 @@ type TIdentityForm = {
   people: Array<TPerson>;
   onSave: (person: TPerson) => void;
   onCancel?: () => void;
+  /** inside the settings box: no frame or heading of its own */
+  embedded?: boolean;
 };
 
-export const IdentityForm = ({ me, people, onSave, onCancel }: TIdentityForm) => {
+export const IdentityForm = ({ me, people, onSave, onCancel, embedded = false }: TIdentityForm) => {
   const others = people.filter((p) => p.id !== me?.id);
   const takenColors = others.map((p) => p.color);
 
@@ -42,12 +44,10 @@ export const IdentityForm = ({ me, people, onSave, onCancel }: TIdentityForm) =>
   return (
     <form
       onSubmit={onSubmit}
-      className="flex flex-col gap-4 rounded-xl border border-neutral-200 p-4"
+      className={`flex flex-col gap-4 ${embedded ? "" : "rounded-xl border border-neutral-200 p-4"}`}
     >
       <div>
-        <h3 className="text-lg font-semibold sm:text-xl">
-          {me ? "change name or color" : "who are you?"}
-        </h3>
+        {!embedded && <h3 className="text-lg font-semibold sm:text-xl">who are you?</h3>}
         <p className="text-sm">
           no login — your name and color are remembered in this browser only
         </p>
