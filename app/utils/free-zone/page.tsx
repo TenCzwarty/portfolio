@@ -23,6 +23,7 @@ import { addDays, formatMonth, fromDay, getMonthWeeks, toDay } from "./_utils/da
 import { newId } from "./_utils/identity";
 import { DEFAULT_STAMPS, sameStamp } from "./_utils/stamps";
 import { useCalendar } from "./_utils/use-calendar";
+import { useStoredFlag } from "./_utils/use-stored-flag";
 import type { TDay, TPerson, TPlan } from "./_types";
 
 import "./styles.css";
@@ -42,6 +43,8 @@ const MODES: Array<{ value: TMode; label: string }> = [
 ];
 
 const STORAGE_KEY_HIDE_PLANS = "kalendarz:hide-plans";
+const STORAGE_KEY_HIDE_DOTS = "kalendarz:hide-dots";
+const STORAGE_KEY_HIDE_STAMPS = "kalendarz:hide-stamps";
 
 export default function UtilsFreeZonePage() {
   const {
@@ -66,7 +69,9 @@ export default function UtilsFreeZonePage() {
   }));
   // null = just looking: clicking days changes nothing, clicking a plan opens it
   const [mode, setMode] = React.useState<TMode | null>(null);
-  const [hidePlans, setHidePlans] = React.useState(false);
+  const [hidePlans, toggleHidePlansFlag] = useStoredFlag(STORAGE_KEY_HIDE_PLANS);
+  const [hideDots, toggleHideDots] = useStoredFlag(STORAGE_KEY_HIDE_DOTS);
+  const [hideStamps, toggleHideStamps] = useStoredFlag(STORAGE_KEY_HIDE_STAMPS);
   const [editingPlanId, setEditingPlanId] = React.useState<string | null>(null);
   const [editingMe, setEditingMe] = React.useState(false);
   const [rangeStart, setRangeStart] = React.useState<TDay | null>(null);
@@ -179,20 +184,8 @@ export default function UtilsFreeZonePage() {
   const selectedPlan = data.plans.find((p) => p.id === selectedPlanId) ?? null;
   const editingPlan = data.plans.find((p) => p.id === editingPlanId) ?? null;
 
-  // per-viewer preference, so it lives in this browser only
-  React.useEffect(() => {
-    try {
-      setHidePlans(window.localStorage.getItem(STORAGE_KEY_HIDE_PLANS) === "1");
-    } catch {}
-  }, []);
-
   const toggleHidePlans = () => {
-    setHidePlans((hidden) => {
-      try {
-        window.localStorage.setItem(STORAGE_KEY_HIDE_PLANS, hidden ? "0" : "1");
-      } catch {}
-      return !hidden;
-    });
+    toggleHidePlansFlag();
     setSelectedPlanId(null);
   };
 
@@ -276,6 +269,9 @@ export default function UtilsFreeZonePage() {
 
   // hiding plans keeps the screen calm, but not while you're adding one
   const visiblePlans = hidePlans && mode !== "plan" ? [] : data.plans;
+  // same for dots and stamps: you see what you're marking
+  const showDots = !hideDots || mode === "availability";
+  const showStamps = !hideStamps || mode === "stamp";
 
   const showIdentityForm = hydrated && canEdit && (editingMe || !me);
 
@@ -301,6 +297,22 @@ export default function UtilsFreeZonePage() {
                       className="underline hover:no-underline"
                     >
                       {hidePlans ? "show plans" : "hide plans"}
+                    </button>
+                    <button
+                      type="button"
+                      onClick={toggleHideDots}
+                      aria-pressed={hideDots}
+                      className="underline hover:no-underline"
+                    >
+                      {hideDots ? "show dots" : "hide dots"}
+                    </button>
+                    <button
+                      type="button"
+                      onClick={toggleHideStamps}
+                      aria-pressed={hideStamps}
+                      className="underline hover:no-underline"
+                    >
+                      {hideStamps ? "show stamps" : "hide stamps"}
                     </button>
                     {canEdit && me && (
                       <button
@@ -460,6 +472,8 @@ export default function UtilsFreeZonePage() {
                           people={people}
                           freeByDay={freeByDay}
                           stampsByDay={stampsByDay}
+                          showDots={showDots}
+                          showStamps={showStamps}
                           me={me}
                           draft={
                             mode === "plan" && previewRange && me
