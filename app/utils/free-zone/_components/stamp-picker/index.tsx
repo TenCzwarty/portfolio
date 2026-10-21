@@ -15,7 +15,8 @@ type TStampChips = {
   onEdit: (label: string | null) => void;
 };
 
-const chip = "flex items-center gap-1.5 rounded-full border px-3 py-1 text-sm";
+// fixed height, so the text chips, the pencil and the plus line up whatever's inside
+const chip = "flex h-8 items-center gap-1.5 rounded-full border px-3 text-sm";
 
 /** stamps to pick from, rendered inline so they share a row with the mode pills */
 export const StampChips = ({
@@ -47,7 +48,7 @@ export const StampChips = ({
             aria-label={`edit the ${stampName(label)} stamp`}
             aria-expanded={editing === label}
             onClick={() => onEdit(editing === label ? null : label)}
-            className="rounded-full p-1.5 opacity-60 hover:bg-neutral-200 hover:opacity-100"
+            className={`${chip} border-dashed border-neutral-200 hover:bg-neutral-200`}
           >
             <PencilIcon className="size-3.5" />
           </button>

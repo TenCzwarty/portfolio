@@ -1,6 +1,6 @@
 import type { TCalendarAction, TDay, TPerson, TPlan, TStamp } from "../_types";
 
-import { isStampIcon, isStampLabel, normalizeStamp } from "./stamps";
+import { isStampIcon, isStampLabel, isStampSeed, normalizeStamp } from "./stamps";
 
 const RE_DAY = /^\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01])$/;
 const RE_COLOR = /^#[0-9a-f]{6}$/i;
@@ -52,7 +52,11 @@ const isPlan = (v: unknown): v is TPlan =>
   daysBetween(v.start, v.end) < LIMITS.planDays;
 
 const isStamp = (v: unknown): v is TStamp =>
-  isRecord(v) && isDay(v.day) && isId(v.personId) && isStampLabel(v.label);
+  isRecord(v) &&
+  isDay(v.day) &&
+  isId(v.personId) &&
+  isStampLabel(v.label) &&
+  (v.seed === undefined || isStampSeed(v.seed));
 
 export const parseAction = (v: unknown): TCalendarAction | null => {
   if (!isRecord(v)) return null;
@@ -92,7 +96,12 @@ export const parseAction = (v: unknown): TCalendarAction | null => {
       return isStamp(v.stamp) && typeof v.on === "boolean"
         ? {
             type: "stamp",
-            stamp: { day: v.stamp.day, personId: v.stamp.personId, label: v.stamp.label },
+            stamp: {
+              day: v.stamp.day,
+              personId: v.stamp.personId,
+              label: v.stamp.label,
+              ...(v.stamp.seed ? { seed: v.stamp.seed } : {}),
+            },
             on: v.on,
           }
         : null;

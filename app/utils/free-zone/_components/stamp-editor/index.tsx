@@ -95,29 +95,30 @@ export const StampEditor = ({
       <div className="flex items-center gap-3">
         <h3 className="text-lg font-semibold sm:text-xl">{isNew ? "new stamp" : "edit stamp"}</h3>
         {(text || picked) && (
-          <span className="flex items-center gap-1.5 rounded-md border-2 px-2 py-0.5 text-sm font-bold tracking-wider sm:text-base">
+          <span
+            className={`flex items-center gap-1.5 px-2 py-0.5 text-sm font-bold tracking-wider sm:text-base ${text ? "rounded-md border-2" : ""}`}
+          >
             <StampIcon name={picked ?? undefined} className="size-4 sm:size-5" />
             {text}
           </span>
         )}
       </div>
 
-      {/* same field size and placeholders as the name field and the inputs on /qr */}
-      {isNew && (
-        <input
-          autoFocus
-          type="text"
-          value={name.toLocaleUpperCase("pl")}
-          maxLength={STAMP_MAX_LENGTH}
-          placeholder="name"
-          aria-label="name - optional when the stamp has an icon"
-          onChange={(e) => setName(e.target.value)}
-          className="w-full rounded-md bg-white p-4 font-semibold focus:outline-2"
-        />
-      )}
-
-      {/* the icons sit next to their search field once there's room */}
-      <div className="grid gap-4 md:grid-cols-2 md:items-start">
+      {/* same field size and placeholders as the name field and the inputs on /qr;
+          name and icon search side by side once there's room, the icons below */}
+      <div className="grid gap-4 md:grid-cols-2">
+        {isNew && (
+          <input
+            autoFocus
+            type="text"
+            value={name.toLocaleUpperCase("pl")}
+            maxLength={STAMP_MAX_LENGTH}
+            placeholder="name"
+            aria-label="name - optional when the stamp has an icon"
+            onChange={(e) => setName(e.target.value)}
+            className="w-full rounded-md bg-white p-4 font-semibold focus:outline-2"
+          />
+        )}
         <input
           type="text"
           value={query}
@@ -126,57 +127,57 @@ export const StampEditor = ({
           aria-label="search icons, e.g. plane, góry, party"
           className="w-full rounded-md bg-white p-4 focus:outline-2"
         />
+      </div>
 
-        <div className="flex flex-col gap-1 text-sm">
-          <div className="grid grid-cols-[repeat(auto-fill,minmax(2.25rem,1fr))] gap-1">
+      <div className="flex flex-col gap-1 text-sm">
+        <div className="grid grid-cols-[repeat(auto-fill,minmax(2.25rem,1fr))] gap-1">
+          <button
+            type="button"
+            aria-pressed={picked === null}
+            onClick={() => setPicked(null)}
+            className={`${cell} ${picked === null ? "bg-primary-900 text-white" : "hover:bg-neutral-200"}`}
+          >
+            none
+          </button>
+          {matches.map((n) => (
             <button
+              key={n}
               type="button"
-              aria-pressed={picked === null}
-              onClick={() => setPicked(null)}
-              className={`${cell} ${picked === null ? "bg-primary-900 text-white" : "hover:bg-neutral-200"}`}
+              title={STAMP_ICONS[n].lucide}
+              aria-label={n}
+              aria-pressed={picked === n}
+              onClick={() => setPicked(n)}
+              className={`${cell} ${picked === n ? "bg-primary-900 text-white" : "hover:bg-neutral-200"}`}
             >
-              none
+              <StampIcon name={n} className="size-4" />
             </button>
-            {matches.map((n) => (
+          ))}
+          {extra.map((n) => {
+            const value = `${LUCIDE_PREFIX}${n}`;
+            return (
               <button
                 key={n}
                 type="button"
-                title={STAMP_ICONS[n].lucide}
+                title={n}
                 aria-label={n}
-                aria-pressed={picked === n}
-                onClick={() => setPicked(n)}
-                className={`${cell} ${picked === n ? "bg-primary-900 text-white" : "hover:bg-neutral-200"}`}
+                aria-pressed={picked === value}
+                onClick={() => setPicked(value)}
+                className={`${cell} ${picked === value ? "bg-primary-900 text-white" : "hover:bg-neutral-200"}`}
               >
-                <StampIcon name={n} className="size-4" />
+                <StampIcon name={value} className="size-4" />
               </button>
-            ))}
-            {extra.map((n) => {
-              const value = `${LUCIDE_PREFIX}${n}`;
-              return (
-                <button
-                  key={n}
-                  type="button"
-                  title={n}
-                  aria-label={n}
-                  aria-pressed={picked === value}
-                  onClick={() => setPicked(value)}
-                  className={`${cell} ${picked === value ? "bg-primary-900 text-white" : "hover:bg-neutral-200"}`}
-                >
-                  <StampIcon name={value} className="size-4" />
-                </button>
-              );
-            })}
-          </div>
-          {extraAll.length > extra.length && (
-            <p className="opacity-60">
-              {extraAll.length - extra.length} more — type a bit more to narrow it down
-            </p>
-          )}
-          {q && allNames === null && <p className="opacity-60">searching all icons…</p>}
-          {q && allNames && !matches.length && !extra.length && (
-            <p className="opacity-60">nothing found</p>
-          )}
+            );
+          })}
         </div>
+        {extraAll.length > extra.length && (
+          <p className="opacity-60">
+            {extraAll.length - extra.length} more — type a bit more to narrow it down
+          </p>
+        )}
+        {q && allNames === null && <p className="opacity-60">searching all icons…</p>}
+        {q && allNames && !matches.length && !extra.length && (
+          <p className="opacity-60">nothing found</p>
+        )}
       </div>
 
       <div className="mt-2 flex flex-wrap items-center gap-2">

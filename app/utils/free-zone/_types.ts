@@ -33,6 +33,8 @@ export type TStamp = {
   day: TDay;
   personId: string;
   label: string;
+  /** random per placement, so each stamp lands its own way - absent on stamps from before */
+  seed?: string;
 };
 
 export type TCalendarAction =

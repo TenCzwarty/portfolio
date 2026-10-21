@@ -68,7 +68,8 @@ export const StampLayer = ({ items, style }: TStampLayer) => {
                 setLeaving((l) => l.filter((i) => serializeStamp(i.stamp) !== key));
               else enteringRef.current.delete(key);
             }}
-            className={`stamp ${animation} absolute flex max-w-[90%] items-center gap-0.5 rounded border bg-white/50 px-0.5 text-[0.5rem] leading-2.5 font-bold tracking-wide whitespace-nowrap sm:gap-1 sm:rounded-md sm:border-2 sm:px-1.5 sm:text-xs sm:leading-4 sm:tracking-wider`}
+            // the frame belongs to text - an icon-only stamp is just the icon
+            className={`stamp ${animation} absolute flex max-w-[90%] items-center gap-0.5 px-0.5 text-[0.5rem] leading-2.5 font-bold tracking-wide whitespace-nowrap sm:gap-1 sm:px-1.5 sm:text-xs sm:leading-4 sm:tracking-wider ${stampText(stamp.label) ? "rounded border bg-white/50 sm:rounded-md sm:border-2" : ""}`}
             style={
               {
                 left: `${x}%`,

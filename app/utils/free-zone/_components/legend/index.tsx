@@ -1,26 +1,39 @@
-import type { TDay, TPerson } from "../../_types";
+import type { TPerson } from "../../_types";
+import { textColorOn } from "../../_utils/colors";
 
 type TLegend = {
   people: Array<TPerson>;
-  availability: Record<string, Array<TDay>>;
-  monthDays: Array<TDay>;
   me: TPerson | null;
+  /** your own pill opens the name / color editor */
+  onEditMe?: () => void;
 };
 
-export const Legend = ({ people, availability, monthDays, me }: TLegend) => {
+const pill = "flex w-fit items-center rounded-full px-4 py-1 text-sm";
+
+export const Legend = ({ people, me, onEditMe }: TLegend) => {
   if (!people.length) return null;
 
   return (
-    <ul className="flex flex-wrap gap-x-4 gap-y-1 text-sm">
+    <ul className="flex flex-wrap gap-2">
       {people.map((p) => {
-        const count = monthDays.filter((d) => availability[p.id]?.includes(d)).length;
+        const style = { background: p.color, color: textColorOn(p.color) };
         return (
-          <li key={p.id} className="flex items-center gap-1.5">
-            <span className="size-3 rounded-full" style={{ background: p.color }} />
-            <span className={p.id === me?.id ? "font-semibold" : ""}>{p.name}</span>
-            <span className="opacity-60">
-              ({count} {count === 1 ? "day" : "days"})
-            </span>
+          <li key={p.id}>
+            {p.id === me?.id && onEditMe ? (
+              <button
+                type="button"
+                onClick={onEditMe}
+                title="change your name or color"
+                className={`${pill} font-semibold hover:brightness-110`}
+                style={style}
+              >
+                {p.name}
+              </button>
+            ) : (
+              <span className={pill} style={style}>
+                {p.name}
+              </span>
+            )}
           </li>
         );
       })}

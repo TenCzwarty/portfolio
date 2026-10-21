@@ -1,5 +1,7 @@
 import React from "react";
 
+import { useThemeTick } from "~/utils/use-theme-tick";
+
 import type { TPerson } from "../../_types";
 import { findByName, newId, themePalette } from "../../_utils/identity";
 import { LIMITS } from "../../_utils/validate";
@@ -23,15 +25,28 @@ export const IdentityForm = ({
   embedded = false,
   extraActions,
 }: TIdentityForm) => {
-  // read once per opening: the form only mounts in the browser, after hydration
-  const [palette] = React.useState(themePalette);
+  // re-read while the site theme changes, so the swatches fade along with the page
+  // (the form only mounts in the browser, after hydration, so the CSS variables are there)
+  const themeTick = useThemeTick();
+   
+  const palette = React.useMemo(themePalette, [themeTick]);
   const others = people.filter((p) => p.id !== me?.id);
   const takenColors = others.map((p) => p.color);
 
   const [name, setName] = React.useState(me?.name ?? "");
-  const [color, setColor] = React.useState(
-    me?.color ?? palette.find((c) => !takenColors.includes(c)) ?? palette[0]
-  );
+  // a picked swatch is remembered by position, so it follows the theme until saved as hex
+  const [swatch, setSwatch] = React.useState<number | null>(() => {
+    if (me) return null;
+    const free = palette.findIndex((c) => !takenColors.includes(c));
+    return free === -1 ? 0 : free;
+  });
+  const [customColor, setCustomColor] = React.useState(me?.color ?? palette[0]);
+  const color = swatch === null ? customColor : palette[swatch];
+
+  const setColor = (c: string) => {
+    setSwatch(null);
+    setCustomColor(c);
+  };
 
   // typing an existing name means "that's me" - take over that entry instead of duplicating it
   const namesake = findByName(others, name);
@@ -45,7 +60,7 @@ export const IdentityForm = ({
   // one color per person, so dots and bars stay readable - joining a namesake takes theirs over
   const isTaken = (c: string) =>
     takenColors.includes(c.toLowerCase()) && namesake?.color !== c.toLowerCase();
-  const isCustom = !palette.includes(color);
+  const isCustom = swatch === null;
 
   const onSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -106,14 +121,14 @@ export const IdentityForm = ({
         </div>
 
         <div className="flex flex-wrap items-center gap-2">
-          {palette.map((c) => (
+          {palette.map((c, i) => (
             <button
               key={c}
               type="button"
               aria-label={`color ${c}${isTaken(c) ? ", taken" : ""}`}
               aria-pressed={color === c}
               disabled={isTaken(c)}
-              onClick={() => setColor(c)}
+              onClick={() => setSwatch(i)}
               className={`size-8 rounded-full border-2 ${color === c ? "border-primary-900" : "border-transparent"} disabled:cursor-not-allowed disabled:opacity-20`}
               style={{ background: c }}
             />

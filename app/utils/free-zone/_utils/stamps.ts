@@ -82,12 +82,21 @@ export const isStampLabel = (v: unknown): v is string =>
   (RE_STAMP.test(v) || (isIconOnlyLabel(v) && isStampIcon(v.slice(ICON_ONLY_PREFIX.length))));
 
 /** Redis set member - "|" cannot appear in a day, an id or a label */
-export const serializeStamp = ({ day, personId, label }: TStamp) => `${day}|${personId}|${label}`;
+export const serializeStamp = ({ day, personId, label, seed }: TStamp) =>
+  `${stampKey({ day, personId, label })}${seed ? `|${seed}` : ""}`;
+
+/** who stamped what on which day - the same stamp whatever its seed */
+export const stampKey = ({ day, personId, label }: TStamp) => `${day}|${personId}|${label}`;
 
 export const parseStamp = (member: string): TStamp | null => {
-  const [day, personId, label] = member.split("|");
-  return day && personId && label ? { day, personId, label } : null;
+  const [day, personId, label, seed] = member.split("|");
+  if (!day || !personId || !label) return null;
+  return seed ? { day, personId, label, seed } : { day, personId, label };
 };
+
+const RE_SEED = /^[a-z0-9]{1,12}$/;
+export const isStampSeed = (v: unknown): v is string => typeof v === "string" && RE_SEED.test(v);
+export const newStampSeed = () => Math.random().toString(36).slice(2, 10);
 
 export const sameStamp = (a: TStamp, b: TStamp) =>
   a.day === b.day && a.personId === b.personId && a.label === b.label;
