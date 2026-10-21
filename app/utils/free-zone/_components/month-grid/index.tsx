@@ -4,6 +4,7 @@ import type { TDay, TPerson, TPlan } from "../../_types";
 import { textColorOn } from "../../_utils/colors";
 import { fromDay, WEEKDAYS } from "../../_utils/dates";
 import { layoutWeekPlans } from "../../_utils/layout-plans";
+import { stampName } from "../../_utils/stamps";
 import { StampLayer, type TStampItem } from "../stamp-layer";
 
 type TMonthGrid = {
@@ -106,7 +107,7 @@ export const MonthGrid = ({
                     onMouseEnter={() => onDayHover(day)}
                     onPointerDown={(e) => onDayPointerDown(day, e)}
                     onPointerEnter={() => onDayPointerEnter(day)}
-                    aria-label={`${date.toLocaleDateString("en-GB", { dateStyle: "full" })}${free.length ? `, free: ${free.map((p) => p.name).join(", ")}` : ""}${stamps.length ? `, ${stamps.map((s) => `${s.person.name}: ${s.stamp.label}`).join(", ")}` : ""}`}
+                    aria-label={`${date.toLocaleDateString("en-GB", { dateStyle: "full" })}${free.length ? `, free: ${free.map((p) => p.name).join(", ")}` : ""}${stamps.length ? `, ${stamps.map((s) => `${s.person.name}: ${stampName(s.stamp.label)}`).join(", ")}` : ""}`}
                     aria-pressed={mine}
                     aria-current={preselected.has(day) ? "true" : undefined}
                     className={`border-neutral-200 transition-colors ${preselected.has(day) ? "bg-accent-500/60 hover:bg-accent-500/80" : "hover:bg-neutral-200"} ${col < 6 ? "border-r" : ""}`}

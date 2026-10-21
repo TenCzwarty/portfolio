@@ -1,7 +1,7 @@
 import React from "react";
 
 import type { TPerson } from "../../_types";
-import { findByName, newId, PALETTE } from "../../_utils/identity";
+import { findByName, newId, themePalette } from "../../_utils/identity";
 import { LIMITS } from "../../_utils/validate";
 
 type TIdentityForm = {
@@ -23,12 +23,14 @@ export const IdentityForm = ({
   embedded = false,
   extraActions,
 }: TIdentityForm) => {
+  // read once per opening: the form only mounts in the browser, after hydration
+  const [palette] = React.useState(themePalette);
   const others = people.filter((p) => p.id !== me?.id);
   const takenColors = others.map((p) => p.color);
 
   const [name, setName] = React.useState(me?.name ?? "");
   const [color, setColor] = React.useState(
-    me?.color ?? PALETTE.find((c) => !takenColors.includes(c)) ?? PALETTE[0]
+    me?.color ?? palette.find((c) => !takenColors.includes(c)) ?? palette[0]
   );
 
   // typing an existing name means "that's me" - take over that entry instead of duplicating it
@@ -43,7 +45,7 @@ export const IdentityForm = ({
   // one color per person, so dots and bars stay readable - joining a namesake takes theirs over
   const isTaken = (c: string) =>
     takenColors.includes(c.toLowerCase()) && namesake?.color !== c.toLowerCase();
-  const isCustom = !PALETTE.includes(color);
+  const isCustom = !palette.includes(color);
 
   const onSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -104,7 +106,7 @@ export const IdentityForm = ({
         </div>
 
         <div className="flex flex-wrap items-center gap-2">
-          {PALETTE.map((c) => (
+          {palette.map((c) => (
             <button
               key={c}
               type="button"
@@ -118,9 +120,9 @@ export const IdentityForm = ({
           ))}
           {/* the native picker hides behind a pill, so it doesn't pass for one more swatch */}
           <label
-            className={`flex cursor-pointer items-center gap-2 rounded-full border-2 px-3 py-1 text-sm ${isCustom ? "border-primary-900" : "border-neutral-300 hover:bg-neutral-200"}`}
+            className={`flex h-8 cursor-pointer items-center gap-2 rounded-full border-2 px-4 ${isCustom ? "border-primary-900" : "border-neutral-300 hover:bg-neutral-200"}`}
           >
-            {isCustom && <span className="size-3 rounded-full" style={{ background: color }} />}
+            {isCustom && <span className="size-4 rounded-full" style={{ background: color }} />}
             custom
             <input
               type="color"

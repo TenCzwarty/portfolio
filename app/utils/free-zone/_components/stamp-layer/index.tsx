@@ -1,7 +1,7 @@
 import React from "react";
 
 import type { TPerson, TStamp } from "../../_types";
-import { placeStamps, serializeStamp } from "../../_utils/stamps";
+import { placeStamps, serializeStamp, stampName, stampText } from "../../_utils/stamps";
 import { StampIcon } from "../stamp-icon";
 
 export type TStampItem = { stamp: TStamp; person: TPerson; icon?: string };
@@ -62,7 +62,7 @@ export const StampLayer = ({ items, style }: TStampLayer) => {
         return (
           <span
             key={`${key}|${phase}`}
-            title={`${person.name}: ${stamp.label}`}
+            title={`${person.name}: ${stampName(stamp.label)}`}
             onAnimationEnd={() => {
               if (phase === "leave")
                 setLeaving((l) => l.filter((i) => serializeStamp(i.stamp) !== key));
@@ -80,7 +80,7 @@ export const StampLayer = ({ items, style }: TStampLayer) => {
             }
           >
             <StampIcon name={icon} className="size-2 shrink-0 sm:size-3" />
-            <span className="truncate">{stamp.label}</span>
+            {stampText(stamp.label) && <span className="truncate">{stamp.label}</span>}
           </span>
         );
       })}

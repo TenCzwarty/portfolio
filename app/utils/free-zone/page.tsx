@@ -33,7 +33,7 @@ import { type TStampItem } from "./_components/stamp-layer";
 import { StampChips } from "./_components/stamp-picker";
 import { addDays, formatMonth, fromDay, getMonthWeeks, toDay } from "./_utils/dates";
 import { newId } from "./_utils/identity";
-import { DEFAULT_STAMPS, sameStamp } from "./_utils/stamps";
+import { DEFAULT_STAMPS, sameStamp, stampIconFor } from "./_utils/stamps";
 import { useCalendar } from "./_utils/use-calendar";
 import { useStoredFlag } from "./_utils/use-stored-flag";
 import type { TDay, TPerson, TPlan } from "./_types";
@@ -176,7 +176,7 @@ export default function UtilsFreeZonePage() {
     for (const stamp of data.stamps) {
       const person = people.find((p) => p.id === stamp.personId);
       if (!person) continue;
-      const icon = data.stampIcons[stamp.label];
+      const icon = stampIconFor(stamp.label, data.stampIcons);
       map.set(stamp.day, [...(map.get(stamp.day) ?? []), { stamp, person, icon }]);
     }
     // same person order as the dots, so a cell reads the same way every time
@@ -467,7 +467,11 @@ export default function UtilsFreeZonePage() {
                         <StampEditor
                           key={editingStamp}
                           label={editingStamp || undefined}
-                          icon={editingStamp ? (data.stampIcons[editingStamp] ?? null) : null}
+                          icon={
+                            editingStamp
+                              ? (stampIconFor(editingStamp, data.stampIcons) ?? null)
+                              : null
+                          }
                           canDelete={data.customStamps.includes(editingStamp)}
                           onSave={(label, icon) => {
                             send({ type: "stamp-def", label, icon });

@@ -1,5 +1,6 @@
-import { PencilIcon } from "lucide-react";
+import { PencilIcon, PlusIcon } from "lucide-react";
 
+import { stampIconFor, stampName, stampText } from "../../_utils/stamps";
 import { StampIcon } from "../stamp-icon";
 
 type TStampChips = {
@@ -32,16 +33,18 @@ export const StampChips = ({
         <button
           type="button"
           aria-pressed={selected === label}
+          aria-label={stampName(label)}
           onClick={() => onSelect(label)}
           className={`${chip} font-semibold ${selected === label ? "border-primary-900 bg-primary-900 text-white" : "border-neutral-200 hover:bg-neutral-200"}`}
         >
-          <StampIcon name={icons[label]} className="size-3.5" />
-          {label}
+          <StampIcon name={stampIconFor(label, icons)} className="size-3.5" />
+          {stampText(label)}
         </button>
-        {showEdit && (
+        {/* one pencil, on the stamp you're holding - the row stays calm */}
+        {showEdit && selected === label && (
           <button
             type="button"
-            aria-label={`edit the ${label} stamp`}
+            aria-label={`edit the ${stampName(label)} stamp`}
             aria-expanded={editing === label}
             onClick={() => onEdit(editing === label ? null : label)}
             className="rounded-full p-1.5 opacity-60 hover:bg-neutral-200 hover:opacity-100"
@@ -59,7 +62,7 @@ export const StampChips = ({
       onClick={() => onEdit(editing === "" ? null : "")}
       className={`${chip} border-dashed border-neutral-200 hover:bg-neutral-200`}
     >
-      +
+      <PlusIcon className="size-3.5" aria-hidden="true" />
     </button>
   </div>
 );

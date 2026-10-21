@@ -1,5 +1,7 @@
 "use client";
 
+import React from "react";
+
 import { LinkExternal } from "~/components/link-external";
 import { Pill } from "~/components/pill";
 
@@ -17,6 +19,15 @@ export const Modal = ({
   techStack,
   closeModal,
 }: TModal) => {
+  // the page behind stays put: scrolling happens inside the modal only
+  React.useEffect(() => {
+    const previous = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.body.style.overflow = previous;
+    };
+  }, []);
+
   const renderBrief = () =>
     brief?.map?.((item, index) => <li key={index}>{item}</li>);
 
@@ -33,10 +44,10 @@ export const Modal = ({
       aria-labelledby="modal-title"
     >
       <div
-        className="bg-opacity-50 absolute top-0 right-0 z-0 h-full w-full bg-black"
+        className="absolute top-0 right-0 z-0 h-full w-full bg-black/30"
         onClick={closeModal}
       />
-      <div className="border-primary-800 text-primary-900 relative mx-auto h-full w-full overflow-auto rounded-xl border bg-neutral-100 p-4 md:w-[calc(200dvw/3)]">
+      <div className="border-primary-800 text-primary-900 relative mx-auto h-full w-full overflow-auto overscroll-contain rounded-xl border bg-neutral-100 p-4 md:w-[calc(200dvw/3)]">
         <div className="flex justify-between">
           <h3 id="modal-title" className="text-lg font-semibold sm:text-xl">
             {title}
