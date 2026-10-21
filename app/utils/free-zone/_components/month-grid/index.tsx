@@ -4,6 +4,7 @@ import type { TDay, TPerson, TPlan } from "../../_types";
 import { textColorOn } from "../../_utils/colors";
 import { fromDay, WEEKDAYS } from "../../_utils/dates";
 import { layoutWeekPlans } from "../../_utils/layout-plans";
+import { stampName } from "../../_utils/stamps";
 import { StampLayer, type TStampItem } from "../stamp-layer";
 
 type TMonthGrid = {
@@ -17,6 +18,8 @@ type TMonthGrid = {
   showDots: boolean;
   showStamps: boolean;
   me: TPerson | null;
+  /** hovering a name under the calendar: that person's things stay bright, the rest fades */
+  highlightId: string | null;
   /** plan being picked right now, drawn as a ghost bar */
   draft: { start: TDay; end: TDay; title: string; createdBy: string } | null;
   selectedPlanId: string | null;
@@ -50,6 +53,7 @@ export const MonthGrid = ({
   showDots,
   showStamps,
   me,
+  highlightId,
   draft,
   selectedPlanId,
   preselected,
@@ -61,6 +65,12 @@ export const MonthGrid = ({
   onPlanClick,
 }: TMonthGrid) => {
   const creatorColor = (id: string) => people.find((p) => p.id === id)?.color;
+  const faded = (personId: string) => (highlightId && highlightId !== personId ? "opacity-20" : "");
+  // a plan belongs to whoever made it and to everyone going
+  const planFaded = (plan: TPlan) =>
+    highlightId && plan.createdBy !== highlightId && plan.rsvp?.[highlightId] !== "yes"
+      ? "opacity-20"
+      : "";
 
   return (
     // select-none: dragging across days must not select the day numbers' text
@@ -106,7 +116,7 @@ export const MonthGrid = ({
                     onMouseEnter={() => onDayHover(day)}
                     onPointerDown={(e) => onDayPointerDown(day, e)}
                     onPointerEnter={() => onDayPointerEnter(day)}
-                    aria-label={`${date.toLocaleDateString("en-GB", { dateStyle: "full" })}${free.length ? `, free: ${free.map((p) => p.name).join(", ")}` : ""}${stamps.length ? `, ${stamps.map((s) => `${s.person.name}: ${s.stamp.label}`).join(", ")}` : ""}`}
+                    aria-label={`${date.toLocaleDateString("en-GB", { dateStyle: "full" })}${free.length ? `, free: ${free.map((p) => p.name).join(", ")}` : ""}${stamps.length ? `, ${stamps.map((s) => `${s.person.name}: ${stampName(s.stamp.label)}`).join(", ")}` : ""}`}
                     aria-pressed={mine}
                     aria-current={preselected.has(day) ? "true" : undefined}
                     className={`border-neutral-200 transition-colors ${preselected.has(day) ? "bg-accent-500/60 hover:bg-accent-500/80" : "hover:bg-neutral-200"} ${col < 6 ? "border-r" : ""}`}
@@ -131,7 +141,7 @@ export const MonthGrid = ({
                         <span
                           key={p.id}
                           title={p.name}
-                          className="size-2 rounded-full sm:size-3"
+                          className={`size-2 rounded-full transition-opacity sm:size-3 ${faded(p.id)}`}
                           style={{ background: p.color }}
                         />
                       ))}
@@ -141,6 +151,7 @@ export const MonthGrid = ({
                   {showStamps && (
                     <StampLayer
                       items={stamps}
+                      highlightId={highlightId}
                       // above the plan bands: stamps let clicks through, so plans stay clickable
                       style={{ gridColumn: col + 1, gridRow: "1 / -1", zIndex: 20 }}
                     />
@@ -160,7 +171,7 @@ export const MonthGrid = ({
                   type="button"
                   onClick={() => onPlanClick(plan)}
                   title={plan.title}
-                  className={`z-10 mb-0.5 flex items-center truncate px-1.5 text-left text-[0.6rem] leading-none font-semibold sm:px-2 sm:text-[0.7rem] ${continuesBefore ? "" : "ml-0.5 rounded-l-sm sm:ml-1"} ${continuesAfter ? "" : "mr-0.5 rounded-r-sm sm:mr-1"} ${selectedPlanId === plan.id ? "ring-primary-900 ring-2" : ""} ${isDraft ? "pointer-events-none border border-dashed" : plansClickable ? "hover:brightness-110" : "pointer-events-none opacity-60"}`}
+                  className={`z-10 mb-0.5 flex items-center truncate px-1.5 text-left text-[0.6rem] leading-none font-semibold sm:px-2 sm:text-[0.7rem] ${continuesBefore ? "" : "ml-0.5 rounded-l-sm sm:ml-1"} ${continuesAfter ? "" : "mr-0.5 rounded-r-sm sm:mr-1"} ${selectedPlanId === plan.id ? "ring-primary-900 ring-2" : ""} ${isDraft ? "pointer-events-none border border-dashed" : plansClickable ? "hover:brightness-110" : "pointer-events-none opacity-60"} ${isDraft ? "" : planFaded(plan)} transition-opacity`}
                   style={{
                     gridColumn: `${from + 1} / ${to + 2}`,
                     gridRow: lane + 3,

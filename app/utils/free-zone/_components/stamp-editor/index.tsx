@@ -1,12 +1,17 @@
 import React from "react";
 
+import { Pill } from "~/components/pill";
+
 import { loadAllIcons } from "../../_utils/all-icons";
 import {
+  iconOnlyLabel,
   isStampLabel,
   LUCIDE_PREFIX,
   normalizeStamp,
   STAMP_ICON_NAMES,
   STAMP_MAX_LENGTH,
+  stampName,
+  stampText,
 } from "../../_utils/stamps";
 import { CURATED_LUCIDE_NAMES, STAMP_ICONS, StampIcon } from "../stamp-icon";
 
@@ -39,7 +44,14 @@ export const StampEditor = ({
   const [allNames, setAllNames] = React.useState<Array<string> | null>(null);
   const [query, setQuery] = React.useState("");
 
-  const finalLabel = isNew ? normalizeStamp(name) : label;
+  // a new stamp needs a name or an icon - without a name, the icon alone is the stamp
+  const finalLabel = !isNew
+    ? label
+    : name.trim()
+      ? normalizeStamp(name)
+      : picked
+        ? iconOnlyLabel(picked)
+        : "";
   const isValid = isStampLabel(finalLabel);
 
   const q = query.trim().toLocaleLowerCase("pl");
@@ -71,48 +83,54 @@ export const StampEditor = ({
   };
 
   const cell = "flex aspect-square items-center justify-center rounded-md text-xs";
+  const text = stampText(finalLabel);
 
   return (
     <form
       onSubmit={onSubmit}
       onKeyDown={(e) => e.key === "Escape" && onCancel()}
       // -ml-4 lets the box stick out by its padding, so its text lines up with the page text
-      className="-ml-4 flex flex-col gap-3 rounded-xl border border-neutral-200 p-4"
+      className="-ml-4 flex flex-col gap-4 rounded-xl border border-neutral-200 p-4"
     >
-      <div className="flex items-center gap-2">
+      <div className="flex items-center gap-3">
         <h3 className="text-lg font-semibold sm:text-xl">{isNew ? "new stamp" : "edit stamp"}</h3>
-        {(finalLabel || picked) && (
-          <span className="flex items-center gap-1 rounded-md border-2 px-1.5 text-xs font-bold tracking-wider">
-            <StampIcon name={picked ?? undefined} className="size-3" />
-            {finalLabel || "…"}
+        {(text || picked) && (
+          <span
+            className={`flex items-center gap-1.5 px-2 py-0.5 text-sm font-bold tracking-wider sm:text-base ${text ? "rounded-md border-2" : ""}`}
+          >
+            <StampIcon name={picked ?? undefined} className="size-4 sm:size-5" />
+            {text}
           </span>
         )}
       </div>
 
-      {isNew && (
-        <label className="flex flex-col gap-1 text-sm">
-          name
+      {/* same field size and placeholders as the name field and the inputs on /qr;
+          name and icon search side by side once there's room, the icons below */}
+      <div className="grid gap-4 md:grid-cols-2">
+        {isNew && (
           <input
             autoFocus
+            type="text"
             value={name.toLocaleUpperCase("pl")}
             maxLength={STAMP_MAX_LENGTH}
-            placeholder="KRAKÓW"
+            placeholder="name"
+            aria-label="name - optional when the stamp has an icon"
             onChange={(e) => setName(e.target.value)}
-            className="w-[18ch] rounded-md bg-white p-2 text-base font-semibold focus:outline-2"
+            className="w-full rounded-md bg-white p-4 font-semibold focus:outline-2"
           />
-        </label>
-      )}
-
-      <div className="flex flex-col gap-1 text-sm">
-        icon
+        )}
         <input
+          type="text"
           value={query}
           onChange={(e) => setQuery(e.target.value)}
-          placeholder="search: plane, góry, party…"
-          aria-label="search icons"
-          className="w-full max-w-xs rounded-md bg-white p-2 focus:outline-2"
+          placeholder="icon"
+          aria-label="search icons, e.g. plane, góry, party"
+          className="w-full rounded-md bg-white p-4 focus:outline-2"
         />
-        <div className="mt-1 grid grid-cols-[repeat(auto-fill,minmax(2.25rem,1fr))] gap-1">
+      </div>
+
+      <div className="flex flex-col gap-1 text-sm">
+        <div className="grid grid-cols-[repeat(auto-fill,minmax(2.25rem,1fr))] gap-1">
           <button
             type="button"
             aria-pressed={picked === null}
@@ -162,14 +180,11 @@ export const StampEditor = ({
         )}
       </div>
 
-      {/* -ml-4 cancels the button padding, so the labels line up with the text above */}
-      <div className="-ml-4 flex items-center gap-2">
-        <button
-          type="submit"
-          disabled={!isValid}
-          className="bg-primary-900 hover:bg-accent-500 hover:text-primary-900 rounded-full px-4 py-1 text-white disabled:opacity-40"
-        >
-          {isNew ? "add" : "save"}
+      <div className="mt-2 flex flex-wrap items-center gap-2">
+        <button type="submit" disabled={!isValid} className="disabled:opacity-40">
+          <Pill classes="bg-primary-900 hover:bg-accent-500 hover:text-primary-900">
+            {isNew ? "add" : "save"}
+          </Pill>
         </button>
         <button
           type="button"
@@ -182,13 +197,17 @@ export const StampEditor = ({
           <button
             type="button"
             onClick={() => {
-              if (window.confirm(`Remove "${label}" from the list? Stamps already placed stay.`)) {
+              if (
+                window.confirm(
+                  `Remove "${stampName(finalLabel)}" from the list? Stamps already placed stay.`
+                )
+              ) {
                 onDelete();
               }
             }}
-            className="ml-auto rounded-full px-4 py-1 text-sm text-red-700 hover:bg-red-100"
+            className="ml-auto"
           >
-            delete stamp
+            <Pill classes="bg-primary-900 hover:bg-red-700">delete stamp</Pill>
           </button>
         )}
       </div>

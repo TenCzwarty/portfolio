@@ -17,6 +17,27 @@
   --toastify-color-progress-light: var(--color-accent-500);
 }
 
+/* the theme hues are typed numbers, so changing them can be animated - every color built from
+   them (pills, icons, borders) fades together instead of jumping */
+@property --primary {
+  syntax: "<number>";
+  inherits: true;
+  initial-value: 0;
+}
+
+@property --accent {
+  syntax: "<number>";
+  inherits: true;
+  initial-value: 0;
+}
+
+/* switched on after the first colors are set, so the page doesn't sweep through hues on load */
+:root.theme-ready {
+  transition:
+    --primary 2s,
+    --accent 2s;
+}
+
 @theme {
   --color-accent-500: var(--color-accent-500);
   --color-accent-900: var(--color-accent-900);

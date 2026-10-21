@@ -28,6 +28,10 @@ export const useRandomWebsiteColors = () => {
     updateCSSProperty("--s", "100%");
     updateCSSProperty("--primary", primary);
     updateCSSProperty("--accent", accent);
+
+    // from now on hue changes fade; reading the style first applies the colors above without one
+    getComputedStyle(document.documentElement).getPropertyValue("--primary");
+    document.documentElement.classList.add("theme-ready");
   }, []);
 
   const randomizeColors = () => {

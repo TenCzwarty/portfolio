@@ -2,6 +2,8 @@
 
 import React from "react"
 
+import { useThemeTick } from "~/utils/use-theme-tick"
+
 import { useSpinWheelContext } from "~spin/_context"
 import { drawWheel, easeOut, getSegmentColors, getWinner } from "~spin/_utils/wheel"
 
@@ -16,6 +18,8 @@ export const SpinWheel = () => {
   const refRotation = React.useRef(0)
   const refAnimationFrame = React.useRef<number | null>(null)
   const refColors = React.useRef<string[]>([])
+  // redraw while the site theme fades, so the wheel changes color with the page
+  const themeTick = useThemeTick()
 
   React.useEffect(() => {
     const canvas = refCanvas.current
@@ -32,7 +36,7 @@ export const SpinWheel = () => {
 
     refColors.current = getSegmentColors(validElements.length)
     drawWheel(ctx, validElements, refColors.current, refRotation.current)
-  }, [validElements])
+  }, [validElements, themeTick])
 
   React.useEffect(() => {
     if (!isSpinning) {

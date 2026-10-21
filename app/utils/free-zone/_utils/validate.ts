@@ -1,6 +1,14 @@
-import type { TCalendarAction, TDay, TPerson, TPlan, TStamp } from "../_types";
+import {
+  RSVP_ANSWERS,
+  type TCalendarAction,
+  type TDay,
+  type TPerson,
+  type TPlan,
+  type TRsvp,
+  type TStamp,
+} from "../_types";
 
-import { isStampIcon, isStampLabel, normalizeStamp } from "./stamps";
+import { isStampIcon, isStampLabel, isStampSeed, normalizeStamp } from "./stamps";
 
 const RE_DAY = /^\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01])$/;
 const RE_COLOR = /^#[0-9a-f]{6}$/i;
@@ -40,6 +48,15 @@ const isOptionalText = (v: unknown, max: number): v is string | undefined =>
 /** "" and whitespace mean "no description" */
 const cleanDescription = (v: string | undefined) => v?.trim() || undefined;
 
+const isRsvp = (v: unknown): v is TRsvp => RSVP_ANSWERS.includes(v as TRsvp);
+
+/** absent on most plans; a deleted plan coming back (undo) brings its answers along */
+const isRsvpMap = (v: unknown): v is Record<string, TRsvp> | undefined =>
+  v === undefined ||
+  (isRecord(v) &&
+    Object.keys(v).length <= LIMITS.people &&
+    Object.entries(v).every(([id, answer]) => isId(id) && isRsvp(answer)));
+
 const isPlan = (v: unknown): v is TPlan =>
   isRecord(v) &&
   isId(v.id) &&
@@ -49,10 +66,15 @@ const isPlan = (v: unknown): v is TPlan =>
   isDay(v.end) &&
   isId(v.createdBy) &&
   daysBetween(v.start, v.end) >= 0 &&
-  daysBetween(v.start, v.end) < LIMITS.planDays;
+  daysBetween(v.start, v.end) < LIMITS.planDays &&
+  isRsvpMap(v.rsvp);
 
 const isStamp = (v: unknown): v is TStamp =>
-  isRecord(v) && isDay(v.day) && isId(v.personId) && isStampLabel(v.label);
+  isRecord(v) &&
+  isDay(v.day) &&
+  isId(v.personId) &&
+  isStampLabel(v.label) &&
+  (v.seed === undefined || isStampSeed(v.seed));
 
 export const parseAction = (v: unknown): TCalendarAction | null => {
   if (!isRecord(v)) return null;
@@ -88,11 +110,20 @@ export const parseAction = (v: unknown): TCalendarAction | null => {
         : null;
     case "plan-delete":
       return isId(v.id) ? { type: "plan-delete", id: v.id } : null;
+    case "plan-rsvp":
+      return isId(v.id) && isId(v.personId) && (v.answer === null || isRsvp(v.answer))
+        ? { type: "plan-rsvp", id: v.id, personId: v.personId, answer: v.answer }
+        : null;
     case "stamp":
       return isStamp(v.stamp) && typeof v.on === "boolean"
         ? {
             type: "stamp",
-            stamp: { day: v.stamp.day, personId: v.stamp.personId, label: v.stamp.label },
+            stamp: {
+              day: v.stamp.day,
+              personId: v.stamp.personId,
+              label: v.stamp.label,
+              ...(v.stamp.seed ? { seed: v.stamp.seed } : {}),
+            },
             on: v.on,
           }
         : null;

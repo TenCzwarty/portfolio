@@ -4,7 +4,13 @@ import { createHash, timingSafeEqual } from "node:crypto";
 
 import type { TCalendarData, TPerson, TPlan } from "~/app/utils/free-zone/_types";
 import { findByName } from "~/app/utils/free-zone/_utils/identity";
-import { DEFAULT_STAMPS, parseStamp, serializeStamp } from "~/app/utils/free-zone/_utils/stamps";
+import { withRsvp } from "~/app/utils/free-zone/_utils/rsvp";
+import {
+  DEFAULT_STAMPS,
+  parseStamp,
+  serializeStamp,
+  stampKey,
+} from "~/app/utils/free-zone/_utils/stamps";
 import { LIMITS, parseAction } from "~/app/utils/free-zone/_utils/validate";
 
 export const dynamic = "force-dynamic";
@@ -134,8 +140,16 @@ export async function POST(request: Request) {
     }
     case "plan-add": {
       if ((await db.hlen(KEY_PLANS)) >= LIMITS.plans) return error("Too many plans", 409);
-      const { id, title, description, start, end, createdBy } = action.plan;
-      await db.hset(KEY_PLANS, { [id]: { id, title, description, start, end, createdBy } });
+      const { id, title, description, start, end, createdBy, rsvp } = action.plan;
+      await db.hset(KEY_PLANS, { [id]: { id, title, description, start, end, createdBy, rsvp } });
+      break;
+    }
+    case "plan-rsvp": {
+      const plan = await db.hget<TPlan>(KEY_PLANS, action.id);
+      if (!plan) return error("Unknown plan", 404);
+      if (!(await db.hexists(KEY_PEOPLE, action.personId))) return error("Unknown person", 404);
+      const rsvp = withRsvp(plan.rsvp, action.personId, action.answer);
+      await db.hset(KEY_PLANS, { [action.id]: { ...plan, rsvp } });
       break;
     }
     case "plan-update": {
@@ -149,9 +163,13 @@ export async function POST(request: Request) {
       if (!(await db.hexists(KEY_PEOPLE, action.stamp.personId))) {
         return error("Unknown person", 404);
       }
-      const member = serializeStamp(action.stamp);
-      if (action.on) await db.sadd(KEY_STAMPS, member);
-      else await db.srem(KEY_STAMPS, member);
+      // the same stamp may sit there under an older seed - replace or remove it whatever its seed
+      const key = stampKey(action.stamp);
+      const existing = (await db.smembers(KEY_STAMPS))
+        .map(String)
+        .filter((m) => m === key || m.startsWith(`${key}|`));
+      if (existing.length) await db.srem(KEY_STAMPS, ...existing);
+      if (action.on) await db.sadd(KEY_STAMPS, serializeStamp(action.stamp));
       break;
     }
     case "stamp-def": {

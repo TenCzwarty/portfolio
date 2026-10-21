@@ -8,7 +8,23 @@ export const STAMP_MAX_LENGTH = 12;
 const RE_STAMP = new RegExp(`^[\\p{L}\\p{N}?!&'+\\- ]{1,${STAMP_MAX_LENGTH}}$`, "u");
 
 export const normalizeStamp = (label: string) =>
-  label.trim().replace(/\s+/g, " ").toLocaleUpperCase("pl");
+  isIconOnlyLabel(label) ? label : label.trim().replace(/\s+/g, " ").toLocaleUpperCase("pl");
+
+/** a stamp with no text is keyed by its icon: "*plane" - so the same icon can't be added twice */
+const ICON_ONLY_PREFIX = "*";
+export const isIconOnlyLabel = (label: string) => label.startsWith(ICON_ONLY_PREFIX);
+export const iconOnlyLabel = (icon: string) => `${ICON_ONLY_PREFIX}${icon}`;
+
+/** what's printed on the stamp - nothing for icon-only ones */
+export const stampText = (label: string) => (isIconOnlyLabel(label) ? "" : label);
+
+/** for titles and screen readers, where an icon-only stamp still needs a name */
+export const stampName = (label: string) =>
+  isIconOnlyLabel(label) ? label.slice(ICON_ONLY_PREFIX.length).replace(LUCIDE_PREFIX, "") : label;
+
+/** the stamp's own icon, falling back to the one in an icon-only label (e.g. once its entry is deleted) */
+export const stampIconFor = (label: string, icons: Record<string, string>) =>
+  icons[label] ?? (isIconOnlyLabel(label) ? label.slice(ICON_ONLY_PREFIX.length) : undefined);
 
 /** names of the icons a stamp can carry, see _components/stamp-icon for the drawings */
 export const STAMP_ICON_NAMES = [
@@ -61,15 +77,26 @@ export const isCuratedIcon = (v: string): v is TStampIconName =>
 export const isStampIcon = (v: unknown): v is string =>
   typeof v === "string" && v.length <= 64 && (isCuratedIcon(v) || RE_LUCIDE_ICON.test(v));
 
-export const isStampLabel = (v: unknown): v is string => typeof v === "string" && RE_STAMP.test(v);
+export const isStampLabel = (v: unknown): v is string =>
+  typeof v === "string" &&
+  (RE_STAMP.test(v) || (isIconOnlyLabel(v) && isStampIcon(v.slice(ICON_ONLY_PREFIX.length))));
 
 /** Redis set member - "|" cannot appear in a day, an id or a label */
-export const serializeStamp = ({ day, personId, label }: TStamp) => `${day}|${personId}|${label}`;
+export const serializeStamp = ({ day, personId, label, seed }: TStamp) =>
+  `${stampKey({ day, personId, label })}${seed ? `|${seed}` : ""}`;
+
+/** who stamped what on which day - the same stamp whatever its seed */
+export const stampKey = ({ day, personId, label }: TStamp) => `${day}|${personId}|${label}`;
 
 export const parseStamp = (member: string): TStamp | null => {
-  const [day, personId, label] = member.split("|");
-  return day && personId && label ? { day, personId, label } : null;
+  const [day, personId, label, seed] = member.split("|");
+  if (!day || !personId || !label) return null;
+  return seed ? { day, personId, label, seed } : { day, personId, label };
 };
+
+const RE_SEED = /^[a-z0-9]{1,12}$/;
+export const isStampSeed = (v: unknown): v is string => typeof v === "string" && RE_SEED.test(v);
+export const newStampSeed = () => Math.random().toString(36).slice(2, 10);
 
 export const sameStamp = (a: TStamp, b: TStamp) =>
   a.day === b.day && a.personId === b.personId && a.label === b.label;

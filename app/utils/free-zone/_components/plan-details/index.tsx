@@ -1,11 +1,17 @@
-import type { TDay, TPerson, TPlan } from "../../_types";
-import { addDays, formatRange } from "../../_utils/dates";
+import { Pill } from "~/components/pill";
+
+import { RSVP_ANSWERS, type TPerson, type TPlan, type TRsvp } from "../../_types";
+import { textColorOn } from "../../_utils/colors";
+import { formatRange } from "../../_utils/dates";
+import { RSVP_LABELS } from "../../_utils/rsvp";
+import { Modal } from "../modal";
 
 type TPlanDetails = {
   plan: TPlan;
   people: Array<TPerson>;
-  availability: Record<string, Array<TDay>>;
   canEdit: boolean;
+  me: TPerson | null;
+  onRsvp: (answer: TRsvp | null) => void;
   onEdit: () => void;
   onDelete: () => void;
   onClose: () => void;
@@ -14,84 +20,96 @@ type TPlanDetails = {
 export const PlanDetails = ({
   plan,
   people,
-  availability,
   canEdit,
+  me,
+  onRsvp,
   onEdit,
   onDelete,
   onClose,
 }: TPlanDetails) => {
   const author = people.find((p) => p.id === plan.createdBy);
+  const myAnswer = me ? plan.rsvp?.[me.id] : undefined;
 
-  const days: Array<TDay> = [];
-  for (let d = plan.start; d <= plan.end; d = addDays(d, 1)) days.push(d);
-
-  const freeAllDays = people.filter((p) => days.every((d) => availability[p.id]?.includes(d)));
+  const answered = RSVP_ANSWERS.map((answer) => ({
+    answer,
+    who: people.filter((p) => plan.rsvp?.[p.id] === answer),
+  })).filter(({ who }) => who.length);
 
   return (
-    <div className="flex flex-col gap-2 rounded-xl border border-neutral-200 p-4">
-      <div className="flex items-start justify-between gap-4">
-        <div>
-          <h3 className="text-lg font-semibold sm:text-xl">{plan.title}</h3>
-          <p className="text-sm">
-            {formatRange(plan.start, plan.end)}
-            {author && (
-              <>
-                {" · added by "}
-                <span style={{ color: author.color }}>{author.name}</span>
-              </>
-            )}
-          </p>
-        </div>
-        <button
-          type="button"
-          onClick={onClose}
-          aria-label="close"
-          className="rounded-full px-2 hover:bg-neutral-200"
-        >
-          ×
-        </button>
+    <Modal title={plan.title} onClose={onClose}>
+      <div>
+        {formatRange(plan.start, plan.end)}
+        {author && (
+          <>
+            {" · added by "}
+            <span style={{ color: author.color }}>{author.name}</span>
+          </>
+        )}
       </div>
 
       {plan.description && (
         // whitespace-pre-line keeps the line breaks people typed, text stays plain (no HTML)
-        <p className="text-sm break-words whitespace-pre-line">{plan.description}</p>
+        <p className="break-words whitespace-pre-line">{plan.description}</p>
       )}
 
-      <p className="text-sm">
-        free the whole time:{" "}
-        {freeAllDays.length ? (
-          freeAllDays.map((p, i) => (
-            <span key={p.id} style={{ color: p.color }}>
-              {p.name}
-              {i < freeAllDays.length - 1 ? ", " : ""}
-            </span>
-          ))
-        ) : (
-          <span className="opacity-60">nobody (yet)</span>
-        )}
-      </p>
-
-      {canEdit && (
-        // -ml-4 cancels the button padding, so the labels line up with the text above
-        <div className="-ml-4 flex gap-2">
-          <button
-            type="button"
-            onClick={onEdit}
-            className="rounded-full px-4 py-1 text-sm hover:bg-neutral-200"
-          >
-            edit
-          </button>
-          <button
-            type="button"
-            onClick={() => {
-              if (window.confirm(`Delete "${plan.title}"?`)) onDelete();
-            }}
-            className="rounded-full px-4 py-1 text-sm text-red-700 hover:bg-red-100"
-          >
-            delete plan
-          </button>
+      {canEdit && me && (
+        <div className="flex flex-wrap items-center gap-2">
+          {RSVP_ANSWERS.map((answer) => (
+            // same look as the mode pills: the picked one lights up, picking it again takes it back
+            <button
+              key={answer}
+              type="button"
+              aria-pressed={myAnswer === answer}
+              onClick={() => onRsvp(myAnswer === answer ? null : answer)}
+              className={`rounded-full px-4 py-1 ${
+                myAnswer === answer
+                  ? "bg-accent-500 text-primary-900"
+                  : "bg-primary-900 hover:bg-accent-500 hover:text-primary-900 text-white"
+              }`}
+            >
+              {RSVP_LABELS[answer]}
+            </button>
+          ))}
         </div>
       )}
-    </div>
+
+      {answered.length > 0 && (
+        <div className="flex flex-col gap-2">
+          {answered.map(({ answer, who }) => (
+            <div key={answer} className="flex flex-wrap items-center gap-2">
+              <span className="w-[9ch] shrink-0 text-sm">{RSVP_LABELS[answer]}</span>
+              {who.map((p) => (
+                <span
+                  key={p.id}
+                  className="rounded-full px-3 py-0.5 text-sm"
+                  style={{ background: p.color, color: textColorOn(p.color) }}
+                >
+                  {p.name}
+                </span>
+              ))}
+            </div>
+          ))}
+        </div>
+      )}
+
+      {canEdit && (
+        <>
+          <hr className="text-neutral-200" />
+          <div className="flex flex-wrap gap-2">
+            <button type="button" onClick={onEdit}>
+              <Pill classes="bg-primary-900 hover:bg-accent-500 hover:text-primary-900">edit</Pill>
+            </button>
+            <button
+              type="button"
+              onClick={() => {
+                if (window.confirm(`Delete "${plan.title}"?`)) onDelete();
+              }}
+            >
+              <Pill classes="bg-primary-900 hover:bg-red-700">delete plan</Pill>
+            </button>
+          </div>
+        </>
+      )}
+    </Modal>
   );
 };
