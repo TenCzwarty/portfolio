@@ -218,8 +218,10 @@ export const useCalendar = () => {
   const forgetSecret = () => {
     try {
       window.localStorage.removeItem(STORAGE_KEY_SECRET);
+      window.localStorage.removeItem(STORAGE_KEY_ME);
     } catch {}
     secretRef.current = null;
+    setMeState(null);
     setCanEdit(false);
     setData(EMPTY);
     setStatus("locked");

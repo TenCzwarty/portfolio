@@ -82,8 +82,7 @@ export const IdentityForm = ({
         </div>
       )}
 
-      {/* name and colors side by side once there's room */}
-      <div className="grid gap-4 md:grid-cols-2 md:items-center">
+      <div className="flex flex-col gap-4">
         <div className="flex flex-col gap-1 text-sm">
           <input
             autoFocus

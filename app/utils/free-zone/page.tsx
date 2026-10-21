@@ -2,7 +2,6 @@
 
 import React from "react";
 import {
-  AsteriskIcon,
   CalendarRangeIcon,
   ChevronLeftIcon,
   ChevronRightIcon,
@@ -22,7 +21,6 @@ import { Pill } from "~/components/pill";
 import { Section } from "~/components/section";
 import { Spinner } from "~/components/spinner";
 import { toast, ToastContainer } from "~/components/toast";
-import { Tooltip } from "~/components/tooltip";
 
 import { IdentityForm } from "./_components/identity-form";
 import { Legend } from "./_components/legend";
@@ -330,7 +328,7 @@ export default function UtilsFreeZonePage() {
                     {canEdit && me && (
                       <AccordionController>
                         {(identityProps) => (
-                          <div className="rounded-md border border-neutral-200 p-4">
+                          <div>
                             {/* same spinning cog as the settings toggle above */}
                             <button
                               type="button"
@@ -356,30 +354,16 @@ export default function UtilsFreeZonePage() {
                                     }}
                                     onCancel={identityProps.toggleIsOpened}
                                     extraActions={
-                                      <>
-                                        <button type="button" onClick={forgetSecret}>
-                                          <Pill classes="bg-primary-900 hover:bg-accent-500 hover:text-primary-900">
-                                            forget the secret link on this device
-                                          </Pill>
-                                        </button>
-                                        <Tooltip id="no-login">
-                                          no login — your name and color are remembered in this
-                                          browser only
-                                        </Tooltip>
-                                        <span
-                                          data-tooltip-id="no-login"
-                                          tabIndex={0}
-                                          aria-label="no login — your name and color are remembered in this browser only"
-                                          // still anchor, spinning icon - so the tooltip doesn't jump
-                                          className="-ml-1 self-start"
-                                        >
-                                          <AsteriskIcon
-                                            size={14}
-                                            className="spin"
-                                            aria-hidden="true"
-                                          />
-                                        </span>
-                                      </>
+                                      // pushed right, away from save / cancel
+                                      <button
+                                        type="button"
+                                        onClick={forgetSecret}
+                                        className="ml-auto"
+                                      >
+                                        <Pill classes="bg-primary-900 hover:bg-accent-500 hover:text-primary-900">
+                                          forget the secret link on this device
+                                        </Pill>
+                                      </button>
                                     }
                                   />
                                 </div>
