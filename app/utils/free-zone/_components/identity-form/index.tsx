@@ -139,7 +139,8 @@ export const IdentityForm = ({
             className={`flex h-8 cursor-pointer items-center gap-2 rounded-full border border-dashed border-neutral-400 pr-4 hover:bg-neutral-200`}
           >
             <span
-              className="size-[30px] rounded-full"
+              // 1px over the outline on every side it touches, so the dashes don't show through
+              className="-my-px -ml-px size-8 shrink-0 rounded-full"
               style={{ background: isCustom ? color : "var(--color-neutral-200)" }}
             />
             custom

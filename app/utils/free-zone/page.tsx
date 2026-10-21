@@ -283,7 +283,10 @@ export default function UtilsFreeZonePage() {
     newPlanRange ??
     (rangeStart && rangeHover
       ? { start: [rangeStart, rangeHover].sort()[0], end: [rangeStart, rangeHover].sort()[1] }
-      : null);
+      : // before the first click: a one-day ghost under the cursor shows where a plan would start
+        rangeHover
+        ? { start: rangeHover, end: rangeHover }
+        : null);
 
   // hiding plans keeps the screen calm, but not while you're adding one
   const visiblePlans = hidePlans && mode !== "plan" ? [] : data.plans;
@@ -485,7 +488,8 @@ export default function UtilsFreeZonePage() {
 
                 {/* the page is prerendered at build time: anything date-based must wait for the browser,
               otherwise "today" and the month would be frozen at the build date until hydration */}
-                <div>
+                {/* leaving the calendar before the first click takes the hover ghost away */}
+                <div onMouseLeave={() => !rangeStart && setRangeHover(null)}>
                   {/* also waits for the first fetch: cells mounted before the data arrives would treat
                 every stamp as freshly placed and play the stamping animation all at once */}
                   {!hydrated || status === "loading" ? (
@@ -514,7 +518,7 @@ export default function UtilsFreeZonePage() {
                       preselected={preselected}
                       plansClickable={mode === null || !canEdit}
                       onDayClick={onDayClick}
-                      onDayHover={(day) => rangeStart && !newPlanRange && setRangeHover(day)}
+                      onDayHover={(day) => mode === "plan" && !newPlanRange && setRangeHover(day)}
                       onDayPointerDown={onDayPointerDown}
                       onDayPointerEnter={onDayPointerEnter}
                       onPlanClick={(plan) => {
