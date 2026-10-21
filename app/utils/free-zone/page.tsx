@@ -24,6 +24,7 @@ import { toast, ToastContainer } from "~/components/toast";
 
 import { IdentityForm } from "./_components/identity-form";
 import { Legend } from "./_components/legend";
+import { Modal } from "./_components/modal";
 import { MonthGrid } from "./_components/month-grid";
 import { PlanDetails } from "./_components/plan-details";
 import { PlanForm } from "./_components/plan-form";
@@ -543,25 +544,28 @@ export default function UtilsFreeZonePage() {
                       />
                     )}
 
+                    {/* editing takes over the plan's modal; closing it goes back to the plan */}
                     {editingPlan && (
-                      <PlanForm
-                        key={editingPlan.id}
-                        start={editingPlan.start}
-                        end={editingPlan.end}
-                        initial={editingPlan}
-                        onSave={({ title, description }) => {
-                          send({ type: "plan-update", id: editingPlan.id, title, description });
-                          setEditingPlanId(null);
-                        }}
-                        onCancel={() => setEditingPlanId(null)}
-                      />
+                      <Modal title="edit plan" onClose={() => setEditingPlanId(null)}>
+                        <PlanForm
+                          key={editingPlan.id}
+                          start={editingPlan.start}
+                          end={editingPlan.end}
+                          initial={editingPlan}
+                          embedded
+                          onSave={({ title, description }) => {
+                            send({ type: "plan-update", id: editingPlan.id, title, description });
+                            setEditingPlanId(null);
+                          }}
+                          onCancel={() => setEditingPlanId(null)}
+                        />
+                      </Modal>
                     )}
 
                     {selectedPlan && !editingPlan && (
                       <PlanDetails
                         plan={selectedPlan}
                         people={people}
-                        availability={data.availability}
                         canEdit={canEdit}
                         onEdit={() => setEditingPlanId(selectedPlan.id)}
                         onDelete={() => {

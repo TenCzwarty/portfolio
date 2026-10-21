@@ -51,6 +51,13 @@ export default function UtilsPage() {
             </div>
           </Link>
 
+          <Link href="/utils/free-zone" className="block">
+            <div className="flex flex-col rounded-xl border border-neutral-200 p-4 hover:bg-neutral-200">
+              <h3 className="text-lg font-semibold sm:text-xl">Free Zone</h3>
+              <div className="text-sm">shared plans and who&apos;s free when</div>
+            </div>
+          </Link>
+
           <div className="flex flex-col rounded-xl border border-neutral-200 p-4">
             <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
               <div>
@@ -84,13 +91,6 @@ export default function UtilsPage() {
               <div className="text-sm">
                 pick a random element from a list
               </div>
-            </div>
-          </Link>
-
-          <Link href="/utils/free-zone" className="block">
-            <div className="flex flex-col rounded-xl border border-neutral-200 p-4 hover:bg-neutral-200">
-              <h3 className="text-lg font-semibold sm:text-xl">Free Zone</h3>
-              <div className="text-sm">shared plans and who&apos;s free when</div>
             </div>
           </Link>
 
