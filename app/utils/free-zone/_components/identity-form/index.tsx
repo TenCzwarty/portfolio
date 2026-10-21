@@ -11,9 +11,18 @@ type TIdentityForm = {
   onCancel?: () => void;
   /** inside the settings box: no frame or heading of its own */
   embedded?: boolean;
+  /** extra buttons in the save / cancel row */
+  extraActions?: React.ReactNode;
 };
 
-export const IdentityForm = ({ me, people, onSave, onCancel, embedded = false }: TIdentityForm) => {
+export const IdentityForm = ({
+  me,
+  people,
+  onSave,
+  onCancel,
+  embedded = false,
+  extraActions,
+}: TIdentityForm) => {
   const others = people.filter((p) => p.id !== me?.id);
   const takenColors = others.map((p) => p.color);
 
@@ -53,26 +62,6 @@ export const IdentityForm = ({ me, people, onSave, onCancel, embedded = false }:
     >
       {!embedded && <h3 className="text-lg font-semibold sm:text-xl">who are you?</h3>}
 
-      <div className="flex flex-col gap-1 text-sm">
-        <input
-          autoFocus
-          required
-          type="text"
-          placeholder="name"
-          aria-label="name"
-          maxLength={LIMITS.name}
-          value={name}
-          onChange={(e) => onChangeName(e.target.value)}
-          className="w-full rounded-md bg-white p-4 text-base focus:outline-2"
-          style={{ outlineColor: color }}
-        />
-        {namesake && (
-          <span className="opacity-70">
-            you&apos;ll join the existing &quot;{namesake.name}&quot; — with their days and plans
-          </span>
-        )}
-      </div>
-
       {!me && others.length > 0 && (
         <div className="flex flex-col gap-1 text-sm">
           already here? pick yourself
@@ -93,35 +82,58 @@ export const IdentityForm = ({ me, people, onSave, onCancel, embedded = false }:
         </div>
       )}
 
-      <div className="flex flex-wrap items-center gap-2">
-        {PALETTE.map((c) => (
-          <button
-            key={c}
-            type="button"
-            aria-label={`color ${c}${isTaken(c) ? ", taken" : ""}`}
-            aria-pressed={color === c}
-            disabled={isTaken(c)}
-            onClick={() => setColor(c)}
-            className={`size-8 rounded-full border-2 ${color === c ? "border-primary-900" : "border-transparent"} disabled:cursor-not-allowed disabled:opacity-20`}
-            style={{ background: c }}
-          />
-        ))}
-        {/* the native picker hides behind a pill, so it doesn't pass for one more swatch */}
-        <label
-          className={`flex cursor-pointer items-center gap-2 rounded-full border-2 px-3 py-1 text-sm ${isCustom ? "border-primary-900" : "border-neutral-300 hover:bg-neutral-200"}`}
-        >
-          {isCustom && <span className="size-3 rounded-full" style={{ background: color }} />}
-          custom
+      {/* name and colors side by side once there's room */}
+      <div className="grid gap-4 md:grid-cols-2 md:items-center">
+        <div className="flex flex-col gap-1 text-sm">
           <input
-            type="color"
-            value={color}
-            onChange={(e) => !isTaken(e.target.value) && setColor(e.target.value)}
-            className="sr-only"
+            autoFocus
+            required
+            type="text"
+            placeholder="name"
+            aria-label="name"
+            maxLength={LIMITS.name}
+            value={name}
+            onChange={(e) => onChangeName(e.target.value)}
+            className="w-full rounded-md bg-white p-4 text-base focus:outline-2"
+            style={{ outlineColor: color }}
           />
-        </label>
+          {namesake && (
+            <span className="opacity-70">
+              you&apos;ll join the existing &quot;{namesake.name}&quot; — with their days and plans
+            </span>
+          )}
+        </div>
+
+        <div className="flex flex-wrap items-center gap-2">
+          {PALETTE.map((c) => (
+            <button
+              key={c}
+              type="button"
+              aria-label={`color ${c}${isTaken(c) ? ", taken" : ""}`}
+              aria-pressed={color === c}
+              disabled={isTaken(c)}
+              onClick={() => setColor(c)}
+              className={`size-8 rounded-full border-2 ${color === c ? "border-primary-900" : "border-transparent"} disabled:cursor-not-allowed disabled:opacity-20`}
+              style={{ background: c }}
+            />
+          ))}
+          {/* the native picker hides behind a pill, so it doesn't pass for one more swatch */}
+          <label
+            className={`flex cursor-pointer items-center gap-2 rounded-full border-2 px-3 py-1 text-sm ${isCustom ? "border-primary-900" : "border-neutral-300 hover:bg-neutral-200"}`}
+          >
+            {isCustom && <span className="size-3 rounded-full" style={{ background: color }} />}
+            custom
+            <input
+              type="color"
+              value={color}
+              onChange={(e) => !isTaken(e.target.value) && setColor(e.target.value)}
+              className="sr-only"
+            />
+          </label>
+        </div>
       </div>
 
-      <div className="flex gap-2">
+      <div className="flex flex-wrap items-center gap-2">
         <button
           type="submit"
           className="bg-primary-900 hover:bg-accent-500 hover:text-primary-900 rounded-full px-4 py-1 text-white"
@@ -137,6 +149,7 @@ export const IdentityForm = ({ me, people, onSave, onCancel, embedded = false }:
             cancel
           </button>
         )}
+        {extraActions}
       </div>
     </form>
   );

@@ -1,12 +1,9 @@
 import { Tooltip } from "react-tooltip";
+import { AsteriskIcon } from "lucide-react";
 
 import type { TTitleWithTooltip } from "./types";
 
-export const TitleWithTooltip = ({
-  id,
-  children,
-  tooltip,
-}: TTitleWithTooltip) => {
+export const TitleWithTooltip = ({ id, children, tooltip }: TTitleWithTooltip) => {
   return (
     <>
       <Tooltip
@@ -27,12 +24,13 @@ export const TitleWithTooltip = ({
 
       <h2 className="mb-4 flex items-center pl-4 text-xl font-semibold sm:text-3xl">
         {children}
+        {/* only the icon spins: a rotating anchor changes its box, and the tooltip would chase it */}
         <button
           id={id}
-          className="ml-2 cursor-pointer"
+          className="ml-1 cursor-pointer self-start"
           aria-label="Show more information"
         >
-          *
+          <AsteriskIcon className="spin size-[0.6em]" aria-hidden="true" />
         </button>
       </h2>
     </>

@@ -2,10 +2,12 @@
 
 import React from "react";
 import {
+  AsteriskIcon,
   CalendarRangeIcon,
   ChevronLeftIcon,
   ChevronRightIcon,
   EllipsisIcon,
+  SettingsIcon,
   StampIcon as StampToggleIcon,
 } from "lucide-react";
 
@@ -14,11 +16,12 @@ import {
   Accordion,
   AccordionController,
   AccordionExtraSettingsToggle,
-  AccordionToggleMoreInfo,
 } from "~/components/accordion";
 import { IconToggle } from "~/components/icon-toggle";
+import { Pill } from "~/components/pill";
 import { Section } from "~/components/section";
 import { Spinner } from "~/components/spinner";
+import { toast, ToastContainer } from "~/components/toast";
 import { Tooltip } from "~/components/tooltip";
 
 import { IdentityForm } from "./_components/identity-form";
@@ -264,6 +267,7 @@ export default function UtilsFreeZonePage() {
     if (!newPlanRange || !me) return;
     const plan: TPlan = { id: newId(), title, description, ...newPlanRange, createdBy: me.id };
     send({ type: "plan-add", plan });
+    toast(`added plan "${title}"`);
     resetPlanSelection();
   };
 
@@ -284,6 +288,7 @@ export default function UtilsFreeZonePage() {
 
   return (
     <main className="min-h-[calc(100dvh-56px)]">
+      <ToastContainer />
       <Section>
         <AccordionController>
           {(accordionProps) => (
@@ -326,10 +331,16 @@ export default function UtilsFreeZonePage() {
                       <AccordionController>
                         {(identityProps) => (
                           <div className="rounded-md border border-neutral-200 p-4">
-                            <AccordionToggleMoreInfo
-                              name="change name or color"
-                              {...identityProps}
-                            />
+                            {/* same spinning cog as the settings toggle above */}
+                            <button
+                              type="button"
+                              onClick={identityProps.toggleIsOpened}
+                              aria-expanded={identityProps.isOpened}
+                              className="group flex items-center gap-2"
+                            >
+                              edit
+                              <SettingsIcon className="spin" aria-hidden="true" />
+                            </button>
                             <Accordion {...identityProps}>
                               {/* mounted only while open: reopening starts from the saved name, not a stale draft */}
                               {identityProps.isOpened && (
@@ -344,6 +355,32 @@ export default function UtilsFreeZonePage() {
                                       identityProps.toggleIsOpened();
                                     }}
                                     onCancel={identityProps.toggleIsOpened}
+                                    extraActions={
+                                      <>
+                                        <button type="button" onClick={forgetSecret}>
+                                          <Pill classes="bg-primary-900 hover:bg-accent-500 hover:text-primary-900">
+                                            forget the secret link on this device
+                                          </Pill>
+                                        </button>
+                                        <Tooltip id="no-login">
+                                          no login — your name and color are remembered in this
+                                          browser only
+                                        </Tooltip>
+                                        <span
+                                          data-tooltip-id="no-login"
+                                          tabIndex={0}
+                                          aria-label="no login — your name and color are remembered in this browser only"
+                                          // still anchor, spinning icon - so the tooltip doesn't jump
+                                          className="-ml-1 self-start"
+                                        >
+                                          <AsteriskIcon
+                                            size={14}
+                                            className="spin"
+                                            aria-hidden="true"
+                                          />
+                                        </span>
+                                      </>
+                                    }
                                   />
                                 </div>
                               )}
@@ -351,24 +388,6 @@ export default function UtilsFreeZonePage() {
                           </div>
                         )}
                       </AccordionController>
-                    )}
-
-                    {canEdit && (
-                      <div className="flex items-start gap-1">
-                        <button
-                          type="button"
-                          onClick={forgetSecret}
-                          className="underline hover:no-underline"
-                        >
-                          forget the secret link on this device
-                        </button>
-                        <Tooltip id="no-login">
-                          no login — your name and color are remembered in this browser only
-                        </Tooltip>
-                        <span data-tooltip-id="no-login" tabIndex={0} className="cursor-help">
-                          *
-                        </span>
-                      </div>
                     )}
                   </div>
                 </Accordion>
@@ -385,7 +404,7 @@ export default function UtilsFreeZonePage() {
                 )}
 
                 {status === "locked" ? (
-                  <div className="rounded-xl border border-neutral-200 p-4 text-sm">
+                  <div className="rounded-xl border border-neutral-200 p-4">
                     this calendar is private — open it with the secret link
                   </div>
                 ) : (
@@ -563,6 +582,7 @@ export default function UtilsFreeZonePage() {
                         onEdit={() => setEditingPlanId(selectedPlan.id)}
                         onDelete={() => {
                           send({ type: "plan-delete", id: selectedPlan.id });
+                          toast(`deleted plan "${selectedPlan.title}"`);
                           setSelectedPlanId(null);
                         }}
                         onClose={() => setSelectedPlanId(null)}
