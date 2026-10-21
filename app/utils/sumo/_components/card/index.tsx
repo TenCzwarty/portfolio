@@ -1,23 +1,21 @@
 "use client";
 
 import React from "react";
-import { CheckIcon } from "lucide-react";
 import NextImage from "next/image";
-
-import { toast } from "~/components/toast";
 
 import type { TSumoCardProps } from "./types";
 
 import { CardZoom } from "~sumo/_components/card-zoom";
+import { FinishIcon } from "~sumo/_components/finish-icon";
 import { FoilCard } from "~sumo/_components/foil-card";
 import { getRikishi } from "~sumo/_const";
 import { ownedKey, useSumoContext } from "~sumo/_context";
 
 const RIKISHI = getRikishi();
 
-export const SumoCard = ({ isSettingsOpened, ...props }: TSumoCardProps) => {
+export const SumoCard = (props: TSumoCardProps) => {
   const { id, title, number, src, finishes, rikishi } = props;
-  const { isOwned, toggleOwned } = useSumoContext();
+  const { isOwned } = useSumoContext();
   const [imgError, setImgError] = React.useState(false);
   const [zoomed, setZoomed] = React.useState(false);
 
@@ -47,22 +45,8 @@ export const SumoCard = ({ isSettingsOpened, ...props }: TSumoCardProps) => {
 
   const imageSrc = src && !imgError ? `/images/utils/sumo/${src}` : null;
 
-  const ownedNames = finishes
-    .filter((finish) => isOwned(ownedKey(id, finish.id)))
-    .map((finish) => finish.name);
-
-  // Like the hanayama tracker: with settings open, a click collects the
-  // standard version; the other finishes are collected in the zoomed card
-  const baseKey = ownedKey(id, finishes[0].id);
-  const isBaseOwned = isOwned(baseKey);
-  const collectLabel = isBaseOwned
-    ? `removed #${number} ${displayName} from your collection`
-    : `added #${number} ${displayName} to your collection`;
-
-  const collect = () => {
-    toast(collectLabel);
-    toggleOwned(baseKey);
-  };
+  // Collected in the zoomed card; the grid shows one icon per owned variant
+  const ownedFinishes = finishes.filter((finish) => isOwned(ownedKey(id, finish.id)));
 
   const face = imageSrc ? (
     <NextImage
@@ -89,28 +73,24 @@ export const SumoCard = ({ isSettingsOpened, ...props }: TSumoCardProps) => {
           className="rounded-xl border border-neutral-200 bg-white p-2"
         >
           <div className="relative h-[160px] w-[112px] overflow-hidden rounded-lg bg-neutral-100">
-            {isSettingsOpened || imageSrc ? (
-              <button
-                type="button"
-                onClick={isSettingsOpened ? collect : () => setZoomed(true)}
-                className={`block h-full w-full ${isSettingsOpened ? "cursor-pointer" : "cursor-zoom-in"}`}
-                aria-label={
-                  isSettingsOpened
-                    ? `${isBaseOwned ? "Remove" : "Add"} #${number} ${displayName} ${isBaseOwned ? "from" : "to"} your collection`
-                    : `Zoom in on #${number} ${displayName}`
-                }
-              >
-                {face}
-              </button>
-            ) : (
-              face
-            )}
+            <button
+              type="button"
+              onClick={() => setZoomed(true)}
+              className="block h-full w-full cursor-zoom-in"
+              aria-label={`Zoom in on #${number} ${displayName}`}
+            >
+              {face}
+            </button>
           </div>
 
-          {ownedNames.length > 0 && (
-            <div className="bg-accent-900 pointer-events-none absolute right-0 bottom-0 z-10 rounded-md p-1.5 text-white">
-              <CheckIcon size={16} aria-hidden />
-              <span className="sr-only">In your collection: {ownedNames.join(", ")}</span>
+          {ownedFinishes.length > 0 && (
+            <div className="bg-accent-900 pointer-events-none absolute right-0 bottom-0 z-10 flex gap-1 rounded-md p-1.5 text-white">
+              {ownedFinishes.map((finish) => (
+                <FinishIcon key={finish.id} effect={finish.effect ?? "sleeve"} size={14} />
+              ))}
+              <span className="sr-only">
+                In your collection: {ownedFinishes.map((finish) => finish.name).join(", ")}
+              </span>
             </div>
           )}
         </FoilCard>
@@ -123,7 +103,7 @@ export const SumoCard = ({ isSettingsOpened, ...props }: TSumoCardProps) => {
         )}
       </div>
 
-      {imageSrc && zoomed && (
+      {zoomed && (
         <CardZoom
           onClose={() => setZoomed(false)}
           src={imageSrc}

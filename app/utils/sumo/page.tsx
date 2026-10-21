@@ -11,7 +11,6 @@ import {
 } from "~/components/accordion";
 import { IconToggle } from "~/components/icon-toggle";
 import { Section } from "~/components/section";
-import { ToastContainer } from "~/components/toast";
 
 import "./styles.css";
 
@@ -45,20 +44,16 @@ export default function UtilsSumoTrackerPage() {
                 <Accordion {...accordionProps}>
                   <div className="mt-4 -ml-4 flex flex-col space-y-2 rounded-xl border border-neutral-200 p-4">
                     <div className="flex gap-2">
-                      <h4 className="mr-2">finish previews</h4>
+                      <h4 className="mr-2">show all finish previews</h4>
                       <IconToggle
                         id="finish-previews"
-                        title="preview finishes a card wasn't printed in"
+                        title="also preview finishes a card wasn't printed in"
+                        initialState={0}
                         toggleFunction={toggleIsShowingFinishPreviews}
                       >
                         <SparklesIcon />
                       </IconToggle>
                     </div>
-
-                    <p className="text-sm text-neutral-500">
-                      while settings are open, click a card to add it to your collection; collect
-                      its other versions from the zoomed card. The link holds your collection.
-                    </p>
                   </div>
                 </Accordion>
               </div>
@@ -83,15 +78,13 @@ export default function UtilsSumoTrackerPage() {
 
               <div className="flex gap-4">
                 <div className="w-full space-y-4">
-                  <SumoCardSet sumoSet={selectedSet} isSettingsOpened={accordionProps.isOpened} />
+                  <SumoCardSet sumoSet={selectedSet} />
                 </div>
               </div>
             </>
           )}
         </AccordionController>
       </Section>
-
-      <ToastContainer />
     </main>
   );
 }

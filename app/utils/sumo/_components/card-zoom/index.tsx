@@ -3,8 +3,11 @@
 import React from "react";
 import { CheckIcon, PlusIcon } from "lucide-react";
 
+import { Pill } from "~/components/pill";
+
 import type { TCardZoomProps } from "./types";
 
+import { FinishIcon } from "~sumo/_components/finish-icon";
 import { FoilCard } from "~sumo/_components/foil-card";
 import { FINISH_EFFECTS } from "~sumo/_const";
 import { ownedKey, useSumoContext } from "~sumo/_context";
@@ -12,7 +15,8 @@ import { ownedKey, useSumoContext } from "~sumo/_context";
 /**
  * Enlarged card in a native <dialog>: Esc, focus trapping and the top layer
  * come for free. Closes on Esc, the close button or a click on the backdrop.
- * Starts on the card's own finish; the buttons preview it in any finish.
+ * Starts on the card's own finish; the variant icons switch the preview and
+ * the pill adds the previewed variant to the collection.
  * Mount it only while zoomed: it opens on mount.
  */
 export const CardZoom = (props: TCardZoomProps) => {
@@ -34,6 +38,11 @@ export const CardZoom = (props: TCardZoomProps) => {
   const isMarkingPrinted = isShowingFinishPreviews && catalogued.size > 1;
   const printedNames = finishes.map((finish) => finish.name).join(", ");
 
+  // Only a printed finish can be collected; a preview-only one can't
+  const selectedFinish = finishes.find((finish) => (finish.effect ?? "sleeve") === effect);
+  const selectedKey = selectedFinish ? ownedKey(cardId, selectedFinish.id) : null;
+  const isSelectedOwned = selectedKey ? isOwned(selectedKey) : false;
+
   return (
     <dialog
       ref={ref}
@@ -45,15 +54,65 @@ export const CardZoom = (props: TCardZoomProps) => {
       onClick={(e) => e.target === e.currentTarget && onClose()}
     >
       <div className="flex flex-col items-center gap-4">
-        <FoilCard maxTilt={8} effect={effect} className="rounded-2xl">
-          {/* Local scans, already small: next/image would only re-encode them */}
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            src={src}
-            alt={alt}
-            className="block h-[min(75dvh,525px)] w-auto max-w-[calc(100vw-2rem)] object-contain"
-          />
-        </FoilCard>
+        <div className="flex flex-col items-center gap-4 sm:flex-row sm:items-start">
+          <FoilCard maxTilt={8} effect={effect} className="rounded-2xl">
+            {src ? (
+              <>
+                {/* Local scans, already small: next/image would only re-encode them */}
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src={src}
+                  alt={alt}
+                  className="block h-[min(75dvh,525px)] w-auto max-w-[calc(100vw-2rem)] object-contain"
+                />
+              </>
+            ) : (
+              <div className="flex aspect-[5/7] h-[min(75dvh,525px)] max-w-[calc(100vw-2rem)] flex-col items-center justify-center bg-neutral-100 text-neutral-400">
+                <span className="text-6xl font-bold">#{number}</span>
+                <span className="mt-2 text-xl">{name}</span>
+              </div>
+            )}
+          </FoilCard>
+
+          {options.length > 1 && (
+            <div className="flex flex-col items-center gap-2 sm:items-start">
+              <h4 className="text-sm text-neutral-400">variants</h4>
+              <div
+                role="group"
+                aria-label="Variants"
+                className="flex flex-wrap justify-center gap-2 sm:flex-col"
+              >
+                {options.map((option) => {
+                  const isPrinted = catalogued.has(option.effect);
+
+                  return (
+                    <button
+                      key={option.effect}
+                      type="button"
+                      title={option.label}
+                      aria-label={`${option.label}${isMarkingPrinted && isPrinted ? " (printed for this card)" : ""}`}
+                      aria-pressed={effect === option.effect}
+                      onClick={() => setEffect(option.effect)}
+                      className={`relative flex h-12 w-12 items-center justify-center rounded-xl ${
+                        effect === option.effect
+                          ? "bg-white text-neutral-900"
+                          : "text-white hover:bg-white/10"
+                      }`}
+                    >
+                      <FinishIcon effect={option.effect} size={28} />
+                      {isMarkingPrinted && isPrinted && (
+                        <span
+                          aria-hidden
+                          className="bg-accent-500 absolute top-1.5 right-1.5 h-2 w-2 rounded-full"
+                        />
+                      )}
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+          )}
+        </div>
 
         <div className="text-center text-white">
           <div className="font-semibold">
@@ -65,44 +124,10 @@ export const CardZoom = (props: TCardZoomProps) => {
               {line}
             </div>
           ))}
-        </div>
-
-        <div className="flex flex-col items-center gap-2">
-          {options.length > 1 && (
-            <div
-              role="group"
-              aria-label={isShowingFinishPreviews ? "Preview finish" : "Finish"}
-              className="flex flex-wrap justify-center gap-1"
-            >
-              {options.map((option) => (
-                <button
-                  key={option.effect}
-                  type="button"
-                  aria-pressed={effect === option.effect}
-                  onClick={() => setEffect(option.effect)}
-                  className={`rounded-lg px-3 py-1.5 text-sm ${
-                    effect === option.effect
-                      ? "bg-white text-neutral-900"
-                      : "text-white hover:bg-white/10"
-                  }`}
-                >
-                  {option.label}
-                  {isMarkingPrinted && catalogued.has(option.effect) && (
-                    <>
-                      <span aria-hidden className="ml-1">
-                        •
-                      </span>
-                      <span className="sr-only"> (printed for this card)</span>
-                    </>
-                  )}
-                </button>
-              ))}
-            </div>
-          )}
-          <p className="max-w-xs text-center text-xs text-neutral-400">
+          <p className="mx-auto mt-1 max-w-xs text-xs text-neutral-400">
             {catalogued.size === 1
               ? isShowingFinishPreviews
-                ? "Printed in the standard version only; the other finishes are previews."
+                ? "Printed in the standard version only; the other variants are previews."
                 : "Printed in the standard version only."
               : isShowingFinishPreviews
                 ? `Printed as ${printedNames} (•); the rest are previews.`
@@ -110,46 +135,45 @@ export const CardZoom = (props: TCardZoomProps) => {
           </p>
         </div>
 
-        {/* Only finishes that exist can be collected */}
-        <div
-          role="group"
-          aria-label="Your collection"
-          className="flex flex-wrap items-center justify-center gap-1"
-        >
-          <span className="mr-1 text-sm text-neutral-400">collection</span>
-          {finishes.map((finish) => {
-            const key = ownedKey(cardId, finish.id);
-            const owned = isOwned(key);
+        <div className="flex flex-wrap items-center justify-center gap-2">
+          <button
+            type="button"
+            className="group"
+            disabled={!selectedKey}
+            onClick={() => selectedKey && toggleOwned(selectedKey)}
+            aria-label={
+              selectedFinish
+                ? `${isSelectedOwned ? "Remove" : "Add"} ${selectedFinish.name} ${isSelectedOwned ? "from" : "to"} my collection`
+                : "Not printed, can't be collected"
+            }
+          >
+            <Pill
+              classes={
+                !selectedKey
+                  ? "bg-neutral-500 group-disabled:cursor-not-allowed"
+                  : isSelectedOwned
+                    ? "bg-accent-500 text-primary-900 hover:bg-primary-900 hover:text-white"
+                    : "bg-primary-900 hover:bg-accent-500 hover:text-primary-900"
+              }
+            >
+              {!selectedKey ? (
+                "not printed"
+              ) : isSelectedOwned ? (
+                <>
+                  <CheckIcon size={16} aria-hidden /> in my collection
+                </>
+              ) : (
+                <>
+                  <PlusIcon size={16} aria-hidden /> add to my collection
+                </>
+              )}
+            </Pill>
+          </button>
 
-            return (
-              <button
-                key={finish.id}
-                type="button"
-                aria-pressed={owned}
-                onClick={() => {
-                  toggleOwned(key);
-                  setEffect(finish.effect ?? "sleeve");
-                }}
-                className={`flex items-center gap-1 rounded-lg border px-3 py-1.5 text-sm ${
-                  owned
-                    ? "bg-accent-900 border-transparent text-white"
-                    : "border-white/30 text-white hover:bg-white/10"
-                }`}
-              >
-                {owned ? <CheckIcon size={14} aria-hidden /> : <PlusIcon size={14} aria-hidden />}
-                {finish.name}
-              </button>
-            );
-          })}
+          <button type="button" className="group" onClick={onClose}>
+            <Pill classes="bg-transparent border border-white/30 hover:bg-white/10">close</Pill>
+          </button>
         </div>
-
-        <button
-          type="button"
-          onClick={onClose}
-          className="rounded-lg border border-white/30 px-4 py-2 text-sm text-white hover:bg-white/10"
-        >
-          close
-        </button>
       </div>
     </dialog>
   );
