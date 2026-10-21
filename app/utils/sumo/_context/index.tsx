@@ -6,7 +6,7 @@ import { useLocalStorage } from "~/utils/use-local-storage";
 import { useToggle } from "~/utils/use-toggle";
 
 import { init } from "./init";
-import type { TOwnedKey, TSumoContext } from "./types";
+import type { TCardSize, TOwnedKey, TSumoContext } from "./types";
 
 import { STORAGE_KEY_OWNED_FINISHES } from "~sumo/_const";
 
@@ -16,6 +16,7 @@ export const ownedKey = (cardId: string, finishId: string): TOwnedKey => `${card
 
 export const SumoContextProvider = ({ children }: TChildren) => {
   const [isShowingFinishPreviews, toggleIsShowingFinishPreviews] = useToggle(false);
+  const [cardSize, setCardSize] = React.useState<TCardSize>("medium");
 
   const [ownedFinishes, setOwnedFinishes] = useLocalStorage<Array<TOwnedKey>>(
     STORAGE_KEY_OWNED_FINISHES,
@@ -34,6 +35,9 @@ export const SumoContextProvider = ({ children }: TChildren) => {
   const value = {
     isShowingFinishPreviews,
     toggleIsShowingFinishPreviews,
+
+    cardSize,
+    setCardSize,
 
     ownedFinishes,
     setOwnedFinishes,
