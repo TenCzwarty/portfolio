@@ -15,7 +15,7 @@ const SumoContext = React.createContext<TSumoContext>(init);
 export const ownedKey = (cardId: string, finishId: string): TOwnedKey => `${cardId}@${finishId}`;
 
 export const SumoContextProvider = ({ children }: TChildren) => {
-  const [isShowingFinishPreviews, toggleIsShowingFinishPreviews] = useToggle(true);
+  const [isShowingFinishPreviews, toggleIsShowingFinishPreviews] = useToggle(false);
 
   const [ownedFinishes, setOwnedFinishes] = useLocalStorage<Array<TOwnedKey>>(
     STORAGE_KEY_OWNED_FINISHES,

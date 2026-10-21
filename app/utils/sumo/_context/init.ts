@@ -1,7 +1,7 @@
 import type { TSumoContext } from "./types";
 
 export const init: TSumoContext = {
-  isShowingFinishPreviews: true,
+  isShowingFinishPreviews: false,
   toggleIsShowingFinishPreviews: () => {},
 
   ownedFinishes: [],
