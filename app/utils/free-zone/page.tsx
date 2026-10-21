@@ -18,6 +18,8 @@ import {
 } from "~/components/accordion";
 import { IconToggle } from "~/components/icon-toggle";
 import { Section } from "~/components/section";
+import { Spinner } from "~/components/spinner";
+import { Tooltip } from "~/components/tooltip";
 
 import { IdentityForm } from "./_components/identity-form";
 import { Legend } from "./_components/legend";
@@ -352,13 +354,21 @@ export default function UtilsFreeZonePage() {
                     )}
 
                     {canEdit && (
-                      <button
-                        type="button"
-                        onClick={forgetSecret}
-                        className="underline hover:no-underline"
-                      >
-                        forget the secret link on this device
-                      </button>
+                      <div className="flex items-start gap-1">
+                        <button
+                          type="button"
+                          onClick={forgetSecret}
+                          className="underline hover:no-underline"
+                        >
+                          forget the secret link on this device
+                        </button>
+                        <Tooltip id="no-login">
+                          no login — your name and color are remembered in this browser only
+                        </Tooltip>
+                        <span data-tooltip-id="no-login" tabIndex={0} className="cursor-help">
+                          *
+                        </span>
+                      </div>
                     )}
                   </div>
                 </Accordion>
@@ -472,11 +482,13 @@ export default function UtilsFreeZonePage() {
 
                     {/* the page is prerendered at build time: anything date-based must wait for the browser,
               otherwise "today" and the month would be frozen at the build date until hydration */}
-                    <div className={status === "loading" ? "animate-pulse opacity-60" : ""}>
+                    <div>
                       {/* also waits for the first fetch: cells mounted before the data arrives would treat
                 every stamp as freshly placed and play the stamping animation all at once */}
                       {!hydrated || status === "loading" ? (
-                        <div className="aspect-[7/5] rounded-xl border border-neutral-200" />
+                        <div className="aspect-[7/5] rounded-xl border border-neutral-200">
+                          <Spinner className="h-full" />
+                        </div>
                       ) : (
                         <MonthGrid
                           weeks={weeks}

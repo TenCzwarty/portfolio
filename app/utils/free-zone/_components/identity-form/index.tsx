@@ -31,9 +31,14 @@ export const IdentityForm = ({ me, people, onSave, onCancel, embedded = false }:
     if (match) setColor(match.color);
   };
 
+  // one color per person, so dots and bars stay readable - joining a namesake takes theirs over
+  const isTaken = (c: string) =>
+    takenColors.includes(c.toLowerCase()) && namesake?.color !== c.toLowerCase();
+  const isCustom = !PALETTE.includes(color);
+
   const onSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!name.trim()) return;
+    if (!name.trim() || isTaken(color)) return;
     onSave({
       id: namesake?.id ?? me?.id ?? newId(),
       name: namesake?.name ?? name.trim(),
@@ -46,22 +51,19 @@ export const IdentityForm = ({ me, people, onSave, onCancel, embedded = false }:
       onSubmit={onSubmit}
       className={`flex flex-col gap-4 ${embedded ? "" : "rounded-xl border border-neutral-200 p-4"}`}
     >
-      <div>
-        {!embedded && <h3 className="text-lg font-semibold sm:text-xl">who are you?</h3>}
-        <p className="text-sm">
-          no login — your name and color are remembered in this browser only
-        </p>
-      </div>
+      {!embedded && <h3 className="text-lg font-semibold sm:text-xl">who are you?</h3>}
 
-      <label className="flex flex-col gap-1 text-sm">
-        name
+      <div className="flex flex-col gap-1 text-sm">
         <input
           autoFocus
           required
+          type="text"
+          placeholder="name"
+          aria-label="name"
           maxLength={LIMITS.name}
           value={name}
           onChange={(e) => onChangeName(e.target.value)}
-          className="rounded-md bg-white p-2 text-base focus:outline-2"
+          className="w-full rounded-md bg-white p-4 text-base focus:outline-2"
           style={{ outlineColor: color }}
         />
         {namesake && (
@@ -69,7 +71,7 @@ export const IdentityForm = ({ me, people, onSave, onCancel, embedded = false }:
             you&apos;ll join the existing &quot;{namesake.name}&quot; — with their days and plans
           </span>
         )}
-      </label>
+      </div>
 
       {!me && others.length > 0 && (
         <div className="flex flex-col gap-1 text-sm">
@@ -91,33 +93,32 @@ export const IdentityForm = ({ me, people, onSave, onCancel, embedded = false }:
         </div>
       )}
 
-      <div className="flex flex-col gap-1 text-sm">
-        color
-        <div className="flex flex-wrap items-center gap-2">
-          {PALETTE.map((c) => (
-            <button
-              key={c}
-              type="button"
-              aria-label={`color ${c}`}
-              aria-pressed={color === c}
-              onClick={() => setColor(c)}
-              className={`relative size-8 rounded-full border-2 ${color === c ? "border-primary-900" : "border-transparent"}`}
-              style={{ background: c }}
-            >
-              {takenColors.includes(c) && color !== c && namesake?.color !== c && (
-                <span className="absolute inset-0 m-auto size-2 rounded-full bg-white/80" />
-              )}
-            </button>
-          ))}
+      <div className="flex flex-wrap items-center gap-2">
+        {PALETTE.map((c) => (
+          <button
+            key={c}
+            type="button"
+            aria-label={`color ${c}${isTaken(c) ? ", taken" : ""}`}
+            aria-pressed={color === c}
+            disabled={isTaken(c)}
+            onClick={() => setColor(c)}
+            className={`size-8 rounded-full border-2 ${color === c ? "border-primary-900" : "border-transparent"} disabled:cursor-not-allowed disabled:opacity-20`}
+            style={{ background: c }}
+          />
+        ))}
+        {/* the native picker hides behind a pill, so it doesn't pass for one more swatch */}
+        <label
+          className={`flex cursor-pointer items-center gap-2 rounded-full border-2 px-3 py-1 text-sm ${isCustom ? "border-primary-900" : "border-neutral-300 hover:bg-neutral-200"}`}
+        >
+          {isCustom && <span className="size-3 rounded-full" style={{ background: color }} />}
+          custom
           <input
             type="color"
-            aria-label="custom color"
             value={color}
-            onChange={(e) => setColor(e.target.value)}
-            className="size-8 cursor-pointer rounded-full bg-transparent"
+            onChange={(e) => !isTaken(e.target.value) && setColor(e.target.value)}
+            className="sr-only"
           />
-        </div>
-        <span className="opacity-70">dot = color already taken</span>
+        </label>
       </div>
 
       <div className="flex gap-2">
