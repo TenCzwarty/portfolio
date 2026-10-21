@@ -136,7 +136,7 @@ export const IdentityForm = ({
           {/* the native picker hides behind a swatch-sized circle and a label, joined by a dashed
               outline (like the stamp and its pencil), so it doesn't pass for one more swatch */}
           <label
-            className={`flex h-8 cursor-pointer items-center gap-2 rounded-full border border-dashed pr-4 ${isCustom ? "border-primary-900" : "border-neutral-400 hover:bg-neutral-200"}`}
+            className={`flex h-8 cursor-pointer items-center gap-2 rounded-full border border-dashed border-neutral-400 pr-4 hover:bg-neutral-200`}
           >
             <span
               className="size-[30px] rounded-full"

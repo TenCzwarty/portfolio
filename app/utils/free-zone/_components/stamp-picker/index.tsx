@@ -35,7 +35,8 @@ export const StampChips = ({
       return (
         <span
           key={label}
-          className={`flex items-center rounded-full ${withPencil ? "border border-dashed border-neutral-400" : ""}`}
+          // the hover lights up the whole pair, not just the pencil
+          className={`flex items-center rounded-full ${withPencil ? "border border-dashed border-neutral-400 hover:bg-neutral-200" : ""}`}
         >
           <button
             type="button"
@@ -54,7 +55,7 @@ export const StampChips = ({
               aria-label={`edit the ${stampName(label)} stamp`}
               aria-expanded={editing === label}
               onClick={() => onEdit(editing === label ? null : label)}
-              className={`${chip} h-[30px] border-transparent hover:bg-neutral-200`}
+              className={`${chip} h-[30px] border-transparent`}
             >
               <PencilIcon className="size-3.5" />
             </button>
