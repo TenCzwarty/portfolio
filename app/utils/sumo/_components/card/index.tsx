@@ -47,6 +47,8 @@ export const SumoCard = (props: TSumoCardProps) => {
 
   // Collected in the zoomed card; the grid shows one icon per owned variant
   const ownedFinishes = finishes.filter((finish) => isOwned(ownedKey(id, finish.id)));
+  // finishes run from most common to rarest, so the last owned one is the rarest
+  const shownFinish = ownedFinishes.at(-1) ?? finishes[0];
 
   const face = imageSrc ? (
     <NextImage
@@ -69,7 +71,7 @@ export const SumoCard = (props: TSumoCardProps) => {
     <>
       <div className="flex flex-col items-center gap-1" title={details.join("\n")}>
         <FoilCard
-          effect={finishes[0]?.effect}
+          effect={shownFinish?.effect}
           className="rounded-xl border border-neutral-200 bg-white p-2"
         >
           <div className="relative h-[160px] w-[112px] overflow-hidden rounded-lg bg-neutral-100">
