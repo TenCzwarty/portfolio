@@ -11,13 +11,17 @@ import {
 } from "~/components/accordion";
 import { IconToggle } from "~/components/icon-toggle";
 import { Section } from "~/components/section";
+import { ToastContainer } from "~/components/toast";
 
 import "./styles.css";
 
 import { SumoCardSet } from "~sumo/_components/card-set";
 import { useSumoContext } from "~sumo/_context";
+import { useSumoQueryString } from "~sumo/_helpers/query-string";
 
 export default function UtilsSumoTrackerPage() {
+  useSumoQueryString();
+
   const { toggleIsShowingFinishPreviews } = useSumoContext();
   const allSets = getAllSets();
   const [selectedSetCode, setSelectedSetCode] = React.useState(allSets[allSets.length - 1].code);
@@ -50,6 +54,11 @@ export default function UtilsSumoTrackerPage() {
                         <SparklesIcon />
                       </IconToggle>
                     </div>
+
+                    <p className="text-sm text-neutral-500">
+                      while settings are open, click a card to add it to your collection; collect
+                      its other versions from the zoomed card. The link holds your collection.
+                    </p>
                   </div>
                 </Accordion>
               </div>
@@ -74,13 +83,15 @@ export default function UtilsSumoTrackerPage() {
 
               <div className="flex gap-4">
                 <div className="w-full space-y-4">
-                  <SumoCardSet sumoSet={selectedSet} />
+                  <SumoCardSet sumoSet={selectedSet} isSettingsOpened={accordionProps.isOpened} />
                 </div>
               </div>
             </>
           )}
         </AccordionController>
       </Section>
+
+      <ToastContainer />
     </main>
   );
 }
