@@ -28,9 +28,18 @@ const kaleagnetta = local({
   ],
 });
 
+const arcade = local({
+  variable: "--font-arcade",
+  src: [
+    {
+      path: "../../public/fonts/arcade.ttf",
+    },
+  ],
+});
+
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
 });
 
-export const fontClasses = `${geistMono.variable} ${whiskey.variable} ${firlest.variable} ${kaleagnetta.variable} antialiased`;
+export const fontClasses = `${geistMono.variable} ${whiskey.variable} ${firlest.variable} ${kaleagnetta.variable} ${arcade.variable} antialiased`;

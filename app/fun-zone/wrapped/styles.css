@@ -1,0 +1,110 @@
+.wrapped-arcade {
+  font-family: var(--font-arcade);
+  line-height: 1;
+}
+
+/* background video: cropped to cover the screen, its own UI pushed out of view */
+.wrapped-video {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.wrapped-video__player {
+  --size: max(100vw, 100vh);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: calc(var(--size) * 16 / 9);
+  height: var(--size);
+  transform: translate(-50%, -50%);
+}
+
+.wrapped-video__overlay {
+  position: absolute;
+  inset: 0;
+  background-color: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(10px);
+}
+
+.wrapped-video__curtain {
+  position: absolute;
+  inset: 0;
+  background-color: pink;
+  transition: opacity 0.5s;
+}
+
+/* page transition */
+.wrapped-circle-wrapper {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  pointer-events: none;
+}
+
+.wrapped-circle {
+  position: absolute;
+  border-radius: 50%;
+  background: purple;
+  transform: translate(-50%, -50%) scale(0);
+  transition: opacity var(--animation-duration-opacity) ease-in-out;
+  animation: wrapped-circle-expand var(--animation-duration-circle) ease-out forwards;
+}
+
+@keyframes wrapped-circle-expand {
+  to {
+    transform: translate(-50%, -50%) scale(1);
+  }
+}
+
+.wrapped-loader {
+  display: inline-block;
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  animation: wrapped-bounce 0.6s ease-in-out infinite alternate;
+}
+
+@keyframes wrapped-bounce {
+  to {
+    transform: translateY(-25px);
+  }
+}
+
+/* 2022 */
+.wrapped-beat {
+  font-family: var(--font-arcade);
+  color: #ffd600;
+  text-transform: uppercase;
+  animation: wrapped-heartbeat 0.435s infinite;
+}
+
+/* the font has no "ł" - the dot fakes the missing letter in "doskonały" */
+.wrapped-font-fix {
+  position: relative;
+
+  &::after {
+    content: ".";
+    position: absolute;
+    top: 1.5rem;
+    left: 21.9rem;
+    line-height: 0;
+  }
+}
+
+@keyframes wrapped-heartbeat {
+  0%,
+  15% {
+    transform: scale(1);
+  }
+  25%,
+  50% {
+    transform: scale(0.8);
+  }
+  60%,
+  100% {
+    transform: scale(1);
+  }
+}

@@ -5,11 +5,12 @@ const securityHeaders = [
     key: "Content-Security-Policy",
     value: [
       "default-src 'self'",
-      "script-src 'self' 'unsafe-inline' 'unsafe-eval' *.vercel.com *.vercel-scripts.com vercel.live",
+      // youtube: the background music player in /fun-zone/wrapped
+      "script-src 'self' 'unsafe-inline' 'unsafe-eval' *.vercel.com *.vercel-scripts.com vercel.live https://www.youtube.com",
       "style-src 'self' 'unsafe-inline'",
       "img-src 'self' data: blob:",
       "font-src 'self' fonts.gstatic.com",
-      "frame-src 'self'",
+      "frame-src 'self' https://www.youtube-nocookie.com",
       "connect-src 'self' *.vercel.com *.vercel-scripts.com",
       "media-src 'self'",
       "object-src 'none'",
