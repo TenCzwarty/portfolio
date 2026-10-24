@@ -2,6 +2,9 @@ import type { TWrappedVideo, TWrappedYear } from "./types";
 
 export const WRAPPED_PATH = "/fun-zone/wrapped";
 
+/** the old page fades out for this long before the next one fades in */
+export const DURATION_PAGE_FADE = 500;
+
 export const HOME_VIDEO: TWrappedVideo = { videoId: "LML6SoNE7xE" };
 
 export const YEARS: TWrappedYear[] = [

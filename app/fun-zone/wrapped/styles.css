@@ -59,17 +59,19 @@
   }
 }
 
-.wrapped-loader {
-  display: inline-block;
-  width: 25px;
-  height: 25px;
-  border-radius: 50%;
-  animation: wrapped-bounce 0.6s ease-in-out infinite alternate;
+/* the old page fades out, then the template fades the next one in - both take DURATION_PAGE_FADE */
+.wrapped-page-leave {
+  opacity: 0;
+  transition: opacity 0.5s linear;
 }
 
-@keyframes wrapped-bounce {
-  to {
-    transform: translateY(-25px);
+.wrapped-page-enter {
+  animation: wrapped-fade-in 0.5s linear;
+}
+
+@keyframes wrapped-fade-in {
+  from {
+    opacity: 0;
   }
 }
 

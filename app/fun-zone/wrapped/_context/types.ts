@@ -10,4 +10,7 @@ export type TWrappedContext = {
   setVideo: React.Dispatch<React.SetStateAction<TBackgroundVideo | null>>;
   isMuted: boolean;
   toggleIsMuted: (value?: unknown) => void;
+  isLeaving: boolean;
+  /** fades the page out, then goes to `href` */
+  navigate: (href: string) => void;
 };

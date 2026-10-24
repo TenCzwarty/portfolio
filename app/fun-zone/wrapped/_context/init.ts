@@ -5,4 +5,6 @@ export const init = {
   setVideo: () => {},
   isMuted: true,
   toggleIsMuted: () => {},
+  isLeaving: false,
+  navigate: () => {},
 } satisfies TWrappedContext;

@@ -1,7 +1,8 @@
 "use client";
 
 import { ChevronLeftIcon, ChevronRightIcon, HouseIcon } from "lucide-react";
-import Link from "next/link";
+
+import { TransitionLink } from "../transition-link";
 
 import { getYearPath, WRAPPED_PATH, YEARS } from "~wrapped/_const";
 import type { TWrappedYear } from "~wrapped/_const/types";
@@ -12,13 +13,13 @@ const BUTTON_CLASSES = "rounded-full bg-blue-500 p-3 text-white transition-color
 
 const NavLink = ({ year, label, icon }: { year?: string; label: string; icon: React.ReactNode }) =>
   year ? (
-    <Link
+    <TransitionLink
       href={getYearPath(year)}
       className={`${BUTTON_CLASSES} hover:bg-blue-600`}
       aria-label={label}
     >
       {icon}
-    </Link>
+    </TransitionLink>
   ) : (
     <span className={`${BUTTON_CLASSES} cursor-not-allowed opacity-40`} aria-hidden>
       {icon}
@@ -41,13 +42,13 @@ export const YearPlaceholder = ({ entry }: { entry: TWrappedYear }) => {
           label="Previous year"
           icon={<ChevronLeftIcon size={24} />}
         />
-        <Link
+        <TransitionLink
           href={WRAPPED_PATH}
           className={`${BUTTON_CLASSES} hover:bg-blue-600`}
           aria-label="Back to the years"
         >
           <HouseIcon size={24} />
-        </Link>
+        </TransitionLink>
         <NavLink
           year={YEARS[index + 1]?.year}
           label="Next year"

@@ -1,11 +1,11 @@
 "use client";
 
 import { HouseIcon, Volume2Icon, VolumeXIcon } from "lucide-react";
-import Link from "next/link";
 
 import { IconToggle } from "~/components/icon-toggle";
 
 import { BackgroundVideo } from "../background-video";
+import { TransitionLink } from "../transition-link";
 
 import "~wrapped/styles.css";
 
@@ -17,9 +17,9 @@ const Controls = () => {
 
   return (
     <div className="fixed top-6 right-6 z-50 flex items-center gap-4 rounded-full bg-white/60 px-4 py-2 backdrop-blur-sm">
-      <Link href={WRAPPED_PATH} aria-label="Back to the years">
+      <TransitionLink href={WRAPPED_PATH} aria-label="Back to the years">
         <HouseIcon size={24} />
-      </Link>
+      </TransitionLink>
       <IconToggle
         id="wrapped-mute"
         title={isMuted ? "unmute" : "mute"}
@@ -32,11 +32,17 @@ const Controls = () => {
   );
 };
 
+const Page = ({ children }: TChildren) => {
+  const { isLeaving } = useWrappedContext();
+
+  return <div className={isLeaving ? "wrapped-page-leave" : undefined}>{children}</div>;
+};
+
 export const WrappedShell = ({ children }: TChildren) => (
   <WrappedContextProvider>
     <div className="relative isolate min-h-dvh overflow-hidden">
       <Controls />
-      {children}
+      <Page>{children}</Page>
       <BackgroundVideo />
     </div>
   </WrappedContextProvider>
