@@ -18,6 +18,7 @@ const ICONS = {
   dots: GripIcon,
   hearts: HeartIcon,
   stars: StarIcon,
+  starburst: SparklesIcon,
 } satisfies Record<TFinishEffect, unknown>;
 
 /** One icon per finish effect, shared by the zoomed card and the grid */

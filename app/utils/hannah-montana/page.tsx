@@ -11,6 +11,7 @@ import { Section } from "~/components/section";
 
 // The card tilt / foil effects live with the sumo tracker
 import "~sumo/styles.css";
+import "./starburst.css";
 
 import { HannahCard } from "~hannah-montana/_components/card";
 import { HANNAH_SET } from "~hannah-montana/_const";

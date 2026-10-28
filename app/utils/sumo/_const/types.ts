@@ -2,9 +2,17 @@
  * How a printing catches the light. BBM's only parallel on catalogued cards
  * is kira (sparkle), in a pattern that changes per set (scripts/sumo/finishes.json):
  * sleeve = standard card (in a sleeve), sparkle = plain glitter (2025),
- * sakura = cherry blossoms (2026 S1), dots / hearts / stars = 2026 S2 tiers
+ * sakura = cherry blossoms (2026 S1), dots / hearts / stars = 2026 S2 tiers,
+ * starburst = holo firework print (Hannah Montana sparkle, starburst.css there)
  */
-export type TFinishEffect = "sleeve" | "sparkle" | "sakura" | "dots" | "hearts" | "stars";
+export type TFinishEffect =
+  | "sleeve"
+  | "sparkle"
+  | "sakura"
+  | "dots"
+  | "hearts"
+  | "stars"
+  | "starburst";
 
 export type TFinish = {
   id: string;

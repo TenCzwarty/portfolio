@@ -12,7 +12,7 @@ const SRC: Record<string, string> = {};
 
 const FINISHES: Array<TFinish> = [
   { id: "std", name: "Base", printRun: null },
-  { id: "sparkle", name: "Sparkle", printRun: null, effect: "sparkle" },
+  { id: "sparkle", name: "Sparkle", printRun: null, effect: "starburst" },
 ];
 
 const pad = (n: number) => String(n).padStart(2, "0");
