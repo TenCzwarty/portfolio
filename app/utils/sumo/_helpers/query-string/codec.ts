@@ -1,4 +1,3 @@
-import type { TSumoSetsJson } from "~sumo/_const/types";
 import type { TOwnedKey } from "~sumo/_context/types";
 
 // ?c=1.26s2.AAPw_8.25s1.gA
@@ -8,7 +7,10 @@ import type { TOwnedKey } from "~sumo/_context/types";
 export const PARAM = "c";
 const VERSION = "1";
 
-const slotsOf = (set: TSumoSetsJson[number]) =>
+// Only what the bitmap needs, so other card trackers (hannah-montana) can share it
+type TCodecSet = { code: string; cards: Array<{ id: string; finishes: Array<{ id: string }> }> };
+
+const slotsOf = (set: TCodecSet) =>
   set.cards.flatMap((card) => card.finishes.map((finish) => `${card.id}@${finish.id}`));
 
 const toBase64Url = (bytes: Array<number>) =>
@@ -25,7 +27,7 @@ const fromBase64Url = (text: string) => {
   }
 };
 
-export const encode = (sets: TSumoSetsJson, owned: Array<TOwnedKey>) => {
+export const encode = (sets: Array<TCodecSet>, owned: Array<TOwnedKey>) => {
   const ownedSet = new Set(owned);
   const parts: Array<string> = [];
 
@@ -41,7 +43,7 @@ export const encode = (sets: TSumoSetsJson, owned: Array<TOwnedKey>) => {
   return parts.length ? [VERSION, ...parts].join(".") : "";
 };
 
-export const decode = (sets: TSumoSetsJson, value: string): Array<TOwnedKey> => {
+export const decode = (sets: Array<TCodecSet>, value: string): Array<TOwnedKey> => {
   const [version, ...parts] = value.split(".");
   if (version !== VERSION) return [];
 
