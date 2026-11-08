@@ -115,7 +115,8 @@ export const IdentityForm = ({
           />
           {namesake && (
             <span className="opacity-70">
-              you&apos;ll join the existing &quot;{namesake.name}&quot; — with their days and plans
+              you&apos;ll join the existing &quot;{namesake.name}&quot; — with everything they&apos;ve
+              added
             </span>
           )}
         </div>

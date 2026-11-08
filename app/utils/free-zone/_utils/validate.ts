@@ -2,6 +2,7 @@ import {
   RSVP_ANSWERS,
   type TCalendarAction,
   type TDay,
+  type TNote,
   type TPerson,
   type TPlan,
   type TRsvp,
@@ -22,6 +23,11 @@ export const LIMITS = {
   plans: 500,
   planDays: 62,
   customStamps: 30,
+  notes: 300,
+  noteText: 140,
+  labelText: 40,
+  /** how far from the middle of the board things may land */
+  notePosition: 20_000,
 };
 
 const isRecord = (v: unknown): v is Record<string, unknown> =>
@@ -75,6 +81,23 @@ const isStamp = (v: unknown): v is TStamp =>
   isId(v.personId) &&
   isStampLabel(v.label) &&
   (v.seed === undefined || isStampSeed(v.seed));
+
+const isPosition = (v: unknown): v is number =>
+  typeof v === "number" && Number.isFinite(v) && Math.abs(v) <= LIMITS.notePosition;
+
+const maxNoteText = (kind: TNote["kind"]) =>
+  kind === "label" ? LIMITS.labelText : LIMITS.noteText;
+
+const isNote = (v: unknown): v is TNote =>
+  isRecord(v) &&
+  isId(v.id) &&
+  (v.kind === "note" || v.kind === "label") &&
+  isText(v.text, maxNoteText(v.kind)) &&
+  isPosition(v.x) &&
+  isPosition(v.y) &&
+  isId(v.createdBy) &&
+  typeof v.createdAt === "number" &&
+  Number.isFinite(v.createdAt);
 
 export const parseAction = (v: unknown): TCalendarAction | null => {
   if (!isRecord(v)) return null;
@@ -135,6 +158,36 @@ export const parseAction = (v: unknown): TCalendarAction | null => {
         : null;
     case "stamp-label-delete":
       return isStampLabel(v.label) ? { type: v.type, label: v.label } : null;
+    case "note-add":
+      return isNote(v.note)
+        ? {
+            type: "note-add",
+            note: {
+              id: v.note.id,
+              kind: v.note.kind,
+              text: v.note.text.trim(),
+              x: Math.round(v.note.x),
+              y: Math.round(v.note.y),
+              createdBy: v.note.createdBy,
+              createdAt: v.note.createdAt,
+            },
+          }
+        : null;
+    case "note-update":
+      // the longer limit: which kind this id is gets known only once the note is read
+      return isId(v.id) && isText(v.text, LIMITS.noteText)
+        ? { type: "note-update", id: v.id, text: v.text.trim() }
+        : null;
+    case "note-move":
+      return isId(v.id) && isPosition(v.x) && isPosition(v.y)
+        ? { type: "note-move", id: v.id, x: Math.round(v.x), y: Math.round(v.y) }
+        : null;
+    case "note-delete":
+      return isId(v.id) ? { type: "note-delete", id: v.id } : null;
+    case "note-vote":
+      return isId(v.noteId) && isId(v.personId) && typeof v.on === "boolean"
+        ? { type: "note-vote", noteId: v.noteId, personId: v.personId, on: v.on }
+        : null;
     default:
       return null;
   }
