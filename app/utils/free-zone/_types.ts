@@ -32,6 +32,23 @@ export type TCalendarData = {
   customStamps: Array<string>;
   /** label -> icon name, for default and custom stamps alike */
   stampIcons: Record<string, string>;
+  /** the idea board - only the board page asks for these, empty on the calendar */
+  notes: Array<TNote>;
+  /** note id -> people who want it */
+  noteVotes: Record<string, Array<string>>;
+};
+
+/** a sticky note, or a plain heading people use to name an area of the board */
+export type TNoteKind = "note" | "label";
+
+export type TNote = {
+  id: string;
+  kind: TNoteKind;
+  text: string;
+  x: number;
+  y: number;
+  createdBy: string;
+  createdAt: number;
 };
 
 export type TStamp = {
@@ -53,4 +70,9 @@ export type TCalendarAction =
   | { type: "stamp"; stamp: TStamp; on: boolean }
   /** adds a custom stamp and/or sets its icon (null removes the icon) */
   | { type: "stamp-def"; label: string; icon: string | null }
-  | { type: "stamp-label-delete"; label: string };
+  | { type: "stamp-label-delete"; label: string }
+  | { type: "note-add"; note: TNote }
+  | { type: "note-update"; id: string; text: string }
+  | { type: "note-move"; id: string; x: number; y: number }
+  | { type: "note-delete"; id: string }
+  | { type: "note-vote"; noteId: string; personId: string; on: boolean };

@@ -2,7 +2,7 @@ import { Redis } from "@upstash/redis";
 import { NextResponse } from "next/server";
 import { createHash, timingSafeEqual } from "node:crypto";
 
-import type { TCalendarData, TPerson, TPlan } from "~/app/utils/free-zone/_types";
+import type { TCalendarData, TNote, TPerson, TPlan } from "~/app/utils/free-zone/_types";
 import { findByName } from "~/app/utils/free-zone/_utils/identity";
 import { withRsvp } from "~/app/utils/free-zone/_utils/rsvp";
 import {
@@ -24,6 +24,9 @@ const KEY_STAMPS = "kalendarz:stamps";
 const KEY_STAMP_DEFS = "kalendarz:stamp-defs";
 // labels added before icons existed - still read, no longer written
 const KEY_CUSTOM_STAMPS = "kalendarz:custom-stamps";
+const KEY_NOTES = "kalendarz:notes";
+// "noteId|personId"; a set, so two people voting at once can't overwrite each other
+const KEY_NOTE_VOTES = "kalendarz:note-votes";
 
 /**
  * The Vercel Marketplace integration injects KV_REST_API_URL / KV_REST_API_TOKEN, but lets you
@@ -73,19 +76,32 @@ export async function GET(request: Request) {
   // names, plans and who-is-where are private: without the secret nothing leaves the server
   if (!canEdit(request)) return error("This calendar is private", 401);
 
-  const [people, plans, availability, stamps, legacyCustomStamps, stampDefs] = await Promise.all([
-    db.hgetall<Record<string, TPerson>>(KEY_PEOPLE),
-    db.hgetall<Record<string, TPlan>>(KEY_PLANS),
-    db.smembers(KEY_AVAILABILITY),
-    db.smembers(KEY_STAMPS),
-    db.smembers(KEY_CUSTOM_STAMPS),
-    db.hgetall<Record<string, { icon?: string }>>(KEY_STAMP_DEFS),
-  ]);
+  // only the board page asks for notes: every extra command counts against the Redis quota
+  const withNotes = new URL(request.url).searchParams.has("notes");
+
+  const [people, plans, availability, stamps, legacyCustomStamps, stampDefs, notes, noteVotes] =
+    await Promise.all([
+      db.hgetall<Record<string, TPerson>>(KEY_PEOPLE),
+      db.hgetall<Record<string, TPlan>>(KEY_PLANS),
+      db.smembers(KEY_AVAILABILITY),
+      db.smembers(KEY_STAMPS),
+      db.smembers(KEY_CUSTOM_STAMPS),
+      db.hgetall<Record<string, { icon?: string }>>(KEY_STAMP_DEFS),
+      withNotes ? db.hgetall<Record<string, TNote>>(KEY_NOTES) : null,
+      withNotes ? db.smembers(KEY_NOTE_VOTES) : [],
+    ]);
 
   const availabilityByPerson: TCalendarData["availability"] = {};
   for (const entry of availability) {
     const [day, personId] = String(entry).split("|");
     (availabilityByPerson[personId] ??= []).push(day);
+  }
+
+  const noteVotesById: TCalendarData["noteVotes"] = {};
+  for (const entry of noteVotes) {
+    const [noteId, personId] = String(entry).split("|");
+    // votes of deleted notes are kept for undo, but nobody needs to download them
+    if (notes?.[noteId]) (noteVotesById[noteId] ??= []).push(personId);
   }
 
   const data: TCalendarData & { canEdit: boolean } = {
@@ -101,6 +117,8 @@ export async function GET(request: Request) {
         def?.icon ? [[label, def.icon]] : []
       )
     ),
+    notes: Object.values(notes ?? {}).sort((a, b) => a.createdAt - b.createdAt),
+    noteVotes: noteVotesById,
     canEdit: true,
   };
 
@@ -193,6 +211,43 @@ export async function POST(request: Request) {
     case "plan-delete":
       await db.hdel(KEY_PLANS, action.id);
       break;
+    case "note-add": {
+      if ((await db.hlen(KEY_NOTES)) >= LIMITS.notes) return error("Too many notes", 409);
+      if (!(await db.hexists(KEY_PEOPLE, action.note.createdBy))) {
+        return error("Unknown person", 404);
+      }
+      await db.hset(KEY_NOTES, { [action.note.id]: action.note });
+      if (action.note.kind === "note") {
+        await db.sadd(KEY_NOTE_VOTES, `${action.note.id}|${action.note.createdBy}`);
+      }
+      break;
+    }
+    case "note-update": {
+      const note = await db.hget<TNote>(KEY_NOTES, action.id);
+      if (!note) return error("Unknown note", 404);
+      if (note.kind === "label" && action.text.length > LIMITS.labelText) {
+        return error("Invalid data", 400);
+      }
+      await db.hset(KEY_NOTES, { [action.id]: { ...note, text: action.text } });
+      break;
+    }
+    case "note-move": {
+      const note = await db.hget<TNote>(KEY_NOTES, action.id);
+      if (!note) return error("Unknown note", 404);
+      await db.hset(KEY_NOTES, { [action.id]: { ...note, x: action.x, y: action.y } });
+      break;
+    }
+    case "note-delete":
+      await db.hdel(KEY_NOTES, action.id);
+      break;
+    case "note-vote": {
+      if (!(await db.hexists(KEY_NOTES, action.noteId))) return error("Unknown note", 404);
+      if (!(await db.hexists(KEY_PEOPLE, action.personId))) return error("Unknown person", 404);
+      const member = `${action.noteId}|${action.personId}`;
+      if (action.on) await db.sadd(KEY_NOTE_VOTES, member);
+      else await db.srem(KEY_NOTE_VOTES, member);
+      break;
+    }
   }
 
   return NextResponse.json({ ok: true });

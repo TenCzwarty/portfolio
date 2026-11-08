@@ -15,6 +15,8 @@ const EMPTY: TCalendarData = {
   stamps: [],
   customStamps: [],
   stampIcons: {},
+  notes: [],
+  noteVotes: {},
 };
 
 const readStorage = <T>(key: string): T | null => {
@@ -36,6 +38,16 @@ const writeStorage = (key: string, value: unknown) => {
 
 const withoutKey = <T>(record: Record<string, T>, key: string) =>
   Object.fromEntries(Object.entries(record).filter(([k]) => k !== key));
+
+const withVote = (
+  votes: TCalendarData["noteVotes"],
+  noteId: string,
+  personId: string,
+  on: boolean
+) => {
+  const others = (votes[noteId] ?? []).filter((id) => id !== personId);
+  return { ...votes, [noteId]: on ? [...others, personId] : others };
+};
 
 /** Pure reducer so the UI can update before the server answers */
 const applyAction = (data: TCalendarData, action: TCalendarAction): TCalendarData => {
@@ -91,10 +103,39 @@ const applyAction = (data: TCalendarData, action: TCalendarAction): TCalendarDat
         stampIcons: withoutKey(data.stampIcons, action.label),
       };
     }
+    case "note-add":
+      return {
+        ...data,
+        notes: [...data.notes.filter((n) => n.id !== action.note.id), action.note],
+        // whoever writes a note wants it - same as on the server
+        noteVotes:
+          action.note.kind === "note"
+            ? withVote(data.noteVotes, action.note.id, action.note.createdBy, true)
+            : data.noteVotes,
+      };
+    case "note-update":
+      return {
+        ...data,
+        notes: data.notes.map((n) => (n.id === action.id ? { ...n, text: action.text } : n)),
+      };
+    case "note-move":
+      return {
+        ...data,
+        notes: data.notes.map((n) => (n.id === action.id ? { ...n, x: action.x, y: action.y } : n)),
+      };
+    // votes stay behind, so undo brings the note back with them
+    case "note-delete":
+      return { ...data, notes: data.notes.filter((n) => n.id !== action.id) };
+    case "note-vote":
+      return {
+        ...data,
+        noteVotes: withVote(data.noteVotes, action.noteId, action.personId, action.on),
+      };
   }
 };
 
-export const useCalendar = () => {
+/** @param withNotes the board page; the calendar skips notes to save Redis commands */
+export const useCalendar = ({ withNotes = false }: { withNotes?: boolean } = {}) => {
   const [data, setData] = React.useState<TCalendarData>(EMPTY);
   const [canEdit, setCanEdit] = React.useState(false);
   const [status, setStatus] = React.useState<"loading" | "ready" | "locked" | "error">("loading");
@@ -113,7 +154,10 @@ export const useCalendar = () => {
 
   const refresh = React.useCallback(async () => {
     try {
-      const response = await fetch(API, { headers: headers(), cache: "no-store" });
+      const response = await fetch(withNotes ? `${API}?notes=1` : API, {
+        headers: headers(),
+        cache: "no-store",
+      });
       const json = await response.json();
       // no or wrong secret: not an error, just a calendar this browser may not see
       if (response.status === 401) {
@@ -133,7 +177,7 @@ export const useCalendar = () => {
       setStatus("error");
       setErrorMessage(e instanceof Error ? e.message : "Could not load the calendar");
     }
-  }, [headers]);
+  }, [headers, withNotes]);
 
   const send = React.useCallback(
     async (action: TCalendarAction) => {

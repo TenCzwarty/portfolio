@@ -28,6 +28,7 @@ import { PlanForm } from "./_components/plan-form";
 import { StampEditor } from "./_components/stamp-editor";
 import { type TStampItem } from "./_components/stamp-layer";
 import { StampChips } from "./_components/stamp-picker";
+import { ViewSwitch } from "./_components/view-switch";
 import { addDays, formatMonth, getMonthWeeks, toDay } from "./_utils/dates";
 import { newId } from "./_utils/identity";
 import { DEFAULT_STAMPS, newStampSeed, sameStamp, stampIconFor, stampName } from "./_utils/stamps";
@@ -308,6 +309,7 @@ export default function UtilsFreeZonePage() {
               <p>shared plans and who&apos;s free when</p>
               {status !== "locked" && <AccordionExtraSettingsToggle {...accordionProps} />}
             </div>
+            <ViewSwitch />
 
             <Accordion {...accordionProps}>
               <div className="mt-4 -ml-4 space-y-4 rounded-xl border border-neutral-200 p-4">
