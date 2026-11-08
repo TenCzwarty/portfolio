@@ -3,17 +3,15 @@
 import React from "react";
 import { LayoutListIcon, StickyNoteIcon } from "lucide-react";
 
+import { IdentityForm } from "~/app/utils/free-zone/_components/identity-form";
+import { Legend } from "~/app/utils/free-zone/_components/legend";
+import { Modal } from "~/app/utils/free-zone/_components/modal";
+import { newId } from "~/app/utils/free-zone/_utils/identity";
+import { useCalendar } from "~/app/utils/free-zone/_utils/use-calendar";
 import { Pill } from "~/components/pill";
 import { Section } from "~/components/section";
 import { Spinner } from "~/components/spinner";
 import { toast, ToastContainer } from "~/components/toast";
-
-import { IdentityForm } from "../_components/identity-form";
-import { Legend } from "../_components/legend";
-import { Modal } from "../_components/modal";
-import { ViewSwitch } from "../_components/view-switch";
-import { newId } from "../_utils/identity";
-import { useCalendar } from "../_utils/use-calendar";
 
 import { BoardCanvas } from "./_components/board-canvas";
 import { NoteList } from "./_components/note-list";
@@ -26,7 +24,7 @@ const LAYOUTS: Array<{ value: TLayout; label: string; Icon: typeof StickyNoteIco
   { value: "list", label: "ranking", Icon: LayoutListIcon },
 ];
 
-export default function UtilsFreeZoneBoardPage() {
+export default function UtilsIdeasZonePage() {
   const { data, status, errorMessage, clearError, me, setMe, hydrated, send, forgetSecret } =
     useCalendar({ withNotes: true });
 
@@ -79,9 +77,8 @@ export default function UtilsFreeZoneBoardPage() {
       <ToastContainer />
       <Section>
         <div className="mt-16 ml-4">
-          <h1 className="text-xl font-semibold sm:text-3xl">Japonia 2027</h1>
-          <p>what everyone wants to see and do</p>
-          <ViewSwitch />
+          <h1 className="text-xl font-semibold sm:text-3xl">Ideas Zone</h1>
+          <p>shared sticky notes for collecting ideas</p>
         </div>
       </Section>
 

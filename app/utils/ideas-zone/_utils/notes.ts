@@ -1,5 +1,5 @@
-import type { TNote } from "../../_types";
-import { LIMITS } from "../../_utils/validate";
+import type { TNote } from "~/app/utils/free-zone/_types";
+import { LIMITS } from "~/app/utils/free-zone/_utils/validate";
 
 export const NOTE_WIDTH = 144;
 export const NOTE_HEIGHT = 112;

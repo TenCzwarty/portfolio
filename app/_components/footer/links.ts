@@ -49,7 +49,7 @@ export const footerLinks: TFooterLinks = {
     left: [ll.LINK_PAGE_HOME, ll.LINK_PAGE_FUN_ZONE, ll.LINK_PAGE_UTILS],
     right: [ll.LINK_EXTERNAL_GITHUB, ll.LINK_EXTERNAL_CODEPEN],
   },
-  "/utils/free-zone/board": {
+  "/utils/ideas-zone": {
     left: [ll.LINK_PAGE_HOME, ll.LINK_PAGE_FUN_ZONE, ll.LINK_PAGE_UTILS],
     right: [ll.LINK_EXTERNAL_GITHUB, ll.LINK_EXTERNAL_CODEPEN],
   },

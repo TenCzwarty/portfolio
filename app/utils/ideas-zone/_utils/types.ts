@@ -1,4 +1,4 @@
-import type { TCalendarData, TNote, TNoteKind, TPerson } from "../../_types";
+import type { TCalendarData, TNote, TNoteKind, TPerson } from "~/app/utils/free-zone/_types";
 
 /** what both views of the board (canvas and list) need */
 export type TBoardView = {

@@ -1,9 +1,9 @@
 import React from "react";
 import { PencilIcon, XIcon } from "lucide-react";
 
+import { LIMITS } from "~/app/utils/free-zone/_utils/validate";
 import { Pill } from "~/components/pill";
 
-import { LIMITS } from "../../../_utils/validate";
 import { freeSpotFor, paperOf } from "../../_utils/notes";
 import type { TBoardView } from "../../_utils/types";
 import { NoteEditor } from "../note-editor";
@@ -35,7 +35,7 @@ export const NoteList = ({ notes, votes, people, me, highlightId, actions }: TBo
             type="text"
             required
             maxLength={LIMITS.noteText}
-            placeholder="what do you want to see?"
+            placeholder="got an idea?"
             aria-label="new idea"
             value={text}
             onChange={(e) => setText(e.target.value)}
@@ -65,7 +65,7 @@ export const NoteList = ({ notes, votes, people, me, highlightId, actions }: TBo
                 <NoteEditor
                   initial={note.text}
                   maxLength={LIMITS.noteText}
-                  placeholder="what do you want to see?"
+                  placeholder="got an idea?"
                   onDone={(value) => {
                     setEditingId(null);
                     if (value && value !== note.text) actions.update(note.id, value);

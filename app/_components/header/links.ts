@@ -14,6 +14,6 @@ export const headerLinks: THeaderLinks = {
   "/utils/meeple-circus": ll.LINK_PAGE_UTILS,
   "/utils/spin": ll.LINK_PAGE_UTILS,
   "/utils/free-zone": ll.LINK_PAGE_UTILS,
-  "/utils/free-zone/board": ll.LINK_PAGE_UTILS,
+  "/utils/ideas-zone": ll.LINK_PAGE_UTILS,
   "/utils/sumo": ll.LINK_PAGE_UTILS,
 };

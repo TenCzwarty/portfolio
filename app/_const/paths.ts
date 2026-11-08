@@ -9,5 +9,5 @@ export const PATHNAMES = [
   "/fun-zone/amasia-calendar-converter",
   "/fun-zone/jinder",
   "/utils/free-zone",
-  "/utils/free-zone/board",
+  "/utils/ideas-zone",
 ] as const;

@@ -1,5 +1,5 @@
-import type { TPerson } from "../../../_types";
-import { textColorOn } from "../../../_utils/colors";
+import type { TPerson } from "~/app/utils/free-zone/_types";
+import { textColorOn } from "~/app/utils/free-zone/_utils/colors";
 
 type TNoteVotes = {
   voters: Array<TPerson>;

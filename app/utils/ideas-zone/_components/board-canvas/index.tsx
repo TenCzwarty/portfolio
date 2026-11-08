@@ -1,8 +1,9 @@
 import React from "react";
 import { MaximizeIcon, MinusIcon, PencilIcon, PlusIcon, TypeIcon, XIcon } from "lucide-react";
 
-import type { TNote, TNoteKind } from "../../../_types";
-import { LIMITS } from "../../../_utils/validate";
+import type { TNote, TNoteKind } from "~/app/utils/free-zone/_types";
+import { LIMITS } from "~/app/utils/free-zone/_utils/validate";
+
 import {
   boundsOf,
   clampPosition,
@@ -178,7 +179,7 @@ export const BoardCanvas = ({ notes, votes, people, me, highlightId, actions }: 
     <NoteEditor
       initial={initial}
       maxLength={kind === "label" ? LIMITS.labelText : LIMITS.noteText}
-      placeholder={kind === "label" ? "e.g. Tokyo" : "what do you want to see?"}
+      placeholder={kind === "label" ? "name this area" : "got an idea?"}
       className={kind === "label" ? "text-lg font-semibold" : "text-sm text-black"}
       onDone={onDone}
       onCancel={onCancel}
