@@ -12,12 +12,24 @@ const VIEW_W = 100;
 const VIEW_H = 143;
 // One circle spacing on the card, in those units (~2.4 circles across)
 const TILE = 41.6;
+// One full rainbow along the gradient, in card units
+const RAINBOW_LENGTH = 70;
+const RAINBOW = [
+  "hsl(0 100% 62%)",
+  "hsl(45 100% 58%)",
+  "hsl(110 100% 55%)",
+  "hsl(185 100% 58%)",
+  "hsl(240 100% 66%)",
+  "hsl(300 100% 64%)",
+  "hsl(0 100% 62%)",
+];
 
 /**
  * The sparkle cards' holo print as a lattice of reflections, each a 10-arm
- * sunburst that turns around its own center as the card tilts (the tilt
- * variables come from the FoilCard around it, see holo.css). Lives inside a
- * FoilCard with effect "starburst", over the card picture.
+ * sunburst that turns a few degrees around its own center as the card tilts.
+ * The lattice is a mask over one rainbow that slides gently across the card
+ * (the tilt variables come from the FoilCard around it, see holo.css). Lives
+ * inside a FoilCard with effect "starburst", over the card picture.
  */
 export const HannahHolo = ({ cardNumber }: THannahHoloProps) => {
   const uid = React.useId().replace(/[^a-zA-Z0-9]/g, "");
@@ -80,9 +92,7 @@ export const HannahHolo = ({ cardNumber }: THannahHoloProps) => {
                         key={i}
                         d={ARM_PATH}
                         transform={`rotate(${(i * 360) / ARMS})`}
-                        style={{
-                          fill: `hsl(calc(var(--holo-hue) + ${(i * 360) / ARMS + r.phase}deg) 100% 62%)`,
-                        }}
+                        fill="white"
                       />
                     ))}
                   </g>
@@ -91,9 +101,37 @@ export const HannahHolo = ({ cardNumber }: THannahHoloProps) => {
             </g>
           ))}
         </pattern>
+
+        {/* the lattice is only a mask: the colors are one rainbow over the card */}
+        <mask id={id("mask")}>
+          <rect width={VIEW_W} height={VIEW_H} fill={`url(#${id("tile")})`} />
+        </mask>
+        <linearGradient
+          id={id("rainbow")}
+          gradientUnits="userSpaceOnUse"
+          spreadMethod="repeat"
+          x1="0"
+          y1="0"
+          x2={RAINBOW_LENGTH}
+          y2={RAINBOW_LENGTH * 0.6}
+        >
+          {RAINBOW.map((color, i) => (
+            <stop key={i} offset={i / (RAINBOW.length - 1)} stopColor={color} />
+          ))}
+        </linearGradient>
       </defs>
 
-      <rect width={VIEW_W} height={VIEW_H} fill={`url(#${id("tile")})`} />
+      <g mask={`url(#${id("mask")})`}>
+        {/* bigger than the card so it can slide with the tilt */}
+        <rect
+          className="hm-holo__rainbow"
+          x={-VIEW_W}
+          y={-VIEW_H}
+          width={VIEW_W * 3}
+          height={VIEW_H * 3}
+          fill={`url(#${id("rainbow")})`}
+        />
+      </g>
     </svg>
   );
 };

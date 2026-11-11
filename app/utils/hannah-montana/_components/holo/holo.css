@@ -2,9 +2,8 @@
    --mx, --my) come from the FoilCard around it (use-tilt.ts). */
 
 .hm-holo {
-  /* every sunburst turns with the tilt, its colors run along the arms */
-  --holo-spin: calc(var(--tx, 0) * 220deg + var(--ty, 0) * 140deg);
-  --holo-hue: calc(var(--tx, 0) * 320deg - var(--ty, 0) * 200deg);
+  /* every sunburst turns a few degrees with the tilt (tx/ty are -0.5..0.5) */
+  --holo-spin: calc(var(--tx, 0) * 12deg + var(--ty, 0) * 8deg);
 
   pointer-events: none;
   position: absolute;
@@ -26,11 +25,16 @@
   opacity: 0.5;
 }
 
+/* the colors: one rainbow under the lattice mask, sliding gently */
+.hm-holo__rainbow {
+  transform: translate(calc(var(--tx, 0) * 50px), calc(var(--ty, 0) * 50px));
+}
+
 .hm-holo__spin {
   transform: rotate(calc(var(--holo-spin) + var(--phase, 0deg)));
 }
 
-/* no sweeping gradient over the whole card: the light is in the sunbursts */
+/* the sumo shine is off here: the colors come from the rainbow under the mask */
 .sumo-foil[data-effect="starburst"] .sumo-foil__shine {
   display: none;
 }

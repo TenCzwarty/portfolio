@@ -13,7 +13,7 @@ const R = T / 2; // circles touch
 const C = T / 2;
 const QUARTER_CENTER = 12; // offset of each star quarter's sunburst center
 export const ARMS = 10;
-const ARM_WIDTH = (Math.PI / ARMS) * 0.75; // of the 36° each arm owns
+const ARM_WIDTH = (Math.PI / ARMS) * 0.375; // narrow arms; each owns 36°
 
 const f = (n: number) => Number(n.toFixed(2));
 type TPoint = [number, number];
