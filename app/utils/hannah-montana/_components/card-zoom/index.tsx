@@ -7,7 +7,7 @@ import { Pill } from "~/components/pill";
 
 import type { THannahCardZoomProps } from "./types";
 
-import { holoOffset } from "~hannah-montana/_const";
+import { HannahHolo } from "~hannah-montana/_components/holo";
 import { useHannahContext } from "~hannah-montana/_context";
 import { FinishIcon } from "~sumo/_components/finish-icon";
 import { FoilCard } from "~sumo/_components/foil-card";
@@ -98,7 +98,7 @@ export const HannahCardZoom = ({ card, src, onClose }: THannahCardZoomProps) => 
       onClick={(e) => e.target === e.currentTarget && onClose()}
     >
       <div className="flex flex-col items-center gap-4 sm:flex-row sm:items-start">
-        <div className="flex flex-col items-center gap-4" style={holoOffset(card)}>
+        <div className="flex flex-col items-center gap-4">
           <FoilCard maxTilt={8} effect={selected.effect} className="rounded-2xl">
             {src ? (
               // eslint-disable-next-line @next/next/no-img-element
@@ -113,6 +113,7 @@ export const HannahCardZoom = ({ card, src, onClose }: THannahCardZoomProps) => 
                 <span className="mt-2 text-xl">Hannah Montana</span>
               </div>
             )}
+            {selected.effect === "starburst" && <HannahHolo cardNumber={card.number} />}
           </FoilCard>
 
           <div className="sm:hidden">{renderVariants("row")}</div>

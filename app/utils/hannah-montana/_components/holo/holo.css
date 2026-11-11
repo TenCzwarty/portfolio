@@ -1,0 +1,36 @@
+/* Hannah Montana sparkle holo (see index.tsx). The tilt variables (--tx, --ty,
+   --mx, --my) come from the FoilCard around it (use-tilt.ts). */
+
+.hm-holo {
+  /* every sunburst turns with the tilt, its colors run along the arms */
+  --holo-spin: calc(var(--tx, 0) * 220deg + var(--ty, 0) * 140deg);
+  --holo-hue: calc(var(--tx, 0) * 320deg - var(--ty, 0) * 200deg);
+
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+  /* the foil lights up only where the light catches it */
+  mask-image: radial-gradient(
+    farthest-corner circle at var(--mx, 50%) var(--my, 50%),
+    black 0%,
+    transparent 75%
+  );
+}
+
+.sumo-foil[data-active] .hm-holo {
+  opacity: 0.5;
+}
+
+.hm-holo__spin {
+  transform: rotate(calc(var(--holo-spin) + var(--phase, 0deg)));
+}
+
+/* no sweeping gradient over the whole card: the light is in the sunbursts */
+.sumo-foil[data-effect="starburst"] .sumo-foil__shine {
+  display: none;
+}
