@@ -2,18 +2,19 @@
 // -----------------------------------------------------------------------------
 // Builds app/utils/hannah-montana/starburst.css: the holo print on the Hannah
 // Montana sparkle cards, as measured on the scans (~6 mm lattice, ~9.6 circles
-// across a card) and sketched by the owner:
+// across a card) and sketched by the owner. The foil is split into
+// "reflections", each a sunburst of 10 arms around its own center:
 //
-//   - circles touching in a square grid, each a sunburst of wedges around a
-//     small star,
-//   - the gap between four circles: the concave four-point star their arcs
-//     leave, plus four more points cutting diagonally into the circles,
-//   - four small glints ("reflections") in a 2x2 grid in the middle of that
-//     star.
+//   - circles touching in a square grid,
+//   - in every gap between four circles, an eight-point star with equal arms
+//     (the axial arms reach where the circles touch, the diagonal ones cut as
+//     far into the circles), split into four quarters by a cross,
+//   - so the reflections are each circle (minus the star's arms) and each
+//     quarter of the star; the outlines are the borders between them.
 //
-// One lattice tile, circle centers on its corners and the gap in its middle,
-// drawn twice: A with the even sunburst wedges, B with the odd ones. Tilting
-// fades between them, so the sunbursts shimmer like the foil.
+// One lattice tile, circle centers on its corners and the star in its middle,
+// drawn twice: A with the sunbursts' arms, B with the gaps between them.
+// Tilting fades between the two, so the reflections shimmer like the foil.
 //
 // Usage: node scripts/hannah-montana/build-starburst.mjs
 // -----------------------------------------------------------------------------
@@ -23,49 +24,69 @@ import { writeFile } from "node:fs/promises";
 const OUT = "app/utils/hannah-montana/starburst.css";
 const P = 100; // tile size (one circle spacing)
 const R = 50; // circles touch
-const WEDGES = 16;
+const C = P / 2; // the star sits in the middle of the tile
+const QUARTER_CENTER = 12; // offset of each quarter's sunburst center
+const ARMS = 10; // arms per reflection
 
 const f = (n) => Number(n.toFixed(2));
-const polar = (cx, cy, r, a) => [f(cx + Math.cos(a) * r), f(cy + Math.sin(a) * r)];
+const polar = (cx, cy, r, a) => `${f(cx + Math.cos(a) * r)} ${f(cy + Math.sin(a) * r)}`;
 
-// Thin triangles from near the center to the rim, every other one of WEDGES
-const sunburst = (cx, cy, parity) => {
+// The star: its inner corners sit on the circles' arcs. The four axial arms
+// are the gap's natural points (sides along the arcs, tips where the circles
+// touch); the four diagonal arms are straight points cutting into the circles,
+// as long as the axial ones (inner corner to tip).
+const point = (r, a) => [C + Math.cos(a) * r, C + Math.sin(a) * r];
+const toCircle = (a, [kx, ky]) => {
+  // nearest point of circle (kx, ky) along the ray from the star's center
+  const ux = Math.cos(a);
+  const uy = Math.sin(a);
+  const b = ux * (kx - C) + uy * (ky - C);
+  const c = (kx - C) ** 2 + (ky - C) ** 2 - R * R;
+  return b - Math.sqrt(b * b - c);
+};
+const circleAt = (a) => [
+  C + Math.sign(Math.round(Math.cos(a) * 1e6)) * C,
+  C + Math.sign(Math.round(Math.sin(a) * 1e6)) * C,
+];
+const dist = ([ax, ay], [bx, by]) => Math.hypot(ax - bx, ay - by);
+const fmt = ([x, y]) => `${f(x)} ${f(y)}`;
+
+const starPath = (() => {
   let d = "";
-  const step = (Math.PI * 2) / WEDGES;
-  for (let i = parity; i < WEDGES; i += 2) {
-    const a = i * step;
-    const [x0, y0] = polar(cx, cy, 4, a);
-    const [x1, y1] = polar(cx, cy, R - 3, a - step * 0.32);
-    const [x2, y2] = polar(cx, cy, R - 3, a + step * 0.32);
-    d += `M${x0} ${y0}L${x1} ${y1}L${x2} ${y2}Z`;
+  for (let k = 0; k < 4; k++) {
+    const axial = -Math.PI / 2 + (k * Math.PI) / 2; // top, right, bottom, left
+    const diag = axial + Math.PI / 4;
+    const circle = circleAt(diag);
+    const tip = point(R, axial);
+    const v1 = point(toCircle(axial + Math.PI / 8, circle), axial + Math.PI / 8);
+    const v2 = point(toCircle(diag + Math.PI / 8, circle), diag + Math.PI / 8);
+    const armLength = dist(tip, v1);
+    // diagonal tip distance so that it sits armLength from its inner corners
+    let lo = dist([C, C], v1);
+    let hi = 2 * R;
+    for (let i = 0; i < 50; i++) {
+      const mid = (lo + hi) / 2;
+      if (dist(point(mid, diag), v1) < armLength) lo = mid;
+      else hi = mid;
+    }
+    const diagTip = point(lo, diag);
+    const nextTip = point(R, axial + Math.PI / 2);
+    // arcs on the circle between: tip -> v1 and v2 -> next tip
+    d += `${k ? "L" : "M"}${fmt(tip)}A${R} ${R} 0 0 0 ${fmt(v1)}L${fmt(diagTip)}L${fmt(v2)}A${R} ${R} 0 0 0 ${fmt(nextTip)}`;
+  }
+  return d + "Z";
+})();
+
+// Sunburst: ARMS * 2 sectors around a center; parity 0 = the arms, 1 = the
+// gaps between them. Sectors run long and get clipped to their reflection.
+const sunburst = (cx, cy, parity, turn = 0) => {
+  const step = Math.PI / ARMS;
+  let d = "";
+  for (let i = parity; i < ARMS * 2; i += 2) {
+    const a = turn + i * step;
+    d += `M${cx} ${cy}L${polar(cx, cy, 80, a)}L${polar(cx, cy, 80, a + step)}Z`;
   }
   return d;
-};
-
-// Small eight-ray asterisk
-const asterisk = (cx, cy, r) => {
-  let d = "";
-  for (let i = 0; i < 4; i++) {
-    const a = (i / 4) * Math.PI;
-    const [x0, y0] = polar(cx, cy, r, a);
-    const [x1, y1] = polar(cx, cy, r, a + Math.PI);
-    d += `M${x0} ${y0}L${x1} ${y1}`;
-  }
-  return d;
-};
-
-// A diagonal point of the gap star: a concave triangle whose base sits on the
-// circle's arc and whose tip cuts in toward the circle's center
-const diagonalPoint = (cx, cy) => {
-  const gx = P / 2;
-  const gy = P / 2;
-  const toGap = Math.atan2(gy - cy, gx - cx);
-  const [b1x, b1y] = polar(cx, cy, R, toGap - 0.36);
-  const [b2x, b2y] = polar(cx, cy, R, toGap + 0.36);
-  const [tx, ty] = polar(cx, cy, R - 16, toGap);
-  const [c1x, c1y] = polar(cx, cy, R - 6, toGap - 0.08);
-  const [c2x, c2y] = polar(cx, cy, R - 6, toGap + 0.08);
-  return `M${b1x} ${b1y}Q${c1x} ${c1y} ${tx} ${ty}Q${c2x} ${c2y} ${b2x} ${b2y}`;
 };
 
 const corners = [
@@ -74,41 +95,67 @@ const corners = [
   [0, P],
   [P, P],
 ];
+const quarters = [
+  [-1, -1],
+  [1, -1],
+  [-1, 1],
+  [1, 1],
+];
 
 const tile = (parity) => {
-  const wedges = corners.map(([x, y]) => sunburst(x, y, parity)).join("");
-  // Circle rims: between four circles they leave the gap's four axial points
+  const defs =
+    // everything but the star
+    `<clipPath id='o'><path clip-rule='evenodd' d='M-1 -1H${P + 1}V${P + 1}H-1Z${starPath}'/></clipPath>` +
+    `<clipPath id='s'><path d='${starPath}'/></clipPath>` +
+    corners
+      .map(([x, y], i) => `<clipPath id='c${i}'><circle cx='${x}' cy='${y}' r='${R}'/></clipPath>`)
+      .join("") +
+    quarters
+      .map(
+        ([sx, sy], i) =>
+          `<clipPath id='q${i}'><rect x='${sx < 0 ? 0 : C}' y='${sy < 0 ? 0 : C}' width='${C}' height='${C}'/></clipPath>`
+      )
+      .join("");
+
+  const circles = corners
+    .map(([x, y], i) => `<path clip-path='url(#c${i})' d='${sunburst(x, y, parity, i * 0.4)}'/>`)
+    .join("");
+  const starQuarters = quarters
+    .map(
+      ([sx, sy], i) =>
+        `<path clip-path='url(#q${i})' d='${sunburst(C + sx * QUARTER_CENTER, C + sy * QUARTER_CENTER, parity, i * 0.3)}'/>`
+    )
+    .join("");
+
+  // The borders between reflections
   const rims = corners
     .map(([x, y]) => `M${x - R} ${y}a${R} ${R} 0 1 0 ${2 * R} 0a${R} ${R} 0 1 0 ${-2 * R} 0`)
     .join("");
-  const points = corners.map(([x, y]) => diagonalPoint(x, y)).join("");
-  const stars =
-    corners.map(([x, y]) => asterisk(x, y, 4)).join("") +
-    [
-      [-7, -7],
-      [7, -7],
-      [-7, 7],
-      [7, 7],
-    ]
-      .map(([dx, dy]) => asterisk(P / 2 + dx, P / 2 + dy, 3))
-      .join("");
 
   const svg =
     `<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 ${P} ${P}'>` +
-    `<path d='${wedges}' fill='black' fill-opacity='.4'/>` +
-    `<path d='${rims}${points}' stroke='black' stroke-width='1.1' fill='none'/>` +
-    `<path d='${stars}' stroke='black' stroke-width='.9' stroke-linecap='round'/>` +
+    `<defs>${defs}</defs>` +
+    `<g fill='black' fill-opacity='.4'>` +
+    `<g clip-path='url(#o)'>${circles}</g>` +
+    `<g clip-path='url(#s)'>${starQuarters}</g>` +
+    `</g>` +
+    `<g stroke='black' stroke-width='1.1' fill='none'>` +
+    `<path clip-path='url(#o)' d='${rims}'/>` +
+    `<path d='${starPath}'/>` +
+    `<path clip-path='url(#s)' d='M${C} 0V${P}M0 ${C}H${P}'/>` +
+    `</g>` +
     `</svg>`;
   return `url("data:image/svg+xml,${svg.replace(/</g, "%3C").replace(/>/g, "%3E").replace(/#/g, "%23")}")`;
 };
 
 const css = `/* Generated by scripts/hannah-montana/build-starburst.mjs; don't edit by hand. */
 
-/* Hannah Montana sparkle: a holo lattice of touching sunburst circles with an
-   eight-point star and four small stars in every gap. A rainbow slides with
-   the tilt behind it; the even (A) and odd (B) wedges fade in turn. The
-   lattice offset differs per card (--holo-x / --holo-y, set by the card),
-   because the foil was laid on the sheet before the cards were cut. */
+/* Hannah Montana sparkle: a holo lattice of touching circles with a quartered
+   eight-point star in every gap; each circle and each quarter is a reflection,
+   a 10-arm sunburst. A rainbow slides with the tilt behind it; the arms (A)
+   and the gaps between them (B) fade in turn. The lattice offset differs per
+   card (--holo-x / --holo-y, set by the card), because the foil was laid on
+   the sheet before the cards were cut. */
 
 .sumo-foil[data-effect="starburst"] {
   --holo-a: ${tile(0)};
