@@ -2,7 +2,16 @@
 
 import React from "react";
 
-import { ARM_PATH, ARMS, HALF, OUTSIDE_STAR_PATH, REFLECTIONS, STAR_PATH, T } from "./geometry";
+import {
+  ARM_LAYER_OPACITY,
+  ARM_PATHS,
+  ARMS,
+  HALF,
+  OUTSIDE_STAR_PATH,
+  REFLECTIONS,
+  STAR_PATH,
+  T,
+} from "./geometry";
 import type { THannahHoloProps } from "./types";
 
 import "./holo.css";
@@ -12,8 +21,6 @@ const VIEW_W = 100;
 const VIEW_H = 143;
 // One circle spacing on the card, in those units (~2.4 circles across)
 const TILE = 41.6;
-// Blur softening the arms' sides, in card units
-const ARM_BLUR = 0.45;
 // One full rainbow along the gradient, in card units
 const RAINBOW_LENGTH = 70;
 const RAINBOW = [
@@ -90,12 +97,11 @@ export const HannahHolo = ({ cardNumber }: THannahHoloProps) => {
                     style={{ "--phase": `${r.phase}deg` } as React.CSSProperties}
                   >
                     {Array.from({ length: ARMS }, (_, i) => (
-                      <path
-                        key={i}
-                        d={ARM_PATH}
-                        transform={`rotate(${(i * 360) / ARMS})`}
-                        fill="white"
-                      />
+                      <g key={i} transform={`rotate(${(i * 360) / ARMS})`}>
+                        {ARM_PATHS.map((d) => (
+                          <path key={d} d={d} fill="white" fillOpacity={ARM_LAYER_OPACITY} />
+                        ))}
+                      </g>
                     ))}
                   </g>
                 </g>
@@ -105,17 +111,8 @@ export const HannahHolo = ({ cardNumber }: THannahHoloProps) => {
         </pattern>
 
         {/* the lattice is only a mask: the colors are one rainbow over the card */}
-        {/* soft sides on the arms instead of sharp edges */}
-        <filter id={id("soft")} x="-5%" y="-5%" width="110%" height="110%">
-          <feGaussianBlur stdDeviation={ARM_BLUR} />
-        </filter>
         <mask id={id("mask")}>
-          <rect
-            width={VIEW_W}
-            height={VIEW_H}
-            fill={`url(#${id("tile")})`}
-            filter={`url(#${id("soft")})`}
-          />
+          <rect width={VIEW_W} height={VIEW_H} fill={`url(#${id("tile")})`} />
         </mask>
         <linearGradient
           id={id("rainbow")}

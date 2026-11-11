@@ -13,7 +13,11 @@ const R = T / 2; // circles touch
 const C = T / 2;
 const QUARTER_CENTER = 12; // offset of each star quarter's sunburst center
 export const ARMS = 10;
-const ARM_WIDTH = (Math.PI / ARMS) * 0.22; // thin arms (each owns 36°), softened by a blur
+const ARM_WIDTH = (Math.PI / ARMS) * 0.3; // outer width of an arm; each owns 36°
+// Each arm is this many stacked wedges, narrow to wide, so it fades out
+// toward its long sides while its center line stays bright
+export const ARM_LAYERS = 6;
+export const ARM_LAYER_OPACITY = 0.35;
 
 const f = (n: number) => Number(n.toFixed(2));
 type TPoint = [number, number];
@@ -60,12 +64,13 @@ export const STAR_PATH = (() => {
 /** Everything in the tile but the star (for clipping the circles) */
 export const OUTSIDE_STAR_PATH = `M-1 -1H${T + 1}V${T + 1}H-1Z${STAR_PATH}`;
 
-/** One arm of a sunburst centered on 0,0 pointing right; rotate for the others */
-export const ARM_PATH = (() => {
+/** One arm of a sunburst centered on 0,0 pointing right, as stacked wedges
+ *  from narrow to wide (see ARM_LAYERS); rotate for the other arms */
+export const ARM_PATHS = Array.from({ length: ARM_LAYERS }, (_, k) => {
   const r = T; // long enough for any reflection, then clipped
-  const a = ARM_WIDTH / 2;
+  const a = (ARM_WIDTH / 2) * ((k + 1) / ARM_LAYERS);
   return `M0 0L${f(Math.cos(-a) * r)} ${f(Math.sin(-a) * r)}L${f(Math.cos(a) * r)} ${f(Math.sin(a) * r)}Z`;
-})();
+});
 
 export type TReflection = {
   id: string;
