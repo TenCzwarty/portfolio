@@ -33,59 +33,61 @@ export const HannahCardZoom = ({ card, src, onClose }: THannahCardZoomProps) => 
   const isSelectedOwned = isOwned(selectedKey);
   const collectLabel = `${isSelectedOwned ? "Remove" : "Add"} ${selected.name} ${isSelectedOwned ? "from" : "to"} my collection`;
 
-  const renderVariants = (direction: "row" | "column") => (
-    <div
-      className={`flex flex-col gap-2 ${direction === "column" ? "items-start" : "items-center"}`}
-    >
-      <h4 className="text-sm text-neutral-400">variants</h4>
+  // One version only (every card is holo): no variant switcher then
+  const renderVariants = (direction: "row" | "column") =>
+    card.finishes.length > 1 && (
       <div
-        role="group"
-        aria-label="Variants"
-        className={`flex gap-2 ${direction === "column" ? "flex-col" : "flex-wrap justify-center"}`}
+        className={`flex flex-col gap-2 ${direction === "column" ? "items-start" : "items-center"}`}
       >
-        {card.finishes.map((finish) => {
-          const isSelected = finish.id === selected.id;
+        <h4 className="text-sm text-neutral-400">variants</h4>
+        <div
+          role="group"
+          aria-label="Variants"
+          className={`flex gap-2 ${direction === "column" ? "flex-col" : "flex-wrap justify-center"}`}
+        >
+          {card.finishes.map((finish) => {
+            const isSelected = finish.id === selected.id;
 
-          return (
-            <div key={finish.id} className="relative">
-              <button
-                type="button"
-                title={finish.name}
-                aria-label={finish.name}
-                aria-pressed={isSelected}
-                onClick={() => setFinishId(finish.id)}
-                className={`flex h-12 w-12 items-center justify-center rounded-xl ${
-                  isSelected ? "bg-white text-neutral-900" : "text-white hover:bg-white/10"
-                }`}
-              >
-                <FinishIcon effect={finish.effect ?? "sleeve"} size={28} />
-              </button>
-
-              {isSelected && (
+            return (
+              <div key={finish.id} className="relative">
                 <button
                   type="button"
-                  title={collectLabel}
-                  aria-label={collectLabel}
-                  onClick={() => toggleOwned(selectedKey)}
-                  className={`absolute -right-2 -bottom-2 flex h-6 w-6 items-center justify-center rounded-full ring-2 ring-neutral-900 ${
-                    isSelectedOwned
-                      ? "bg-accent-500 text-primary-900 hover:bg-primary-900 hover:text-white"
-                      : "bg-primary-900 hover:bg-accent-500 hover:text-primary-900 text-white"
+                  title={finish.name}
+                  aria-label={finish.name}
+                  aria-pressed={isSelected}
+                  onClick={() => setFinishId(finish.id)}
+                  className={`flex h-12 w-12 items-center justify-center rounded-xl ${
+                    isSelected ? "bg-white text-neutral-900" : "text-white hover:bg-white/10"
                   }`}
                 >
-                  {isSelectedOwned ? (
-                    <MinusIcon size={14} aria-hidden />
-                  ) : (
-                    <PlusIcon size={14} aria-hidden />
-                  )}
+                  <FinishIcon effect={finish.effect ?? "sleeve"} size={28} />
                 </button>
-              )}
-            </div>
-          );
-        })}
+
+                {isSelected && (
+                  <button
+                    type="button"
+                    title={collectLabel}
+                    aria-label={collectLabel}
+                    onClick={() => toggleOwned(selectedKey)}
+                    className={`absolute -right-2 -bottom-2 flex h-6 w-6 items-center justify-center rounded-full ring-2 ring-neutral-900 ${
+                      isSelectedOwned
+                        ? "bg-accent-500 text-primary-900 hover:bg-primary-900 hover:text-white"
+                        : "bg-primary-900 hover:bg-accent-500 hover:text-primary-900 text-white"
+                    }`}
+                  >
+                    {isSelectedOwned ? (
+                      <MinusIcon size={14} aria-hidden />
+                    ) : (
+                      <PlusIcon size={14} aria-hidden />
+                    )}
+                  </button>
+                )}
+              </div>
+            );
+          })}
+        </div>
       </div>
-    </div>
-  );
+    );
 
   return (
     <dialog

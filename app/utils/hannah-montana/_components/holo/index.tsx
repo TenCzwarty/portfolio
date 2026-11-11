@@ -12,6 +12,8 @@ const VIEW_W = 100;
 const VIEW_H = 143;
 // One circle spacing on the card, in those units (~2.4 circles across)
 const TILE = 41.6;
+// Blur softening the arms' sides, in card units
+const ARM_BLUR = 0.45;
 // One full rainbow along the gradient, in card units
 const RAINBOW_LENGTH = 70;
 const RAINBOW = [
@@ -103,8 +105,17 @@ export const HannahHolo = ({ cardNumber }: THannahHoloProps) => {
         </pattern>
 
         {/* the lattice is only a mask: the colors are one rainbow over the card */}
+        {/* soft sides on the arms instead of sharp edges */}
+        <filter id={id("soft")} x="-5%" y="-5%" width="110%" height="110%">
+          <feGaussianBlur stdDeviation={ARM_BLUR} />
+        </filter>
         <mask id={id("mask")}>
-          <rect width={VIEW_W} height={VIEW_H} fill={`url(#${id("tile")})`} />
+          <rect
+            width={VIEW_W}
+            height={VIEW_H}
+            fill={`url(#${id("tile")})`}
+            filter={`url(#${id("soft")})`}
+          />
         </mask>
         <linearGradient
           id={id("rainbow")}

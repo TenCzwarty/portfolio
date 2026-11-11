@@ -8,9 +8,9 @@ import type { TFinish } from "~sumo/_const/types";
 // made by scripts/hannah-montana/cut-cards.py + export-web.mjs.
 const CARD_COUNT = 36;
 
+// Every card is the holo print; there are no plain or other versions
 const FINISHES: Array<TFinish> = [
-  { id: "std", name: "Base", printRun: null },
-  { id: "sparkle", name: "Sparkle", printRun: null, effect: "starburst" },
+  { id: "holo", name: "Holo", printRun: null, effect: "starburst" },
 ];
 
 const pad = (n: number) => String(n).padStart(2, "0");
