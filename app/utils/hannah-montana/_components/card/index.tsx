@@ -6,6 +6,7 @@ import NextImage from "next/image";
 import type { THannahCardProps } from "./types";
 
 import { HannahCardZoom } from "~hannah-montana/_components/card-zoom";
+import { holoOffset } from "~hannah-montana/_const";
 import { useHannahContext } from "~hannah-montana/_context";
 import { FinishIcon } from "~sumo/_components/finish-icon";
 import { FoilCard } from "~sumo/_components/foil-card";
@@ -33,7 +34,7 @@ export const HannahCard = ({ card }: THannahCardProps) => {
 
   return (
     <>
-      <div className="flex flex-col items-center gap-1">
+      <div className="flex flex-col items-center gap-1" style={holoOffset(card)}>
         <FoilCard
           effect={shownFinish.effect}
           className="rounded-xl border border-neutral-200 bg-white p-2"

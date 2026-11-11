@@ -1,3 +1,5 @@
+import type React from "react";
+
 import type { THannahCard, THannahSet } from "./types";
 
 import type { TFinish } from "~sumo/_const/types";
@@ -21,5 +23,20 @@ const CARDS: Array<THannahCard> = Array.from({ length: CARD_COUNT }, (_, i) => {
 });
 
 export const HANNAH_SET: THannahSet = { code: "hm", cards: CARDS };
+
+// Where the holo lattice falls on a card (starburst.css). The foil was laid on
+// the sheet before cutting, so every card shows it shifted differently; this
+// gives each card its own fixed shift within one lattice cell. mask-position %
+// is a share of (card - tile), hence the factors: tile = 10.4% of the width,
+// card ~1.43 times taller than wide.
+export const holoOffset = (card: THannahCard) => {
+  const n = Number(card.number);
+  const fx = (n * 0.618034) % 1;
+  const fy = (n * 0.414214 + 0.37) % 1;
+  return {
+    "--holo-x": `${(fx * 11.6).toFixed(2)}%`,
+    "--holo-y": `${(fy * 7.8).toFixed(2)}%`,
+  } as React.CSSProperties;
+};
 
 export const STORAGE_KEY_OWNED_FINISHES = "hannah-montana-owned-finishes";

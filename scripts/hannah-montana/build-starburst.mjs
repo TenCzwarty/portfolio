@@ -1,91 +1,123 @@
 #!/usr/bin/env node
 // -----------------------------------------------------------------------------
-// Builds app/utils/hannah-montana/starburst.css: the holo "starburst" print on
-// the Hannah Montana sparkle cards (firework bursts of rays plus little
-// eight-point stars in clusters), as two SVG masks.
+// Builds app/utils/hannah-montana/starburst.css: the holo print on the Hannah
+// Montana sparkle cards, as measured on the scans (~6 mm lattice, ~9.6 circles
+// across a card) and sketched by the owner:
+//
+//   - circles touching in a square grid, each a sunburst of wedges around a
+//     small star,
+//   - the gap between four circles: the concave four-point star their arcs
+//     leave, plus four more points cutting diagonally into the circles,
+//   - four small glints ("reflections") in a 2x2 grid in the middle of that
+//     star.
+//
+// One lattice tile, circle centers on its corners and the gap in its middle,
+// drawn twice: A with the even sunburst wedges, B with the odd ones. Tilting
+// fades between them, so the sunbursts shimmer like the foil.
 //
 // Usage: node scripts/hannah-montana/build-starburst.mjs
-//
-// Seeded, so every run (and every card) gets the same print. Two sets of
-// bursts, A and B, light up as the card tilts one way or the other.
 // -----------------------------------------------------------------------------
 
 import { writeFile } from "node:fs/promises";
 
 const OUT = "app/utils/hannah-montana/starburst.css";
-// Card proportions; the mask is stretched to the card, like a print
-const W = 100;
-const H = 140;
+const P = 100; // tile size (one circle spacing)
+const R = 50; // circles touch
+const WEDGES = 16;
 
-const mulberry32 = (seed) => () => {
-  seed |= 0;
-  seed = (seed + 0x6d2b79f5) | 0;
-  let t = Math.imul(seed ^ (seed >>> 15), 1 | seed);
-  t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
-  return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
-};
+const f = (n) => Number(n.toFixed(2));
+const polar = (cx, cy, r, a) => [f(cx + Math.cos(a) * r), f(cy + Math.sin(a) * r)];
 
-const f = (n) => Number(n.toFixed(1));
-
-// Rays from a center, leaving a small gap in the middle like the real print
-const burst = (rand, cx, cy, rays, minLen, maxLen, gap) => {
-  const offset = rand() * Math.PI;
+// Thin triangles from near the center to the rim, every other one of WEDGES
+const sunburst = (cx, cy, parity) => {
   let d = "";
-  for (let i = 0; i < rays; i++) {
-    const a = offset + (i / rays) * Math.PI * 2 + (rand() - 0.5) * 0.25;
-    const len = minLen + rand() * (maxLen - minLen);
-    d += `M${f(cx + Math.cos(a) * gap)} ${f(cy + Math.sin(a) * gap)}L${f(cx + Math.cos(a) * len)} ${f(cy + Math.sin(a) * len)}`;
+  const step = (Math.PI * 2) / WEDGES;
+  for (let i = parity; i < WEDGES; i += 2) {
+    const a = i * step;
+    const [x0, y0] = polar(cx, cy, 4, a);
+    const [x1, y1] = polar(cx, cy, R - 3, a - step * 0.32);
+    const [x2, y2] = polar(cx, cy, R - 3, a + step * 0.32);
+    d += `M${x0} ${y0}L${x1} ${y1}L${x2} ${y2}Z`;
   }
   return d;
 };
 
-const build = (seed) => {
-  const rand = mulberry32(seed);
-  let big = "";
-  let small = "";
-
-  // Big fireworks, spread over the card
-  for (let i = 0; i < 7; i++) {
-    big += burst(rand, 8 + rand() * 84, 8 + rand() * 124, 12 + Math.floor(rand() * 6), 7, 24, 1.2);
+// Small eight-ray asterisk
+const asterisk = (cx, cy, r) => {
+  let d = "";
+  for (let i = 0; i < 4; i++) {
+    const a = (i / 4) * Math.PI;
+    const [x0, y0] = polar(cx, cy, r, a);
+    const [x1, y1] = polar(cx, cy, r, a + Math.PI);
+    d += `M${x0} ${y0}L${x1} ${y1}`;
   }
-  // Clusters of small eight-point stars, a few in a row
-  for (let i = 0; i < 6; i++) {
-    const x = 10 + rand() * 70;
-    const y = 10 + rand() * 120;
-    const count = 2 + Math.floor(rand() * 3);
-    for (let j = 0; j < count; j++) {
-      small += burst(rand, x + j * 7 + rand() * 2, y + (rand() - 0.5) * 4, 8, 2.6, 3.6, 0.3);
-    }
-  }
-  // Loose long streaks, the stray rays between bursts
-  for (let i = 0; i < 10; i++) {
-    const x = rand() * W;
-    const y = rand() * H;
-    const a = rand() * Math.PI * 2;
-    const len = 4 + rand() * 9;
-    small += `M${f(x)} ${f(y)}L${f(x + Math.cos(a) * len)} ${f(y + Math.sin(a) * len)}`;
-  }
+  return d;
+};
 
-  const stroke = (d, width) =>
-    `<path d='${d}' stroke='black' stroke-width='${width}' stroke-linecap='round' vector-effect='non-scaling-stroke' fill='none'/>`;
-  const svg = `<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 ${W} ${H}' preserveAspectRatio='none'>${stroke(big, 1.5)}${stroke(small, 1.1)}</svg>`;
+// A diagonal point of the gap star: a concave triangle whose base sits on the
+// circle's arc and whose tip cuts in toward the circle's center
+const diagonalPoint = (cx, cy) => {
+  const gx = P / 2;
+  const gy = P / 2;
+  const toGap = Math.atan2(gy - cy, gx - cx);
+  const [b1x, b1y] = polar(cx, cy, R, toGap - 0.36);
+  const [b2x, b2y] = polar(cx, cy, R, toGap + 0.36);
+  const [tx, ty] = polar(cx, cy, R - 16, toGap);
+  const [c1x, c1y] = polar(cx, cy, R - 6, toGap - 0.08);
+  const [c2x, c2y] = polar(cx, cy, R - 6, toGap + 0.08);
+  return `M${b1x} ${b1y}Q${c1x} ${c1y} ${tx} ${ty}Q${c2x} ${c2y} ${b2x} ${b2y}`;
+};
 
+const corners = [
+  [0, 0],
+  [P, 0],
+  [0, P],
+  [P, P],
+];
+
+const tile = (parity) => {
+  const wedges = corners.map(([x, y]) => sunburst(x, y, parity)).join("");
+  // Circle rims: between four circles they leave the gap's four axial points
+  const rims = corners
+    .map(([x, y]) => `M${x - R} ${y}a${R} ${R} 0 1 0 ${2 * R} 0a${R} ${R} 0 1 0 ${-2 * R} 0`)
+    .join("");
+  const points = corners.map(([x, y]) => diagonalPoint(x, y)).join("");
+  const stars =
+    corners.map(([x, y]) => asterisk(x, y, 4)).join("") +
+    [
+      [-7, -7],
+      [7, -7],
+      [-7, 7],
+      [7, 7],
+    ]
+      .map(([dx, dy]) => asterisk(P / 2 + dx, P / 2 + dy, 3))
+      .join("");
+
+  const svg =
+    `<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 ${P} ${P}'>` +
+    `<path d='${wedges}' fill='black' fill-opacity='.4'/>` +
+    `<path d='${rims}${points}' stroke='black' stroke-width='1.1' fill='none'/>` +
+    `<path d='${stars}' stroke='black' stroke-width='.9' stroke-linecap='round'/>` +
+    `</svg>`;
   return `url("data:image/svg+xml,${svg.replace(/</g, "%3C").replace(/>/g, "%3E").replace(/#/g, "%23")}")`;
 };
 
 const css = `/* Generated by scripts/hannah-montana/build-starburst.mjs; don't edit by hand. */
 
-/* Hannah Montana sparkle: a holo print of firework bursts and small stars.
-   The print is two masks (A and B) over a rainbow that slides with the tilt,
-   so colors run along the rays; A brightens tilting one way, B the other. */
+/* Hannah Montana sparkle: a holo lattice of touching sunburst circles with an
+   eight-point star and four small stars in every gap. A rainbow slides with
+   the tilt behind it; the even (A) and odd (B) wedges fade in turn. The
+   lattice offset differs per card (--holo-x / --holo-y, set by the card),
+   because the foil was laid on the sheet before the cards were cut. */
 
 .sumo-foil[data-effect="starburst"] {
-  --burst-a: ${build(2009)};
-  --burst-b: ${build(1993)};
+  --holo-a: ${tile(0)};
+  --holo-b: ${tile(1)};
+  /* one circle spacing = 1/9.6 of the card width, as on the scans */
+  --holo-size: 10.4%;
 }
 
 .sumo-foil[data-effect="starburst"] .sumo-foil__shine {
-  /* drawn straight on top: the real rays are solid rainbow foil lines */
   mix-blend-mode: normal;
 }
 
@@ -95,7 +127,7 @@ const css = `/* Generated by scripts/hannah-montana/build-starburst.mjs; don't e
   position: absolute;
   inset: 0;
   background-image: repeating-linear-gradient(
-    var(--burst-angle),
+    var(--holo-angle),
     hsl(0 100% 62%) 0%,
     hsl(45 100% 58%) 2.5%,
     hsl(110 100% 55%) 5%,
@@ -105,26 +137,35 @@ const css = `/* Generated by scripts/hannah-montana/build-starburst.mjs; don't e
     hsl(0 100% 62%) 15%
   );
   background-size: 200% 200%;
-  /* the print stays put; reset the sliding masks the sumo kira patterns use */
-  mask-size: 100% 100%;
-  mask-position: 0 0;
-  mask-repeat: no-repeat;
-  mask-composite: add;
+  /* the lattice, intersected with the light spot: the foil only lights up
+     where the light catches it, like on the real cards */
+  mask-size:
+    var(--holo-size) auto,
+    100% 100%;
+  mask-repeat: repeat, no-repeat;
+  mask-position:
+    var(--holo-x, 0%) var(--holo-y, 0%),
+    0 0;
+  mask-composite: intersect;
   filter: saturate(1.3) brightness(1.1);
 }
 
 .sumo-foil[data-effect="starburst"] .sumo-foil__shine::before {
-  --burst-angle: 125deg;
+  --holo-angle: 125deg;
   background-position: var(--mx) var(--my);
-  mask-image: var(--burst-a);
-  opacity: clamp(0.2, calc(0.6 + var(--tx) * 1.4), 0.8);
+  mask-image:
+    var(--holo-a),
+    radial-gradient(farthest-corner circle at var(--mx) var(--my), black 0%, transparent 75%);
+  opacity: clamp(0.12, calc(0.4 + var(--tx) * 1.2), 0.65);
 }
 
 .sumo-foil[data-effect="starburst"] .sumo-foil__shine::after {
-  --burst-angle: 55deg;
+  --holo-angle: 55deg;
   background-position: calc(100% - var(--mx)) var(--my);
-  mask-image: var(--burst-b);
-  opacity: clamp(0.2, calc(0.6 - var(--tx) * 1.4), 0.8);
+  mask-image:
+    var(--holo-b),
+    radial-gradient(farthest-corner circle at var(--mx) var(--my), black 0%, transparent 75%);
+  opacity: clamp(0.12, calc(0.4 - var(--tx) * 1.2), 0.65);
 }
 `;
 
